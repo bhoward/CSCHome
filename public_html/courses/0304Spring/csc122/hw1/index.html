@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Homework 1</TITLE>
+<META NAME="description" CONTENT="Homework 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hw1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Homework 1</H1>
+
+<P>
+Due Monday, February 16, at the start of class.  Be sure to do both
+sides.
+
+<OL>
+<LI>Compute the sum of the number of times the statements in the
+following code fragments are executed, expressing your answer as
+indicated (<SPAN  CLASS="textbf">show your work</SPAN>). Count your answers
+carefully (<SPAN  CLASS="textit">there are 15 parts to this question</SPAN>) for full credit.
+
+<OL TYPE="a">
+<LI>Four answers: integers where <SPAN CLASS="MATH"><I>n</I> = 1</SPAN>,
+<SPAN CLASS="MATH"><I>n</I> = 2</SPAN>, <SPAN CLASS="MATH"><I>n</I> = 4</SPAN>, and <SPAN CLASS="MATH"><I>n</I> = 100</SPAN>
+<PRE>
+s1    i = 0;
+s2    while (i &lt; n)
+s3    {  for (int j = 0; j &lt; n; j++)
+s4          cout &lt;&lt; "Hello world";
+s5       i = i + 1;
+      }
+</PRE>
+
+<P>
+</LI>
+<LI>One answer: an integer
+<PRE>
+s1    for (int i = 1; i &lt;= 6; i++)
+s2       for (int j = 1; j &lt;= 10; j++)
+s3          cout &lt;&lt; i * j &lt;&lt; endl;
+s4    for (int k = 0; k &lt; 1000; k++)
+s5       cout &lt;&lt; "Hello" &lt;&lt; end;
+</PRE>
+
+<P>
+</LI>
+<LI>One answer: in terms of <SPAN CLASS="MATH"><I>n</I></SPAN>
+<PRE>
+s1    cin &gt;&gt; n;
+s2    for (int i = 1; i &lt;= n + 6; i++)
+s3       for (int j = 1; j &lt;= n + 10; j++)
+s4          cout &lt;&lt; i * j &lt;&lt; endl;
+s5    for (int k = 1; k &lt;= n + 1000; k++)
+s6       cout &lt;&lt; "Hello" &lt;&lt; end;
+</PRE>
+
+<P>
+</LI>
+<LI>Five answers: integers where <SPAN CLASS="MATH"><I>n</I> = 1</SPAN>,
+<SPAN CLASS="MATH"><I>n</I> = 4</SPAN>, <SPAN CLASS="MATH"><I>n</I> = 6</SPAN>, <SPAN CLASS="MATH"><I>n</I> = 7</SPAN>, and <SPAN CLASS="MATH"><I>n</I> = 8</SPAN>
+<PRE>
+s1    while (n &gt; 1)
+s2    {  cout &lt;&lt;  n &lt;&lt; endl;
+s3       n = n / 2;
+      }
+</PRE>
+
+<P>
+</LI>
+<LI>One answer: in terms of <SPAN CLASS="MATH"><I>n</I></SPAN>
+<PRE>
+s1    cin &gt;&gt; n;
+s2    for (i = 1; i &lt;= n; i++)
+s3    {  temp = n;
+s4       while (temp &gt; 0)
+s5       {  cout &lt;&lt; n * temp &lt;&lt; endl;
+s6          temp = temp / 2;
+         }
+      }
+</PRE>
+
+<P>
+</LI>
+<LI>Three answers: integers where <SPAN CLASS="MATH"><I>q</I> = 3</SPAN>, <SPAN CLASS="MATH"><I>q</I> = 2</SPAN>, and <SPAN CLASS="MATH"><I>q</I> = 10</SPAN>;
+<SPAN CLASS="MATH"><I>x</I></SPAN> is the array <!-- MATH
+ $\{3, 6, 9, 4, 18, 10, 12, 1, 0, 16\}$
+ -->
+<SPAN CLASS="MATH">{3, 6, 9, 4, 18, 10, 12, 1, 0, 16}</SPAN>
+<PRE>
+s1    for ( i = 0; i &lt; 10; i++)
+s2    {  if (q == x[i])
+s3       {  cout &lt;&lt; "q is in the array at position " &lt;&lt; i;
+s4          return;
+         }
+      }
+s5    cout &lt;&lt; "q is not in the array"
+</PRE>
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI>For items (a), (c), (d), and (e) in question 1, give the running
+time in big-oh notation.
+
+<P>
+</LI>
+<LI>Write two program fragments labeled (A) and (B) such that (A) has
+a "better" run-time when expressed in big-oh notation but takes longer
+to run for a small input (say an input size of 10).
+
+<P>
+</LI>
+<LI>If a piece of code runs in time <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>2</SUP>)</SPAN> and takes 2 minutes to
+run when N is 10,000 how long would you estimate the fragment would take
+to run when N=40,000? Why is your answer only an estimate?
+
+<P>
+</LI>
+<LI>If a piece of code runs in time <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>3</SUP>)</SPAN> and takes 2 minutes to
+run when N is 10,000 how long would you estimate the fragment would take
+to run when N=30,000?
+
+<P>
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

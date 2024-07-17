@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <title>Leveraging Synergy Between Database and Programming Language Courses</title>
+
+  <!-- Required stylesheet -->
+  <link rel="stylesheet" media="screen" href="core/deck.core.css">
+
+  <!-- Extension CSS files go here. Remove or add as needed. -->
+  <link rel="stylesheet" media="screen" href="extensions/goto/deck.goto.css">
+  <link rel="stylesheet" media="screen" href="extensions/menu/deck.menu.css">
+  <link rel="stylesheet" media="screen" href="extensions/navigation/deck.navigation.css">
+  <link rel="stylesheet" media="screen" href="extensions/status/deck.status.css">
+  <link rel="stylesheet" media="screen" href="extensions/scale/deck.scale.css">
+
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/style/swiss.css">
+
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="themes/transition/fade.css">
+
+  <!-- Basic black and white print styles -->
+  <link rel="stylesheet" media="print" href="core/print.css">
+
+  <!-- Required Modernizr file -->
+  <script src="modernizr.custom.js"></script>
+</head>
+<body>
+  <div class="deck-container">
+
+    <!-- Begin slides. Just make elements with a class of slide. -->
+
+    <section class="slide">
+      <h2>Leveraging Synergy Between Database and Programming Language Courses</h2>
+      <h3>Brian Howard<br/>
+        DePauw University</h3>
+      <p>This work was supported by the 2008–11 Donald E. Town Faculty Fellowship from DePauw University.</p>
+    </section>
+
+    <section class="slide">
+	<h2>Motivation and Overview</h2>
+	<ul>
+	   <li>Enhance DB or PL course by building on connections with the other</li>
+	   <li>Examples:
+	       <ul>
+	           <li>Syntax-Directed SQL Translation</li>
+	           <li>Comprehension Syntax</li>
+	           <li>Object-Relational Mapping</li>
+	           <li>Transactional Memory</li>
+	           <li>Document-Oriented Databases</li>
+	           <li>MapReduce</li>
+	       </ul>
+	   </li>
+	</ul>
+    </section>
+
+    <section class="slide">
+	<h2>Syntax-Directed SQL Translation</h2>
+	<h3>Grammar for a subset of SQL</h3>
+	<img src="fig1.png" width="90%" />
+    </section>
+    
+    <section class="slide">
+    <h3>Translation Functions</h3>
+    <img src="fig2.png" width="90%" />
+    </section>
+    
+    <section class="slide">
+    <h3>Example Translation</h3>
+    <p>What is the difference between a <code>HAVING</code> and a <code>WHERE</code> condition when there is no <code>GROUP BY</code>?</p>
+    <img src="fig3.png" width="90%" />
+    </section>
+    
+    <section class="slide">
+    <h2>Comprehension Syntax</h2>
+    <p>Generalized <code>for</code> loop, based on set builder notation</p>
+    <h3>Scala Example</h3>
+<pre><code>val mentorPairs = for {
+  mentor <- students
+  other <- students
+  if mentor.year < other.year &&
+     mentor.major == other.major
+} yield (mentor, other)</code></pre>
+    <p>This is equivalent to</p>
+<pre><code>val mentors = students.flatMap(mentor =>
+  students.withFilter(other =>
+    mentor.year < other.year &&
+    mentor.major == other.major
+  ).map(other =>
+    (mentor, other)
+  )
+)</code></pre>
+    </section>
+    
+    <section class="slide">
+    <h3>C# LINQ Equivalent</h3>
+<pre><code>var mentors =
+  from mentor in students
+  from other in students
+  where mentor.year < other.year
+     && mentor.major == other.major
+  select new {a = mentor, b = other};</code></pre>
+    <h3>SQL Equivalent</h3>
+<pre><code>SELECT mentor.ID as a, other.ID as b
+FROM Student mentor, Student other
+WHERE mentor.Year < other.Year
+  AND mentor.Major = other.Major;</code></pre>
+    </section>
+    
+    <section class="slide">
+	<h2>Object-Relational Mapping</h2>
+	<h3>Java Database Connectivity (JDBC)</h3>
+<pre><code>List<MIDPair> mentors = new ArrayList<MIDPair>();
+Statement statement = connection.createStatement();
+String query =
+  "SELECT mentor.ID as a, other.ID as b " +
+  "FROM Student mentor, Student other " +
+  "WHERE mentor.Year < other.Year " +
+  "  AND mentor.Major = other.Major;";
+  
+ResultSet results = statement.executeQuery(query);
+while (results.next()) {
+  String mentorID = results.getString("a");
+  String otherID = results.getString("b");
+  mentors.add(new MIDPair(mentorID, otherID));
+}
+results.close();</code></pre>
+    </section>
+    
+    <section class="slide">
+    <h3>Java Persistence API (JPA)</h3>
+<pre><code>@Entity
+@Table(name="Student")
+public class Student {
+  @Id @Column(name="ID")
+  private String id; // Primary key
+  
+  @Column(name="Year")
+  private int year;
+  
+  @ManyToOne @JoinColumn(name="Major")
+  private Department major; // Foreign key
+  
+  // usual constructors, accessors, etc. go here
+}</code></pre>
+    </section>
+    
+    <section class="slide">
+    <h3>Java Persistence Query Language (JPQL)</h3>
+<pre><code>List<MPair> mentors = new ArrayList<MPair>();
+String queryString =
+  "select mentor, other " +
+  "from Student mentor, Student other " +
+  "where mentor.year < other.year " +
+  "  and mentor.major = other.major";
+  
+Query query = entityMgr.createQuery(queryString);
+for (Object result : query.getResultList()) {
+  Object[] pair = (Object[]) result;
+  Student mentor = (Student) pair[0];
+  Student other = (Student) pair[1];
+  mentors.add(new MPair(mentor, other));
+}</code></pre>
+    </section>
+    
+    <section class="slide">
+    <h3>C# LINQ to Entities</h3>
+<pre><code>var context = ...;
+var query =
+  from mentor in context.students
+  from other in context.students
+  where mentor.year < other.year
+     && mentor.major == other.major
+  select new {a = mentor, b = other};
+var mentors = query.ToList();</code></pre>
+    </section>
+
+    <section class="slide">
+	<h2>Transactional Memory</h2>
+<pre><code>class Fork { val inUse = Ref(false) }
+
+def meal(left: Fork, right: Fork) {
+  // thinking
+
+  atomic { implicit txn =>
+    if (left.inUse() || right.inUse())
+      retry // forks are not both ready, wait
+    left.inUse() = true
+    right.inUse() = true
+  }
+
+  // eating
+
+  atomic { implicit txn =>
+    left.inUse() = false
+    right.inUse() = false
+  }
+}</code></pre>
+<p>Example from ScalaSTM library documentation</p></section>
+    </section>
+    
+    <section class="slide">
+	<h2>Document-Oriented Databases</h2>
+	<p>JavaScript Object Notation (JSON)</p>
+<pre><code>{
+  "ID": "12-34567",
+  "Name": "Ann O'Nemus",
+  "Year": 2015,
+  "Major": "Computer Science",
+  "Home Address": {
+    "Street": "123 Main",
+    "City": "Springfield",
+    "State": "AK",
+    "ZIP": 98765
+  },
+  "Phones": [
+    {"Type": "Home", "Number": "555-555-1234"},
+    {"Type": "Cell", "Number": "555-555-5678"}
+  ]
+}</code></pre>
+    </section>
+    
+    <section class="slide">
+	<h2>MapReduce</h2>
+	<p>Example in MongoDB: count number of students per major/year</p>
+<pre><code>var map = function() {
+  emit({"Major": this.Major,
+        "Year": this.Year}, 1)
+}
+
+var reduce = function(key, values) {
+  var total = 0;
+  for (index in values) total += values[index];
+  return total;
+}
+
+db.runCommand({
+  "mapreduce": "students", // source collection
+  "map": map,
+  "reduce": reduce,
+  "out": "graduates" // output collection
+})</code></pre>
+    </section>
+
+    <!-- End slides. -->
+
+    <!-- Begin extension snippets. Add or remove as needed. -->
+
+    <!-- deck.navigation snippet -->
+    <div aria-role="navigation">
+      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    </div>
+
+    <!-- deck.status snippet -->
+    <p class="deck-status" aria-role="status">
+      <span class="deck-status-current"></span>
+      /
+      <span class="deck-status-total"></span>
+    </p>
+
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
+
+    <!-- End extension snippets. -->
+  </div>
+
+<!-- Required JS files. -->
+<script src="jquery.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>

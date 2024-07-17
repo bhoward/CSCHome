@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 2 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+             body {background-color: #e0e0ff}
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             div.solution {color: red}
+             img.validator {float: right; border: none}
+             
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 2</h2>
+
+<h3>Laboratory 2 - Modifying and Examining Object State</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>To understand how selection statements can be used to control
+the behavior of graphics objects; To create/modify accessor,
+mutator, and general methods; To experiment with the interaction of
+graphics objects that are controlled by a "driver class"; To create
+a BlueJ project from scratch; To use print statements for
+elementary debugging.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab2 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Work through exercises 2.72 and 2.73 in your textbook.
+(When you create the heater project, save it in the Lab2 folder on
+your I: drive)</strong></li>
+
+<li><strong>Close the heater-exercise project and open the shapes
+project.</strong> 
+
+<table border="1" cellpadding="3" cellspacing="0" summary=
+"Sequence of steps">
+<tr align="left" valign="top">
+<td><strong>Read</strong></td>
+<td>Open the editor for the Circle class. Read through the class
+definition making note of the fields and the methods. Do the same
+for the Triangle class.</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Modify</strong></td>
+<td>
+<p>If you invoke any of the move methods for Circle and Triangle
+objects repeatedly the objects will eventually move out of their
+display window and disappear.</p>
+
+<p>You can prevent this from happening by modifying the
+moveHorizontal and moveVertical methods of the circle and triangle
+classes so that those objects will never move off of the Canvas.
+Why will modifying only these two methods cause some of the other
+move methods to have the desired result? Which ones will not have
+the desired result?</p>
+
+<p><strong>NOTE: Do not be concerned that the objects stop moving
+precisely when they are at an edge. Being close to an edge (or even
+slightly over the edge) is good enough.</strong></p>
+
+<p>You will need to write a selection statement (if-else) for each
+of the methods, moveHorizontal and moveVertical in each class,
+Circle and Triangle. Each method should determine the position of
+the figure and either move the figure or not move it if it is too
+close to a boundary. Again, you decide just how close the figure
+may come to the boundary; it does not need to be precisely at the
+edge.</p>
+
+<p>The left boundary of the canvas in the horizontal direction is 0
+and the top boundary in the vertical direction is 0. You can use
+the getWidth() and getHeight() methods of the
+<strong>canvas</strong> field in each class of object to determine
+window boundaries. (Note that canvas is one of the fields for a
+Circle and a Triangle.) So to get the dimensions of the canvas
+use:</p>
+
+<pre>
+    canvas.getWidth();
+    canvas.getHeight();
+                               
+</pre>
+
+<p>Both of these methods return int values.</p>
+
+<p>Drawing a picture of an object near a screen boundary should
+help you decide when to not move the object because it is too close
+to one of the boundaries.</p>
+
+<p>Make sure you thoroughly test by trying to move an object off of
+the screen before moving to the next step of the lab.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Write</strong></td>
+<td>
+<p>Create a new method, moveDirection, for the Circle and Triangle
+classes which has the signature:</p>
+
+<pre>
+public void moveDirection(int distanceX, int distanceY)
+                               
+</pre>
+
+<p>There are several ways to do this, but we will examine only one
+of them.</p>
+
+<p><strong>Using moveHorizontal and moveVertical:</strong> Simply
+invoke each of these methods in the body of moveDirection, giving
+each the appropriate parameter -- distanceX to moveHorizontal and
+distanceY to moveVertical.</p>
+
+<p>Test moveDirection before going on to the next step. Invoke it
+several times, and carefully watch the shape move on the canvas.
+How could moveDirection be written differently to make it work
+better? (You do not need to write a different version now; just
+think about how you would do it.)</p>
+
+<!--
+                                <p><strong>Imitate moveVertical:</strong> Copy the
+                                    statements in moveVertical and paste them into
+                                    moveDirection. Add a statement that will assign
+                                    the appropriate value to the xPosition as is
+                                    already done with the yPosition. Note that
+                                    moveVertical checks only if an object moves out
+                                    of the window in the vertical direction. Modify
+                                    the select statement to check for movement out
+                                    of the window in the horizontal position too.</p>
+-->
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Write</strong></td>
+<td>
+<p>Write a new method, displayState(), that prints all of the
+fields of a circle object in a terminal window. Note that this is
+the same information that is displayed by the BlueJ inspector
+window (right-click on an object in BlueJ and choose
+"Inspect").</p>
+
+<p>Test the method by invoking it, changing a circle state
+variable, invoking displayState() again, and so on.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Modify</strong></td>
+<td>
+<p>Open the driver class. Note its fields and what the constructor
+does. Create an instance of the driver class, observing where the
+ball and rocket are displayed. Add code to the moveAway() method to
+call moveDirection on the circle and triangle to cause them to move
+away from each other. See the comments for the moveAway() method to
+find hints for how this should work.</p>
+
+<p>Test your code, and if it is working, ask to be checked out of
+the lab.</p>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img class=
+"validator" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt=
+"Valid HTML 4.01!" width="88" height="31"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img class=
+"validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+alt="Valid CSS!" width="88" height="31"></a><a href=
+"http://www.depauw.edu/">DePauw University</a>, <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a>, Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> (<a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>). 
+<!--#config timefmt="%A, %B %e, %Y" -->
+ Last updated <!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

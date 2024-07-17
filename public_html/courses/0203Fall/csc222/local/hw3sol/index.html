@@ -1,0 +1,518 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Homework 3 Solutions</TITLE>
+<META NAME="description" CONTENT="Homework 3 Solutions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hw3sol.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Homework 3 Solutions</H1>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textbf">Exercise 8.1.</SPAN> <I>Suppose that an ordered file of size <SPAN CLASS="MATH"><I>N</I></SPAN> is to be
+combined with an unordered file of size <SPAN CLASS="MATH"><I>M</I></SPAN>, with <SPAN CLASS="MATH"><I>M</I></SPAN> much smaller than
+<SPAN CLASS="MATH"><I>N</I></SPAN>.  How many times faster than resorting is the suggested merge-based
+method, as a function of <SPAN CLASS="MATH"><I>M</I></SPAN>, for <SPAN CLASS="MATH"><I>N</I> = 10<SUP>3</SUP></SPAN>, <SPAN CLASS="MATH">10<SUP>6</SUP></SPAN>, and <SPAN CLASS="MATH">10<SUP>9</SUP></SPAN>?  Assume
+that you have a sorting program that takes about <SPAN CLASS="MATH"><I>c</I><SUB>1</SUB><I>N</I> lg&nbsp;<I>N</I></SPAN> seconds to
+sort a file of size <SPAN CLASS="MATH"><I>N</I></SPAN> and a merging program that takes about
+<SPAN CLASS="MATH"><I>c</I><SUB>2</SUB>(<I>N</I> + <I>M</I>)</SPAN> seconds to merge a file of size <SPAN CLASS="MATH"><I>N</I></SPAN> with one of size <SPAN CLASS="MATH"><I>M</I></SPAN>,
+with <!-- MATH
+ $c_1\approx c_2$
+ -->
+<SPAN CLASS="MATH"><I>c</I><SUB>1</SUB> <IMG
+ WIDTH="16" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \approx$"> <I>c</I><SUB>2</SUB></SPAN>?</I>
+
+<P>
+Appending the small file to the larger one and then sorting will take
+about <!-- MATH
+ $c_1(N+M)\lg(N+M)$
+ -->
+<SPAN CLASS="MATH"><I>c</I><SUB>1</SUB>(<I>N</I> + <I>M</I>)lg(<I>N</I> + <I>M</I>)</SPAN> seconds; if <SPAN CLASS="MATH"><I>N</I></SPAN> is much larger than <SPAN CLASS="MATH"><I>M</I></SPAN>, then
+this will be about <SPAN CLASS="MATH"><I>c</I><SUB>1</SUB><I>N</I> lg&nbsp;<I>N</I></SPAN> seconds.
+
+<P>
+Sorting the small file first and then merging the two ordered files will
+take about <!-- MATH
+ $c_1M\lg M+c_2(N+M)$
+ -->
+<SPAN CLASS="MATH"><I>c</I><SUB>1</SUB><I>M</I> lg&nbsp;<I>M</I> + <I>c</I><SUB>2</SUB>(<I>N</I> + <I>M</I>)</SPAN> seconds.  Again, if <SPAN CLASS="MATH"><I>N</I></SPAN> is much larger
+than <SPAN CLASS="MATH"><I>M</I></SPAN>, then this will be about <!-- MATH
+ $c_1M\lg M+c_2N$
+ -->
+<SPAN CLASS="MATH"><I>c</I><SUB>1</SUB><I>M</I> lg&nbsp;<I>M</I> + <I>c</I><SUB>2</SUB><I>N</I></SPAN>; without knowing more
+about the values of <SPAN CLASS="MATH"><I>M</I></SPAN> and <SPAN CLASS="MATH"><I>N</I></SPAN>, we can't say whether <SPAN CLASS="MATH"><I>c</I><SUB>1</SUB><I>M</I> lg&nbsp;<I>M</I></SPAN> or
+<SPAN CLASS="MATH"><I>c</I><SUB>2</SUB><I>N</I></SPAN> will be dominant.
+
+<P>
+The ratio of the running times will therefore be about
+<!-- MATH
+ \begin{displaymath}
+\frac{c_1N\lg N}{c_1M\lg M+c_2N}\approx\frac{N\lg N}{M\lg M+N},
+\end{displaymath}
+ -->
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="122" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle {\frac{{c_1N\lg N}}{{c_1M\lg M+c_2N}}}$"> <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \approx$"> <IMG
+ WIDTH="94" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$\displaystyle {\frac{{N\lg N}}{{M\lg M+N}}}$">,
+</DIV><P></P>
+using the fact that <!-- MATH
+ $c_1\approx c_2$
+ -->
+<SPAN CLASS="MATH"><I>c</I><SUB>1</SUB> <IMG
+ WIDTH="16" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \approx$"> <I>c</I><SUB>2</SUB></SPAN>.
+
+<P>
+We may make the following table of this ratio, using the approximation
+<!-- MATH
+ $\lg10^3=10$
+ -->
+<SPAN CLASS="MATH">lg&nbsp;10<SUP>3</SUP> = 10</SPAN>:
+<!-- MATH
+ \begin{displaymath}
+\begin{array}{r|rrr}
+   M & N=10^3 & N=10^6 & N=10^9\\\hline
+   1 &     10 &     20 &     30\\
+   4 &     10 &     20 &     30\\
+  16 &      9 &     20 &     30\\
+  64 &      7 &     20 &     30\\
+ 256 &      3 &     20 &     30\\
+  1K &        &     20 &     30\\
+  4K &        &     19 &     30\\
+ 16K &        &     16 &     30\\
+ 64K &        &     10 &     30\\
+256K &        &      4 &     30\\
+  1M &        &        &     29\\
+  4M &        &        &     28\\
+ 16M &        &        &     21\\
+ 64M &        &        &     11\\
+256M &        &        &      4
+\end{array}
+\end{displaymath}
+ -->
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<TABLE>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><I>M</I></TD>
+<TD ALIGN="RIGHT"><I>N</I> = 10<SUP>3</SUP></TD>
+<TD ALIGN="RIGHT"><I>N</I> = 10<SUP>6</SUP></TD>
+<TD ALIGN="RIGHT"><I>N</I> = 10<SUP>9</SUP></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">1</TD>
+<TD ALIGN="RIGHT">10</TD>
+<TD ALIGN="RIGHT">20</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">4</TD>
+<TD ALIGN="RIGHT">10</TD>
+<TD ALIGN="RIGHT">20</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">16</TD>
+<TD ALIGN="RIGHT">9</TD>
+<TD ALIGN="RIGHT">20</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">64</TD>
+<TD ALIGN="RIGHT">7</TD>
+<TD ALIGN="RIGHT">20</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">256</TD>
+<TD ALIGN="RIGHT">3</TD>
+<TD ALIGN="RIGHT">20</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">1<I>K</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">20</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">4<I>K</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">19</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">16<I>K</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">16</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">64<I>K</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">10</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">256<I>K</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">4</TD>
+<TD ALIGN="RIGHT">30</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">1<I>M</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">29</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">4<I>M</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">28</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">16<I>M</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">21</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">64<I>M</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">11</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">256<I>M</I></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">4</TD>
+</TR>
+</TABLE>
+</DIV><P></P>
+So if ``much larger'' means ``at least four times larger'', then the
+running time with the merge will be at least three or four times faster,
+reaching the limit, for small <SPAN CLASS="MATH"><I>M</I></SPAN>, of <SPAN CLASS="MATH">lg&nbsp;<I>N</I></SPAN> times faster.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 8.2.</SPAN> <I>How does the strategy of using insertion sort for the
+whole file compare with the two methods postulated in Exercise 8.1?
+(Assume that the small file is random, so each insertion goes about
+halfway into the large file, and the running time is about <SPAN CLASS="MATH"><I>c</I><SUB>3</SUB><I>MN</I>/2</SPAN>,
+with <SPAN CLASS="MATH"><I>c</I><SUB>3</SUB></SPAN> approximately the same as the other constants.)</I>
+
+<P>
+Let us see how many times faster even the <SPAN CLASS="MATH"><I>O</I>(<I>N</I> lg&nbsp;<I>N</I>)</SPAN> sort is than
+insertion sort (so the merge-based algorithm would be even better).  The
+ratio we are interested in is
+<!-- MATH
+ \begin{displaymath}
+\frac{c_3MN/2}{c_1N\lg N}\approx\frac{M}{2\lg N}.
+\end{displaymath}
+ -->
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="69" HEIGHT="53" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$\displaystyle {\frac{{c_3MN/2}}{{c_1N\lg N}}}$"> <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \approx$"> <IMG
+ WIDTH="48" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$\displaystyle {\frac{{M}}{{2\lg N}}}$">.
+</DIV><P></P>
+
+<P>
+When <SPAN CLASS="MATH"><I>N</I> = 10<SUP>3</SUP></SPAN>, this becomes <!-- MATH
+ $\frac{1}{20}M$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.png"
+ ALT="$ {\frac{{1}}{{20}}}$"><I>M</I></SPAN>, so insertion sort will be
+slowest for any <SPAN CLASS="MATH"><I>M</I> &gt; 20</SPAN>.  For <SPAN CLASS="MATH"><I>M</I> <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$ \leq$"> 20</SPAN>, insertion will be faster than
+resorting, but in this range, the merge method is faster than resorting
+by a factor of 10, so insertion only wins when <SPAN CLASS="MATH"><I>M</I> = 1</SPAN> or <SPAN CLASS="MATH">2</SPAN>.
+
+<P>
+When <SPAN CLASS="MATH"><I>N</I> = 10<SUP>6</SUP></SPAN>, the ratio becomes <!-- MATH
+ $\frac{1}{40}M$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$ {\frac{{1}}{{40}}}$"><I>M</I></SPAN>, so insertion sort will
+be slowest for any <SPAN CLASS="MATH"><I>M</I> &gt; 40</SPAN>.  For <SPAN CLASS="MATH"><I>M</I> <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$ \leq$"> 40</SPAN>, insertion will beat
+resorting, but now the merge is better by a factor of 20, so again
+insertion is only a win for <SPAN CLASS="MATH"><I>M</I> = 1</SPAN> or <SPAN CLASS="MATH">2</SPAN>.
+
+<P>
+Finally, when <SPAN CLASS="MATH"><I>N</I> = 10<SUP>9</SUP></SPAN>, the ratio is <!-- MATH
+ $\frac{1}{60}M$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$ {\frac{{1}}{{60}}}$"><I>M</I></SPAN>; just as above,
+insertion is slowest for <SPAN CLASS="MATH"><I>M</I> &gt; 60</SPAN> and resorting is slowest for <SPAN CLASS="MATH"><I>M</I> <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$ \leq$"> 60</SPAN>.
+Merge is better than resorting by a factor of 30 when <SPAN CLASS="MATH"><I>M</I></SPAN> is very small,
+so it will be better than insertion again for any <SPAN CLASS="MATH"><I>M</I> &gt; 2</SPAN>.
+
+<P>
+It is reasonable that the break-even point between insertion and merge
+is at about <SPAN CLASS="MATH"><I>M</I> = 2</SPAN>, independent of <SPAN CLASS="MATH"><I>N</I></SPAN>, since insertion makes one pass
+through (roughly half of) the large file for each of the <SPAN CLASS="MATH"><I>M</I></SPAN> items,
+while merge can do the entire job in one pass (assuming the time to sort
+the <SPAN CLASS="MATH"><I>M</I></SPAN> items is negligible).
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 8.5.</SPAN> <I>Show how the keys <I CLASS="sans"><I CLASS="slanted">A E Q S U Y E I N O S T</I></I> are
+merged using Program 8.2, in the style of the example diagrammed in
+Figure 8.1.</I>
+
+<P>
+Recall that Program 8.2 first arranges the keys in a bitonic sequence,
+by copying the second subfile in reverse order after the first, so that
+the merge can be performed without sentinals or end-of-file tests.
+
+<P>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="718" HEIGHT="311" BORDER="0"
+ SRC="img11.png"
+ ALT="\begin{figure}\begin{center}\sf\setlength{\tabcolsep}{0pt}\begin{tabular}{cccccc...
+...smash Q\vphantom X}&amp; S &amp; S &amp; T &amp; U &amp; Y
+\par\end{tabular}\end{center}\end{figure}">
+</DIV>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 8.6.</SPAN> <I>Explain why Program 8.2 is not stable, and develop a
+version that is stable.</I>
+
+<P>
+Suppose that the largest value in the first array is equal to both of
+the last two elements of the second array.  When the second array is
+reversed, this will produce three adjacent equal elements in the middle
+of the combined array.  Program 8.2 will move all three of these elements
+back into the merged array in order from left to right; this will have
+the effect of reversing the previous order of the two equal elements
+from the end of the second array.  Here is an example:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="240" HEIGHT="133" BORDER="0"
+ SRC="img12.png"
+ ALT="\begin{figure}\begin{center}\sf\setlength{\tabcolsep}{0pt}\begin{tabular}{cccccc...
+...ebox[12pt]{\phantom{X}}}&amp; A &amp; B1 &amp; B3 &amp; B2
+\end{tabular}\end{center}\end{figure}">
+</DIV>
+
+<P>
+One way to fix this is to change the test in the
+inner loop to <code>if (aux[j] &lt; aux[i] || i &gt; m)</code>; this will force the
+elements from the second half to be copied using <code>j</code> instead of
+<code>i</code>.  This still slows down the inner loop, so an even better
+solution is to realize that we can avoid copying the problem elements in
+the first place--if the largest elements of the second array are (at
+least) as large as the largest element of the first, then they can stay
+right where they are and not participate in the merge.  For symmetry, we
+can do the same with the smallest elements of the first array.  Here is the
+code:
+<PRE>
+template &lt;class Item&gt;
+void merge(Item a[], int l, int m, int r) {
+  int i, j;
+  static Item aux[maxN];
+  while (r &gt; m &amp;&amp; a[r] &gt;= a[m]) r--;
+  while (l &lt;= m &amp;&amp; a[l] &lt;= a[m+1]) l++;
+  for (i = m+1; i &gt; l; i--) aux[i-1] = a[i-1];
+  for (j = m; j &lt; r; j++) aux[r+m-j] = a[j+1];
+  for (int k = l; k &lt;= r; k++)
+    if (aux[j] &lt; aux[i]) a[k] = aux[j--]; else a[k] = aux[i++];
+}
+</PRE>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 8.9.</SPAN> <I>Show the merges that Program 8.3 does to sort the keys
+<I CLASS="sans"><I CLASS="slanted">E A S Y Q U E S T I O N</I></I>.</I>
+
+<P>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="360" HEIGHT="255" BORDER="0"
+ SRC="img13.png"
+ ALT="\begin{figure}\begin{center}\sf\setlength{\tabcolsep}{0pt}\begin{tabular}{cccccc...
+...&amp; {\smash Q\vphantom X}&amp; S &amp; S &amp; T &amp; U &amp; Y
+\end{tabular}\end{center}\end{figure}">
+</DIV>
+
+<P>
+Note that the merge in the last step is just the one that was performed
+in Exercise 8.5.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 8.24.</SPAN> <I>Show the merges that bottom-up mergesort (Program 8.5)
+does for the keys <I CLASS="sans"><I CLASS="slanted">E A S Y Q U E S T I O N</I></I>.</I>
+
+<P>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="360" HEIGHT="255" BORDER="0"
+ SRC="img14.png"
+ ALT="\begin{figure}\begin{center}\sf\setlength{\tabcolsep}{0pt}\begin{tabular}{cccccc...
+...&amp; {\smash Q\vphantom X}&amp; S &amp; S &amp; T &amp; U &amp; Y
+\end{tabular}\end{center}\end{figure}">
+</DIV>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 9.1.</SPAN> <I>A letter means <SPAN  CLASS="textbf">insert</SPAN> and an asterisk means
+<SPAN  CLASS="textbf">remove the maximum</SPAN> in the sequence
+</I>
+<DIV ALIGN="CENTER"><I><I CLASS="sans"><I CLASS="slanted">P R I O * R * * I * T * Y * * * Q U E * * * U * E.
+</I></I></I></DIV><I>
+Give the sequence of values returned by the <SPAN  CLASS="textbf">remove the maximum</SPAN>
+operations.</I>
+
+<P>
+The sequence will be <SPAN  CLASS="textsf">R R P O T Y I I U Q E U</SPAN>.  The <SPAN  CLASS="textsf">E</SPAN>
+that was inserted at the end will be the only item remaining in the
+queue.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 9.2.</SPAN> <I>Add to the conventions of Exercise 9.1 a plus sign to
+mean <SPAN  CLASS="textbf">join</SPAN> and parentheses to delimit the priority queue created
+by the operations within them.  Give the contents of the priority queue
+after the sequence
+</I>
+<DIV ALIGN="CENTER"><I><I CLASS="sans"><I CLASS="slanted">( ( ( P R I O * ) + ( R * I T * Y * ) ) * * * ) + ( Q U E * * * U * E ).
+</I></I></I></DIV>
+
+<P>
+The sequence <SPAN  CLASS="textsf">P R I O *</SPAN> will return <SPAN  CLASS="textsf">R</SPAN>, leaving a
+priority queue containing <SPAN  CLASS="textsf">P</SPAN>, <SPAN  CLASS="textsf">I</SPAN>, and <SPAN  CLASS="textsf">O</SPAN>.
+
+<P>
+The sequence <SPAN  CLASS="textsf">R * I T * Y *</SPAN> will return <SPAN  CLASS="textsf">R T Y</SPAN>, leaving
+a priority queue containing <SPAN  CLASS="textsf">I</SPAN>.
+
+<P>
+Joining these two queues and removing three maximum elements will return
+<SPAN  CLASS="textsf">P O I</SPAN> and leave a queue containing <SPAN  CLASS="textsf">I</SPAN>.
+
+<P>
+The sequence <SPAN  CLASS="textsf">Q U E * * * U * E</SPAN> will return <SPAN  CLASS="textsf">U Q E U</SPAN> and
+leave a priority queue containing <SPAN  CLASS="textsf">E</SPAN>.
+
+<P>
+Finally, joining these last two queues will produce a priority queue
+containing <SPAN  CLASS="textsf">I</SPAN> and <SPAN  CLASS="textsf">E</SPAN>.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 9.3.</SPAN> <I>Explain how to use a priority queue ADT to implement a
+stack ADT.</I>
+
+<P>
+In a stack, the most recently inserted item will be the first to be
+removed.  Therefore, to implement this with a priority queue, we just
+need to make sure that more recently inserted elements have higher
+priorities than older elements.  This is easy to arrange; just assign
+priority 1 to the first item inserted, then priority 2 to the next, etc.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 9.4.</SPAN> <I>Explain how to use a priority queue ADT to implement a
+queue ADT.</I>
+
+<P>
+In a queue, the oldest item will be the first to be removed.  We may
+implement this as above for the stack ADT, except the priorities of
+successive insertions need to be <SPAN  CLASS="textbf">smaller</SPAN>.  For example, we could
+give the first item a priority of <SPAN CLASS="MATH">-1</SPAN>, then priority <SPAN CLASS="MATH">-2</SPAN> for the
+second, etc.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 9.5.</SPAN> <I>Criticize the following idea:  To implement <SPAN  CLASS="textbf">find
+the maximum</SPAN> in constant time, why not keep track of the maximum value
+inserted so far, then return that value for <SPAN  CLASS="textbf">find the maximum</SPAN>?</I>
+
+<P>
+This would be fine if all we ever wanted to do was <SPAN  CLASS="textbf">find</SPAN> the
+maximum value; of course, if that were all we needed, then we wouldn't
+have to save any of the other values at all.
+
+<P>
+If we also want to be removing items, then when the current maximum
+value is removed, we will need to examine all of the remaining items to
+determine the largest remaining value; therefore, while <SPAN  CLASS="textbf">insert</SPAN>
+and <SPAN  CLASS="textbf">find the maximum</SPAN> will take constant time, <SPAN  CLASS="textbf">remove</SPAN> and
+<SPAN  CLASS="textbf">remove the maximum</SPAN> will both take linear time.  This is almost
+the same behavior as using an unordered collection (array or linked
+list), except the running times of <SPAN  CLASS="textbf">remove</SPAN> and <SPAN  CLASS="textbf">find the
+maximum</SPAN> have been swapped.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 9.21.</SPAN> <I>Give the heap that results when the keys <I CLASS="sans"><I CLASS="slanted">E
+A S Y Q U E S T I O N</I></I> are inserted into an initially empty heap.</I>
+
+<P>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="277" HEIGHT="97" BORDER="0"
+ SRC="img15.png"
+ ALT="\begin{figure}\begin{center}
+\sf\bfseries\footnotesize {\color{white}\setlength\...
+...stree{\Tcircle{N}}{\Tcircle{E} \Tp}
+\Tcircle{E}
+}
+}}}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+</LI>
+</UL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

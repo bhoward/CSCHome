@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Lab 1: Principles of Programming</TITLE>
+<META NAME="description" CONTENT="Lab 1: Principles of Programming">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="lab1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Lab 1: Principles of Programming</H1>
+
+<P>
+
+<H2><A NAME="SECTION00001000000000000000">
+Purpose:</A>
+</H2>
+This lab will get you back into the swing of programming with C++.  It
+will refamiliarize you with the C++ programming language, the Borland
+C++ for Windows programming environment, and writing using C++
+classes.
+
+<P>
+
+<H2><A NAME="SECTION00002000000000000000">
+Prerequisites:</A>
+</H2>
+You should have taken CS 1 before you attempt this lab.
+
+<P>
+
+<H2><A NAME="SECTION00003000000000000000">
+Introduction:</A>
+</H2>
+
+<P>
+It may have been a while since you have programmed with C++, so this lab
+is intended to reintroduce you to the core C++ concepts that we will be
+using throughout the semester. In this lab we will create a C++ project
+that will model a library inventory system. To do this, we will write a
+main program and a couple of classes.
+
+<P>
+When writing a program, you should try to plan things out in advance. We
+will plan our library inventory program to have eight main commands:
+
+<UL>
+<LI>Add a book to the library
+</LI>
+<LI>Remove a book from the library
+</LI>
+<LI>Check out a book
+</LI>
+<LI>Check in a book
+</LI>
+<LI>Print all books owned by the library
+</LI>
+<LI>Print all books available for check out
+</LI>
+<LI>Save the inventory to a file
+</LI>
+<LI>Load the inventory from a file
+</LI>
+</UL>
+
+<P>
+We will plan our program to use two classes--a <SPAN  CLASS="textit">library</SPAN> class,
+and a <SPAN  CLASS="textit">book</SPAN> class. This will allow us to separate the functions
+and data required for the library as a whole, and the functions and data
+used for individual books.
+
+<P>
+
+<H2><A NAME="SECTION00004000000000000000">
+Procedure:</A>
+</H2>
+
+<OL>
+<LI>Copy the project files from <code>I:\CSC122\public\Lab1</code> into your
+account.
+
+<P>
+</LI>
+<LI>The project file contains four source code
+files--<code>lab1.cpp</code>, <code>library.h</code>, <code>library.cpp</code>, and
+<code>book.h</code>. The main file contains the skeleton of the program, and
+is complete--you won't be changing <code>lab1.cpp</code> in this lab. The
+others are in various states of completeness.
+
+<P>
+</LI>
+<LI>As it is currently written, the program starts with an empty
+library, and you can add books to the library, view the books that are
+currently in the library, and load and save the inventory from a file,
+but none of the other functions will work correctly. We need to
+implement the other parts of the program--we'll start with the ``remove
+a book'' part of the program.
+
+<P>
+The first problem with removing a book is how to determine which book
+you want to remove. Do we need to exactly match the book--meaning
+title, author, and copyright? That seems a little excessive. We will
+assume that all you need to remove a book is the title.
+
+<P>
+Removing a book from the library is more difficult than adding a book.
+If you look at the code, the library object stores all its books at the
+front of the array. Adding a book is easy--we just add it in the first
+open slot. Removing a book will leave a ``hole'' in the list. We'll have
+to fix that somehow. There are a number of ways to approach filling the
+hole--here are two:
+
+<UL>
+<LI>Slide every book past the hole one space to the left, or
+</LI>
+<LI>Move the last book into the hole.
+</LI>
+</UL>
+Which of these methods do you think is best?  Why?
+
+<P>
+Write the code for the <code>removeBook</code> member function, and test it to
+make sure it is working correctly.
+
+<P>
+</LI>
+<LI>Now, we need to implement the check-out system for the books.
+There is nothing in the code at this point that will allow us to handle
+checking out a book. Notice that this is different than removing a book
+from the library--a book that is checked out is still owned by the
+library, it just isn't available for check out. We need to be able to
+check out books, check them back in, and print out a list of all books
+that are available to be checked out. How might we do that?
+
+<P>
+There are a number of possible solutions.  Two solutions could be:
+
+<UL>
+<LI>In the <SPAN  CLASS="textit">library</SPAN> class, make a second array of books to hold
+the books that are checked out. Then, when a book is checked out, move
+it to the checked out array. When it is checked back in, move it back.
+Printing the books that are available would involve simply printing the
+books in the first array.
+
+<P>
+</LI>
+<LI>Or, we could add a data element to the <SPAN  CLASS="textit">book</SPAN> class to tell
+us whether the book is checked out or not. Then, when we check in or out
+a book, we just change the data in the book. Printing out the available
+books involves simply running through all the books and printing the
+ones that are not checked out.
+</LI>
+</UL>
+Each solution has its pros and cons, but I think that the second
+solution is the most elegant and the most efficient.
+
+<P>
+So, for this section of the lab, alter the program so that it will allow
+you to check out a book, check in a book, and print out the books that
+are checked out. You should follow these steps:
+
+<OL>
+<LI>Add a boolean variable to the <SPAN  CLASS="textit">book</SPAN> class to represent if the
+book is checked out or not.
+
+<P>
+</LI>
+<LI>Add a function to the <SPAN  CLASS="textit">book</SPAN> class that allows you to check out
+the book, and another that lets you check in the book.
+
+<P>
+</LI>
+<LI>Add a function to the <SPAN  CLASS="textit">library</SPAN> class that prints out all the
+books that are not checked out.
+
+<P>
+</LI>
+<LI>Alter the <code>printBooksIn</code> function of the <SPAN  CLASS="textit">library</SPAN> class
+so that it only prints checked in books.
+
+<P>
+</LI>
+<LI>Alter the main program to make all the menu options work correctly.
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI>That's it--congratulations on completing a library inventory
+program.
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

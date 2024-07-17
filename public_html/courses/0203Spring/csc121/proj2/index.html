@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 2
+Simulation of Julian Buiding Photocopy Machines</TITLE>
+<META NAME="description" CONTENT="Programming Project 2
+Simulation of Julian Buiding Photocopy Machines">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science I,CS1">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="proj2.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 2
+<BR>
+Simulation of Julian Buiding Photocopy Machines</H1>
+
+<P>
+
+<H3><A NAME="SECTION00000100000000000000">
+Administrative Matters:</A>
+</H3>
+Stage One Due: Due at the start of your lab (as a prelab assignment) on Tuesday, April 1st.
+
+<P>
+Final Project Due: Townsend's class on Wednesday, April 9th; Berque's
+class on Thursday, April 10th; and Howard's class on Friday, April 11th
+(the time the project is due will be announced by your instructor).
+
+<P>
+<SPAN  CLASS="textbf">Each student should complete his/her own solution to this
+project.</SPAN>
+
+<P>
+<SPAN  CLASS="textbf">Copy the folder "proj2" from the public directory for this class, and do
+all of your work in that folder.</SPAN>
+
+<P>
+
+<H3><A NAME="SECTION00000200000000000000">
+Overview:</A>
+</H3>
+In preparation for the opening of the new Julian Science Building, we
+need to determine how many copiers to locate in the new building. As a
+starting point for making this decision, the University would like to
+evaluate the use of the copiers in Prevo Library and on second floor of
+Julian. You have been hired as a consultant to write a computer
+simulation of the waiting lines for these copy machines by using some
+data that the Julian staff has projected from direct observation of the
+two copiers.
+
+<P>
+
+<H3><A NAME="SECTION00000300000000000000">
+These are the observed data:</A>
+</H3>
+
+<OL>
+<LI>Every minute 0, 1 or 2 people wish to use the copy machines in
+Julian Center.
+
+<P>
+</LI>
+<LI>Each of these 0, 1 or 2 people will choose the Prevo copier 40%
+of the time and the second floor copier 60% of the time.
+
+<P>
+</LI>
+<LI>The copying jobs that each of these people have will take 1, 2, 3
+or 4 minutes to complete.
+
+<P>
+</LI>
+<LI>At most ten people will wait in line to use each of these copiers.
+If a person approaches either of these lines and sees ten people waiting
+in line (which means one person is using the copier and ten are in
+line), she will leave the building; she will not walk to the other
+machine to investigate its waiting line.
+</LI>
+</OL>
+
+<P>
+
+<H3><A NAME="SECTION00000400000000000000">
+These are specifications that DePauw has requested your
+program to meet:</A>
+</H3>
+
+<OL>
+<LI>The program should simulate a typical 16-hour, 960-minute weekday
+at Julian. 
+
+<P>
+</LI>
+<LI>Although the current data indicate that 0..2 people will wish to
+use one of the two copiers every minute, these values may change in the
+future. Accordingly, the program should allow 0..MaxPeople people to
+wish to use the copier every minute. When the program runs, the user
+should be asked to enter the maximum number of people who wish to use
+the copier every minute.
+
+<P>
+</LI>
+<LI>Likewise, the current data indicate that 1..4 minutes are needed
+for these people to complete their copying jobs. These values could also
+change in the future. Accordingly, the program should allow
+1..MaxMinutes for the timing of each job. When the program runs, the
+user should be asked to enter the maximum number of minutes a copying
+job takes.
+
+<P>
+</LI>
+<LI>The current data also indicate that each person prefers the Prevo
+copier 40% of the time and the second floor copier 60% of the time.
+These preferences could change-especially if the second floor copier
+always appears to have a long waiting line. Accordingly, allow the user
+to input the preference percent for the Prevo copier only. It is then
+assumed that the person prefers the Julian second floor copier
+<!-- MATH
+ $100 - \textrm{(this integer)}\%$
+ -->
+<SPAN CLASS="MATH">100 - (thisinteger)%</SPAN> of the time. 
+</LI>
+</OL>
+
+<P>
+
+<H3><A NAME="SECTION00000500000000000000">
+The output should include:</A>
+</H3>
+
+<OL>
+<LI>The number of people who wish to use the copy machines during the
+course of the simulation (note that you do not need to implement the
+queues in order to compute this statistic).
+
+<P>
+</LI>
+<LI>The number of people who arrived and got into each line (Two
+separate answers).
+
+<P>
+</LI>
+<LI>The number of people who arrived but left Julian, because there
+was no room to wait in their line of choice (Two separate answers).
+
+<P>
+</LI>
+<LI>The average number of people waiting in each line at the end of
+each minute (Two separate answers).
+
+<P>
+</LI>
+<LI>The average waiting time for each line (Two separate answers).
+
+<P>
+</LI>
+<LI>The number of minutes of the day during which there were no people
+in line, the number of minutes with one person, number of minutes with
+two people, with three people, all the way up to the number of minutes
+with ten people in line. This amounts to a frequency distribution of the
+length of the queue of people waiting to use a copier at the end of each
+minute. You will need to display this output twice, once for each queue
+(Twenty-two separate answers).
+</LI>
+</OL>
+
+<P>
+To compute results for parts 4, 5 and 6 the copier has to be a separate
+variable from the queue. That is, each person in the queue is waiting to
+use the copier. If the copier is not occupied by anyone, the person at
+the front of the queue is dequeued and uses the copier; otherwise, the
+person at the front of the queue waits. 
+
+<P>
+
+<H3><A NAME="SECTION00000600000000000000">
+NOTE:</A>
+</H3> You do not have to display graphical output
+showing items getting entering and leaving the queue as was done in labs
+6 and 7. Simply gather input from the user, run the simulation (no
+output needs to be displayed while the simulation is running), and
+display the statistics described above.
+
+<P>
+
+<H3><A NAME="SECTION00000700000000000000">
+Notes on Style and Suggestions for Getting Started:</A>
+</H3>
+
+<P>
+The program should exhibit good style, using functions to separate the
+problem into small, manageable units (this includes the main body of the
+program, which should be at most a screenful or so long). It should be
+well-commented (including pre and post conditions for each subprogram)
+and easy to read. 
+
+<P>
+We strongly suggest doing this program in stages. Begin by getting the
+crux of the simulation running and compute only statistic 1) above. Once
+you have tested your program--and believe it is working--then add the
+remaining statistics one at a time. The goal should be to write the
+program incrementally. At all times you should have a working version of
+the program that you can turn in. Thus, if you don't complete all of the
+statistics, you can still turn in a working program that demonstrates
+what you have done. This will probably be much more impressive than
+turning in a program that attempts to compute all the statistics but
+does not work at all.
+
+<P>
+
+<H3><A NAME="SECTION00000800000000000000">
+STAGE ONE:</A>
+</H3> For stage one of this project you are to
+turn in a printout of a program which welcomes the user to the program
+and then gets (and error checks) all three of the required inputs from
+the user doing all appropriate error checking. The program should then
+carry out a simplified version of the simulation that only computes the
+data for the first of the required outputs. Note that in order to
+compute this value you do not need to use queues (the queues will be
+used in later stages of the project). Finally, you should print the
+results of statistic 1. Note that you are required to read in and error
+check all three user inputs even though they are not all required to
+compute the data needed for stage one.
+
+<P>
+
+<H3><A NAME="SECTION00000900000000000000">
+CONTINUING THE PROJECT:</A>
+</H3> Once state one is completed
+you can begin to compute the remaining statistics one at a time always
+being certain that one statistic is working before moving on to the next
+one. Note that in order to compute statistic #2 you will need to expand
+your simulation function so that it uses the queues as part of the
+simulation. Your simulation function might look something like this:
+<PRE>
+time = 0;
+while (......)
+{
+  handleArrivals (parameters go here);
+  moveFromLineToCopier (parameters go here);
+  moveFromLineToCopier (parameters go here);
+  letCopyJobFinish (parameters go here);
+  letCopyJobFinish (parameters go here);
+  moveFromLineToCopier (parameters go here);
+  moveFromLineToCopier (parameters go here);
+  time++;
+}
+</PRE>
+For the remaining statistics (after #2) you will be making relatively
+small changes to the program at each step. 
+
+<P>
+
+<H3><A NAME="SECTION000001000000000000000">
+Extra Challenge (Not required for an 'A'):</A>
+</H3> The
+simulation is currently governed by the rule, ``A person leaves Julian,
+if his (her) copier of choice has a waiting line of ten people.'' It
+would be interesting to compare the simulation you will submit (the one
+described above) with a second, different simulation. This second
+program will be governed by the rule, ``A person first tries his (her)
+copier of choice; if the line is too long (ten), then (s)he tries the
+second copier.'' How will the statistical results differ? If you try this
+option or any others, you should turn in two programs: The original
+program, as well the one with this optional feature.
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

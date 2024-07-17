@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Final Exam: due December 13</TITLE>
+<META NAME="description" CONTENT="Final Exam: due December 13">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fin.css">
+
+</HEAD>
+
+<BODY >
+<H1 ALIGN="CENTER">Final Exam:  due December 13</H1>
+
+This is a take-home exam.  It is open-book and open-note, but you may
+not work with anyone else (either in the class or not).  If you have any
+questions, come ask me, call me (my office phone is 658-4120), or send
+me email.
+
+Answer <SPAN  CLASS="textit">two</SPAN> of the following four questions by writing programs in C++
+(or Haskell, although you will need to talk to me about how to do I/O).
+Save the program source files in a directory named <code>Final</code> in your
+folder on the <code>I:</code> drive, and send me an email telling me which
+problems you have solved.
+
+Solutions are due by 5 pm, Friday, December 13.
+
+<DL>
+<DT><STRONG>Baseball</STRONG></DT>
+<DD>The problem is to keep track of a game of (simplified) baseball
+during one team's half of an inning.  The input is a series of
+characters describing the outcome of each successive pitch:
+
+<UL>
+<LI><SPAN  CLASS="textbf">B</SPAN>--Ball (the ball was not in the strike zone and the batter did
+not try to hit it)
+</LI>
+<LI><SPAN  CLASS="textbf">F</SPAN>--Foul (the batter hit the ball but it went out of fair territory)
+</LI>
+<LI><SPAN  CLASS="textbf">H</SPAN>--Hit (the batter hit the ball in fair territory and ran to first base)
+</LI>
+<LI><SPAN  CLASS="textbf">O</SPAN>--Out (the batter hit the ball but it was caught in flight)
+</LI>
+<LI><SPAN  CLASS="textbf">S</SPAN>--Strike (the ball was not hit but it was in the strike zone or
+the batter tried to hit it)
+</LI>
+</UL>
+To make things easier, we'll assume that all hits are singles (that is,
+the batter runs to first base and any other runner advances to the next
+base), and the only ways a player can be put out are to get three
+strikes or to hit the ball and have it caught.  In particular, we won't
+consider tag outs, forced outs, stolen bases, home runs, errors, wild
+pitches, or any of the other complications that make a real baseball
+game interesting (or not, depending on your point of view...).
+
+Therefore, the relevant rules are the following:
+
+<UL>
+<LI>Each batter receives a series of pitches until one of the
+following occurs:
+
+<UL>
+<LI>The batter has received four <SPAN  CLASS="textbf">B</SPAN>alls.  When this happens,
+the batter goes to first and any other runners advance one base.
+</LI>
+<LI>The batter gets a <SPAN  CLASS="textbf">H</SPAN>it.  The batter goes to first and any
+other runners advance one base.
+</LI>
+<LI>The batter gets an <SPAN  CLASS="textbf">O</SPAN>ut.  The batter leaves the field and
+any runners stay where they were.
+</LI>
+<LI>The batter has received three <SPAN  CLASS="textbf">S</SPAN>trikes.  This is also an
+out, so the batter leaves the field and any runners stay where they
+were.
+</LI>
+</UL>
+
+</LI>
+<LI>If the batter hits a <SPAN  CLASS="textbf">F</SPAN>oul ball, it counts as a
+<SPAN  CLASS="textbf">S</SPAN>trike, unless the batter already has two strikes, in which
+case it is ignored.
+
+</LI>
+<LI>Runners advance from first base to second base, then to third
+base, and finally to home.  Each runner who makes it home scores a run
+(and leaves the field to await their next turn at bat).
+
+</LI>
+<LI>The half-inning is over when the third out is received.
+</LI>
+</UL>
+Your program should keep reading characters until the half-inning is
+over.  The output should be the number of runs scored during the
+half-inning.  For example, with the following input (the spaces
+here separate each batter, but your program should not rely on this):
+<PRE>
+H BBBB BFBFBFS O SSFFFFFFFFFFH BBBSSH FFBBBFFB SSBBBS
+</PRE>
+the output should be <code>2</code>.  (The first player gets a hit, the second
+gets a base on balls, the third strikes out, the fourth flies out, the
+fifth gets a hit after lots of foul balls, the sixth gets a hit and
+brings in a run, the seventh gets a base on balls and brings in the
+second run, and the eighth strikes out.)  If there is more input after
+the third out, ignore it.
+
+</DD>
+<DT><STRONG>Brackets</STRONG></DT>
+<DD>(This is based on a true story.) A somewhat misguided
+committee of computer scientists decides to create a new computer
+language that requires lots of parentheses. However, they quickly
+realize that they are going to spend a lot of time counting how many
+parentheses are still open at the end of an expression and then typing
+enough closing parentheses to match them all. One of them hits upon the
+idea of using a closing <SPAN  CLASS="textit">bracket</SPAN>, <code>']'</code>, to mean ``close a
+bunch of open parentheses all at once.'' They debate for a while whether
+the rule should be ``close <SPAN  CLASS="textit">all</SPAN> the open parentheses'' or ``close
+only the open parentheses that don't get closed later in the
+expression,'' but each of these choices has some disadvantages.  Finally
+they decide that they will also have opening brackets, and a closing
+bracket will close all of the open parentheses back to the matching
+opening bracket.
+
+To restate, the rules for a well-formed expression are that each opening
+left bracket, <code>'['</code>, must be matched by a closing right bracket,
+<code>']'</code>. Each opening left parenthesis, <code>'('</code>, must be matched
+by a corresponding right parenthesis, <code>')'</code>, with the exception
+that a right bracket will also serve as a closing symbol for any
+remaining open parentheses that were contained within the matched pair
+of brackets.
+
+Here are some examples of well-formed expressions using this rule, where
+all of the real content of the expression has been left out to just
+leave the skeleton of parentheses and brackets:
+<PRE>
+( )
+( ) ( )
+( ( ) )
+[ ( ) ]
+[ ( ( ) ]
+[ ( ( ( ]
+( [ ( ) ( ] )
+[ ( ( [ ( ] ) ) ]
+[ ( ( ] [ ]
+</PRE>
+
+Your task is to write a program to check that a sequence of opening and
+closing parentheses and brackets is well-formed according to this rule.
+The input will be the sequence to be checked, followed by a question
+mark signalling the end of the input. The output should be the single
+word <code>YES</code> or <code>NO</code> reporting whether or not the sequence was
+properly matched up. For example, if the input is
+<PRE>
+[ ( ( ] [ ] ?
+</PRE>
+then the output should be <code>YES</code>, while if
+the input is
+<PRE>
+( [ ( ] ?
+</PRE>
+then the output
+should be <code>NO</code> (since the initial opening parenthesis was never
+closed). Recall that C++ automatically skips over blanks and newlines in
+the input if you use <code>cin &gt;&gt; c;</code> for a <code>char</code> variable
+<code>c</code>, so the spaces in the above examples are irrelevant. You may
+assume that there will never be more than 100 currently open symbols at
+any point in a valid expression.
+
+</DD>
+<DT><STRONG>Eeny Meeny</STRONG></DT>
+<DD>An ancient math problem concerns a group of people who
+stand in a circle and count off by reciting a rhyme such as ``Eeny
+Meeny, Miney Mo, ...'' (or simply by counting up to some predetermined
+number; there are lots of versions of this).  Every time the count comes
+to the end, the last person leaves the circle and the count starts over
+with the next person.  This continues until only one person is left.
+Some variations end with the last person being killed, while others have
+the last person as the only survivor.  We will consider a much more
+benign version; the people will be numbered 1 through <SPAN CLASS="MATH"><I>N</I></SPAN>, and as each
+person leaves the circle we will just print out their number.  To make
+matters simple, we will just say ``Eeny Meeny,'' so as we go around the
+circle, every other person will be eliminated (the ``Meenies'').
+
+For example, if we start with 10 people standing in order from 1 to 10,
+then the order in which they are eliminated is 2, 4, 6, 8, 10, 3, 7, 1,
+9, 5.  It is pretty easy to write a program to do this, especially if we
+have a queue ADT available.  After filling up the queue with the
+appropriate numbers, we repeatedly remove the front element and then
+either reinsert it at the end or print it out, switching between these
+in strict alternation.
+
+Instead of working the problem forwards, your problem is to work it
+backwards: figure out an initial ordering for <SPAN CLASS="MATH"><I>N</I></SPAN> people so that when
+they play ``Eeny Meeny'' the people will be eliminated in strict
+increasing order, from 1 to <SPAN CLASS="MATH"><I>N</I></SPAN>.  For example, when <SPAN CLASS="MATH"><I>N</I> = 10</SPAN>, if we had
+initially lined them up in the order 8, 1, 6, 2, 10, 3, 7, 4, 9, 5, then
+the people will be eliminated in the correct order from 1 to 10.
+
+Your program should simply take the number <SPAN CLASS="MATH"><I>N</I></SPAN> as input, and print out
+the correct initial ordering.  For instance, if the input is <code>3</code>,
+then the output should be (please include the commas and spaces)
+<PRE>
+2, 1, 3
+</PRE>
+You may assume that the number <SPAN CLASS="MATH"><I>N</I></SPAN> is in the range 1 to 100, inclusive.
+
+</DD>
+<DT><STRONG>Number Names</STRONG></DT>
+<DD>Write a program which reads in a positive integer less than 1 billion
+(that's the American billion, with 9 zeroes: 1,000,000,000) and prints
+out its name in words.  For example, if the input is <code>12345678</code>,
+then the output should be
+<PRE>
+twelve million three hundred forty-five thousand six hundred seventy-eight
+</PRE>
+(Note: this problem is the ``easy though perhaps tedious'' choice on the
+exam; it doesn't require as much insight as some of the others, but it
+can turn into a big mess of code to handle all the special cases unless you
+design it carefully.)
+</DD>
+</DL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>An Introduction to Haskell</TITLE>
+<META NAME="description" CONTENT="An Introduction to Haskell">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2,Haskell">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="haskintro.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">An Introduction to Haskell</H1>
+
+<P>
+Haskell is a modern ``purely functional'' programming language.  A
+functional language is one in which functions are as easy to manipulate as
+the more common kinds of values, such as numbers and strings.  By being
+<SPAN  CLASS="textit">purely</SPAN> functional, Haskell does not allow the operations
+which make functions difficult to work with in traditional imperative
+languages: assignment to global variables or reference parameters.  As a
+result, calling a function will not have any ``side-effects''--that is, it
+will not change the values of any non-local variables--and we are free to
+treat them as pure functions (Carrano &amp; Prichard refer to these as ``valued
+functions'' in Chapter 1 of our text).
+
+<P>
+As a higher-level language than C++ or Java, Haskell enables programmers
+to be more productive and write shorter, clearer, and more maintanable
+code.  Unfortunately, industry practice has not yet embraced functional
+programming, in part because of the enormous effort it would take to
+retrain current programmers and redesign all the support tools.  There
+are signs that the industry will gradually move to higher-level
+languages: for example, the next version of Java will contain several
+new language features influenced by the design of Haskell.  In the
+meantime, we will study Haskell because it provides a convenient and
+safe (you will appreciate this safety when we talk about pointers in
+C++) setting in which to explore recursive functions and data structures.
+
+<P>
+Here is an example of Haskell<A NAME="tex2html1"
+  HREF="#foot28"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> code to perform the recursive Mergesort
+described in class and in Chapter 9 of the text:
+<PRE>
+merge([ ], ys) = ys
+merge(xs, [ ]) = xs
+merge([x:xs], [y:ys]) = if x &lt;= y
+                        then [ x : merge(xs, [y:ys]) ]
+                        else [ y : merge([x:xs], ys) ]
+
+mergesort([ ]) = [ ]
+mergesort([x]) = [x]
+mergesort(xs)  = let (as, bs) = splitAt(length(xs) # 2, xs)
+                 in merge(mergesort(as), mergesort(bs))
+</PRE>
+After defining these two functions, <code>merge</code> and <code>mergesort</code>,
+one can sort a list by entering a command such as
+<code>mergesort([3,1,4,1,5,9,2,6,5])</code>; the result is quickly printed:
+<code>[1,1,2,3,4,5,5,6,9]</code>.
+
+<P>
+Even without knowing any details yet of the syntax of Haskell, it
+should be easy to recognize the structure of Mergesort in this code.
+The <code>mergesort</code> function is specified by three rules; the first two
+handle the base cases of an empty list or a one-element list, while the
+third rule handles the recursive case by splitting the data into two
+halves, calling <code>mergesort</code> on each half, and then merging the
+results with <code>merge</code>.  The <code>merge</code> function is also pretty
+easy to read:  if either of the lists to be merged is empty, then it
+just returns the other list (first two rules), otherwise it chooses the
+smaller of the two first elements and puts it first in the result,
+followed by another call to <code>merge</code> on the remainder of the data.
+Compare this to the one-and-a-half pages of code used for a C++ version
+of Mergesort in Chapter 9 of Carrano &amp; Prichard (which only works on
+arrays of data up to a fixed maximum size--we will see a way around
+this in Chapter 4, but it adds several more lines to the code), and you
+will appreciate the power of higher-level programming provided by
+Haskell.
+
+<P>
+There are several points to observe about the Mergesort program as we
+start to learn the details of Haskell.  First, the program is organized
+as a sequence of equations defining the functions.  Unlike the assignment
+statement in C++, these are truly meant to be read as equations.  This
+means that the familiar sort of algebraic reasoning by ``substituting
+equals for equals'' will work for Haskell programs.  For example,
+consider the following definition of the factorial function:
+<PRE>
+factorial(0) = 1
+factorial(n) = n * factorial(n-1)
+</PRE>
+(You are encouraged to try this now in Funnie, as described in class and in
+the companion handout.) We may evaluate the result of <code>factorial(4)</code>
+by using the equations to expand the expression as follows:
+<PRE>
+factorial(4) = 4 * factorial(4-1)
+             = 4 * factorial(3)
+             = 4 * 3 * factorial(2)
+             = 4 * 3 * 2 * factorial(1)
+             = 4 * 3 * 2 * 1 * factorial(0)
+             = 4 * 3 * 2 * 1 * 1
+             = 24
+</PRE>
+In Funnie, you may open a ``Stepper Window'' to see this sequence of
+expansions.
+
+<P>
+The second point to observe is that the computer will choose the first
+equation that matches the arguments in a particular function call.  That
+is, when it evaluates <code>factorial(0)</code>, it uses the first equation
+rather than trying to evaluate <code>0 * factorial(-1)</code>.  This means
+that we will usually want to handle the special ``base'' case(s) of
+functions first in our programs, followed by the general recursive case.
+
+<P>
+Another observation about the Mergesort program is that it works on
+<SPAN  CLASS="textit">lists</SPAN> of data, rather than the arrays common in C++.  Tied as it is to a
+specific layout in memory (and the corresponding convention of avoiding
+copying that block of memory by passing arrays by reference, which we
+have already seen is a no-no in a purely functional language), the array
+is too low-level a data structure for ordinary use in Haskell.  As we
+will see starting in Chapter 3 of Carrano &amp; Prichard, switching to the
+more abstract concept of a <SPAN  CLASS="textit">list</SPAN> of data allows an additional
+level of flexibility in our programming.  Here are the operations on
+lists that we need for Mergesort:
+
+<UL>
+<LI>Picking off the first element (the ``head'') of a list.  This is commonly
+performed by matching a function argument against a <SPAN  CLASS="textit">pattern</SPAN> such
+as <code>[x:xs]</code>--read this as matching a list composed of the first element
+<code>x</code> followed by the remainder of the list (the other
+``<code>x</code>'s'').  If you need to grab the first element of a list in an
+expression without introducing a new function to use pattern-matching,
+the <code>head</code> function will do the job:  <code>head([1,2,3])</code> is
+<code>1</code>.
+
+<P>
+</LI>
+<LI>Adding a new element at the head of a list.  As suggested by the
+pattern form above, this uses the colon (<code>:</code>) notation.  Therefore,
+<code>[1 : [2,3]]</code> is the list <code>[1,2,3]</code>.  Note the asymmetrical
+nature of this operation: the left operand is a single value, while the
+right operand is a list of values.  If you want to concatenate two lists
+together, use the <code>++</code> operator: <code>[1,2] ++ [3,4]</code> produces
+<code>[1,2,3,4]</code>.
+
+<P>
+</LI>
+<LI>Constructing an empty list or a single-element list.  The empty
+list is written <code>[ ]</code>, while a list consisting of just the value
+<code>x</code> is written <code>[x]</code>.  As we have seen, this notation extends
+to arbitrarily long lists by putting a comma-separated list of values
+between the brackets.  This is all an abbreviation; what the computer is
+really thinking when you write <code>[1,2,3]</code> is
+<code>[1 : [2 : [3 : [ ]]]]</code>--that is, start with the empty list and
+successively prepend the values <code>3</code>, then <code>2</code>, and finally
+<code>1</code> at the head.
+
+<P>
+</LI>
+<LI>Getting the length of a list and splitting it into two sublists.
+These operations are not directly built into the language, but rather
+are provided as part of the ``Standard Prelude'' of commonly used
+functions (think of the common functions defined in C++ headers such as
+<code>&lt;iostream&gt;</code> or <code>&lt;string&gt;</code>).  We could write these functions
+ourselves--for example, here is a definition of <code>length</code>:
+<PRE>
+length([ ]) = 0
+length([x:xs]) = 1 + length(xs)
+</PRE>
+--but they are used so frequently that people have assembled a standard
+collection of functions that are always available (without even needing
+the equivalent of a <code>#include</code>...).
+</LI>
+</UL>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot28">... Haskell</A><A
+ HREF="haskintro.html#tex2html1"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>In fact, this is not quite
+standard Haskell; we will be using a modified subset developed
+here at DePauw called <SPAN  CLASS="textit">HasCl</SPAN>.
+
+</DD>
+</DL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

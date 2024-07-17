@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Assignments - CSC 296A: C++ as a Second Language, Fall 2005</title>
+<link type="text/css" href="default.css" rel="stylesheet">
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 296A: C++ as a Second Language, Fall 2005</h1>
+	
+<h2>Assignments</h2>
+	
+	
+		
+<dl>
+			
+<dt>
+<a name="pp1"></a>Monday, September 5</dt>
+			
+<dd>
+<b>Project 1</b>: do Exercise 5-1 (page 99).</dd>
+			
+			
+<dt>
+<a name="hw1"></a>Friday, September 16</dt>
+			
+<dd>
+<b>Chapter 8</b>: Exercises 2, 3, 4, 6, 7, and 8.</dd>
+			
+			
+<dt>
+<a name="pp2"></a>Monday, September 26</dt>
+			
+<dd>
+<p>
+<b>Project 2: Random Text Generator</b>
+</p>
+				
+<p>Write a complete C++ program which implements the random text generation
+				algorithm discussed in class.  Here is a sample run (user input in <i>italics</i>):</p>
+				
+<pre>
+Welcome to the Random Text Generator
+
+input file? <i>seashells.txt</i>
+length of context? <i>2</i>
+length of output? <i>40</i>
+
+ashe seashore. sells by thells she seash
+				</pre>
+				
+<p>In this example, the input file <code>seashells.txt</code> contains a single line:
+				<code>she sells seashells by the seashore.</code>
+</p>
+				
+<p>
+<b>Brief Algorithm Description</b>: Read the input file character by character and
+				create a map from each sequence of <code>k</code> characters (where <code>k</code> is
+				the given context length) to a list of each following character (preserving duplicates).
+				At the end of the file, append a space and wrap around to the first <code>k</code>
+				characters (this avoids the problem of what to do at the end).  Now choose a random
+				starting sequence of length <code>k</code>, then repeatedly generate a new character by
+				randomly choosing from the list of characters that can follow that sequence.  Do this
+				until the desired output length has been generated (sent to <code>cout</code>).</p>
+			
+</dd>
+			
+			
+<dt>
+<a name="pp3"></a>Monday, October 10</dt>
+			
+<dd>
+<p>
+<b>Project 3: Number Classes</b>
+</p>
+				
+<p>You should approach this project in two phases.  In each, the goal will be to
+				integrate your new type(s) into the language as much as possible, so that they have
+				the same "feel" as the built-in numeric types.  Part of this will be a design task,
+				so this project will be deliberately underspecified.</p>
+				
+<ul>
+					
+<li>
+<b>Phase 1:</b> Develop a "big integer" class.  It should support arithmetic
+					operations (you may omit division for simplicity) on numbers with hundreds or 
+					thousands of digits.</li>
+					
+<li>
+<b>Phase 2:</b> Develop a rational number class, where the numerator and
+					denominator can each be a big integer.  Set up a hierarchy of classes so that a
+					client can work with a single type "number" and the appropriate subclass will be
+					used (this implies that you can go back and define the division operator on big
+					integers to return a rational).  You may wish to add other classes to the
+					hierarchy, for example to support floating-point numbers (doubles) or even
+					complex numbers.</li>
+				
+</ul>
+			
+</dd>
+			
+			
+<dt>Monday, October 10</dt>
+			
+<dd>
+<p>
+<b>Final Exam</b>
+</p>
+				
+<ul>
+					
+<li>Exercise 13-4</li>
+					
+<li>Exercise 13-6</li>
+					
+<li>Modify <code>main.cpp</code> to print a report of names and letter grades</li>
+					
+<li>Exercise 13-7 (in report, write "Audit")</li>
+				
+</ul>
+			
+</dd>
+		
+</dl>
+	
+
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img height="31" width="88" alt="Valid HTML 4.01!" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class="validator"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img height="31" width="88" alt="Valid CSS!" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class="validator"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2005<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8" />
+
+    <title>Lab 6 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+             body {background-color: #e0e0ff}
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             div.solution {color: red}
+             img.validator {float: right; border: none}
+             
+        p.bold {font-weight: bold}
+    
+</style>
+  </head>
+
+  <body>
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="../overview.html">Overview</a></b></td>
+
+        <td><b><a href="../schedule.html">Schedule</a></b></td>
+
+        <td><b><a
+        href="../announcements.html">Announcements</a></b></td>
+
+        <td><b><a href="../resources.html">Resources</a></b></td>
+
+        <td><b><a
+        href="../assignments.html">Assignments</a></b></td>
+
+        <td><b><a href="../.">Home</a></b></td>
+      </tr>
+    </table>
+
+    <h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+    <h2>Lab 6</h2>
+
+    <h3>Laboratory 6 - Collections and Project 2</h3>
+
+    <dl>
+      <dt>Goals:</dt>
+
+      <dd>To gain experience with collections and stacks. To
+      complete more functionality of project 2.</dd>
+
+      <dt>Getting started:</dt>
+
+      <dd>
+        <ul>
+          <li>Copy the folder Lab6 from the public folder on the I:
+          drive to your class folder on the I: drive.</li>
+
+          <li>Start up BlueJ</li>
+        </ul>
+      </dd>
+
+      <dt>The Steps of the Lab:</dt>
+
+      <dd>
+        <ol>
+          <li>
+            <strong>Open the stackitem project.</strong> 
+
+            <table border="0" cellpadding="3" cellspacing="0"
+            summary="Sequence of steps">
+              <tr align="left" valign="top">
+                <td><strong>Read</strong></td>
+
+                <td>In project 2, the calculator we will finish
+                building needs the ability to remember several
+                numbers and operators like +, - and *. We want to
+                remember these items in one place. We call that
+                place a stack, because of the order in which we add
+                and remove items to and from it. Because the stack
+                needs to be able to store two different kinds of
+                things, we created a class called StackItem for
+                this purpose. A StackItem object can be used to
+                represent either a number or an operator (+, - , *,
+                /, etc.). In the next few steps you will create and
+                manipulate a few StackItem objects.</td>
+              </tr>
+
+              <tr align="left" valign="top">
+                <td><strong>Do</strong> </td>
+
+                <td>
+                  <p><b>Create two StackItem</b> objects, <b>one a
+                  number</b> (int), 45 for example, and <b>another
+                  an operator</b> (char), '+' for example. Now
+                  <b>examine and invoke</b> some of the methods for
+                  each object. What are the results of
+                  <b>isInt()</b> when applied to each? What is the
+                  result of applying <b>isOperator()</b>? What is
+                  returned by <b>getCharItem()</b>? By
+                  <b>getIntItem()</b>? Does it make sense to apply
+                  getIntItem to a StackItem, when its isInt()
+                  method returns the value false?</p>
+
+                  <p><b>Create a Control object.</b> Invoke its
+                  makeIntItem(int newIntValue) method. Now invoke
+                  the getStackItem() method. A window with the
+                  result will pop up. Inspect the object by
+                  clicking on the inspect button. You should see a
+                  familiar number among the items displayed.</p>
+
+                  <p><b>Complete writing the makeCharItem(char
+                  newCharValue)</b> method in the
+                  <strong>Control</strong> class. Test your methods
+                  by creating a Control object, invoking your
+                  makeCharItem method and then the getStackItem()
+                  method. Are the results what you expected?</p>
+
+                  <p><b>Close</b> the StackItem project and go to
+                  the next step of this lab.</p>
+                </td>
+              </tr>
+            </table>
+          </li>
+
+          <li>
+            <strong>Open the stack project.</strong> 
+
+            <table border="0" cellpadding="3" cellspacing="0"
+            summary="Sequence of steps">
+              <tr align="left" valign="top">
+                <td><strong>Do</strong></td>
+
+                <td>
+                  <p><b>Create a Control object.</b> Invoke the
+                  addInt() method a few times.Each time you do, a
+                  new item will be added to a stack that the
+                  Control class uses. Now invoke the displayStack
+                  method. In what order are the items
+                  displayed?</p>
+                </td>
+              </tr>
+
+              <tr align="left" valign="top">
+                <td><strong>Complete</strong> </td>
+
+                <td>
+                  <p>The Stack class is missing a complete pop
+                  method. Pop removes an item from the end (top) of
+                  a stack. Complete the pop method in the Stack
+                  class. Just add the statement:</p>
+<pre>
+        item = (StackItem) theStack.remove(theStack.size() - 1);
+</pre>
+
+                  <p>at the appropriate place in the partially
+                  written pop method.</p>
+
+                  <p class="bold">Note: Since an ArrayList can
+                  store different kinds objects, we are required to
+                  specify the kind of object we expect to remove.
+                  That is why (StackItem) is in front of
+                  theStack.remove(theStack.size()-1); in the
+                  statement above. Note also that size() returns
+                  the number of objects in an ArrayList and since
+                  each object in the list has an index (position
+                  number) with the first beginning at index 0, the
+                  last item is always at size()-1.</p>
+
+                  <p>Test your pop method by adding (push) some
+                  ints, displaying the stack, invoking removeStack
+                  and again displaying the stack.</p>
+                </td>
+              </tr>
+
+              <tr align="left" valign="top">
+                <td><strong>Practice</strong> </td>
+
+                <td>
+                  <p>Practice using the Stack class by writing a
+                  Control class method to push the integers from 1
+                  to 10 onto myStack</p>
+
+                  <p>Write a method in the control class to add a
+                  character to myStack. Test your method by adding
+                  '-', '+', etc. and then invoking
+                  displayStack().</p>
+                </td>
+              </tr>
+            </table>
+          </li>
+
+          <li>
+            <strong>Open the calculator project.</strong> 
+
+            <table border="0" cellpadding="3" cellspacing="0"
+            summary="Sequence of steps">
+              <tr align="left" valign="top">
+                <td><strong>&nbsp;</strong></td>
+
+                <td>This is the almost-complete version of project
+                2. You will be completing it over the coming days.
+                A <a href="../project2.html">description of the
+                project</a> is available now. The calculator
+                project you are being given needs several
+                enhancements to be complete. You will complete
+                three of them today.</td>
+              </tr>
+
+              <tr align="left" valign="top">
+                <td><strong>Today</strong> </td>
+
+                <td>Complete the methods push, isEmpty, and
+                makeEmpty in the Stack class. Test your methods by
+                creating a calculator object and using it to
+                evaluate several expressions. Note: Using a while
+                loop, a stack will finally be empty when its size()
+                is 0.</td>
+              </tr>
+            </table>
+          </li>
+        </ol>
+      </dd>
+    </dl>
+
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="../overview.html">Overview</a></b></td>
+
+        <td><b><a href="../schedule.html">Schedule</a></b></td>
+
+        <td><b><a
+        href="../announcements.html">Announcements</a></b></td>
+
+        <td><b><a href="../resources.html">Resources</a></b></td>
+
+        <td><b><a
+        href="../assignments.html">Assignments</a></b></td>
+
+        <td><b><a href="../.">Home</a></b></td>
+      </tr>
+    </table>
+
+    <p><a href="http://validator.w3.org/check/referer"><img
+    height="31" width="88" alt="Valid HTML 4.01!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png"
+     class="validator" /></a><a
+    href="http://jigsaw.w3.org/css-validator/check/referer"><img
+    height="31" width="88" alt="Valid CSS!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+    class="validator" /></a><a href="http://www.depauw.edu/">DePauw
+    University</a>, <a
+    href="http://www.depauw.edu/acad/computer/">Computer Science
+    Department</a>, Spring 2005<br />
+     Maintained by <a
+    href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a> (<a
+    href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+    <!--#config timefmt="%A, %B %e, %Y" -->
+     Last updated <!--#echo var="LAST_MODIFIED" -->
+    </p>
+  </body>
+</html>
+

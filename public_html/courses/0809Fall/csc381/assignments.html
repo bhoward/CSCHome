@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Assignments - CSC 381: Database and File Systems, Fall 2008</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 381: Database and File Systems, Fall 2008</h1>
+	
+<h2>Assignments</h2>
+	
+	
+		
+<dl>
+			
+<dt>
+<a name="hw0829"></a>Friday, August 29:</dt>
+			
+<dd>(To be discussed in class) Chapter 1, Exercises 1, 2, and 4<br>
+				Develop a list of database systems you commonly interact with.</dd>
+				
+			
+<dt>
+<a name="hw0905"></a>Friday, September 5:</dt>
+			
+<dd>(To be discussed in class) Chapter 2, Exercises 1, 2, 3, 5, 7, and 8</dd>
+			
+			
+<dt>
+<a name="hw0912"></a>Friday, September 12:</dt>
+			
+<dd>(To be discussed in class) Chapter 3, Exercises 2 and 9</dd>
+			
+			
+<dt>
+<a name="hw0926"></a>Friday, September 26:</dt>
+			
+<dd>(To be handed in) Chapter 4, Exercises 1, 4, 8, 9, 12, and 20 (a, d, g, j, m, and p)</dd>
+			
+			
+<dt>
+<a name="hw1013"></a>Monday, October 13:</dt>
+			
+<dd>
+<p>Choose an application domain which interests you and about which you have some knowledge.
+			Design a database to manage information for some aspect of this domain. Create a class diagram
+			and a corresponding SQL specification (that is, a sequence of <code>create table</code> commands)
+			for your database. As a minimum, there should be at least four tables in your database, with
+			(ideally) no redundant or inadequate relationships (in the terminology of Chapter 3). In addition,
+			give at least four examples of useful queries written against your database. Finally, write up your
+			design decisions, and discuss at least one example of a view that could be used to provide
+			restricted access to your database for some users.</p>
+			
+<p>For this project, I am not requiring that you actually create the database (for example, in
+			Derby) or populate it with data. However, you may find it helpful to do so when testing your
+			queries.</p>
+</dd>
+			
+			
+<dt>
+<a name="hw1112"></a>Wednesday, November 12:</dt>
+			
+<dd>Following the model of the <a href="http://twiki.csc.depauw.edu/projects/csc381/browser/public/CollegeDB">CollegeDB</a>
+			project on the subversion repository (which is based on the DAO code from Chapter 9 of the text, and which implements the
+			database example from the midterm exam), write Java code to interface with the database you designed in the previous
+			assignment.  Your code should have a clean separation between the client (which may be very simple), the in-memory model, and the
+			data access objects used to connect to the back-end database.  Choose at least three of your database tables to implement (perhaps
+			in simplified form, in case your design had lots of tables), and make sure the code can handle creating the database from scratch
+			and populating it with some example data.</dd>
+			
+			
+<dt>
+<a name="hw1117"></a>Monday, November 17:</dt>
+			
+<dd>(To be discussed in class) Chapter 12, Exercises 1, 2, 7, 8, 12, and 13; Chapter 13, Exercises 1 through 8</dd>
+			
+			
+<dt>
+<a name="hw1124"></a>Monday, November 24:</dt>
+			
+<dd>(To be discussed in class) Chapter 14, Exercises 3, 7, 10, 16, 18, 20, 21, 23, 25, 31, and 40</dd>
+			
+			
+<dt>
+<a name="hw1210"></a>Wednesday, December 10:</dt>
+			
+<dd>In class we will be extending <a href="http://twiki.csc.depauw.edu/projects/csc381/browser/public/SimpleDB">SimpleDB</a> with
+			a <code>REAL</code> data type.  Prepare for this by reviewing the code for each of the levels we have studied, and determining
+			what will need to be added or changed.  You may ignore the parser.</dd>
+			
+		<!--
+			<dt><a name="hw0904" />Tuesday, September 4:</dt>
+			<dd>Chapter 2, Exercises 1, 2, 3, and 7<br />
+				Chapter 3, Exercises 2 and 9
+			</dd>
+			
+			<dt><a name="hw0913" />Thursday, September 13:</dt>
+			<dd>Chapter 4, Exercises 1, 4, 8, 9, and 20(a, e, i, m, and q)
+			</dd>
+			
+			<dt><a name="hw0927" />Thursday, September 27:</dt>
+			<dd>Chapter 8, Exercise 2 (just do query 4.20q). That is, "Write a (Java) program using Derby that executes the following
+			query and prints its output table: retrieve the STUDENT record of the students who never received a grade of A in any
+			course they took in their major."  I suggest you start by checking out the "StudentClientDerby" project from 
+			<code>http://twiki.csc.depauw.edu/svn/csc381/USERNAME</code> (you should have committed this project to your personal
+			subversion branch in class on Thursday, September 20 &#8212; if not, check it out of .../public, then choose "Branch/Tag..."
+			from the "Team" menu and move your working copy into your own branch by changing "public" to your USERNAME in the "To:"
+			field).  Start the Derby network server, and run the "CreateStudentDB" client.  Then write your program to perform the
+			above query based on the "StudentMajor" client in that project (you could just make a copy of StudentMajor.java and work
+			from there).  When you are done, make sure to do a "Commit..." from the "Team" menu and it will be saved on the subversion
+			repository.
+			</dd>
+			
+			<dt><a name="pp1023" />Tuesday, October 23:</dt>
+			<dd>The SimpleDB buffer manager currently uses the na&#239;ve replacement strategy, choosing the first unpinned buffer it finds.
+			Also, it does a sequential scan to see whether a block is already located in a buffer.  For this project, you should modify the
+			buffer manager (in package <code>simpledb.buffer</code>) to improve on both of these situations.
+			<ul>
+				<li>Modify <code>BasicBufferMgr</code> to implement the LRU replacement strategy.  Keep a queue of unpinned buffers.  When a
+				buffer needs to be replaced, choose the one at the head of the queue.  When a buffer becomes unpinned, add it to the end of
+				the queue.</li>
+				<li>Also modify <code>BasicBufferMgr</code> to keep a <code>Map&lt;Block, Buffer&gt;</code> of allocated buffers, indexed by
+				the block each contains (a buffer is "allocated" if it contains a block, whether it is currently pinned or not).  When a
+				request comes to pin a block, use the map to determine whether it is currently in a buffer.  You will need to update this
+				map when buffers are replaced.  See the <a href="http://java.sun.com/javase/6/docs/api/java/util/Map.html">Java API documentation on maps</a>
+				for details on how to use them.</li>
+			</ul>
+			When you are finished, be sure to commit your changes back to your branch of the subversion repository.
+			</dd>
+			
+			<dt><a name="hw1106" />Tuesday, November 6:</dt>
+			<dd>Chapter 14, Exercises 3, 7, 16, 18, 21, 23, 25, and 31</dd>
+			
+			<dt><a name="pp1129" />Thursday, <del>November 29</del> <ins>December 6</ins>:</dt>
+			<dd>Do Chapter 20, Exercise 5, which requires that you also do Exercises 17.19 and 15.10 (note there is a typo in 17.19: it refers
+			to Exercise 15.6 when it should say 15.10).  Be sure to commit your changes (including your test program) back to your branch of the
+			subversion repository.</dd>
+		-->
+		
+</dl>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2008<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

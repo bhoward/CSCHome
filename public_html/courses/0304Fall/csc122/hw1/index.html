@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Homework 1</TITLE>
+<META NAME="description" CONTENT="Homework 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hw1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Homework 1</H1>
+
+<P>
+<SPAN  CLASS="textbf"><BIG CLASS="LARGE">This assignment is due Tuesday, September 16, by the start of
+class.</BIG></SPAN>
+
+<P>
+
+<H3><A NAME="SECTION00000100000000000000">
+Exercises from Chapter 9 of the text (pp. 477-479):</A>
+</H3>
+
+<UL>
+<LI>Exercise 1, parts (a), (b), (e), and (g).  For part (g), assume
+that the array is already sorted.
+
+<P>
+</LI>
+<LI>Exercise 2.
+
+<P>
+</LI>
+<LI>Exercise 3.
+
+<P>
+</LI>
+<LI>Exercise 9. For each sort and each array of numbers, count the
+number of comparisons between array elements and the number of times a
+value from the array is copied from one location to another (so each
+swap involves <SPAN  CLASS="textit">three</SPAN> copy operations: copy <SPAN CLASS="MATH"><I>a</I></SPAN> to the temp, copy
+<SPAN CLASS="MATH"><I>b</I></SPAN> to <SPAN CLASS="MATH"><I>a</I></SPAN>, and copy the temp to <SPAN CLASS="MATH"><I>b</I></SPAN>). Comment on the relative
+performance of the algorithms.
+
+<P>
+</LI>
+<LI>Exercise 10.
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00000200000000000000">
+Additional problems:</A>
+</H3>
+
+<OL>
+<LI>Write two program fragments labeled (A) and (B) such that (A) has
+a "better" run-time when expressed in big-oh notation but takes longer
+to run for a small input (say an input size of 10).
+
+<P>
+</LI>
+<LI>What is the run-time of the following fragment expressed in big-oh
+notation as a function of its input <SPAN CLASS="MATH"><I>n</I></SPAN>?
+<PRE>
+cin &gt;&gt; n;
+for (int i=1; i &lt;=n+6; i++)
+   for (int j=1; j&lt;=n+10; j++)
+      cout &lt;&lt; i * j &lt;&lt; endl;
+for (int k=1; k &lt;= n+1000; k++)
+      cout &lt;&lt; "Hello" &lt;&lt; end;
+</PRE>
+
+<P>
+</LI>
+<LI>If a piece of code runs in time <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>2</SUP>)</SPAN> and takes 2 minutes to
+run when N is 10,000 how long would you estimate the fragment would take
+to run when N=40,000? Why is your answer only an estimate?
+
+<P>
+</LI>
+<LI>If a piece of code runs in time <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>3</SUP>)</SPAN> and takes 2 minutes to
+run when N is 10,000 how long would you estimate the fragment would take
+to run when N=30,000?
+
+<P>
+</LI>
+<LI>What is the run-time of the following fragment expressed in big-oh
+notation as a function of its input <SPAN CLASS="MATH"><I>n</I></SPAN>?
+<PRE>
+cin &gt;&gt; n;
+for ( i=1; i&lt;=n; i++ )
+{  temp = n;
+   while ( temp &gt; 0 )
+   {  cout &lt;&lt; n * temp &lt;&lt; endl;
+      temp = temp / 2;
+   }
+}
+</PRE>
+</LI>
+</OL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

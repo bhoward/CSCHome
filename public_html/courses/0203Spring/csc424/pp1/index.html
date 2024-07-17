@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project</TITLE>
+<META NAME="description" CONTENT="Programming Project">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Programming Languages">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project</H1>
+
+<P>
+This project is due by the start of class on Tuesday, April 22. You may
+work by yourself or in pairs. You may use any language you wish for this
+assignment; however, if you want to use something other than C++, Java,
+or Smalltalk, you should check with me first (since this is intended to
+be an exercise in object-oriented programming).
+
+<P>
+The task is to implement a program which can display tables formatted
+with a subset of HTML.  Your program should ask for the name of a file
+containing the HTML description of a table, and then display the
+formatted table on the screen.  For example, if the program were given
+the following file as input:
+<PRE>
+&lt;TABLE&gt;
+  &lt;TR&gt; &lt;TD&gt; Hello &lt;/TD&gt; &lt;TD&gt; World &lt;/TD&gt; &lt;/TR&gt;
+  &lt;TR&gt;
+    &lt;TD&gt; &lt;TABLE&gt;
+        &lt;TR&gt; &lt;TD&gt; Line One &lt;/TD&gt; &lt;/TR&gt;
+        &lt;TR&gt; &lt;/TR&gt;
+        &lt;TR&gt; &lt;TD&gt; Line Two &lt;/TD&gt; &lt;TD&gt; More &lt;/TD&gt; &lt;/TR&gt;
+    &lt;/TABLE&gt; &lt;/TD&gt;
+    &lt;TD&gt; This is a test &lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt; &lt;TD&gt; &lt;/TD&gt; &lt;TD&gt; Done &lt;/TD&gt; &lt;/TR&gt;
+&lt;/TABLE&gt;
+</PRE>
+then the output should look something like:
+<PRE>
+Hello           World
+Line One        This is a test
+
+Line Two  More
+                Done
+</PRE>
+You are free to decide exactly how much space you want to include
+between rows and between items on a row.  You may also choose to center
+the items vertically or horizontally; in this example, I have aligned
+the items to the left and top of each cell of the table (which is
+probably the easiest choice).
+
+<P>
+Here is a grammar giving the syntax of the input:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="RIGHT">Table</TD>
+<TD ALIGN="RIGHT"><!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \rightarrow$"></SPAN></TD>
+<TD ALIGN="LEFT"><code>&lt;TABLE&gt;</code> Rows <code>&lt;/TABLE&gt;</code></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Rows</TD>
+<TD ALIGN="RIGHT"><!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \rightarrow$"></SPAN></TD>
+<TD ALIGN="LEFT">Row Rows</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT"><SPAN CLASS="MATH">|</SPAN></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Row</TD>
+<TD ALIGN="RIGHT"><!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \rightarrow$"></SPAN></TD>
+<TD ALIGN="LEFT"><code>&lt;TR&gt;</code> Cells <code>&lt;/TR&gt;</code></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Cells</TD>
+<TD ALIGN="RIGHT"><!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \rightarrow$"></SPAN></TD>
+<TD ALIGN="LEFT">Cell Cells</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT"><SPAN CLASS="MATH">|</SPAN></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Cell</TD>
+<TD ALIGN="RIGHT"><!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \rightarrow$"></SPAN></TD>
+<TD ALIGN="LEFT"><code>&lt;TD&gt;</code> Item <code>&lt;/TD&gt;</code></TD>
+</TR>
+<TR><TD ALIGN="RIGHT">Item</TD>
+<TD ALIGN="RIGHT"><!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \rightarrow$"></SPAN></TD>
+<TD ALIGN="LEFT">Table</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT"><SPAN CLASS="MATH">|</SPAN></TD>
+<TD ALIGN="LEFT">Text</TD>
+</TR>
+</TABLE>
+</DIV>
+In words, this says that a table consists of a matched pair of
+<code>&lt;TABLE&gt;</code>/<code>&lt;/TABLE&gt;</code> tags surrounding zero or more rows.  Each
+row consists of a matched pair of <code>&lt;TR&gt;</code>/<code>&lt;/TR&gt;</code> tags
+surrounding zero or more cells.  Each cell contains either plain text
+(which may include spaces but no tags--you may assume that the text
+does not contain the character <code>&lt;</code>) or an entire table, surrounded
+by <code>&lt;TD&gt;</code>/<code>&lt;/TD&gt;</code> tags.
+
+<P>
+To make your life easier, you may assume that all tags will be
+surrounded by whitespace (spaces, tabs, or newlines); this means that
+you only have to read in a sequence of words separated by spaces.
+
+<P>
+The basic rule of formatting is that all the rows of a table have their
+corresponding columns aligned with each other. That is, a row's <SPAN CLASS="MATH"><I>n</I></SPAN>th
+cell will start at the same column position as the <SPAN CLASS="MATH"><I>n</I></SPAN>th cells in all
+the other rows of the table (provided they have at least <SPAN CLASS="MATH"><I>n</I></SPAN> cells; some
+rows may be shorter than others).  A cell containing text will display
+that text all on one line (so you don't have to do any line breaking;
+don't worry about lines getting too long).  A cell containing another
+table will take on the width and height of that table.
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

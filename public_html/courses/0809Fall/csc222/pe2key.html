@@ -1,0 +1,466 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Practice Exam 2 - CSC 222: Data Structures and Algorithms, Fall 2008</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 222: Data Structures and Algorithms, Fall 2008</h1>
+	
+<h2>Practice Exam 2</h2>
+	
+
+<P>
+This exam is open-book and
+open-note. Please allow some time to check your work. If you need
+extra space, write on the back.</P>
+
+
+<OL>
+
+<LI>Show the result after each pass of Insertion Sort on the input
+<SPAN CLASS="textsf">E A S Y O N E</SPAN>, where the letters will be sorted
+in alphabetic order.  Fill in only the letters which have moved to a
+new position from the previous row.
+<DIV ALIGN="CENTER">
+
+<TABLE CELLPADDING="3" BORDER="1">
+
+<TR>
+<TD ALIGN="CENTER" COLSPAN="1"></TD>
+<TD ALIGN="CENTER" COLSPAN="1">
+<I CLASS="sans"><SMALL CLASS="SMALL">0</SMALL></I></TD>
+
+<TD ALIGN="CENTER" COLSPAN="1">
+<I CLASS="sans"><SMALL CLASS="SMALL">1</SMALL></I></TD>
+<TD ALIGN="CENTER" COLSPAN="1">
+<I CLASS="sans"><SMALL CLASS="SMALL">2</SMALL></I></TD>
+<TD ALIGN="CENTER" COLSPAN="1">
+<I CLASS="sans"><SMALL CLASS="SMALL">3</SMALL></I></TD>
+<TD ALIGN="CENTER" COLSPAN="1">
+<I CLASS="sans"><SMALL CLASS="SMALL">4</SMALL></I></TD>
+<TD ALIGN="CENTER" COLSPAN="1">
+<I CLASS="sans"><SMALL CLASS="SMALL">5</SMALL></I></TD>
+<TD ALIGN="CENTER" COLSPAN="1">
+<I CLASS="sans"><SMALL CLASS="SMALL">6</SMALL></I></TD>
+
+
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT"><I>input:</I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> E </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> A </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> S </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> Y </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> O </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> N </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> E </I></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT"><I>pass 1:</I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> A </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> E </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT"><I>pass 2:</I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> S </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+
+
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT"><I>pass 3:</I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> Y </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT"><I>pass 4:</I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> O </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> S </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> Y </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT"><I>pass 5:</I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> N </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> O </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> S </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> Y </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+
+
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT"><I>pass 6:</I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"> &nbsp; </I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> E </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> N </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> O </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> S </SPAN></I></TD>
+<TD ALIGN="CENTER"><I CLASS="sans"><SPAN CLASS="solution"> Y </SPAN></I></TD>
+
+</TR>
+
+</TABLE>
+</DIV>
+
+</LI>
+
+
+<LI>For each of the following questions, be sure to justify your
+answer.  Just saying the name of the algorithm without giving a reason will
+not get full credit.
+
+<OL TYPE="a">
+
+<LI>Which of the sorting algorithms discussed in class would be the
+best choice for re-sorting a telephone directory containing 100,000
+entries, after adding 100 new entries at the end (that is, the 100 new
+entries are not in their correct sorted positions yet, although the rest of
+the directory is already in order)?
+
+<div class="solution">
+Insertion sort -- on nearly-sorted data, it is O(N).
+</div>
+
+</LI>
+
+<LI>Which of the sorting algorithms discussed in class would be the
+best choice for sorting 100 complex objects, where exchanging a pair of
+objects requires moving thousands of bytes of data?
+
+<div class="solution">
+Selection sort -- it only does (at most) N-1 exchanges.
+</div>
+
+</LI>
+
+<LI>Answer the previous question for 100,000 objects instead of
+100.
+
+<div class="solution">
+Heapsort or Quicksort --
+either does O(N log N) compares and exchanges, which is <em>much</em> better
+than the O(N<sup>2</sup>) compares for either insertion or selection, and not much
+worse than the O(N) exchanges for selection sort.  Merge or Tree sort would also be
+O(N log N), but do more copying of data than the other two.
+</div>
+
+</LI>
+
+</OL>
+
+</LI>
+
+
+<LI>(4 points) Suppose we have a hash table using linear probe open
+addressing where the key values are integers and the hash function is
+simply the identity function. Therefore, if the table has size <SPAN CLASS="MATH"><I>m</I></SPAN>, the
+key <SPAN CLASS="MATH"><I>k</I></SPAN> will hash to the index <SPAN CLASS="MATH"><I>k</I> mod <I>m</I></SPAN>
+(that is, <code>k % m</code>). Let
+<SPAN CLASS="MATH"><I>m</I> = 10</SPAN> and give an example of a sequence of five distinct keys that will require
+the maximum amount of probing to insert in an initially empty
+table.
+
+<div class="solution">
+10, 20, 30, 40, 50 (or any sequence where all the keys have the same value mod 10)
+</div>
+
+
+<P>
+What is the big-O running time of the worst case for inserting <SPAN CLASS="MATH"><I>N</I></SPAN>
+values in an open-addressed hash table of size <SPAN CLASS="MATH">2<I>N</I></SPAN>?</P>
+
+
+<div class="solution">
+In the worst case, each insertion will require a number of probes equal to the number of entries already in the table,
+plus one.  Therefore, we need the sum <SPAN CLASS="MATH">1 + 2 + 3 + ... + <I>N</I></SPAN>, which is
+<SPAN CLASS="MATH">O(<I>N</I><SUP>2</SUP>)</SPAN>.
+</div>
+
+</LI>
+
+
+<LI>(4 points) Show the 2-3-4 tree that results from inserting the values 42, 19,
+37, 65, 55, 49, and 51, in order.
+
+<div class="solution">
+
+<pre>
+     37,55
+   /   |    \
+  /    |     \
+19  42,49,51  65
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>(2 points) Draw a red-black tree that corresponds to the result of the
+previous question (mark the red nodes with a star or some other special
+notation).
+
+<div class="solution">
+
+<pre>
+    37
+   /  \
+ 19   55*
+     /  \
+   49    65
+  /  \
+42*   51*
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>(3 points) Show the result of inserting the number 45 in the above red-black
+tree.
+<div class="solution">
+
+<pre>
+      49
+     /  \
+  37*    55*
+ /  \   /  \
+19  42 51  65
+      \
+       45*
+</pre>
+The easiest way to see this is to work with the corresponding 2-3-4 tree, where
+the 49 had to split up into the root node:
+<pre>
+    37,49,55
+   /  |   \  \
+19  42,45  51  65
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>Show the binary (minimum) heap that results from inserting the values 42, 19,
+37, 65, 55, 49, and 51, in order, into an initially empty heap.
+<div class="solution">
+
+<pre>
+      19
+     /  \
+   42    37
+  /  \  /  \
+65  55  49  51
+</pre>
+(This was unintentionally easy...)
+</div>
+
+</LI>
+
+
+<LI>Given the resulting heap from the previous question, which value will be popped off
+first?  Show the resulting heap after removing this element.
+<div class="solution">
+The 19 will be popped off, leaving the following heap:
+<pre>
+      37
+     /  \
+   42    49
+  /  \  /
+65  55  51
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>Show the result of applying the "build heap" operation to an array containing the
+values 42, 19, 37, 65, 55, 49, and 51.
+<div class="solution">
+
+<pre>
+      19
+     /  \
+   42    37
+  /  \  /  \
+65  55  49  51
+</pre>
+(again, this was supposed to be more interesting, and different from the result of
+individual insertions; sorry.)<br>
+This corresponds to the array 19, 42, 37, 65, 55, 49, 51.
+</div>
+
+</LI>
+
+
+<LI>Consider the following prefix encoding trie:
+<PRE>
+       *
+   0 /   \ 1
+    /     \
+   *       *
+0 / \ 1 0 / \ 1
+ S   I   M   P
+</PRE>
+
+<OL>
+
+<LI>Use this trie to encode the word "MISS".
+<span class="solution"><code>10010000</code></span>
+
+</LI>
+
+<LI>How many bits will be needed to encode "MISSISSIPPI"?
+<span class="solution">22 bits, since each letter needs two bits.</span>
+
+</LI>
+
+<LI>Is there a better prefix encoding trie for "MISSISSIPPI"?  If not, explain why not;
+if so, give an example.
+<div class="solution">There is a better encoding: using Huffman's algorithm, we can get the following trie:
+<pre>
+   *
+0 / \ 1
+ S   *
+  0 / \ 1
+   I   *
+    0 / \ 1
+     M   P
+</pre>
+(other tries are possible, depending on the order in which equal-frequency items come off the queue.)<br>
+The encoding for "MISSISSIPPI" with this trie is <code>110100010001011111110</code>,
+which is only 21 bits.
+</div>
+
+</LI>
+
+</OL>
+
+</LI>
+
+
+<LI>Trace the operation of the quickselect algorithm in finding the median of the
+values 42, 19, 37, 65, 55, 49, and 51.  Use the naive choice of the first element as pivot.
+<div class="solution">
+
+<table cellpadding="3" border="1">
+
+<tr>
+
+<td>42</td><td>19</td><td>37</td><td>65</td><td>55</td><td>49</td><td>51</td>
+<td>Choose 42 as pivot</td>
+
+</tr>
+
+<tr>
+
+<td>37</td><td>19</td><td>42</td><td>65</td><td>55</td><td>49</td><td>51</td>
+<td>Partitioned around 42; median is in right partition</td>
+
+</tr>
+
+<tr>
+
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>65</td><td>55</td><td>49</td><td>51</td>
+<td>Ignore left partition and pivot; choose 65 as pivot</td>
+
+</tr>
+
+<tr>
+
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>51</td><td>55</td><td>49</td><td>65</td>
+<td>Partitioned around 65; median is in left partition</td>
+
+</tr>
+
+<tr>
+
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>51</td><td>55</td><td>49</td><td>&nbsp;</td>
+<td>Ignore pivot and right partition; choose 51 as pivot</td>
+
+</tr>
+
+<tr>
+
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>49</td><td>51</td><td>55</td><td>&nbsp;</td>
+<td>Partitioned around 51; median is in left partition</td>
+
+</tr>
+
+<tr>
+
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>49</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>Ignore pivot and right partition; 49 is the median</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</LI>
+
+
+</OL>
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2008<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

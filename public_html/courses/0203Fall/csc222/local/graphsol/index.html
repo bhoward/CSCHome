@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Graph Review Solutions</TITLE>
+<META NAME="description" CONTENT="Graph Review Solutions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="graphsol.css">
+
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<H1 ALIGN="CENTER">Graph Review Solutions</H1>
+
+<UL>
+<LI><SPAN  CLASS="textbf">Exercise 17.17.</SPAN> <I>Give the adjacency-matrix representations of the three
+graphs depicted in Figure 17.2.</I>
+
+Here are the graphs from the figure together with their
+adjacency-matrices:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="550" HEIGHT="362" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{mnode=circle}
+{\colo...
+...&amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0
+\end{tabular}
+\hfill
+\end{figure}">
+</DIV>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="550" HEIGHT="367" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{mnode=circle}
+{\colo...
+...&amp; 1 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{tabular}
+\hfill
+\end{figure}">
+</DIV>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="550" HEIGHT="362" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{mnode=circle}
+{\colo...
+...&amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0
+\end{tabular}
+\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 17.27.</SPAN> <I>Show, in the style of Figure 17.10, the adjacency-lists
+structure produced when you use Program 17.9 to insert the edges in the
+graph
+</I>
+<DIV ALIGN="CENTER"><I><code>3-7 1-4 7-8 0-5 5-2 3-8 2-9 0-6 4-9 2-6 6-4</code>
+</I></DIV><I>
+(in that order) into an initially empty graph.</I>
+
+The key point here is that the new edges are inserted at the
+<SPAN  CLASS="textit">front</SPAN> of the adjacency lists.  Here is the result:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="251" HEIGHT="291" BORDER="0"
+ SRC="img3.png"
+ ALT="\begin{figure}
+% latex2html id marker 146
+\sf\bfseries\footnotesize
+\hfill
+...
+...0,1){6}}
+\put(42,9){\makebox(0,0){2}}
+\end{picture}
+\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 18.6.</SPAN> <I>Show, in the style of Figure 18.5, a trace of the
+recursive function calls made when a <code>cDFS&lt;DenseGRAPH&gt;</code> object is
+constructed for the graph
+</I>
+<DIV ALIGN="CENTER"><I><code>0-2 0-5 1-2 3-4 4-5 3-5</code>.
+</I></DIV><I>
+Draw the corresponding DFS recursive-call tree.</I>
+
+First, here is a representation of the graph:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="96" HEIGHT="61" BORDER="0"
+ SRC="img4.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{mnode=circle}
+{\colo...
+...ine{1,3}{2,3}
+\ncline{2,3}{2,2}
+\end{psmatrix}
+}}
+\hfill\hfill
+\end{figure}">
+</DIV>
+Now here is the desired trace.  Note that the significance of using the
+<code>DenseGRAPH</code> representation is that we will visit adjacent nodes in
+increasing numerical order (as we read across a row of the adjacency
+matrix).
+<PRE>
+              012345
+0-0           0*****
+  0-2         0*1***
+    2-0
+    2-1       021***
+      1-2
+  0-5         021**3
+    5-0
+    5-3       0214*3
+      3-4     021453
+        4-3
+        4-5
+      3-5
+    5-4
+</PRE>
+
+The DFS recursive-call tree is
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="70" HEIGHT="118" BORDER="0"
+ SRC="img5.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...{
+\pstree{\Tcircle{3}}{
+\Tcircle{4}
+}
+}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 18.7.</SPAN> <I>Show, in the style of Figure 18.6, the progress of the
+search for the example in Exercise 18.6.</I>
+
+The recursive-call tree is shown above, so I won't repeat it here.
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="318" HEIGHT="234" BORDER="0"
+ SRC="img6.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{mnode=circle}
+{\colo...
+...%% 1-2
+\ncline{2,3}{2,2} %% 1-2
+\end{psmatrix}
+}}
+\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 18.15.</SPAN> <I>Draw the DFS forest that results from a standard
+adjacency-matrix DFS of the graph</I>
+<DIV ALIGN="CENTER">
+<code>3-7 1-4 7-8 0-5 5-2 3-8 2-9 0-6 4-9 2-6 6-4</code>.
+
+</DIV>
+Note that this is the same graph from Exercise 17.27.  Here is a
+representation of the graph:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="169" HEIGHT="61" BORDER="0"
+ SRC="img7.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{mnode=circle}
+{\colo...
+...%% 9-2
+\ncline{2,4}{2,5} %% 2-5
+\end{psmatrix}
+}}
+\hfill\hfill
+\end{figure}">
+</DIV>
+Performing a depth-first search using the adjacency matrix results in
+starting from node 0 and following the path to the smallest numbered
+not-already-visited adjacent node at each step, backing up to try 
+larger unvisited nodes at the end.  Here is the resulting DFS forest:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="127" HEIGHT="182" BORDER="0"
+ SRC="img8.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...{3}}{
+\pstree{\Tcircle{7}}{
+\Tcircle{8}
+}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 18.16.</SPAN> <I>Draw the DFS forest that results from a standard
+adjacency-lists DFS of the graph</I>
+<DIV ALIGN="CENTER">
+<code>3-7 1-4 7-8 0-5 5-2 3-8 2-9 0-6 4-9 2-6 6-4</code>.
+
+</DIV>
+The difference between this and the last problem is that the
+adjacency lists will store the edges in reverse order from how they were
+entered.  Exercise 17.27 figured out the lists; here is the resulting
+DFS forest:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="127" HEIGHT="182" BORDER="0"
+ SRC="img9.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...{3}}{
+\pstree{\Tcircle{8}}{
+\Tcircle{7}
+}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 18.50.</SPAN> <I>Draw the BFS forest that results from a standard
+adjacency-lists BFS of the graph</I>
+<DIV ALIGN="CENTER">
+<code>3-7 1-4 7-8 0-5 5-2 3-8 2-9 0-6 4-9 2-6 6-4</code>.
+
+</DIV>
+With the same graph as the previous two problems but using a queue
+instead of a stack (in fact, I didn't use a stack for the DFS exercises,
+since that would have reversed the order of the adjacent nodes and
+messed up the distinction between the matrix and list representations;
+instead, I used the recursive version of DFS) we get the following BFS
+forest:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="220" HEIGHT="118" BORDER="0"
+ SRC="img10.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...stree{\Tcircle{3}}{
+\Tcircle{8}
+\Tcircle{7}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 18.51.</SPAN> <I>Draw the BFS forest that results from a standard
+adjacency-matrix BFS of the graph</I>
+<DIV ALIGN="CENTER">
+<code>3-7 1-4 7-8 0-5 5-2 3-8 2-9 0-6 4-9 2-6 6-4</code>.
+
+</DIV>
+Finally, using the increasing numeric order to visit adjacent nodes that
+comes with the adjacency matrix, we get the following BFS forest:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="174" HEIGHT="118" BORDER="0"
+ SRC="img11.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...stree{\Tcircle{3}}{
+\Tcircle{7}
+\Tcircle{8}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+</LI>
+</UL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

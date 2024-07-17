@@ -1,0 +1,594 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Practice Exam 2 Solutions - CSC 221: Computer Organization, Spring 2009</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 221: Computer Organization, Spring 2009</h1>
+	
+<h2>Practice Exam 2 Solutions</h2>
+	
+	
+
+<P>
+The exam will be open-book, so that you don't have to memorize the ASCII
+table or the details of the Pep/8 architecture.</P>
+
+
+<OL>
+
+<LI>
+<P>With a two-address architecture, most machine instructions take two addresses
+as operands.  An instruction such as</P>
+
+<PRE>
+add     X, Y
+</PRE>
+
+<P>says to add the value stored at address <code>Y</code> to the value at address <code>X</code>,
+leaving the result in <code>X</code>.  That is, it is roughly equivalent to the C++ statement
+<code>X += Y;</code>.  How many memory reads are required to fetch and execute this
+instruction on a two-address architecture (where <code>X</code> and <code>Y</code> are
+direct-mode operands)?</P>
+
+
+<DIV class="solution">
+There will be one group of reads to fetch the instruction and its operands (it is not specified how many bytes this will involve,
+nor is it clear how many bytes may be fetched in one read, but let's assume that this counts as a single read operation).  Then the value
+of <code>X</code> will need to be read, followed by the value of <code>Y</code>, for a total of <b>three</b> reads.
+</DIV>
+
+
+<P>How many memory <SPAN CLASS="textit">writes</SPAN> are required?</P>
+
+
+<DIV class="solution">
+The only write will be to store the modified value of <code>X</code> back into memory.
+</DIV>
+
+
+<P>Give an equivalent sequence of instructions for the Pep/8 architecture,
+and tell how many memory reads and writes are required for it.</P>
+
+
+<DIV class="solution">
+Since the Pep/8 is a one-address architecture, we need to use the accumulator to do the addition:
+<pre>
+LDA     X,d
+ADDA    Y,d
+STA     X,d
+</pre>
+This requires fetching three separate instructions from memory (for a total of nine bytes; each instruction causes a one-byte read
+of the instruction specifier, followed by a two-byte read of the operand), plus one read each for <code>X</code> and <code>Y</code>(two bytes each).
+This makes for <b>five</b> reads (or <b>eight</b>, if you count the operand fetches separately), for a total of 13 bytes.  As with the two-address code,
+there is only one write needed, of the two-byte result for <code>X</code>.
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Convert the following C++ program to Pep/8 assembly language:</P>
+
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+
+int n;
+
+int f(int x)
+{
+    if ((x &amp; 1) == 1) {
+        return (3 * x) + 1;
+    } else {
+        return x / 2;
+    }
+}
+
+int main()
+{
+    cin &gt;&gt; n;
+    while (n &gt; 1) {
+        n = f(n);
+        cout &lt;&lt; n &lt;&lt; endl;
+    }
+}
+</PRE>
+
+
+<div class="solution">
+
+<pre>
+        BR      main
+n:      .BLOCK  2
+x:      .EQUATE 2
+retVal: .EQUATE 4
+f:      LDA     x,s
+        ANDA    1,i
+        CPA     1,i
+        BRNE    L1
+        LDA     x,s
+        ADDA    x,s
+        ADDA    x,s
+        ADDA    1,i
+        BR      L2
+L1:     LDA     x,s
+        ASRA
+L2:     STA     retVal,s
+        RET0
+main:   DECI    n,d
+L3:     LDA     n,d
+        CPA     1,i
+        BRLE    L4
+        STA     -4,s
+        SUBSP   4,i
+        CALL    f
+        ADDSP   4,i
+        LDA     -2,s
+        STA     n,d
+        DECO    n,d
+        CHARO   '\n',i
+        BR      L3
+L4:     STOP
+        .END
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>
+<P>Convert the following C++ program to Pep/8 Assembly Language:</P>
+
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+
+int a, b;
+
+int main() {
+  cin &gt;&gt; a;
+  cin &gt;&gt; b;
+  b += a;
+  a = b - a;
+  cout &lt;&lt; a;
+  cout &lt;&lt; b;
+}
+</PRE>
+
+
+<DIV class="solution">
+
+<PRE>
+        BR      main
+a:      .BLOCK  2
+b:      .BLOCK  2
+main:   DECI    a,d
+        DECI    b,d
+        LDA     b,d
+        ADDA    a,d
+        STA     b,d
+        LDA     b,d     ; redundant
+        SUBA    a,d
+        STA     a,d
+        DECO    a,d
+        DECO    b,d
+        STOP
+        .END
+</PRE>
+
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Convert the following Pep/8 program to an equivalent program in C++:</P>
+
+<PRE>
+newLine: .EQUATE 0x000A
+         BR      main
+x:       .WORD   1
+y:       .WORD   2
+z:       .WORD   3
+c:       .BYTE   4
+main:    DECI    y,d
+         LDA     y,d
+         ASLA
+         STA     x,d
+         ASLA
+         ASLA
+         ADDA    x,d
+         ADDA    z,d
+         STA     x,d
+         DECO    x,d
+         CHARO   newLine,i
+         DECO    y,d
+         LDA     z,d
+         ORA     0x0030,i
+         STBYTEA c,d
+         CHARO   c,d
+         STOP
+         .END
+</PRE>
+
+
+<DIV class="solution">
+
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+
+int x = 1;
+int y = 2;
+int z = 3;
+char c = 4;
+
+int main() {
+  cin &gt;&gt; y;
+  x = y * 2;
+  x = y * 8 + x + z; // effect is x = y * 10 + z;
+  cout &lt;&lt; x &lt;&lt; endl;
+  cout &lt;&lt; y;
+  c = z | '0';
+  cout &lt;&lt; c; // effect is cout &lt;&lt; z; if z is a single (decimal) digit
+}
+</PRE>
+
+</DIV>
+
+
+<P>
+What is the output of the above program if the user enters <code>42</code>?</P>
+
+
+<DIV class="solution">
+The output will be
+<PRE>
+423
+423
+</PRE>
+Note that printing <code>y * 10 + z</code> is always the same as printing <code>y</code> followed by <code>z</code>, if <code>z</code> is
+a single digit (provided the arithmetic doesn't overflow).
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Consider the boolean formula
+(<I>a</I> + <I>b'</I>)<SUP> . </SUP>(<I>b'</I> + <I>c'</I>)<SUP> . </SUP>(<I>a'</I> + <I>c</I>).</P>
+
+
+<OL type="a">
+
+<LI>
+<P>Construct a truth table for this formula.</P>
+
+<div class="solution">
+
+<table rules="groups">
+
+<colgroup>
+
+<col>
+<col>
+<col>
+
+</colgroup>
+
+<colgroup>
+
+<col>
+
+</colgroup>
+
+<tbody>
+
+<tr>
+
+<td>a</td><td>b</td><td>c</td><td>x</td>
+
+</tr>
+
+</tbody>
+
+<tbody>
+
+<tr>
+
+<td>0</td><td>0</td><td>0</td><td>1</td>
+
+</tr>
+
+<tr>
+
+<td>0</td><td>0</td><td>1</td><td>1</td>
+
+</tr>
+
+<tr>
+
+<td>0</td><td>1</td><td>0</td><td>0</td>
+
+</tr>
+
+<tr>
+
+<td>0</td><td>1</td><td>1</td><td>0</td>
+
+</tr>
+
+<tr>
+
+<td>1</td><td>0</td><td>0</td><td>0</td>
+
+</tr>
+
+<tr>
+
+<td>1</td><td>0</td><td>1</td><td>1</td>
+
+</tr>
+
+<tr>
+
+<td>1</td><td>1</td><td>0</td><td>0</td>
+
+</tr>
+
+<tr>
+
+<td>1</td><td>1</td><td>1</td><td>0</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</LI>
+
+
+<LI>
+<P>Draw a circuit using AND, OR, and NOT gates with inputs <I>a</I>, <I>b</I>,
+and <I>c</I>, whose output is the value of this formula.</P>
+
+<div class="solution">
+Instead of trying to draw a circuit here, the boolean formula for the obvious two-level AND-OR circuit from the truth table is
+<I>a'b'c'</I>+<I>a'b'c</I>+<I>ab'c</I>.
+</div>
+
+</LI>
+
+
+<LI>
+<P>Draw an equivalent circuit using as few gates as possible.</P>
+
+<div class="solution">
+Here is the formula, based on the Karnaugh map minimization: <I>a'b'</I>+<I>b'c</I>.
+</div>
+
+</LI>
+
+</OL>
+
+</LI>
+
+
+<LI>
+<P>Convert the following Pep/8 program to an equivalent program in
+C++:</P>
+
+<PRE>
+        BR      main
+n:      .BLOCK  2
+fact:   .WORD   1
+
+i:      .EQUATE 0
+p:      .EQUATE 2
+mul:    SUBSP   4, i
+        LDA     0, i
+        STA     p, s
+        STA     i, s
+L3:     CPA     n, d
+        BREQ    L4
+        LDA     p, s
+        ADDA    fact, d
+        STA     p, s
+        LDA     i, s
+        ADDA    1, i
+        STA     i, s
+        BR      L3
+L4:     LDA     p, s
+        STA     fact, d
+        RET4
+
+main:   LDA     7, i
+        STA     n, d
+L1:     CPA     0, i
+        BREQ    L2
+        CALL    mul
+        LDA     n, d
+        SUBA    1, i
+        STA     n, d
+        BR      L1
+L2:     DECO    fact, d
+        CHARO   '\n', i
+        STOP
+        .END
+</PRE>
+
+<div class="solution">
+
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+
+int n;
+int fact = 1;
+
+void mul()
+{
+    int i, p;
+    p = 0;
+    i = 0;
+    while (i != n) {
+        p = p + fact;
+        i = i + 1;
+    }
+    fact = p;
+}
+
+int main()
+{
+    n = 7;
+    while (n != 0) {
+        mul();
+        n = n - 1;
+    }
+    cout &lt;&lt; fact &lt;&lt; endl;
+    return 0;
+}
+</PRE>
+
+</div>
+
+</LI>
+
+
+<LI>
+<P>Modify the above program so that the subroutine <code>mul</code> doesn't
+use the global variables <code>n</code> and <code>fact</code>; instead, it should
+take the values of <code>n</code> and <code>fact</code> as parameters, and produce
+the new value of <code>fact</code> as a return value.  Show both the
+modifications necessary to <code>mul</code> and to <code>main</code>.</P>
+
+<div class="solution">
+Here is the modified program:
+<PRE>
+        BR      main
+n:      .BLOCK  2
+fact:   .WORD   1
+
+i:      .EQUATE 0
+p:      .EQUATE 2
+<b>n2:     .EQUATE 6
+fact2:  .EQUATE 8
+retVal: .EQUATE 10</b>
+mul:    SUBSP   4, i
+        LDA     0, i
+        STA     p, s
+        STA     i, s
+L3:     CPA     <b>n2, s</b>
+        BREQ    L4
+        LDA     p, s
+        ADDA    <b>fact2, s</b>
+        STA     p, s
+        LDA     i, s
+        ADDA    1, i
+        STA     i, s
+        BR      L3
+L4:     LDA     p, s
+        STA     <b>retVal, s</b>
+        RET4
+
+main:   LDA     7, i
+        STA     n, d
+L1:     CPA     0, i
+        BREQ    L2
+        <b>STA     -6, s   ; push n as first argument
+        LDA     fact, d
+        STA     -4, s   ; push fact as second argument
+        SUBSP   6, i    ; allocate 2 arguments and a return value</b>
+        CALL    mul
+        <b>ADDSP   6, i
+        LDA     -2, s   ; get the return value
+        STA     fact, d</b>
+        LDA     n, d
+        SUBA    1, i
+        STA     n, d
+        BR      L1
+L2:     DECO    fact, d
+        CHARO   '\n', i
+        STOP
+        .END
+</PRE>
+
+</div>
+
+</LI>
+
+
+<LI>
+<P>Design a combinational network that implements a
+<I>two-bit comparator</I>. This is a component that takes two pairs of
+input signals, <I>a</I><SUB>1</SUB><I>a</I><SUB>0</SUB> and
+<I>b</I><SUB>1</SUB><I>b</I><SUB>0</SUB>, and produces one output line, labeled GT, which
+is 1 exactly when the binary number <I>a</I><SUB>1</SUB><I>a</I><SUB>0</SUB> is greater than the binary
+number <I>b</I><SUB>1</SUB><I>b</I><SUB>0</SUB>. For example, if the inputs are 10 and 01, then the
+output should be 1; if the inputs are 10 and 10, or 01 and 10, then the
+output should be 0. Try to use as few logic gates as possible.</P>
+
+<div class="solution">
+Here's the best formula I get: <I>a</I><SUB>1</SUB><I>b</I><SUB>1</SUB>'
++<I>a</I><SUB>1</SUB><I>b</I><SUB>1</SUB><I>a</I><SUB>0</SUB><I>b</I><SUB>0</SUB>'
++<I>a</I><SUB>1</SUB>'<I>b</I><SUB>1</SUB>'<I>a</I><SUB>0</SUB><I>b</I><SUB>0</SUB>'.
+</div>
+
+</LI>
+
+
+<LI>
+<P>A fancier version of the two-bit comparator would have
+three outputs, say GT, EQ, and LT, which reflect whether the first
+input (<I>a</I><SUB>1</SUB><I>a</I><SUB>0</SUB>) is respectively greater than, equal to, or less than
+the second (<I>b</I><SUB>1</SUB><I>b</I><SUB>0</SUB>). 
+Show how to use one or more copies of this component (NOTE: <I>you do not need to design this component</I>,
+just draw a box with the appropriate input and output lines), plus a few logic gates, to construct a
+<I>four-bit comparator</I>; that is, a component which takes two groups of four
+input signals, <I>a</I><SUB>3</SUB><I>a</I><SUB>2</SUB><I>a</I><SUB>1</SUB><I>a</I><SUB>0</SUB>
+and <I>b</I><SUB>3</SUB><I>b</I><SUB>2</SUB><I>b</I><SUB>1</SUB><I>b</I><SUB>0</SUB>, and produces a 1 on
+exactly one of the three outputs GT, EQ, and LT depending on
+whether <I>a</I>&gt;<I>b</I>, <I>a</I>=<I>b</I>, or <I>a</I>&lt;<I>b</I> (where <I>a</I> is the value given by the unsigned
+binary number <I>a</I><SUB>1</SUB><I>a</I><SUB>0</SUB>, and <I>b</I> is given by <I>b</I><SUB>1</SUB><I>b</I><SUB>0</SUB>).</P>
+
+<div class="solution">
+Use one comparator to compare the high-order bits, and another to compare the low-order bits.  The GT output is the OR of the high-order GT
+with the AND of the high-order EQ and the low-order GT (that is, <I>a</I> is greater than <I>b</I> if either the first two bits are greater, or
+the first two bits are the same and the second two bits are greater).  The LT output is similar, and the EQ output is simply the AND of both of
+the two-bit EQ outputs.
+</div>
+
+</LI>
+
+</OL>
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2009<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

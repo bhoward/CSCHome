@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Exam 2 Sample Questions - 
+	CSC 122: Computer Science II, Fall 2006</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>
+	CSC 122: Computer Science II, Fall 2006</h1>
+	
+<h2>Exam 2 Sample Questions</h2>
+
+	
+		
+<ol>
+			
+<li>
+				
+<p>What is the output of the following C++ code?</p>
+				
+<pre>
+void printem(int n, int a, int &amp;b)
+{
+    cout &lt;&lt; n &lt;&lt; ": " &lt;&lt; a &lt;&lt; " " &lt;&lt; b &lt;&lt; endl;
+    a = 0;
+    b = 0;
+}
+
+int main()
+{
+    int x, y;
+    int *p, *q;
+
+    x = 4; y = 2; printem(1, x, y);
+    
+    x += 3; y += 3; printem(2, x, y);
+
+    p = new int;
+    *p = 6; q = &amp;x; printem(3, *p, *q);
+
+    *q = *p; x += 3; printem(4, *p, *q);
+
+    q = p; x += 3; printem(5, *p, *q);
+    
+    y = x; x = *p; printem(6, x, y);
+}
+				</pre>
+				
+<p>(Recall that <code>cout &lt;&lt; a &lt;&lt; b &lt;&lt; endl;</code> is the C++ equivalent of
+					<code>System.out.print(a); System.out.print(b); System.out.println();</code>)</p>
+			
+</li>
+			<!-- <li>
+				<p>
+					For this problem you are to implement a rational number
+					abstract data type as a Java class according to the
+					following characteristics:
+					<ol type="a">
+						<li>
+							The name of the class is <code>Rational</code>.
+						</li>
+						<li>
+							There are two <code>int</code> instance variables (fields) called
+							<code>numerator</code> and <code>denominator</code>
+							(representing the fraction numerator/denominator).
+						</li>
+						<li>
+							The methods of the class are:
+							<ul>
+								<li>
+									a constructor which initializes a rational
+									number to 0/1
+								</li>
+								<li>
+									<code>void display()</code>
+									which displays the rational number as
+									numerator / denominator
+								</li>
+								<li>
+									<code>void assign(int x, int y)</code>
+									where <code>x</code>
+									will be the numerator value and
+									<code>y</code>
+									will be the denominator value, with the
+									precondition that <code>y</code>
+									cannot be zero (<i>i.e.</i>, you need not
+									worry about zero in the denominator)
+								</li>
+								<li>
+									<code>boolean invert()</code>
+									which returns false if the original
+									numerator is zero and otherwise swaps the
+									numerator and denominator and returns true
+								</li>
+								<li>
+									<code>void mult( rational p )</code>
+									which multiplies the owner by <code>p</code>
+									and stores the product in the owner. In case
+									you forgot, 1/6 x 2/5 = 2/30. For extra
+									credit, store the result in reduced form
+									(<i>e.g.</i>, 1/15).
+								</li>
+							</ul>
+						</li>
+					</ol>
+				</p>
+			</li> -->
+
+			
+<li>
+				
+<p>Consider the following Haskell function:</p>
+				
+<pre>
+mystery([ ],[ ]) = true
+mystery([ ],[h:t]) = false
+mystery([h:t],[ ]) = false
+mystery([h1:t1],[h2:t2]) = mystery(t1,t2)
+				</pre>
+				
+<ol type="a">
+					
+<li>What value is returned by <code>mystery([ ],[ ])</code>?</li>
+					
+<li>What value is returned by <code>mystery(['a', 'b'], ['d', 'e'])</code>?</li>
+					
+<li>What value is returned by <code>mystery(['a', 'b'], ['d'])</code>?</li>
+					
+<li>In a sentence, describe what function <code>mystery</code> computes.</li>
+				
+</ol>
+			
+</li>
+
+			
+<li>
+<p>Consider the following Haskell function:</p>
+				
+<pre>
+test(32)=0
+test(x) = 1 + test(2*x)
+				</pre>
+				
+<p>What is returned by each of the following?</p>
+				
+<ol type="a">
+					
+<li>
+<code>test(16)</code>
+</li>
+					
+<li>
+<code>test(4)</code>
+</li>
+					
+<li>
+<code>test(33)</code>
+</li>
+				
+</ol>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function, <code>addup</code>, which adds the first
+					<code>n</code> integers. For example <code>addup(3)</code>
+					would evaluate to 6.
+				</p>
+			
+</li>
+
+			
+<li>In one or two sentences, define what is meant by Abstract Data
+			Type.</li>
+
+			
+<li>
+<p>Consider the following definitions:</p>
+				
+<pre>
+private Listcell myRef;
+
+private class Listcell {
+    private char data;
+    private Listcell next;
+}
+
+void fooAux(String str, int i, Listcell prevFront) {
+    if (i == str.length()) {
+        return;
+    } else {
+        Listcell tmp = new Listcell();
+        tmp.data = str.charAt(i);
+        tmp.next = prevFront;
+        myRef = tmp;
+        fooAux(str, i+1, myRef);
+    }
+}
+
+void foo(String str) {
+    myRef = null;
+    fooAux(str, 0, myRef);
+}
+				</pre>
+				
+<ol type="a">
+					
+<li>What is the result of the call <code>foo("cat hat");</code>
+</li>
+					
+<li>Describe what <code>foo</code> does in one sentence.</li>
+					
+<li>Rewrite <code>foo</code> so that it accomplishes its task using iteration.</li>
+				
+</ol>
+			
+</li>
+
+			
+<li>
+<p>Given the doubly linked list node definition</p>
+				
+<pre>
+private class Node {
+    int elem;
+    Node next;
+    Node prev;
+}
+				</pre>
+				
+<p>write a code fragment which will delete the node referenced by
+				<code>p</code> if that node has a node to its left (<code>prev</code>)
+				and right (<code>next</code>).</p>
+			
+</li>
+
+			
+<li>List one advantage of a linked list implementation of a queue
+			over an array implementation.</li>
+		
+</ol>
+		
+		
+<p>Questions, short answer and otherwise, could also be asked about the
+			following topics:</p>
+		
+<ul>
+			
+<li>Backtracking</li>
+			
+<li>Stacks and stack applications (backtracking, recursion, method calls)</li>
+			
+<li>Queues</li>
+			
+<li>Memory management &ndash; garbage collection</li>
+		
+</ul>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2006<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

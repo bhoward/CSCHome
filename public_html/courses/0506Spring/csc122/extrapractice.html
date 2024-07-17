@@ -1,0 +1,466 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Recurrence, Haskell, and Linked List Sample Questions - 
+	CSC 122: Computer Science II, Spring 2006</title>
+<link type="text/css" href="default.css" rel="stylesheet">
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>
+	CSC 122: Computer Science II, Spring 2006</h1>
+	
+<h2>Recurrence, Haskell, and Linked List Sample Questions</h2>
+
+	
+		
+<p>Solve the following recurrence relations:</p>
+		
+<ol>
+			
+<li>
+<pre>
+T( 1 ) = 0
+T( n ) = T( n-1 ) + 2
+			</pre>
+</li>
+			
+			
+<li>
+<pre>
+T( 1 ) = 1
+T( n ) = T( n/2 ) + 1
+			</pre>
+</li>
+			
+			
+<li>
+<pre>
+T( 1 ) = 4
+T( n ) = 2T( n/2 ) + n
+			</pre>
+</li>
+			
+			
+<li>
+<pre>
+T( 2 ) = 5
+T( n ) = T( n-1 ) + n
+			</pre>
+</li>
+			
+			
+<li>
+<pre>
+T( 1 ) = 1
+T( n ) = 2T( n &ndash; 1 )
+			</pre>
+</li>
+			
+			
+<li>
+<pre>
+T( 0 ) = 1
+T( 1 ) = 1
+T( n ) = T( n &ndash; 2 ) + 1
+			</pre>
+</li>
+
+			
+<li>
+				
+<p>
+					Write the recurrence relation for the running time of this
+					method. You do not need to solve it, just write the
+					relation. Assume that a multiplication is the critical step.
+				</p>
+				
+<pre>
+public void function( int n ) {
+  if ( n == 1 )
+    return 1;
+  return function( n &ndash; 1 ) * 5;
+}
+				</pre>
+			
+</li>
+			
+			
+<li>
+				
+<p>
+					Write the recurrence relation for the running time of this
+					method. You do not need to solve it, just write the
+					relation. Assume that an addition is the critical step.
+				</p>
+				
+<pre>
+public void test( int n ) {
+  if ( n == 1 )
+    return 1;
+  if ( n == 2 )
+    return 2;
+  return test( n &ndash; 1 ) + test( n &ndash; 2 );
+}
+				</pre>
+			
+</li>
+			
+			
+<li>
+				
+<p>
+					Write the recurrence relation for the running time of this
+					method. Assume that <code>otherFunction</code>
+					prints a number of lines equal to its input plus 3. You do
+					not need to solve it, just write the relation. Assume that
+					printing a line of output is the critical step.
+				</p>
+				
+<pre>
+public void mystery( int n ) {
+  if ( n == 0 )
+    System.out.println( "Done at last" );
+  else {
+    System.out.println( "Recursing..." );
+    mystery( n &ndash; 1 );
+    System.out.println( "Calling other function." );
+    otherFunction( n );
+    System.out.println( "Done with " + n );
+  }
+}
+				</pre>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function <code>decrement</code>
+					that takes one parameter, a list of numbers. The function
+					should return a list of numbers so that each element is one
+					smaller than the corresponding element in the original list.
+					For example, <code>decrement( [2, 3, 4] )</code>
+					should return <code>[1, 2, 3]</code>.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function <code>multiplyAll</code>
+					that takes one parameter, a list of numbers. The function
+					should return the product of all the numbers in the list. If
+					the list is empty, return 1. For example,
+					<code>multiplyAll( [2, 4, 1, 10] )</code>
+					should return 80.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function called <code>removeGreaterThan</code>
+					that takes two parameters, a list of numbers and a number.
+					The function should return a list that would result from
+					removing all numbers from the list that are greater than the
+					number given. For example,
+					<code>removeGreaterThan( [6, 3, 8, 2, 1, 9], 5 )</code>
+					should return the list <code>[3, 2, 1]</code>.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function called <code>count</code>
+					that takes two parameters (a list and an item). The function
+					should return the number of times that the given item occurs
+					in the list. For example, <code>count( [1, 3, 2, 3], 3 )</code>
+					should return 2.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function called <code>findSmallest</code>
+					that takes one parameter (a list of numbers). The function
+					should return the value of the smallest item in the list.
+					For example, <code>findSmallest( [1, 3, 19, 4, 12] )</code>
+					should return 1.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function called <code>remove</code>
+					that takes two parameters (a list and an item). The function
+					should return a list that would result from removing the
+					first copy of item from the list (all other copies of item
+					should remain). If item is not in the list, return the list
+					unchanged. For example, <code>remove( [2, 4, 6, 4, 8, 10], 4 )</code>
+					should return <code>[2, 6, 4, 8, 10]</code>.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function called <code>insert</code>
+					that takes two parameters (a list and a number). You may
+					assume that the list consists of 0 or more numbers that are
+					in order. The function should return a list that would
+					result from inserting the number into the list into the
+					appropriate place to keep the list in order. For example,
+					<code>insert( [2, 4, 6, 8], 5 )</code> should return
+					<code>[2, 4, 5, 6, 8]</code>.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function called <code>selectSort</code>
+					that takes one parameter (a list of numbers). The function
+					should return the list that would result from sorting the
+					list using selection sort. Note: the <code>findSmallest</code>
+					and <code>remove</code> functions should be useful here.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a Haskell function called <code>insertSort</code>
+					that takes one parameter (a list of numbers). The function
+					should return the list that would result from sorting the
+					list using insertion sort. Note: the <code>insert</code>
+					function should be useful here, as would an auxiliary
+					function.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Show the stack that would result from the following list of
+					stack commands:
+				</p>
+				
+<pre>
+Stack s = new Stack( );
+s.push( 5 );
+s.push( 9 );
+s.push( 14 );
+s.pop( );
+s.push( 18 );
+s.push( 3 );
+s.pop( );
+s.push( 4 );
+				</pre>
+			
+</li>
+			
+			
+<li>
+				
+<p>Show the queue that would result from the following list of
+			queue commands:</p>
+				
+<pre>
+Queue q = new Queue( );
+q.enqueue( 'G' );
+q.enqueue( 'R' );
+q.enqueue( 'H' );
+q.enqueue( 'O' );
+q.dequeue( );
+q.enqueue( 'M' );
+q.enqueue( 'E' );
+q.dequeue( );
+q.enqueue( 'R' );
+				</pre>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write code that fills a
+					<code>Queue</code>
+					with the numbers from 1 to 20 in that order.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Implement a <code>Stack</code> class, using the built-in
+					<code>LinkedList</code> class. Your stack class should
+					contain a constructor and methods named
+					<code>push</code>, <code>pop</code>, and
+					<code>top</code> that work in the obvious way.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a method that takes a <code>LinkedList</code>
+					of numbers and returns the sum of the numbers in the list.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a method that takes a <code>LinkedList</code>
+					of numbers and returns the smallest of the numbers.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a method that takes one integer parameter
+					<code>n</code> and creates a <code>LinkedList</code>
+					containing the numbers from 1 to <code>n</code>
+					in order.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a method that sorts a <code>LinkedList</code> of numbers.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a method that takes one <code>LinkedList</code>
+					as a parameter. The method should remove all the even
+					numbers from the <code>LinkedList</code>
+					that is passed as a parameter, and return another
+					<code>LinkedList</code>
+					containing all those even numbers in their original order.
+					For example, if we passed the method a <code>LinkedList</code>
+					containing the numbers
+					<code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>,
+					the original list should be changed to be
+					<code>[1, 3, 5, 7, 9]</code> and the method should return a
+					<code>LinkedList</code> containing
+					<code>[2, 4, 6, 8, 10]</code>.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Write a method that takes two <code>LinkedList</code>s, and returns a
+					<code>LinkedList</code> made by interleaving the two lists. For example,
+					if we pass it the lists <code>[1, 6, 4, 9]</code> and
+					<code>[12, 3, 7, 15]</code>, it should return
+					<code>[1, 12, 6, 3, 4, 7, 9, 15]</code>.
+				</p>
+			
+</li>
+
+			
+<li>
+				
+<p>
+					Complete the implementation of this very simple linked list
+					class by writing code for the <code>addFirst</code>,
+					<code>getFirst</code>, and <code>removeFirst</code>
+					methods:
+				</p>
+				
+<pre>
+public class LinkedList {
+  private class Node {
+    public Object data;
+    public Node next;
+  }
+
+  private Node first;
+
+  public LinkedList( ) {
+    first = null;
+  }
+
+  public void addFirst( Object obj ) {
+  
+  }
+
+  public Object getFirst( ) {
+  }
+
+  public Object removeFirst( ) {
+  }
+}
+				</pre>
+			
+</li>
+		
+</ol>
+	
+
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img height="31" width="88" alt="Valid HTML 4.01!" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class="validator"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img height="31" width="88" alt="Valid CSS!" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class="validator"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2006<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

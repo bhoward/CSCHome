@@ -1,0 +1,44 @@
+Minimal BASIC
+
+Statements:
+DATA {<quoted string> | <unquoted string>}+,
+DEF <function> [( <argument> )] = <expression>
+DIM {<numeric variable> ( <integer> [, <integer>] )}+,
+END
+FOR <numeric variable> = <expression> TO <expression> [STEP <expression>]
+GOSUB <integer>
+GOTO <integer>
+IF <expression> <relation> <expression> THEN <integer>
+INPUT {<variable>}+,
+LET <variable> = <expression>
+NEXT <numeric variable>
+ON <expression> GOTO {<integer>}+,
+OPTION BASE {0 | 1}
+PRINT {<expression> | TAB ( <expression> )}*,;
+RANDOMIZE
+READ {<variable>}+,
+REM <arbitrary text>
+RESTORE
+RETURN
+STOP
+
+Functions:
+ABS(), ATN(), COS(), EXP(), INT(), LOG(), RND, SGN(), SIN(), SQR(), TAN()
++, -, *, /, ^
+
+numeric variables: A, A0, ..., A9, B, ..., Z9
+array names: A, ..., Z
+string names: A$, ..., Z$
+function names: FNA, ..., FNZ
+
+statement numbers: 1, ..., 9999
+
+Top-level commands:
+LIST
+RUN
+NEW
+LOAD "file"
+SAVE "file"
+RENUM
+CONTINUE
+QUIT

@@ -1,0 +1,1012 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Jython, JES, and jMusic Reference</TITLE>
+<META NAME="description" CONTENT="Jython, JES, and jMusic Reference">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Winter Term,Algorithmic Art,jython,JES,jMusic">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ref.css">
+
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<H1 ALIGN="CENTER">Jython, JES, and jMusic Reference</H1>
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+Jython</A>
+</H1> This section describes some useful features of the
+basic Jython language, which is a Java implementation of Python 2.1.  For
+more details, see <A HREF="http://www.python.org/">http://www.python.org/</A> and
+<A HREF="http://www.jython.org/">http://www.jython.org/</A>.
+
+<P>
+
+<H2><A NAME="SECTION00011000000000000000">
+Expressions</A>
+</H2>
+Jython can work with various kinds of numbers, as well as strings of
+text and more complicated data objects.  Kinds of numbers include
+integers (<code>1</code>, <code>2345</code>, <code>-678</code>, ...), floating-point
+(<code>1.2</code>, <code>3.45e-6</code>, <code>7.0</code>, ...), and complex numbers
+(<code>1+2j</code>, <code>3.4-5.6j</code>, <code>7j</code>, ...).  Here is a table of
+some of the operations available on numbers:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><code>x ** y</code></TD>
+<TD ALIGN="LEFT">Exponentiation: <SPAN CLASS="MATH"><I>x</I><SUP>y</SUP></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>- x</code></TD>
+<TD ALIGN="LEFT">Negation</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x * y</code></TD>
+<TD ALIGN="LEFT">Multiplication</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x / y</code></TD>
+<TD ALIGN="LEFT">Division (see note below)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x % y</code></TD>
+<TD ALIGN="LEFT">Remainder</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x + y</code></TD>
+<TD ALIGN="LEFT">Addition</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x - y</code></TD>
+<TD ALIGN="LEFT">Subtraction</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x == y</code></TD>
+<TD ALIGN="LEFT">Equality test (see note below)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x != y</code></TD>
+<TD ALIGN="LEFT">Inequality test</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x &lt; y</code>, <code>x &lt;= y</code>, ...</TD>
+<TD ALIGN="LEFT">Comparison tests</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x in y</code>, <code>x not in y</code></TD>
+<TD ALIGN="LEFT">Membership tests (see Lists)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>not x</code></TD>
+<TD ALIGN="LEFT">Logical negation</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x and y</code></TD>
+<TD ALIGN="LEFT">Logical conjunction</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>x or y</code></TD>
+<TD ALIGN="LEFT">Logical disjunction</TD>
+</TR>
+</TABLE>
+</DIV>
+Groups of operations higher in the table have higher precedence.  For
+example, in  <code>a + b / c * d - e</code>, the division will be evaluated
+first; the entire expression will be evaluated as if it were
+parenthesized as follows: <code>(a + ((b / c) * d)) - e</code>.
+
+<P>
+One potential source of bugs is the division operator.  If both operands
+are integers (that is, they don't have a fractional part, not even
+<code>.0</code>), then Jython will perform ``integer division''--the result
+will be the integer quotient, throwing away the remainder.  For example,
+<code>13 / 5</code> evaluates to <code>2</code>, while <code>13.0 / 5</code> evaluates to
+<code>2.6</code>.  You can use the percent sign to get the remainder:
+<code>13 % 5</code> is <code>3</code>.  If you have two variables that both contain
+integers and you want to divide them as floating-point numbers, apply the
+<code>float</code> function to one of them: <code>float(x) / y</code>.
+
+<P>
+Jython has no special values for true and false; whenever a test is
+performed, it will treat zero as false and any other number as true.
+The equality and comparison operators produce <code>1</code> for true.  Note
+that equality uses <SPAN  CLASS="textit">two</SPAN> equal signs; writing <code>x = y</code> instead
+of <code>x == y</code> will usually cause an error, although in some cases it
+may be interpreted as an assignment of <code>y</code> to <code>x</code> (see below).
+
+<P>
+In addition to operators, there are many functions available in Jython.
+Here are some of the useful numeric functions:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><code>abs(x)</code></TD>
+<TD ALIGN="LEFT">Absolute value</TD>
+<TD ALIGN="LEFT"><code>acos(x)</code></TD>
+<TD ALIGN="LEFT">Arccosine</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>asin(x)</code></TD>
+<TD ALIGN="LEFT">Arcsine</TD>
+<TD ALIGN="LEFT"><code>atan(x)</code></TD>
+<TD ALIGN="LEFT">Arctangent</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ceil(x)</code></TD>
+<TD ALIGN="LEFT">Ceiling (round up)</TD>
+<TD ALIGN="LEFT"><code>complex(a, b=0)</code></TD>
+<TD ALIGN="LEFT">Return <code>a + b * 1j</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>cos(x)</code></TD>
+<TD ALIGN="LEFT">Cosine</TD>
+<TD ALIGN="LEFT"><code>divmod(a, b)</code></TD>
+<TD ALIGN="LEFT">Return <code>(a / b, a % b)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>exp(x)</code></TD>
+<TD ALIGN="LEFT">Return <SPAN CLASS="MATH"><I>e</I><SUP>x</SUP></SPAN></TD>
+<TD ALIGN="LEFT"><code>float(x)</code></TD>
+<TD ALIGN="LEFT">Convert to floating-point</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>floor(x)</code></TD>
+<TD ALIGN="LEFT">Floor (round down)</TD>
+<TD ALIGN="LEFT"><code>int(x)</code></TD>
+<TD ALIGN="LEFT">Convert to integer (round toward 0)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>log(x)</code></TD>
+<TD ALIGN="LEFT">Natural logarithm (base e)</TD>
+<TD ALIGN="LEFT"><code>log10(x)</code></TD>
+<TD ALIGN="LEFT">Common logarithm (base 10)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pow(x, y)</code></TD>
+<TD ALIGN="LEFT">Return <SPAN CLASS="MATH"><I>x</I><SUP>y</SUP></SPAN></TD>
+<TD ALIGN="LEFT"><code>round(x)</code></TD>
+<TD ALIGN="LEFT">Round (nearest integer)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>sin(x)</code></TD>
+<TD ALIGN="LEFT">Sine</TD>
+<TD ALIGN="LEFT"><code>sqrt(x)</code></TD>
+<TD ALIGN="LEFT">Square root</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>tan(x)</code></TD>
+<TD ALIGN="LEFT">Tangent</TD>
+<TD ALIGN="LEFT"><code>pi</code></TD>
+<TD ALIGN="LEFT">The constant <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \pi$"></SPAN></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+Strings of text may be written in either single or double quotes:
+<code>'Hello World'</code>, <code>"Isn't this easy?"</code>.  Strings may be
+concatenated with <code>+</code>, and replicated with <code>*</code>.  For example,
+<code>2*'ko' + 'mo'</code> produces <code>'kokomo'</code>.  Jython does not have a
+separate type of value for single characters; the function <code>chr(x)</code>
+produces the one-character string whose ASCII (actually, Unicode) code
+is <code>x</code>, while <code>ord(s)</code> reverses the process by returning the
+numeric code for the first character of <code>s</code>.  Any Jython value may
+be converted to string form with the function <code>str(x)</code>.  Strings
+are a special case of (immutable) sequences, so most of the list
+functions described below also apply to strings; for example,
+<code>len(s)</code> returns the length of <code>s</code>.  There are also many
+special string methods, such as <code>s.capitalize()</code> to create a copy
+of <code>s</code> with the first letter converted to upper-case; consult the
+documentation at <A HREF="http://www.python.org/">http://www.python.org/</A> for details.
+
+<P>
+
+<H2><A NAME="SECTION00012000000000000000">
+Lists</A>
+</H2>
+Jython has many operations that work on sequences of values, known as
+lists.  To construct the list containing the values <code>1</code>,
+<code>2.3</code>, and <code>"Hello"</code>, write the values between square
+brackets: <code>[1, 2.3, "Hello"]</code>.  Note that Jython allows
+<SPAN  CLASS="textit">heterogeneous</SPAN> lists--the elements do not all have to be of the
+same type (Jython is referred to as a ``dynamically typed'' language;
+each value has a type associated with it, but storage locations such as
+variables are not restricted to hold values of any particular type).
+
+<P>
+You may also construct a list one element at a time: start by storing
+the empty list in a variable, then use the <code>append(x)</code> method to
+add values to the end of the list.  For example, the statements
+<PRE>
+a = []
+a.append(1)
+a.append(2.3)
+a.append("Hello")
+</PRE>
+will cause <code>a</code> to contain the list <code>[1, 2.3, "Hello"]</code>.  To
+find out how many elements are in a list, use the <code>len</code> function:
+for example, <code>len(a)</code> is <code>3</code> after the above statements.  If
+you have a list of numbers, say <code>nums</code>, you can find the largest
+and smallest values with <code>max(nums)</code> and <code>min(nums)</code>.
+
+<P>
+Two lists may be concatenated with <code>+</code>, and the list <code>a</code> may be repeated <code>n</code> times by writing <code>n * a</code> (in fact, the similar operations on strings are just a special case of these).  If the list <code>a</code> has <code>n</code> items, then they may be accessed by <SPAN  CLASS="textit">indexing</SPAN> the list: <code>a[0]</code> is the first element, <code>a[1]</code> is the second, ..., <code>a[n-1]</code> is the last.  A sublist may be extracted using a <SPAN  CLASS="textit">slice</SPAN>, which is a range of indices specified by the start and (one past) the end, separated by a colon: <code>a[3:6]</code> is the sublist containing <code>a[3]</code>, <code>a[4]</code>, and <code>a[5]</code>, while <code>a[0:len(a)]</code> is (a copy of) the entire list <code>a</code>.  Instead of taking every element in the given range, a slice may optionally give a <SPAN  CLASS="textit">step</SPAN> value after a second colon: for example, <code>a[0:6:2]</code> contains only <code>a[0]</code>, <code>a[2]</code>, and <code>a[4]</code>.  These operations also work for strings, so <code>"Hello world"[2:8:2]</code> is the string <code>"low"</code>.  One operation that does <SPAN  CLASS="textit">not</SPAN> work for strings (since they are immutable) is assigning a new value to an item (or a simple slice--no step allowed) in a list: the statement <code>a[2] = 17</code> replaces the current third item in <code>a</code> with 17, while <code>a[1:3] = ["this", "is", "a", "test"]</code> replaces the current two-element sublist starting at index 1 with a four-element sublist.
+
+<P>
+The <code>in</code> operator may be used to test whether a value is present in a list: <code>3 in [1, 2, 3, 4]</code> is true (1), while <code>3 in []</code> is false (0).  To find out <SPAN  CLASS="textit">where</SPAN> the item occurs in the list, use the <code>index</code> method: if <code>a</code> is <code>[3, 1, 4, 1, 5]</code>, then <code>a.index(4)</code> is <code>2</code>, while <code>a.index(1)</code> is <code>1</code> (it returns the first index where the item is found).  Other useful methods include <code>a.sort()</code>, which rearranges the elements into sorted order, and <code>a.reverse()</code>, which reverses the list.
+
+<P>
+The built-in function <code>range</code> will produce a list of integers, ideal for use in the <code>for</code> statement (see below).  The call <code>range(n)</code> will produce the list <code>[0, 1, ..., n-1]</code> (as usual, the last number in the range is not included).  The call <code>range(m, n)</code> will produce <code>[m, m+1, ..., n-1]</code>, and the call <code>range(m, n, s)</code> will use <code>s</code> as the step value: <code>[m, m+s, ..., m+k*s]</code> (where <code>k</code> is the largest integer such that <code>m+k*s</code> is less than <code>n</code>).
+
+<P>
+There are many more powerful operations on lists; if you are interested, I particularly encourage you to explore <code>map</code>, <code>reduce</code>, and ``list comprehensions'' in the documentation at <A HREF="http://www.python.org/">http://www.python.org/</A>.
+
+<P>
+
+<H2><A NAME="SECTION00013000000000000000">
+Random numbers</A>
+</H2>
+Jython comes with a large standard library covering many common programming tasks.  The library is divided up into modules, so that a given program only needs to load the modules that it wants to use--this makes the program more efficient, and avoids unexpected collisions in naming things (that is, you are less likely to find that a name you want to use has already been taken by something in the library).  One module that we will find useful is the <code>random</code> module.  To access it, include the line ``<code>from random import *</code>'' at the top of your script (or type it at the interactive prompt).  After doing so, the following functions will be available:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>choice(a)</code></TD>
+<TD ALIGN="LEFT">Return a randomly chosen element of the list <code>a</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>random()</code></TD>
+<TD ALIGN="LEFT">Return a random floating-point number between 0 and 1</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>randrange(m, n, s)</code></TD>
+<TD ALIGN="LEFT">Same as <code>choice(range(m, n, s))</code>, but faster</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>randrange(m, n)</code></TD>
+<TD ALIGN="LEFT">Same as <code>randrange(m, n, 1)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>randrange(n)</code></TD>
+<TD ALIGN="LEFT">Same as <code>randrange(0, n)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>shuffle(a)</code></TD>
+<TD ALIGN="LEFT">Randomly shuffle the elements of the list <code>a</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>uniform(a, b)</code></TD>
+<TD ALIGN="LEFT">Return a random floating-point number between <code>a</code> and <code>b</code></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00014000000000000000">
+Statements</A>
+</H2>
+Simple statements include assignment (<code>var = expression</code>; as noted above, the <code>var</code> could also be a list item or slice) and the <code>print</code> statement (although any expression typed by itself at the interactive prompt will automatically be printed; from a JES script, the output of <code>print e</code> does not go to the interactive console, so you should use <code>printNow(e)</code> instead).  Any expression may also serve as a statement--this is most useful for function calls that have some side-effect, such as <code>show(pic)</code> to show a picture.
+
+<P>
+To conditionally execute a block of statements based on the result of a test, use the <code>if</code> statement:
+<PRE>
+if &lt;test expression&gt;:
+  &lt;block of statements to execute&gt;
+  &lt;if the test comes out true&gt;
+</PRE>
+Note that the block of statements guarded by the <code>if</code> must be indented.  If the test comes out false, the next statement to be executed will be the first following statement that starts in the same column as the <code>if</code>.  A sequence of tests may be performed as follows:
+<PRE>
+if &lt;test one&gt;:
+  &lt;block one&gt;
+elif &lt;test two&gt;:
+  &lt;block two&gt;
+elif &lt;test three&gt;:
+  &lt;block three&gt;
+...
+</PRE>
+The first test that comes out true will have its corresponding block executed; none of the remaining tests will be tried.  After zero or more <code>elif</code> statements, you can catch the situation where none of the tests were true with an <code>else</code> statement:
+<PRE>
+if &lt;test one&gt;:
+  &lt;block one&gt;
+...
+else:
+  &lt;block of statements to execute&gt;
+  &lt;if all the tests failed&gt;
+</PRE>
+For example, here is a sequence of statements that generate a random number from 0 to 2 and set the variable <code>c</code> to the color <code>red</code>, <code>green</code>, or <code>blue</code> accordingly:
+<PRE>
+randNum = randrange(3)
+if randNum == 0:
+  c = red
+elif randNum == 1:
+  c = green
+else:
+  c = blue
+</PRE>
+Note that it would not work to write <code>if randrange(3) == 0</code>, followed by <code>elif randrange(3) == 1</code>, since the two calls to <code>randrange(3)</code> will produce independent random values.  Also note that a much better version of this operation is simply to write
+<PRE>
+c = choice([red, green, blue])
+</PRE>
+
+<P>
+To repeatedly execute a block while a test is true, use the <code>while</code> statement:
+<PRE>
+while &lt;test expression&gt;:
+  &lt;block&gt;
+</PRE>
+The most common situations for repetition are looping through the elements of a list and counting a fixed number of iterations of a block.  The <code>for</code> statement is a variant of <code>while</code> which is tuned for these special cases:
+<PRE>
+for x in a:
+  &lt;block to execute once for each element of a&gt;
+  &lt;x will take on successive values from the list&gt;
+</PRE>
+To execute a block of statements <code>n</code> times, use the <code>range</code> function:
+<PRE>
+for i in range(n):
+  &lt;block to execute n times&gt;
+  &lt;i will take on values 0, 1, ..., n-1&gt;
+</PRE>
+
+<P>
+The last compound statement we will need is the function definition:
+<PRE>
+def &lt;function name&gt;(&lt;arguments&gt;):
+  &lt;block of statements to execute when function is called&gt;
+</PRE>
+For example, the following function will add up the numbers in a list:
+<PRE>
+def sum(a):
+  total = 0
+  for x in a:
+    total = total + x
+  return total
+</PRE>
+If a function is to be called purely for its side-effects, it does not need a <code>return</code> statement; otherwise, the statement <code>return &lt;expression&gt;</code> causes the function call to produce the value of <code>&lt;expression&gt;</code> for the caller.  After the above definition, if we execute <code>print sum([1, 2, 3])</code>, then the result <code>6</code> will be printed.
+
+<P>
+When a function is called, the values (if any) in the parentheses after the name of the function will be matched up with the arguments listed in the <code>def</code> statement, so that those variables will start the function block containing those values.  It is possible to provide default values for some of the arguments; for example, here is one possible implementation of the two- and three-argument versions of the <code>range</code> function (also handling the one-argument version is more work):
+<PRE>
+def range(m, n, s=1):
+  a = []
+  while m &lt; n:
+    a.append(m)
+    m = m + s
+  return a
+</PRE>
+When it is called as <code>range(m, n)</code>, the third argument defaults to <code>1</code>.
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+JES</A>
+</H1>
+The Jython Environment for Students (JES), developed at Georgia Tech, extends the base Jython language with a number of types and functions for working with pictures and sounds.  Additional functionality has been added here at DePauw to handle ``Turtle Graphics'' and musical scores (see the next section on jMusic).
+
+<P>
+First, here are some general utility functions provided by JES:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>setMediaFolder()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Prompt the user to choose a folder that will be used as the default location for files</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pickAFile()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Prompt the user to choose a file; returns the full filename as a string</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>printNow(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Print the string <code>s</code> in the interactive console (works from a script)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pause(sec)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Pause script execution for <code>sec</code> seconds (defaults to 0.1)</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00021000000000000000">
+Pictures</A>
+</H2>
+A picture is a rectangular collection of pixels (dots), each of which has an associated color.  Here are the related functions:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>makePicture(file)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a picture loaded from a GIF, JPEG, or PNG file</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>makeEmptyPicture(w, h)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a blank picture (all pixels black) with the given width and height</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>writePictureTo(pic, file)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Save <code>pic</code> in JPEG format to the given file name</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>openPictureTool(pic)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Open the picture exploration window for <code>pic</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>show(pic)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Display the picture <code>pic</code> on the screen</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>repaint(pic)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Refresh the picture <code>pic</code> on the screen after pixels have changed</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getPixels(pic)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a list of all the pixels (all the rows concatenated together)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getPixel(pic, x, y)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the pixel from row <code>x</code>, column <code>y</code> (upper-left is at 1, 1)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getWidth(pic)</code>, <code>getHeight(pic)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the number of columns or rows in <code>pic</code></TD>
+</TR>
+</TABLE>
+</DIV>
+Picture objects also have a number of associated methods (a <SPAN  CLASS="textit">method</SPAN> is basically an alternate way to write a function so that it is clear that it applies to a particular object; the object is written in front of the method name instead of as an argument: <code>x.f(y)</code> instead of <code>f(x, y)</code>--the advantage is that different kinds of objects can respond to the same method name by running different code, since the method definition is looked up relative to the object):
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>pic.clear(c)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Clear all the pixels to the color <code>c</code> (defaults to black)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.copy()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Return a new picture which is a copy of <code>pic</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.setTitle(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Set the title for <code>pic</code>'s window to the string <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addLine(c, x1, y1, x2, y2)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Draw a line with color <code>c</code> from <code>(x1,y1)</code> to <code>(x2,y2)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addRect(c, x, y, w, h)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Draw a rectangle with color <code>c</code>, corner at <code>(x,y)</code>, and size <code>w</code> by <code>h</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addRectFilled(c, x, y, w, h)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Same, but fill with color <code>c</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addOval(c, x, y, w, h)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Draw an oval inside the given rectangle</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addOvalFilled(c, x, y, w, h)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Fill the oval</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addArc(c, x, y, w, h, s, a)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Draw part of an oval, starting at angle <code>s</code> (in degrees; <SPAN CLASS="MATH">0<SUP><TT>o</TT></SUP></SPAN> is the <SPAN CLASS="MATH"><I>x</I></SPAN>-axis, increasing counter-clockwise) and spanning angle <code>a</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addArcFilled(c,x,y,w,h,s,a)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Fill in the wedge defined by the arc</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pic.addText(c, x, y, s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=274>Write the string <code>s</code> with color <code>c</code> and lower-left corner at <code>(x,y)</code></TD>
+</TR>
+</TABLE>
+</DIV>
+There is also a method <code>pic.addTextWithStyle(c, x, y, s, style)</code> which has an extra argument describing the font.  You can create a style object with the function <code>makeStyle(font, emphasis, size)</code>, where <code>font</code> can be <code>sansSerif</code>, <code>serif</code>, or <code>mono</code>, <code>emphasis</code> can be <code>plain</code>, <code>bold</code>, <code>italic</code>, or <code>bold+italic</code>, and <code>size</code> is the point size (roughly the height of the characters).  The default is <code>makeStyle(sansSerif, plain, 15)</code>.
+
+<P>
+If you have a list of pictures, say <code>frames</code>, you can create a QuickTime movie file with the function <code>makeMovieFromPictures(frames, file)</code>.  The file name (<code>file</code>) should end in <code>.mov</code>.  There is an optional third argument to specify the number of frames per second; it defaults to 30.  If you have QuickTime for Java installed, you can view the movie with <code>openMovie(file)</code>.
+
+<P>
+
+<H3><A NAME="SECTION00021100000000000000">
+Pixels</A>
+</H3>
+A pixel object contains a color, and also remembers where it came from (which picture, and what coordinates).  It recognizes the following functions (each can also be called as a method: <code>p.setRed(r)</code> instead of <code>setRed(p, r)</code>, for example):
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>setRed(p, r)</code>, <code>setGreen(p, g)</code>, <code>setBlue(p, b)</code></TD>
+<TD ALIGN="LEFT">Change the given color component of <code>p</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getRed(p)</code>, <code>getGreen(p)</code>, <code>getBlue(p)</code></TD>
+<TD ALIGN="LEFT">Return the given color component of <code>p</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>setColor(p, c)</code>, <code>getColor(p)</code></TD>
+<TD ALIGN="LEFT">Change or return the color of <code>p</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getX(p)</code>, <code>getY(p)</code></TD>
+<TD ALIGN="LEFT">Return the coordinates of <code>p</code></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H3><A NAME="SECTION00021200000000000000">
+Colors</A>
+</H3>
+A color object represents a combination of red, green, and blue components, plus an alpha component determining transparency.  Each of these four components takes on values from 0 to 255; higher values correspond to brighter colors and greater opacity.  Here are the relevant functions:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>pickAColor()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Prompt the user to choose a color; returns the color chosen</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Color(r, g, b, alpha)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Create a new color object with the given components (<code>alpha</code> defaults to 255 if not given)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.r</code>, <code>c.g</code>, <code>c.b</code>, <code>c.alpha</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the value of a color component</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>distance(c1, c2)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Compute the (Euclidean) distance between colors <code>c1</code> and <code>c2</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>increaseBrightness(c, f)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a new color whose brightness level is scaled up by <code>f</code>, from no change if <code>f</code> is 0.0, up to full brightness (white) if <code>f</code> is 1.0; <code>f</code> defaults to 0.5</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>decreaseBrightness(c, f)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a new color whose brightness level is scaled down by <code>f</code>, from no change if <code>f</code> is 0.0, down to no brightness (black) if <code>f</code> is 1.0; <code>f</code> defaults to 0.5</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>increaseSaturation(c, f)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Similar, for saturation level (the difference between the maximum and minimum color components)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>decreaseSaturation(c, f)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Ditto</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>increaseRed(c, f)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Similar, for the red component</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>decreaseRed(c, f)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Guess</TD>
+</TR>
+<TR><TD ALIGN="LEFT">...</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Similar functions for Green, Blue, Yellow, Cyan, and Magenta</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>rotateHue(c, a)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a new color whose hue is shifted by angle <code>a</code>, in degrees (<!-- MATH
+ $120^{\circ}$
+ -->
+<SPAN CLASS="MATH">120<SUP><TT>o</TT></SUP></SPAN> from red is green, <!-- MATH
+ $240^{\circ}$
+ -->
+<SPAN CLASS="MATH">240<SUP><TT>o</TT></SUP></SPAN> is blue, etc.); <code>a</code> defaults to <!-- MATH
+ $60^{\circ}$
+ -->
+<SPAN CLASS="MATH">60<SUP><TT>o</TT></SUP></SPAN></TD>
+</TR>
+</TABLE>
+</DIV>
+A number of colors are predefined: <code>black</code>, <code>white</code>, <code>gray</code>, <code>darkGray</code>, <code>lightGray</code>, <code>red</code>, <code>green</code>, <code>blue</code>, <code>yellow</code>, <code>cyan</code>, <code>magenta</code>, <code>orange</code>, and <code>pink</code>.
+
+<P>
+
+<H3><A NAME="SECTION00021300000000000000">
+Turtles</A>
+</H3>
+A ``turtle'' encapsulates a current position, rotation, scaling, and shearing (in short, a <SPAN  CLASS="textit">transformation</SPAN>) within a picture, plus a pen color, allowing an easy way to draw on the picture without having to calculate absolute coordinates.  To create a turtle <code>t</code> on the picture <code>pic</code>, execute the statement ``<code>t = Turtle(pic)</code>''.  A picture may have several turtles active at any given time, each with their own transformation and color; for debugging purposes, the turtles may be set to show themselves, but for efficiency they should remain hidden most of the time.  If the turtle is hidden, you will need to explicitly <code>show(pic)</code> or <code>repaint(pic)</code> to see its effect.
+
+<P>
+Here are the methods recognized by turtles:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>t.reset()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Reset the turtle to the center of the picture, scaled so that the right edge is one unit forward and the top edge is one unit to the side</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.copy()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a new turtle with the same transformation and color as <code>t</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.color</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the pen color; change the color of <code>t</code> by assigning to this (for example, <code>t.color = red</code>)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.width</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the pen width; change it by assigning to this</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.show()</code>, <code>t.hide()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Make the turtle visible or invisible</TD>
+</TR>
+</TABLE>
+</DIV>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>t.move(x, y)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Move (without drawing) forward <code>x</code> units and sideways <code>y</code> units (<code>y</code> defaults to 0 if not present)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.moveForward(x)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.move(x)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.moveSide(y)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.move(0, y)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.draw(x, y)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Draw a line from the current position to the point <code>(x, y)</code> (<code>y</code> defaults to 0 if not present)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.drawForward(x)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.draw(x)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.drawSide(y)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.draw(0, y)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.turn(a)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Rotate counter-clockwise by angle <code>a</code> (in degrees)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.scale(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Scale the size of the turtle by factor <code>s</code>; <code>t.scale(0.5)</code> makes the turtle half as large, so <code>t.draw(1)</code> will only go half as far as before</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.scaleBoth(sx, sy)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Scale the turtle by <code>sx</code> in the forward (x) direction, and <code>sy</code> in the side (y) direction</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.scaleForward(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.scaleBoth(s, 1.0)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.scaleSide(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.scaleBoth(1.0, s)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.shear(x, y)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Shear the y-coordinate forward by <code>x</code>, and the x-coordinate to the side by <code>y</code>; <code>y</code> defaults to 0</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.shearForward(x)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.shear(x)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.shearSide(y)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.shear(0, y)</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.drawCircle(r)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Draw a circle centered on the current position with radius <code>r</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.drawEllipse(rx, ry)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Draw an ellipse centered on the current position with forward radius <code>rx</code> and side radius <code>ry</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.drawSquare(w)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Draw a square with lower-left corner at the current position and side length <code>w</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.drawRectangle(w, h)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Draw a rectangle with lower-left corner at the current position and size <code>w</code> by <code>h</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.fillCircle(r)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.drawCircle(r)</code>, but filled</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.fillEllipse(rx, ry)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.drawEllipse(rx, ry)</code>, but filled</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.fillSquare(w)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.drawSquare(w)</code>, but filled</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.fillRectangle(w, h)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same as <code>t.drawRectangle(w, h)</code>, but filled</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>t.stamp(pic)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Copy the picture <code>pic</code> at the current turtle position, transformed to fit from <code>(-1, -1)</code> to <code>(1, 1)</code> in turtle coordinates</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00022000000000000000">
+Sound</A>
+</H2>
+A sound is treated as a collection of sample values, much as a picture is a collection of pixels.  Here are the functions on sounds:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>makeSound(file)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a sound loaded from a WAV, AU, or AIFF file</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>makeEmptySound(sec)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a blank sound (all samples 0) of length <code>sec</code> seconds</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>writeSoundTo(s, file)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Save <code>s</code> in the given file; uses the same format as when loaded (<code>makeEmptySound</code> creates a sound in WAV format)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>openSoundTool(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Open the sound exploration window for <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>play(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Play sound <code>s</code> in the background</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>playAtRate(s, r)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Play <code>s</code> at speed <code>r</code>--1.0 is normal, 2.0 is twice as fast, etc.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>playInRange(s, b, e)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Play <code>s</code> from sample number <code>b</code> to <code>e</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>playAtRateInRange(s, r, b, e)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Play <code>s</code> from <code>b</code> to <code>e</code> at speed <code>r</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>blockingPlay(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Play <code>s</code> and wait for it to finish (also, <code>blockingPlayInRange</code> and <code>blockingPlayAtRateInRange</code>)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getSamples(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the collection of samples in <code>s</code> (not quite a list, but indexable and usable in a <code>for</code> loop)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getLength(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the number of samples in <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>getSamplingRate(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the number of samples per second in <code>s</code></TD>
+</TR>
+</TABLE>
+</DIV>
+There are also some useful methods on sound and sample objects:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>s.getSampleValue(i)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the (left channel, if stereo) value of the <!-- MATH
+ $i^{\textit{th}}$
+ -->
+<SPAN CLASS="MATH"><I>i</I><SUP><I>th</I></SUP></SPAN> sample in <code>s</code> (the first sample is at index 1)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.getLeftSampleValue(i)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the left channel value at index <code>i</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.getRightSampleValue(i)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the right channel value at index <code>i</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.setSampleValue(i, v)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Set the (left) value of sample <code>i</code> to <code>v</code>; the range of sample values is -32,768 to +32,767</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.setLeftSampleValue(i, v)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Same</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.setRightSampleValue(i, v)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Guess what?</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.getSampleObjectAt(i)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Extracts the sample object at index <code>i</code>, without creating a whole collection of samples</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>samp.value</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the value of sample <code>samp</code>; change the value by assigning to this</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>samp.left</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the left channel value of <code>samp</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>samp.right</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the right channel value of <code>samp</code></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+Finally, JES provides a simple function to play a MIDI note: <code>playNote(n, dur, vol)</code> plays note number <code>n</code> (middle C is 60, C-sharp is 61, etc.; the range is 0-127) for <code>dur</code> milliseconds at volume <code>vol</code> (maximum is 127).  The function pauses execution until the note is finished.  For much more complete support of MIDI music, see the next section.
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+jMusic</A>
+</H1>
+jMusic is being developed at the Queensland University of Technology (<A HREF="http://jmusic.ci.qut.edu.au/">http://jmusic.ci.qut.edu.au/</A>).  It is a powerful collection of tools for working with music at a variety of levels, from low-level instrument synthesis to advanced algorithmic composition and analysis techniques.  Since it is written in Java, it is fairly easy to use from Jython.  We will only explore a small part of jMusic, enough to create simple compositions using MIDI and AU files.
+
+<P>
+The primary model for constructing music with jMusic is known as ``off-line'' composition--the program generates an entire piece and saves it as a file, which can then be played.  In general, this is much more flexible than ``real-time'' composition, where the computer only has the time until the next note has to play to figure out what to do.  An entire piece is represented by a <SPAN  CLASS="textit">score</SPAN> object.  A score contains one or more <SPAN  CLASS="textit">parts</SPAN>, each associated with an instrument.  A part is composed of <SPAN  CLASS="textit">phrase</SPAN> objects, each of which contains some number of <SPAN  CLASS="textit">note</SPAN> objects.  Notes in a phrase may be combined horizontally, as successive notes in a melody, or vertically, as notes in a chord.  Each note is specified by a number (the MIDI note number, as described above) or a frequency to determine the pitch, plus a dynamic level, duration, and stereo panning position.
+
+<P>
+Here is a sampling of the functions and methods available for notes:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>Note(p, rv)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Create a note object with pitch number <code>p</code> (0 to 127; middle C is 60) and rhythmic value <code>rv</code> (1.0 is one beat)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Note(f, rv)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Create a note object with frequency <code>f</code> (440.0 is A above middle C) and rhythmic value <code>rv</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.copy()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a copy of note <code>n</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.duration</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the duration of note <code>n</code> (by default, 90% of the rhythmic value)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.dynamic</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the dynamic level of note <code>n</code>, from 0 to 127</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.frequency</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the frequency of note <code>n</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.offset</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the offset (how much after the beat the note really starts) of note <code>n</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.pan</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the stereo pan of <code>n</code>, from 0.0 (left) to 1.0 (right)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.pitch</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the pitch of note <code>n</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.rhythmValue</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the rhythm value of note <code>n</code>, in beats</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>n.isScale(scale)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return true if <code>n</code> is a note in the given scale (see below)</TD>
+</TR>
+</TABLE>
+</DIV>
+A scale is specified by a list of pitches in the range 0 to 11 (C to B).  A number of common scales are predefined: <code>JM.MAJOR_SCALE</code>, <code>JM.MINOR_SCALE</code>, <code>JM.PENTATONIC_SCALE</code>, etc.  Check the documentation for the complete list.  There are also a large number of constants defined for pitches (<code>JM.REST</code>, <code>JM.C4</code>, <!-- MATH
+ $\verb|JM.CS4|=\verb|JM.DF4|$
+ -->
+<SPAN CLASS="MATH"><code>JM.CS4</code> = <code>JM.DF4</code></SPAN>, ...), rhythmic values (<!-- MATH
+ $\verb|JM.WHOLE_NOTE|=\verb|JM.WN|$
+ -->
+<SPAN CLASS="MATH"><code>JM.WHOLE_NOTE</code> = <code>JM.WN</code></SPAN>, <!-- MATH
+ $\verb|JM.DOTTED_HALF_NOTE|=\verb|JM.DHN|$
+ -->
+<SPAN CLASS="MATH"><code>JM.DOTTED_HALF_NOTE</code> = <code>JM.DHN</code></SPAN>, <!-- MATH
+ $\verb|JM.QUARTER_NOTE_TRIPLET|=\verb|JM.QNT|$
+ -->
+<SPAN CLASS="MATH"><code>JM.QUARTER_NOTE_TRIPLET</code> = <code>JM.QNT</code></SPAN>, ...), and dynamic levels (<code>JM.PPP</code> to <code>JM.FFF</code>), among other things.
+
+<P>
+Here are some of the functions and methods for phrases and chords:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>Phrase()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Create an empty phrase</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.copy()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a copy of phrase <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.addNote(n)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add a note object <code>n</code> to the phrase <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.addNote(p, rv)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add a note with the given pitch and rhythmic value to <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.addNoteList(notes)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add a list of note objects to <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.addNoteList(ps, rvs)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add a list of pitches (<code>ps</code>) and corresponding rhythmic values (<code>rvs</code>) to <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.addChord(ps, rv)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add a chord with list of pitches (<code>ps</code>) and common rhythmic value (<code>rv</code>) to <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.startTime</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the starting time (in beats) of <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.endTime</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the ending time of <code>ph</code> (read-only)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.pan</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the stereo pan of <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.size()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the number of notes in <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ph.getNote(i)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the note at index <code>i</code> (starting at 0)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>CPhrase()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Create an empty chord</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.copy()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a copy of chord <code>c</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.addChord(ps, rv)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add a list of pitches (<code>ps</code>) and rhythmic value (<code>rv</code>) to <code>c</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.addChord(notes)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add a list of notes to <code>c</code> (rhythmic value is that of <code>notes[0]</code>)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.flam(offset)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Create a strumming effect by offsetting successive notes in <code>c</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.startTime</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the starting time of <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.endTime</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the ending time of <code>c</code> (read-only)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>c.pan</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the stereo pan of <code>c</code></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+Here are some of the functions and methods for parts:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>Part()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Create an empty part</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.copy()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return a copy of part <code>pt</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.addPhrase(ph)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Add phrase <code>ph</code> to the part; default is to add it in parallel to any other phrases in the part</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.appendPhrase(ph)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Append phrase <code>ph</code> to the end of the part</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.addCPhrase(c)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Append chord <code>c</code> to the end of the part</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.endTime</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the ending time of <code>pt</code> (read-only)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.instrument</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the instrument associated with <code>pt</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.pan</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return or change the stereo pan of <code>pt</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.size()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return the number of phrases in <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pt.getPhrase(i)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=288>Return phrase number <code>i</code> in <code>pt</code> (starting at 0)</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+And here are some of the functions and methods for entire scores:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>Score()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Create an empty score</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.addPart(pt)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Add part <code>pt</code> to score <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.endTime</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return the ending time of <code>s</code> (read-only)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.tempo</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return or change the tempo of <code>s</code>, in beats per minute (default is 60.0)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.size()</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return the number of parts in <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.getPart(i)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return part number <code>i</code> in <code>s</code> (starting at 0)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.title</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return or change the title of the piece</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.keySignature</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return or change the number of sharps (<SPAN CLASS="MATH">&gt; 0</SPAN>) or flats (<SPAN CLASS="MATH">&lt; 0</SPAN>)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.numerator</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return or change the numerator of the time signature</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>s.denominator</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=302>Return or change the denominator of the time signature</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+Finally, here are some of the functions to manipulate scores:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>playScore(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Play <code>s</code> using the computer's MIDI synthesizer</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>JMUtil.Read.midi(s, file)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Read the named MIDI file into score <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>JMUtil.Write.midi(s, file)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Write <code>s</code> to the named MIDI file</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>JMUtil.Write.au(s, file, insts)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Write <code>s</code> to the named AU file, using the given list of instruments (read the documentation, or ask me, about how to specify instruments)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>JMUtil.View.show(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Display a window with a bar representation of <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>JMUtil.View.notate(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Display a window with a note representation of <code>s</code> (this is in development; it will only display the first phrase of each part currently)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>JMUtil.View.histogram(s)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Display a window showing a histogram of pitches in <code>s</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.accents(s, beats)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Accent the first beat of each measure in <code>s</code>; <code>beats</code> gives the number of beats per measure</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.changeLength(ph, length)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Scale the rhythmic values in <code>ph</code> so the total number of beats is <code>length</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.crescendo(ph, t1, t2, d1, d2)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Increase the dynamic levels in <code>ph</code> from <code>d1</code> at time <code>t1</code> to <code>d2</code> at time <code>t2</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.cycle(ph, length)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Repeat the phrase <code>ph</code> to fill <code>length</code> beats</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.inversion(ph)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Invert each note in <code>ph</code> around the pitch of the first note</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.quantize(s, q)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Adjust each note in <code>s</code> to start and end on a multiple of <code>q</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.repeat(ph, n)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Repeat the phrase <code>ph</code> <code>n</code> times</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.retrograde(ph)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Reverse the order of the notes in <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.shuffle(ph)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Randomly rearrange the notes in <code>ph</code></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.transpose(ph, steps)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Shift each note in <code>ph</code> up by <code>steps</code> semitones</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>Mod.transpose(ph, steps, scale, key)</code></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>Shift each note in <code>ph</code> up by <code>steps</code> degrees of the given <code>scale</code>, with <code>key</code> as tonic</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

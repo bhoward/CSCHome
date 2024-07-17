@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 1</TITLE>
+<META NAME="description" CONTENT="Programming Project 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 1</H1>
+
+<P>
+This project will be due by 5 pm, Friday, September 12.  To submit your
+project, save it in the <code>pp1</code> directory located in your directory under
+<code>/home/libs/dataStr/students/</code> on one of the department's Linux
+machines (this is a shared directory, so you should be able to reach it
+from any of the machines, including Jupiter).
+
+<P>
+You may work on this project by yourself or in a group of two or three.
+If you work in a group, be sure to include everyone's name in the
+comments at the top of <SPAN  CLASS="textit">each</SPAN> file.  Also, be sure you understand
+the guidelines for group work listed in the syllabus--the fundamental
+idea is that everyone in the group should understand what everyone else
+has done, and be able to recreate it on their own.
+
+<P>
+The project is based on Programming Exercise 3-45 in the text (p. 180).
+However, instead of looking for a fixed list of keywords in the input,
+your program should first read a file containing the list of keywords.
+This file will not be in alphabetical order, so the next step will be to
+sort the keywords (just use the default ordering on strings--do not
+worry about upper- <SPAN  CLASS="textit">vs.</SPAN> lower-case issues). Now continue as
+described in the exercise:  prompt the user for a file name, read the
+words in that file, and count the number of occurences of each keyword.
+After reading the entire file, your program should display a table
+giving the number of times each keyword occurred in the file, then quit.
+
+<P>
+For example, if the keyword file contains
+<PRE>
+that is not it
+</PRE>
+and the second file contains
+<PRE>
+To be or not to be that is the question
+That that is is that that is not is not is that it it is
+</PRE>
+then the output should look something like
+<PRE>
+is      7
+it      2
+not     3
+that    5
+</PRE>
+(Note that the word ``That'' at the beginning of the second line is not
+counted, since it is not the same word as ``that''.)
+
+<P>
+For extra credit, sort the output by the frequency of the keywords, so
+that the most common words come first.  In the example above, this would
+swap the lines for ``it'' and ``that''.  Ideally, you should be able to
+use the same sorting function for this as for sorting the keywords (this
+will only work if you make the function generic).
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

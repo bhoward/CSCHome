@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming in Linux (part 2)</TITLE>
+<META NAME="description" CONTENT="Programming in Linux (part 2)">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="linux2.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming in Linux (part 2)</H1>
+
+<P>
+This handout continues with a summary of the commands you will use
+when compiling C++ programs on a Linux system.  For further
+information on each of these, consult the corresponding <code>man</code>
+page (for example, do <code>man g++</code>).  Many of the utilities come
+from the GNU project, which doesn't like to maintain <code>man</code> pages,
+so frequently there will be more information in the <code>info</code> system
+(do <code>info g++</code>, for example).
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+Compiling and Linking</A>
+</H1>
+The C++ compiler is <code>g++</code>.  If you just have a single source
+file, for example <code>myprog.cc</code>, then you may compile and link it
+in one step with the command
+<PRE>
+g++ myprog.cc -o myprog
+</PRE>
+If there are no errors, this will produce an executable file named
+<code>myprog</code> in the current directory.  To run it, type
+<PRE>
+./myprog
+</PRE>
+(the <code>./</code> prefix tells the command shell where to find the
+program, since by default it probably doesn't look in the current
+directory for programs).
+
+<P>
+If your program consists of several source files, you will need to
+compile each of them into an <SPAN  CLASS="textit">object</SPAN> file and then link them
+together into an executable.  For example, suppose that
+<code>myprog2.cc</code> uses a class that is implemented in <code>myclass.cc</code>
+(there should also be an interface in <code>myclass.h</code>, but the
+<code>#include</code> line in <code>myprog.cc</code> handles that; by the way,
+most facilities from the Standard Library will be automatically linked
+with your program, so the <code>#include</code> is all that you need to use
+them).  You will use <code>g++</code>, with the <code>-c</code> (for ``compile'')
+option, once on each source file to produce the object files, which
+have a <code>.o</code> extension:
+<PRE>
+g++ -c myprog2.cc
+g++ -c myclass.cc
+</PRE>
+Then the object files need to be linked together with the command
+<PRE>
+g++ myprog2.o myclass.o -o myprog2
+</PRE>
+This process is considerably simplified by writing a make file (see
+below).
+
+<P>
+There are many options you may supply to <code>g++</code>; see the
+documentation for a list (with full descriptions in the <code>info</code>
+viewer).  Some of the most common are <code>-Wall</code>, which tells the
+compiler to print all of the warnings of possibly incorrect code that
+it finds, <code>-g</code>, which causes the compiler to insert debugging
+information in the compiled code (for use with <code>gdb</code>), and
+<code>-O</code>, which turns on some of the code optimizations (unlike some
+compilers, <code>g++</code> allows <code>-O</code> to be used with <code>-g</code>,
+although optimized code might do some unexpected things while
+debugging).  For example, the file <code>myprog.cc</code> could be compiled
+with warnings and debugging information by executing
+<PRE>
+g++ -Wall -g myprog.cc -o myprog
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+Project Management</A>
+</H1>
+As noted above, compiling all of the files that comprise a large
+project can involve lots of repetitive typing of commands.  In
+addition, after editing some of the source files, you should only
+recompile those that have changed.  This is not as trivial as it may
+seem, since editing a header file will require recompiling all of the
+implementation files that include it, directly or indirectly.  The
+solution to all of these problems is to create a <SPAN  CLASS="textit">make file</SPAN>,
+which is a compact description of all of the pieces of a multi-file
+project.  The <code>make</code> command takes this file and executes all of
+the required steps to bring the project up to date.
+
+<P>
+Here is a simple make file, which should be stored in the project
+directory under the name <code>Makefile</code>:
+<PRE>
+# Make file for myprog2
+myprog2 : myprog2.o myclass.o
+        g++ myprog2.o myclass.o -o myprog2
+
+myprog2.o : myprog2.cc myclass.h
+        g++ -c myprog2.cc
+
+myclass.o : myclass.cc myclass.h
+        g++ -c myclass.cc
+</PRE>
+
+<P>
+The first line is a comment; <code>make</code> ignores any line that starts
+with <code>#</code>.  The next two lines describe how to make the full
+program (<code>make</code> will use the first such entry in the make file as
+the default <SPAN  CLASS="textit">target</SPAN> to be made, so it is a good idea to put the
+entry to link your program first).  The line with the colon describes
+the conditions under which the rule will be applied.  It says that the
+file <code>myprog2</code> depends on the files <code>myprog2.o</code> and
+<code>myclass.o</code>; if <code>myprog2</code> doesn't exist, or is older than
+either of the <code>.o</code> files, then the body of the rule will be used
+to produce an up-to-date version of <code>myprog2</code>.  The body of the
+rule, the line with <code>g++</code>, gives the command to execute.
+<SPAN  CLASS="textit">It is important to note that this line starts with a TAB
+character; it will not work if the line starts with spaces.</SPAN>
+
+<P>
+The following entries describe how to produce the <code>.o</code> files, if
+they don't exist or are out-of-date.  As before, the line with the
+colon describes the dependencies of each file:  <code>myprog2.o</code>
+depends on both <code>myprog2.cc</code> and <code>myclass.h</code>, so it will
+need to be recompiled if either of those files has been changed.  In
+general, the list of dependencies for an object file will be the
+corresponding source file plus all of the (non-standard) header files
+that it includes.  There is a tool called <code>makedepend</code> which will
+automate the process of generating these dependency lists; see
+<code>man makedepend</code>.
+
+<P>
+Instead of creating a make file such as the above from scratch for
+each project, it is a good idea to start with a make file template and
+customize it.  Here is a simple example:
+<PRE>
+# Makefile template
+#
+# Change the variables SRCS and PROG to match your project
+# Then execute "make depend" followed by "make"
+
+SRCS = myprog2.cc myclass.cc
+PROG = myprog2
+
+OBJS = $(SRCS:.cc=.o)
+
+CXX = g++
+CXXFLAGS = -Wall -g
+
+$(PROG) : $(OBJS)
+        $(CXX) $(CXXFLAGS) $(OBJS) -o $(PROG)
+
+depend : $(SRCS)
+        makedepend -- $(CXXFLAGS) -- $(SRCS)
+
+print :
+        a2ps -A virtual $(SRCS)
+
+clean :
+        rm -f $(PROG) $(OBJS) core
+</PRE>
+When you execute <code>make depend</code>, it will append a series of rules
+to the make file which cover building the object files from the
+sources, taking into account any header file dependencies.  I also
+included targets <code>print</code> and <code>clean</code> in this example; doing
+<code>make print</code> will send a nicely formatted listing of your source
+programs to the laser printer in A216, while <code>make clean</code> will
+remove all of the files that may have been generated in previous
+compiles, so that you can do a clean compile of all of the parts of
+the program (or so you can reduce disk usage when you no longer need
+to run the program).
+
+<P>
+Part 3, if I get around to writing it, will cover the use of
+<code>gdb</code> for debugging, and perhaps discuss some of the conveniences
+provided by emacs when editing, compiling, and debugging C++ programs.
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

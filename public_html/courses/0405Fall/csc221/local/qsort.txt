@@ -1,0 +1,343 @@
+; CSC 221 Programming Project Model Solution
+; Brian Howard
+; October 10, 2004
+
+max:      .equate	d#1000    ; maximum number of ints to read/sort/print
+
+          br       main
+
+; Global variables
+a:        .block   d#250    ; int a[max];
+          .block   d#250    ; (maximuum block size is 255...)
+          .block   d#250
+          .block   d#250
+          .block   d#250
+          .block   d#250
+          .block   d#250
+          .block   d#250
+
+n:        .block   d#2       ; int n;
+
+;---------------------------------------------------------------------------------
+; int partition(int a[], int left, int right) {
+pRetVal:  .equate  d#16
+pA:       .equate  d#14
+pLeft:    .equate  d#12
+pRight:   .equate  d#10
+
+pPivot:   .equate  d#6       ; int pivot;
+pI:       .equate  d#4       ; int i;
+pJ:       .equate  d#2       ; int j;
+pTemp:    .equate  d#0       ; int temp;
+
+part:     addsp    d#-8,i
+
+;   pivot = a[left];
+          loadb    pA,s
+          loadx    pLeft,s
+          aslx
+          loada    ,x
+          storea   pPivot,s
+
+;   i = left;
+          loada    pLeft,s
+          storea   pI,s
+
+;   for (j = left + 1; j <= right; j++) {
+          adda     d#1,i
+          storea   pJ,s
+pFor:     compa    pRight,s
+          brgt     pEnd
+
+;     if (a[j] < pivot) {
+          loadx    pJ,s
+          aslx
+          loada    ,x
+          compa    pPivot,s
+          brge     pIncr
+
+;       i++;
+          loada    pI,s
+          adda     d#1,i
+          storea   pI,s
+
+;       swap(a[j], a[i]);
+          loadx    pJ,s
+          aslx
+          loada    ,x
+          storea   pTemp,s
+          loadx    pI,s
+          aslx
+          loada    ,x
+          loadx    pJ,s
+          aslx
+          storea   ,x
+          loada    pTemp,s
+          loadx    pI,s
+          aslx
+          storea   ,x
+
+;     }
+
+;   }
+pIncr:    loada    pJ,s
+          adda     d#1,i
+          storea   pJ,s
+          br       pFor
+
+;   swap(a[left], a[i]);
+pEnd:     loadx    pLeft,s
+          aslx
+          loada    ,x
+          storea   pTemp,s
+          loadx    pI,s
+          aslx
+          loada    ,x
+          loadx    pLeft,s
+          aslx
+          storea   ,x
+          loada    pTemp,s
+          loadx    pI,s
+          aslx
+          storea   ,x
+
+;   return i;
+          loada    pI,s
+          storea   pRetVal,s
+
+; }
+          addsp    d#8,i
+          rts
+
+;---------------------------------------------------------------------------------
+; void quicksort(int a[], int left, int right) {
+qA:       .equate  d#8
+qLeft:    .equate  d#6
+qRight:   .equate  d#4
+
+qI:       .equate  d#0       ; int i;
+
+quick:    addsp    d#-2,i
+
+;   if (right <= left) return;
+          loada    qRight,s
+          compa    qLeft,s
+          brle     qReturn
+
+;   i = partition(a, left, right);
+          loada    qA,s
+          storea   d#-4,s
+          loada    qLeft,s
+          storea   d#-6,s
+          loada    qRight,s
+          storea   d#-8,s
+          addsp    d#-8,i
+          jsr      part
+          addsp    d#8,i
+          loada    d#-2,s
+          storea   qI,s
+
+;   quicksort(a, left, i - 1);
+          loada    qA,s
+          storea   d#-2,s
+          loada    qLeft,s
+          storea   d#-4,s
+          loada    qI,s
+          suba     d#1,i
+          storea   d#-6,s
+          addsp    d#-6,i
+          jsr      quick
+          addsp    d#6,i
+
+;   quicksort(a, i + 1, right);
+          loada    qA,s
+          storea   d#-2,s
+          loada    qI,s
+          adda     d#1,i
+          storea   d#-4,s
+          loada    qRight,s
+          storea   d#-6,s
+          addsp    d#-6,i
+          jsr      quick
+          addsp    d#6,i
+
+; }
+qReturn:  addsp    d#2,i
+          rts
+
+;---------------------------------------------------------------------------------
+; int readHex() {
+; // assumes only input is whitespace, 0..9, A..F, or a..f
+rhRetVal: .equate  d#5
+
+rhC:      .equate  d#2       ; char c;
+rhN:      .equate  d#0       ; int n;
+
+readHex:  addsp d#-3,i
+
+;   do {
+;     c = cin.get();
+rhDo:     chari    rhC,s
+
+;   } while (c <= ' ');
+          ldbyta   rhC,s
+          anda     h#7f,i
+          compa    c#/ /,i
+          brle     rhDo
+
+;   n = 0;
+          loada    d#0,i
+          storea   rhN,s
+
+;   do {
+;     n <<= 4;
+rhDo2:    loada    rhN,s
+          asla
+          asla
+          asla
+          asla
+          storea   rhN,s
+
+;     if (c > '9') c += 9;
+          ldbyta   rhC,s
+          anda     h#7f,i
+          compa    c#/9/,i
+          brle     rhEndIf
+          adda     d#9,i
+
+;     n += c & 15;
+rhEndIf:  anda     h#0f,i
+          adda     rhN,s
+          storea   rhN,s
+
+;     c = cin.get();
+          chari    rhC,s
+
+;   } while (c > ' ');
+          ldbyta   rhC,s
+          anda     h#7f,i
+          compa    c#/ /,i
+          brgt     rhDo2
+
+;   return n;
+          loada    rhN,s
+          storea   rhRetVal,s
+
+; }
+          addsp    d#3,i
+          rts
+
+;---------------------------------------------------------------------------------
+; int readList(int a[]) {
+rlRetVal: .equate  d#6
+rlA:      .equate  d#4
+
+rlI:      .equate  d#0       ; int i;
+
+readList: addsp    d#-2,i
+          loadb    rlA,s
+
+;   i = 0;
+          loada    d#0,i
+          storea   rlI,s
+
+;   while (i < max) {
+rlWhile:  compa    max,i
+          brge     rlEnd
+
+;     a[i] = readHex();
+          addsp    d#-2,i
+          jsr      readHex
+          addsp    d#2,i
+          loada    d#-2,s
+          loadx    rlI,s
+          aslx
+          storea   ,x
+
+;     if (a[i] == 0) break;
+          compa    d#0,i
+          breq     rlEnd
+
+;     i++;
+          loada    rlI,s
+          adda     d#1,i
+          storea   rlI,s
+
+;   }
+          br       rlWhile
+
+;   return i;
+rlEnd:    loada    rlI,s
+          storea   rlRetVal,s
+
+; }
+          addsp    d#2,i
+          rts
+
+;---------------------------------------------------------------------------------
+; void printList(int a[], int n) {
+plA:      .equate  d#6
+plN:      .equate  d#4
+
+plI:      .equate  d#0       ; int i;
+
+printL:   addsp    d#-2,i
+          loadb    plA,s
+
+;   for (i = 0; i < n; i++) {
+          loada    d#0,i
+          storea   plI,s
+plFor:    compa    plN,s
+          brge     plEnd
+
+;     cout << a[i] << endl;
+          loadx    plI,s
+          aslx
+          hexo     ,x
+          charo    h#0a,i
+
+;   }
+          loada    plI,s
+          adda     d#1,i
+          storea   plI,s
+          br       plFor
+
+; }
+plEnd:    addsp    d#2,i
+          rts
+
+;---------------------------------------------------------------------------------
+; int main() {
+;   n = readList(a);
+main:     loada    a,i
+          storea   d#-4,s
+          addsp    d#-4,i
+          jsr      readList
+          addsp    d#4,i
+          loada    d#-2,s
+          storea   n,d
+
+;   quicksort(a, 0, n - 1);
+          loada    a,i
+          storea   d#-2,s
+          loada    d#0,i
+          storea   d#-4,s
+          loada    n,d
+          suba     d#1,i
+          storea   d#-6,s
+          addsp    d#-6,i
+          jsr      quick
+          addsp    d#6,i
+
+;   printList(a, n);
+          loada    a,i
+          storea   d#-2,s
+          loada    n,d
+          storea   d#-4,s
+          addsp    d#-4,i
+          jsr      printL
+          addsp    d#4,i
+
+; }
+          stop
+          .end

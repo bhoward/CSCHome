@@ -1,0 +1,107 @@
+<HTML>
+<head><title>NASM Commands</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic8"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut8.html#topic7">&lt;&lt;</A> <A HREF="asmtut10.html#topic9">&gt;&gt;</A> </CENTER><HR>
+
+<H2>NASM Commands</H2>
+
+The NetWide Assembler, <A HREF="http://www.cryogen.com/Nasm">NASM</A>,
+which is freely available on the Web, has many advanced commands for
+defining macros and assembling multiple output formats. For simple
+purposes, however, only a few commands, or <EM>pseudo-ops</EM>, are
+needed:
+<UL>
+
+<LI> <TT>ORG     100h</TT><BR>
+
+Sets the "origin'' address, the starting address for the program.  For
+<TT>.COM</TT> files, this should be set to <TT>100h</TT> as shown (so this
+will usually be the first statement in the source of any <TT>.COM</TT>
+program).
+<LI> <TT>SECTION .text</TT><BR>
+
+Marks the start of a group of instructions to be assembled into the
+executable code part of the program.
+<LI> <TT>SECTION .data</TT><BR>
+
+Marks the start of a group of declarations of initialized data.
+<LI> <TT>SECTION .bss</TT><BR>
+
+Marks the start of a group of declarations of uninitialized data.  The
+<TT>SECTION</TT> commands may be interleaved in any order; when the file
+is assembled, all of the <TT>.text</TT> sections will be concatenated,
+followed by all of the <TT>.data</TT> and <TT>.bss</TT> sections in that
+order (the <TT>.bss</TT> sections don't actually generate any code, but
+the process of reserving blocks of memory causes the associated labels
+to be given the correct values).
+<LI> <TT>label   DB      data list</TT><BR>
+
+Declares a block of memory initialized with the given list of data, each
+datum occupying one byte.  The label becomes associated with the
+starting address of the block.  Think of this as defining a variable
+(with the name "label'') and giving it an initial value.  The data may
+be given as numbers (default base is decimal; the suffixes '<TT>h</TT>',
+'<TT>q</TT>', and '<TT>b</TT>' select hexadecimal, octal, and binary,
+respectively) or character strings (surrounded by either single or
+double quotes).  For example,
+<PRE>
+name    DB      "George", 0Dh, 0Ah ; last two characters are CR, LF
+age     DB      1
+</PRE>
+<LI> <TT>label   DW      data list</TT><BR>
+
+Same as <TT>DB</TT>, except each datum is stored in a 16-bit word (two successive
+bytes).  This is mainly used for numeric data; the only difference it
+makes to strings from using <TT>DB</TT> is that if a string has an odd
+number of characters then it is padded with a final zero byte.  For
+example,
+<PRE>
+name    DW      "George", 0Dh, 0Ah
+age     DW      1
+</PRE>
+is equivalent to
+<PRE>
+name    DB      "George", 0Dh, 00h, 0Ah, 00h
+age     DB      1, 0
+</PRE>
+(which is probably not what you want for the string).
+<LI> <TT>label   RESB    size</TT><BR>
+
+Reserves a block of memory consisting of <TT>size</TT> bytes; assign the
+starting address to the label, but don't generate any output.  For
+example, after the following commands, if <TT>x</TT> wound up at address
+<TT>1230h</TT>, then <TT>y</TT> would start at address <TT>1238h</TT>:
+<PRE>
+x       RESB    8
+y       RESB    4
+</PRE>
+The next available address in this section would be <TT>123Ch</TT>.
+<LI> <TT>label   RESW    size</TT><BR>
+
+Same as <TT>RESB</TT>, except <TT>size</TT> gives the number of two-byte
+words to allocate.
+<LI> <TT>label   EQU     expr</TT><BR>
+
+Defines the label to be equal to the value of the expression.  The
+expression may involve constants, other labels, and the usual range of
+integer operators from C.  There are also two special constants,
+<TT>$</TT> and <TT>$$</TT>.  The first, a single dollar sign, evaluates to
+the current address being assembled at the beginning of the current
+line.  This is useful for the following sort of calculation:
+<PRE>
+msg     DB      "Hello"
+msglen  EQU     $ - msg
+</PRE>
+Since the current address at the start of the second line is the next
+address after the end of the string, subtracting the address of the
+start of the string will give the length of the string---in this case,
+<TT>msglen</TT> will be defined as 5.  The second special constant, the
+double dollar sign, evaluates to the address of the start of the current
+section, so that you can check how much space you've used (with the
+expression <TT>$ - $$</TT>).
+</UL>
+<P>
+
+</BODY></HTML>

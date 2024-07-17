@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 3--Writing a Program to Keep a Personal Inventory</TITLE>
+<META NAME="description" CONTENT="Programming Project 3--Writing a Program to Keep a Personal Inventory">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science I,CS1">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="proj3.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 3--Writing a Program to Keep a Personal Inventory</H1>
+
+<P>
+
+<H3><A NAME="SECTION00000100000000000000">
+Due Dates and Times:</A>
+</H3>
+This project is due on the following days depending on your section of
+the course: Wednesday, May 7th for Townsend's and Howard's section.
+Thursday, May 8th for Berque's section. Your instructor will announce the
+exact time when your project will be due.
+
+<P>
+
+<H3><A NAME="SECTION00000200000000000000">
+Where to Work:</A>
+</H3>
+
+<P>
+Copy the folder <code>proj3</code> from public into your directory and
+complete the project there. The files in ``<code>proj3</code>'' are set up to
+support the use of the STL string class, so it is important that you use
+this folder as a basis for your project. In addition, these files will
+provide you with an empty <code>.cpp</code> file to write your program in, and
+an empty <code>.h</code> file to write your class in.
+
+<P>
+
+<H3><A NAME="SECTION00000300000000000000">
+Overview:</A>
+</H3>
+For this project, you will be writing a program for your personal use.
+This program will keep track of inventory of a personal collection of
+yours. You will be writing a class to represent a single object of your
+collection, and completing a program that will allow you to keep track
+of inventory of your entire collection.
+
+<P>
+
+<H3><A NAME="SECTION00000400000000000000">
+Project Specifications:</A>
+</H3>
+There are two parts to this project. Depending on your sections, some
+parts may be due before the entire project is due--if this is the case,
+specifics will be announced in your class.
+
+<P>
+Part one involves implementing a class for whatever object you choose to
+represent for your inventory program. You must adhere to the following:
+
+<UL>
+<LI>There must be at least three data elements in the class
+specification. For example, a book class might contain a title (string),
+a publication year (int), a publisher (string), and a price (float) for
+its data elements. Other examples might include CDs (band, title, number
+of tracks, year of publication), coins, stamps, DVDs, etc.
+
+<P>
+</LI>
+<LI>The object must contain at least the following member functions: a
+constructor, an init function (to set the values for the object), a
+readFile function (to read a single object from a file), a writeFile
+function (to write a single object to a file), and a display function
+(to display an object on the screen). You can add other member functions
+if you wish.
+</LI>
+</UL>
+
+<P>
+We strongly suggest you write a simple program to test your class before
+moving on to part two. Debugging will be much easier if you are sure
+your class is correct before moving on to part two.
+
+<P>
+Part two involves writing a program to store and organize a collection
+of the objects of the class designed above. This program should define
+an array of objects of the class you designed in part one above. You may
+assume that the program will store no more than 30 objects--although
+you should plan ahead for changing this at some future date. The program
+should then present the user with a menu similar to the following:
+
+<OL>
+<LI>Load a collection from a file whose name is specified by the user
+</LI>
+<LI>Display all the objects in the collection to the screen.
+</LI>
+<LI>Save a collection to a file whose name is specified by the user.
+</LI>
+<LI>Add an item to the collection.
+</LI>
+<LI>Sort the items, based on a single characteristic (title, number, etc.).
+</LI>
+<LI>Quit the program.
+</LI>
+</OL>
+
+<P>
+Then, based upon what option the user chooses, you should perform the
+required task. After performing the specified task, the program should
+clear the screen and display the menu again. This should continue until
+the user chooses to quit the program--note this will require a loop in
+your <code>.cpp</code> file. 
+
+<P>
+
+<H3><A NAME="SECTION00000500000000000000">
+Some explanatory notes on a few of the options:</A>
+</H3>
+
+<UL>
+<LI>When option 1 is selected the program will prompt the user to
+enter a filename to read from. After the user enters this filename, the
+program opens the file and loads the contents into an array, keeping
+track of the number of objects that were stored in the array. The
+objects are not to be displayed on the screen at this point.
+
+<P>
+</LI>
+<LI>When option 2 is selected, the contents of those array cells that
+contain data are displayed on the screen.
+
+<P>
+</LI>
+<LI>When option 4 is selected, the new item is added to the array.
+Only if the user selects option 3 later will this new item be saved in a
+file.
+</LI>
+</UL>
+All six options must be available to the user for your program to
+receive full credit. When the program is run initially, the collection
+should be empty. The file format, in particular, is up to you. Below, we
+provide you with a function that will allow you to store strings with
+spaces in them on a single line of a file.
+
+<P>
+
+<H3><A NAME="SECTION00000600000000000000">
+Notes on Style and Suggestions for Getting Started:</A>
+</H3>
+The program should exhibit good style, using functions to separate the
+problem into small, manageable units (this includes the main body of the
+program, which should be at most a screenful or so long). It should be
+well commented (including pre and post conditions for each subprogram)
+and easy to read. 
+
+<P>
+Do your writing in stages--make sure one function works before writing
+the next. In particular, you should write a small test program to test
+the class before actually writing the final program.
+
+<P>
+
+<H3><A NAME="SECTION00000700000000000000">
+New Function available:</A>
+</H3>
+To truly make this inventory program useful, you should be able to read
+and write strings containing spaces--for example, many book titles
+contain spaces, as do CD titles, book titles, etc. Up until this point
+in class, we have only been able to read strings from a file or from the
+user that do not contain strings.
+
+<P>
+There is a function in <code>"cs1utils.h"</code> called getline that allows us
+to read an entire line of text into a single string variable. Here are
+some examples of how getline works:
+<PRE>
+string x;
+cout &lt;&lt; "Enter a string with as many spaces as you want: ";
+getline( cin, x );
+</PRE>
+This particular example will allow the user to type until he or she hits
+<code>&lt;Return&gt;</code>, then the entire string will be put into x. We can also
+use getline to read strings from a file. Assuming that inFile is an
+fstream variable that has already been opened to a specific file, we can
+type:
+<PRE>
+cout &lt;&lt; "Getting a line from the file..." &lt;&lt; endl;
+getline( inFile, x );
+</PRE>
+
+<P>
+The getline function should be useful for this project--for example, it
+allows you to store multiple word titles on a single line in your file.
+Remember, you must <code>#include "cs1utils.h"</code> to use it.
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

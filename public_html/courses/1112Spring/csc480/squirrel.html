@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SQuirreL SQL Instructions - CSC 480: Database and File Systems, Spring 2012</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 480: Database and File Systems, Spring 2012</h1>
+	
+<h2>SQuirreL SQL Instructions</h2>
+	
+	
+		
+<p>The installer for version 3.3.0 of the SQuirreL SQL Universal SQL Client is available in the course public folder on the I: drive
+		or can be downloaded from <a href="http://www.squirrelsql.org/#installation"><code>http://www.squirrelsql.org/#installation</code></a>.  It is
+		an executable jar file, so you may be able to just double-click it and follow the installation steps.  Alternately,
+		execute <code>java -jar squirrel-sql-3.3.0-install.jar</code> from a command line. If you are on a Mac, there is a customized version in
+		<code>squirrel-sql-3.3.0-MacOSX-install.jar</code>.</p>
+		
+		
+<p>You will need Java 1.6 to use this version of SQuirreL SQL.  If you have the Java 1.6 SDK or later, then you should also have the JavaDB embedded database already
+		installed.  If not, you will need to install the latest version of the <a href="http://db.apache.org/derby/">Apache Derby</a>
+		database (JavaDB is just a repackaged version of Derby).</p>
+		
+		
+<p>For our purposes, you may just choose the Standard plugins when installing SQuirreL SQL, although you might wish to explore
+		some of the others (for example, the optional Derby plugin enables browsing some more details of a Derby database).  When the
+		installation is complete, go to the directory where it was installed and launch <code>squirrel-sql.bat</code> (Windows),
+		<code>squirrel-sql.sh</code> (Linux), or <code>SquirrelSQL.app</code> (Mac).</p>
+		
+		
+<p>The client window will initially show two sub-windows, titled "Drivers" and "Aliases".  The first time you launch the program,
+		there will probably be a red X next to the "Apache Derby Embedded" entry in the Drivers window.  Double-click on that line, and in
+		the resulting "Change Driver" window, select the tab labeled "Extra Class Path".  Now click the "Add" button and browse to the
+		directory containing the Derby jar files.  On Windows, this might be <code>C:\Program Files\Java\jdk1.6.0\db\lib\</code>, or it
+		might be <code>C:\Program Files\Sun\JavaDB\lib\</code> (the location changed with Update 2 of the Java 1.6 JDK); on other systems,
+		try typing <code>locate derby.jar</code> at a command line.  Once you have found the correct directory, choose <code>derby.jar</code>
+		and click "Open" to add it to the extra class path.  If you are successful, the status window will show a green message saying that
+		the Apache Derby Embedded driver has been registered.</p>
+		
+		
+<p>To connect to a database, you need to create an alias.  Click on the "+" icon in the Aliases window and fill in the resulting
+		dialog box.  The name can be anything, the driver should be "Apache Derby Embedded", and the URL should be something like
+		<code>jdbc:derby:C:\Databases\MyDB;create=true</code> (replace the <code>C:\Databases\MyDB</code> part with whatever directory
+		you want to use).  You do not need a user or password for an embedded server.  Click "Test" and then "Connect" and it should tell
+		you that the connection is successful (after this, you will not need the <code>;create=true</code> part of the URL, but it will
+		not hurt to leave it there).</p>
+		
+		
+<p>Now you may double-click on the alias you just created to bring up a window allowing you to browse your database.  To test it, go
+		to the "SQL" tab and enter the following:</p>
+		
+<pre>
+create table TEST (
+    name varchar(20),
+    id int not null,
+    primary key (id)
+)
+		</pre>
+		
+<p>Hit Ctrl-Enter to run the query.  If it was successful, you should see a green line in the status area, and a table named "TEST"
+		should appear in the "Objects" tab under the category "APP/TABLE".  If you right-click on the table name in that tree view, one of
+		the available commands should be "Add to graph", which will allow you to visualize the graph structure of your database (add several
+		tables to the same graph and it will show you foreign key relationships between the tables).  Finally, if you go to the "Content"
+		tab of the "Objects" view for your table, you can view the contents of the table; if you right-click in that area and choose "Make
+		Editable", then you will be able to add rows (right-click again) or change the contents of the table.</p>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/academics/departments-programs/computer-science/">Computer Science Department</a>,
+				Spring 2012<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

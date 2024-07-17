@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 11 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    p.bold {font-weight: bold}
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 11</h2>
+
+<h3>Laboratory 11 - Text Files, Exceptions, and Strings</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>To develop background for project 5: Mining data from a web
+log.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab11 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Open the iomodule project.</strong> 
+
+<table summary="Sequence of steps" cellspacing="0" cellpadding="3"
+border="0">
+<tr valign="top" align="left">
+<td><strong>Examine</strong></td>
+<td>
+<p><strong>This project has one class, FileIO.</strong> When you
+open the class in the class editor, you will see the following
+fields that define the class:</p>
+
+<pre>
+    BufferedReader inputFile;  //An object to allow read (or input) access to a text file
+    String inputFileName;      //The name of the input file
+    BufferedWriter outputFile; //An object to allow write (or output) access to a text file
+    String outputFileName;     //The name of the output file
+    ArrayList dataList;        //An arrayList used to hold data from the input file
+                   
+</pre>
+
+<p>A typical program</p>
+
+<ol>
+<li>reads lines from an input file one at a time, putting part or
+all of the line in a list for some processing activity,</li>
+
+<li>processes the list of data, and</li>
+
+<li>writes the list one line at a time to an output file.</li>
+</ol>
+
+<p>This is referred to as Input-Process-Output (IPO).</p>
+
+<p>The iomodule project folder contains a data (text) file that was
+extracted from the department's web server log on Jupiter. You will
+be using this file later in this lab.</p>
+
+<ul>
+<li>First we will look at exception handling: <strong>Textbook
+sections 12.1 - 12.5</strong></li>
+
+<li>Next we look at file input/output: <strong>Textbook sections
+12.9.3 (the book uses a FileWriter object only) and
+12.9.4</strong></li>
+
+<li>Finally we use String methods to process the data: <strong>Java
+help - the String class</strong></li>
+</ul>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Try</strong></td>
+<td>
+<p><strong>Exception handling.</strong> An exception is a special
+kind of event that is triggered by some kind of error as a program
+runs. For example, in the calculator project you prevented division
+by zero by looking at the divisor and displaying a message if it
+was zero. Had you actually divided by zero, an error message would
+have been displayed and the method that caused the error
+terminated. It is possible to "catch" the exception and handle the
+error in a special way of your choosing. To see how this is done
+create an instance of FileIO and</p>
+
+<ol>
+<li><strong>invoke the checkDivZero() method</strong> as is,
+observing the result; then</li>
+
+<li><strong>uncomment the try - catch statements</strong> and
+invoke the method a second time, again observing the results.</li>
+</ol>
+
+<p>Some exceptions must be handled, at least minimally, because the
+compiler requires it. These are called checked exceptions, and, if
+nothing else is done, a method that contains statements that might
+cause such an exception must at least have a <em>throws clause</em>
+added to the method signature:</p>
+
+<pre>
+    public boolean setInputFile() throws IOException
+                   
+</pre>
+
+<p>Our input/output methods must have this clause. Read the
+setInputFIle() method. The first part uses a dialog box so you can
+choose the file you want to use in a familiar way. The try - catch
+part actually tries to open the chosen file. Invoke the method once
+by choosing a valid file name, again by typing the name of a
+non-existant file in the dialog box text box, and once more by
+clicking the dialog box Cancel button. You should be able to
+predict what might happen in each case. A similar method is used to
+open a file for output (writing).</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p><strong>File input/output.</strong> Read the processData()
+method and then invoke it. It will ask you for an input file and
+then display lines from the file one at a time. Use the file
+<code>access_logcps.txt</code>. It make take a minute or so to
+finish. The last line of the file, which comes from a
+www.csc.depauw.edu web log, is:</p>
+
+<pre>
+65.54.188.106 - - [09/Nov/2004:13:25:30 -0500] "GET /%7Edegger/csc496/Assignment3/index.php HTTP/1.0" 200 1999
+</pre>
+
+<p><strong>Modify the method</strong> so it doesn't display lines
+from the file, but counts the number of lines and displays that
+number when finished.</p>
+
+<p><strong>Modify the method again</strong> by adding code to add
+each line to the ArrayList dataList. When you are finished, inspect
+the dataList to see that it has the correct number of items and
+that the items look like they are from the web log.</p>
+
+<p><strong>Now read the copyFile() method.</strong> It writes each
+line from the dataList to the new file that you select. Invoke the
+method. Verify that the orignal <code>access_logcps.txt</code> and
+its copy are the same. You can use notepad to inspect each one.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Read</strong></td>
+<td>
+<p><strong>Manipulating Strings.</strong> Use BlueJ help to go to
+the Java Class Libraries web site. Read about the compareTo,
+equals, indexOf(String str), and substring(int beginIndex, int
+endIndex) methods. What would each of the following do?</p>
+
+<pre>
+"miller".compareTo("jones");
+"miller".equals("jones");
+"miller".substring(0, 4);
+"miller".indexOf("ll");
+"Hello Dolly".substring(0, "Hello Dolly".indexOf(" "));
+                   
+</pre>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p><strong>Modify the processData method</strong> so that only the
+ip address at the beginning of each line of the input is added to
+the dataList. (Hint: use the last of the above examples.) Test your
+results.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Question</strong></td>
+<td>
+<p><strong>What does the mystery method do?</strong> After you
+answer this question, delete the line <code>int outer = 0;</code>
+and uncomment the other two lines to enable the outer loop. Invoke
+the method after running the processData method. What is the
+result? You will be discussing this in class to prepare for project
+5.</p>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 3 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+             body {background-color: #e0e0ff}
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             div.solution {color: red}
+             img.validator {float: right; border: none}
+             
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 3</h2>
+
+<h3>Laboratory 3 - Animation and Project 1</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>To understand how while loops can be used to control the
+behavior of graphics objects; To experiment with the interaction of
+graphics objects that are controlled by a "driver class"; To learn
+about keyboard key events; To gain experience using the BlueJ
+debugger.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab3 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Open the shapes-1 project</strong> 
+
+<table border="1" cellpadding="3" cellspacing="0" summary=
+"Sequence of steps">
+<tr align="left" valign="top">
+<td><strong>Create</strong></td>
+<td>Create a Driver object and invoke the start method. Observe the
+results.</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Read</strong></td>
+<td>Open the editor for the Driver class. To understand the initial
+triangle and circle display, read Driver's field definitions and
+the class constructor. Next verify what happened when you invoked
+the start method by studying the statements in that method.</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Add</strong></td>
+<td>Add the following actions to the <strong>start</strong> method,
+each of which can be modeled after the first loop in that method: 
+
+<ol>
+<li>Have the rocket (triangle) move vertically to the top of the
+window. You should use a while loop. You will need to compare the
+yPosition of the rocket with the yCoordinate of the top of the
+window to know when to exit the while loop. Use the moveDirection
+method with xDistance = 0 and yDistance = -3. Test this before
+going to the next step.</li>
+
+<li>Have the ball (circle) move from its current position to the
+lower-right corner of the window on a 45 degree angle. Use
+moveDirection with xDistance and yDistance equal to 3. The ball
+should not go completely out of the window. You can use this
+information and myCanvas.getWidth(), myCanvas.getHeight() in the
+while loop condition. Test this before going to the next step.</li>
+</ol>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Write</strong></td>
+<td>
+<p>Create a new method, bounceBall, that moves the ball to the
+"floor" of the window and then moves it back up to its original
+height. The signature of bounceBall is:</p>
+
+<pre>
+    public void bounceBall()
+</pre>
+
+<p>To do this you will need to write two consecutive while loops.
+The first loop will move the ball down and to the right until it
+reaches the lower window boundary. Use an xDistance of 1 and a
+yDistance of 3. The second loop will move the ball up and to the
+right until it reaches its original height or the right side of the
+window. Use an xDistance of 1 and a yDistance of -3.</p>
+
+<p>Test bounceBall before going to the next step.</p>
+</td>
+</tr>
+</table>
+</li>
+
+<li><strong>Close the shapes-1 project and open the shapes-2
+project</strong> 
+
+<table border="1" cellpadding="3" cellspacing="0" summary=
+"Sequence of steps">
+<tr align="left" valign="top">
+<td><strong>Create</strong></td>
+<td><strong>Create a Driver object and invoke the start
+method.</strong> Click anywhere in the graphics window to make the
+window active ("have the focus"). <strong>Then</strong> press the
+'h' key on the keyboard several times. <strong>Then</strong> press
+the 's' key once to terminate the simulation.</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Read</strong></td>
+<td>Open the editor for the Driver class. Read the Driver field
+definitions and the class constructor. Next, verify what happened
+when you invoked the start method by studying the statements in
+method start and the method keyTyped(KeyEvent ke) found near the
+bottom of Driver code.</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Add</strong></td>
+<td>
+<p><strong>Add an "if" statement to the keyTyped(KeyEvent ke)
+method</strong> that will cause the rocket to move vertically to
+the top of the screen when the 'v' key is typed. Note that the
+necessary code in the start method is already in place and the
+boolean vMove is defined and initialized to false.</p>
+
+<p>Test before moving to the next step.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Add</strong></td>
+<td>
+<p>Note that each time the start method is invoked, the ball
+changes color from blue to red. <strong>Write the code necessary to
+have the color change to red only when the 'r' key is
+typed.</strong> Note, you should define a boolean field (cColor,
+for example) and modify the constructor, the start method, and the
+keyTyped(KeyEvent ke) method.</p>
+
+<p>Test your code.</p>
+
+<p>If you finish early and want more practice, try adding the
+bounceBall method to the while loop in start so that it is executed
+only if the 'b' key is typed.</p>
+</td>
+</tr>
+</table>
+
+<p><strong><i>Homework:</i></strong></p>
+</li>
+
+<li><strong>Work through the exercises in sections 3.12 and 3.13 of
+your textbook. We will discuss the material about debugging in
+class.</strong></li>
+</ol>
+</dd>
+</dl>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img class=
+"validator" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt=
+"Valid HTML 4.01!" width="88" height="31"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img class=
+"validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+alt="Valid CSS!" width="88" height="31"></a><a href=
+"http://www.depauw.edu/">DePauw University</a>, <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a>, Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> (<a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>). 
+<!--#config timefmt="%A, %B %e, %Y" -->
+ Last updated <!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

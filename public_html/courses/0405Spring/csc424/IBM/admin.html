@@ -1,0 +1,216 @@
+<html>
+<head>
+  <link rel="stylesheet" href="images/book.css" charset="ISO-8859-1" type="text/css">
+  <title>Administrator Instructions</title>
+</head>
+<body>
+
+<h2>Administrator Instructions</h2>
+The sections below contain information for an administrator of the environment.
+<p>
+
+
+<h3>Setting up a server</h3>
+Follow the instructions below to configure a server for sharing code or running a tournament:
+<p>
+<ol>
+<li>Install a Java JRE on the machine that you want to use as the server.</li>
+<li>Copy the rally.jar file included in the distribution to the machine.</li>
+<li>Run <span class="code">java -jar games.jar -server c:\temp\server 1234</span> from the commandline, where
+    <span class="code">c:\temp\server</span> is the directory you CodeRally to use for backup, and
+    <span class="code">1234</span> is the port number for the server to use.</li>
+<li>To allow others to connect to your server, send them the hostname of the server and port number you used.</li>
+<li>When you want to stop the server, use Ctrl-C.</li>
+</ol>
+
+Each client machine must take the following steps to connect to this server:
+<ol>
+<li>Start Eclipse configured with the IBM Games environment.</il>
+<li>Go to Window > Preferences.</li>
+<li>Select IBM Games.</li>
+<li>Select the game that you want to play. Click Create Project... to create the project within the workspace.</li>
+<li>Enter the server host name and port.</li>
+<li>Click Apply, and then OK.</li>
+<li>You can now click the Submit button on the toolbar at any time to send your code to the server. Once you have done this,
+use the public track to compete against the other player's code that has been downloaded to your machine.<p/>
+Every submission you make to the server is backed up. Only the latest copy of your code (not including source) is sent to each
+new user who submits code to the server. Class files are encyrpted to prevent decompiling.</li>
+</ol>
+<p>
+
+<h3>Administering a Tournament</h3>
+To administer a competition, the administator must take the following steps to setup
+the machines and run the tournament:
+<p>
+
+<b>Machine configuration</b>
+<ol>
+<li>Configure one machine using the regular Eclipse installation instructions.</li>
+<li>Start Eclipse.</li>
+<li>Go to Window > Preferences.</li>
+<li>Select IBM Games.</li>
+<li>Select the game that you want to play. Click Create Project... to create the project within the workspace.</li>
+<li>Enter the server host name and port that you will be using.</li>
+<li>Click Apply, and then OK.</li>
+<li>Copy the eclipse installation directory and workspace to any number of machines that you
+    want to use for the tournament.</li>
+<li>The JavaDocs (javadoc.zip) and manual (manual.html) found in this directory can be edited to include information
+    for the current tournament, and then printed for each contestant or placed on the machine's desktop.</li>
+<li>Copy games.jar to your server machine.</li>
+<li>Optional: Use another spare machine and map a drive to the server. This machine will be used for a spectator scoreboard.</li>
+</ol>
+
+<b>Running the tournament</b>
+<ol>
+<li>Use the <span class="code">-server</span> mode to start the server.</li>
+<li>Optional: On the spectator machine, run using the <span class="code">-spectate</span> mode to start the
+    spectator scoreboard on this machine.</li>
+<li>[Coding portion of the tournament runs for 1 to 3 hours]</li>
+<li>When the coding portion is over, use Ctrl-C to stop the server.</li>
+</ol>
+
+<b>Finding and displaying the winners</b>
+<ol>
+<li>Use the <span class="code">-tournament</span> mode to run a tournament on the server.</li>
+<li>Optional: If you need to do elimination rounds, backup the tournament directory and remove the players that
+    did not make it past the first round. The placement information can be found in the trace files
+    within the working directory.</li>
+<li>When you want to playback the tournament, use the <span class="code">-playback</span> mode.</li>
+<li>Optional: Use another machine and map a drive to the server. Run using the
+    <span class="code">-scoreboard</span> mode to start a secondary scoreboard on this machine.</li>
+</ol>
+</p>
+
+
+<h3>Launching Externally</h3>
+
+<p>
+To run the challenge from the command line, use the following command:</p>
+
+<p><span class="code">
+java -jar games.jar -Dskin=[game] [mode]
+</span></p>
+
+<p>
+Where game is one of:
+</p>
+<span class="code">
+CodeRally<br/>
+CodeRuler<br/>
+</span>
+
+<p>
+Where mode is one of:
+</p>
+<span class="code">
+-test<br/>
+-testtournament<br/>
+-tournament<br/>
+-playback<br/>
+-server<br/>
+-spectate<br/>
+-scoreboard
+</span>
+
+<p>
+In test and testtournament modes, the <span class="code">-Dcode.location=xxx</span> system property is used to point to the location
+of the user's code.
+<p>
+
+The description of each mode is listed below, along with the mode’s additional parameters.
+</p>
+
+<p>
+<span class="code">-test [path] [name] [rounds]</span><br/>
+Run a tournament in test mode. This will prompt the user to pick which sample cars to run against.<br/>
+<span class="code">[path]</span> The root (working) directory which stores all of the tournament information.
+  The same directory should be used for all of these commands.<br/>
+<span class="code">[name]</span> The name of the tournament. This name will be displayed on the scoreboard.<br/>
+<span class="code">[rounds]</span> The number of rounds to play.
+</p>
+
+<p>
+<span class="code">-testtournament [path] [name] [rounds]</span><br/>
+Run a test tournament.
+</p>
+
+<p>
+<span class="code">-tournament [path] [name] [rounds]</span><br/>
+Run a complete tournament in batch mode. This generates a .dat file in the given path that can then be played back at any time using the -playback mode.
+</p>
+
+<p>
+<span class="code">-playback [path]</span><br/>
+Play back a tournament from a saved .dat file.
+</p>
+
+<p>
+<span class="code">-spectate [path] [name]</span><br/>
+Start a spectator scoreboard.
+</p>
+
+<p>
+<span class="code">-server [path] [port]</span><br/>
+Start the challenge server. This server will run on the given port and accept submissions from the Eclipse plug-in. To stop the server, use Ctrl-C.
+</p>
+
+<p>
+<span class="code">-scoreboard [path]</span><br/>
+Start a scoreboard. This scoreboard will list the current score from any running tournament, which was started via the -test, -tournament, -testtournament, -playback, or -spectate modes.
+</p>
+
+
+<h4>Launching Examples</h4>
+
+<p>
+The following are some examples of launching the game engine in different scenarios:
+</p>
+
+<p>
+<span class="code">java -Dskin=CodeRuler -Xmx768M -jar games.jar -tournament quarterFinals "Quarter Finals" 3</span><br/>
+Runs a three round CodeRuler tournament called "Quarter Finals" from the quarterFinals subdirectory. This will create a
+tournament dat file that can be played back at a later time. Note the "-Xmx768M" which allows the Java VM to use up to 768Mb of
+memory to run the tournament. This will improve the performance of the VM when running large tournaments on machines with lots
+of memory.
+</p>
+
+<p>
+<span class="code">jre\bin\java -Dskin=CodeRally -jar games.jar -playback C:\temp</span><br/>
+Starts playback of a CodeRally tournament from C:\Temp.
+</p>
+
+<h3>Matches, Rounds, and Tournament</h3>
+<p>
+IBM Games allows any number of players to compete in a tournament. Each tournament consists of a given
+number of rounds, in which each player competes exactly once per round. In the first round, players are
+randomly grouped into matches containing six or less players per match. Each of these matches is run,
+so each player gets a chance to compete once.
+</p>
+
+<p>
+For each successive round, the players are bracketed into matches according to their point values, and
+players with similar points play against each other. This continues for the number of rounds in the
+tournament, at which point winners are declared based on the total point values.
+</p>
+
+<p>
+When there are a large number of players, manual elimination rounds can be used to speed up the tournament.
+In this case, a tournament is run for 3 rounds (for example) and then only the top half of the players
+proceed to the next elimination round. This next elimination round can be run as a separate tournament,
+so all players start with 0 points again and there is an even playing field.
+</p>
+
+<h3>Providing your own Samples</h3>
+
+<p>
+All games will look for sample classes within the "sample" package, or any subpackages. Each sample must
+have the same name as the main class in the default package (e.g. "MyRuler" for CodeRuler).
+
+For instance, to create a CodeRuler sample ruler, start with an existing MyRuler. Using the Java
+perspective in Eclipse, create a new package in the CodeRuler project called "sample", and then
+copy and paste the existing MyRuler class into that package. The next time you run the game, this sample
+should be listed in the left-hand pane.
+</p>
+
+</body>
+</html>

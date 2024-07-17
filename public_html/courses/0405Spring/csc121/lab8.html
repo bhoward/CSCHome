@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 8 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    p.bold {font-weight: bold}
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 8</h2>
+
+<h3>Laboratory 8 - Simulation: Queues, Arrays, and Preparation for
+Project 3</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>To understand using queues. To prepare for project 3: A bank
+simulation using queues, randomization and gathering
+statistics.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab8 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Open the SimpleQueue project. You will be creating a
+Queue class from scratch.</strong> 
+
+<table summary="Sequence of steps" cellspacing="0" cellpadding="3"
+border="0">
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p><strong>Create an empty Queue class</strong> by opening the
+class editor (double-click the Queue class diagram) and create the
+class shell:</p>
+
+<pre>
+    import java.util.ArrayList;
+    
+    /**
+     * Queue (waiting line).
+     *
+     * @author &lt;Your Name Goes Here&gt;
+     * @version &lt;Today's Date Goes Here&gt;
+     */
+    public class Queue {
+    
+    }
+                   
+</pre>
+
+<p>Add the private fields: <strong>ArrayList entries</strong> and
+<strong>int maxLengthEver</strong></p>
+
+<p><strong>Create the class constructor:</strong> It will create an
+instance of <strong>entries</strong> and set
+<strong>maxLengthEver</strong> to 0. maxLengthEver represents the
+largest the queue ever becomes during its lifetime.</p>
+
+<p><strong>Write the methods enqueue and dequeue:</strong> Customer
+objects will be added to and removed from the queue. The customer
+class here has only one field, a customerID. This is different from
+the customer object you will use in project 3, which you will see
+in class. Open the Customer class in an editor window. Take a few
+minutes to examine its methods before continuing to the next
+step.</p>
+
+<dl compact="compact">
+<dt>enqueue()</dt>
+
+<dd>is a method with one parameter, newCustomer, of type Customer.
+Enqueue adds newCustomer to the end of the queue and checks the
+size of the resulting queue to see if maxLengthEver needs to be
+updated.</dd>
+
+<dt>dequeue()</dt>
+
+<dd>is a method with no parameters. It removes the customer from
+the front of the queue and returns that customer.</dd>
+</dl>
+
+<p><strong>Write the method size:</strong> size() simply returns
+the size of the queue as an int.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Test</strong></td>
+<td>
+<p>Now test enqueue and dequeue as follows: Create three Customer
+objects, one with customerID = 1, another with customerID = 2, and
+the third with customerID = 3. Next create an instance of your
+Queue class and envoke enqueue three times, adding a different
+customer object each time. When the dialog box appears to request
+the customer to enqueue, just left-click once on the customer you
+want to add. Check the size of the queue. Now dequeue and enqueue
+as you wish, checking the size of the queue each time to make sure
+the number of items in the queue is correct. When you are satisfied
+that things are working correctly, proceed to the next step.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p><strong>Add the method isEmpty:</strong> isEmpty is a boolean
+method that returns true if the queue has no elements and false
+otherwise. Test the method before going on to the next step.</p>
+
+<p><strong>Write two display methods, printStatistics and
+display:</strong></p>
+
+<dl compact="compact">
+<dt>printStatistics()</dt>
+
+<dd>is a method that displays the number of customers in the queue
+and the maximum number of customers that were ever in the queue.
+The display should look like 
+
+<pre>
+    Current number of customers in the queue: &lt;the number&gt;
+    Maximum number of customers in the queue: &lt;the number&gt;
+                       
+</pre>
+</dd>
+
+<dt>display()</dt>
+
+<dd>is a method that displays, from front to back, the customerID
+of each customer in the queue. You may simply display one
+customerID per line.</dd>
+</dl>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

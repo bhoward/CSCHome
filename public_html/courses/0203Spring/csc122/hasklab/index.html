@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Haskell Laboratory Exercise</TITLE>
+<META NAME="description" CONTENT="Haskell Laboratory Exercise">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hasklab.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Haskell Laboratory Exercise</H1>
+
+<P>
+By working through the steps in this handout, you will develop a Haskell
+program to draw a picture made up of many overlapping squares of
+different sizes and colors.
+
+<P>
+
+<OL>
+<LI>The following data type will represent a single square:
+<PRE>
+data Square = Square Point Int RGB
+</PRE>
+This says that a <code>Square</code> will be specified by a <code>Point</code> (the
+center), an <code>Int</code> (the distance from the center to any of the
+sides, <SPAN  CLASS="textit">i.e.</SPAN>, half the length of a side), and a color expressed
+as red, green, and blue components. The type <code>Int</code> is one of the
+built-in types (it is a variant of <code>Integer</code> that gives up the very
+large values in exchange for greater efficiency); each of the other
+types is already defined in the Graphics Library, so we just need to
+know how to use them.
+
+<P>
+Copy the Haskell script file named <code>hasklab.hs</code> from the folder
+<code>I:\CSC122\Public\</code> into your own directory on the <code>I:</code> drive.
+Now start WinHugs and <code>:load</code> your copy of the script.  Once it has
+loaded (it may take a while, since it has to load all of the parts of
+the graphics library as well), you should open it in an editor with the
+command <code>:edit</code>.  From now on, each time you close the editor and
+return to Hugs, it should automatically load the new version of your
+file.
+
+<P>
+When you look at the script, it should start with the following lines:
+<PRE>
+-- CSC122, Haskell Lab
+-- &lt;your name&gt;
+-- &lt;the date&gt;
+
+import SOEGraphics
+
+data Square = Square Point Int RGB
+</PRE>
+Change the comments to include your name and the date, save the file,
+and close the editor.
+
+<P>
+</LI>
+<LI>For this item, all we will do is construct a <code>Square</code> object.
+To use the <code>Square</code> constructor function, we need a <code>Point</code>,
+an <code>Int</code>, and an <code>RGB</code>. A <code>Point</code> is simply a pair of
+integers, so we can use something like <code>(200, 100)</code>. An <code>Int</code>
+is just a value like <code>50</code>. An <code>RGB</code> needs three integers in
+the range 0 to 255; to get white, we can use the <code>RGB</code> constructor
+as follows: <code>RGB 255 255 255</code>. Putting all this together, we can
+form a white square, 100 units on each side, centered on the point
+<SPAN CLASS="MATH">(200, 100)</SPAN>, by using the expression
+<code>Square (200, 100) 50 (RGB 255 255 255)</code>. If you type this in, the
+system will complain that it cannot find an appropriate ``show''
+function. This is OK; we can still use the <code>Square</code> type in a
+program, and we can check that we are using it correctly by only
+requesting the type of the above expression:
+<code>:type Square (200, 100) 50 (RGB 255 255 255)</code>.
+
+<P>
+</LI>
+<LI>We will need a function to draw one of our <code>Square</code> objects.
+The Haskell Graphics library provides a function <code>polygon</code> which
+takes a list of <code>Point</code>s and produces a filled-in shape with the
+given points as vertices. The script already contains a convenience
+function named <code>fillSquare</code> which takes a <code>Square</code> and makes
+the appropriate call to <code>polygon</code>:
+<PRE>
+fillSquare (Square (x,y) d rgb) = withRGB rgb (polygon [(x-d,y-d),
+                                                        (x-d,y+d),
+                                                        (x+d,y+d),
+                                                        (x+d,y-d)])
+</PRE>
+As usual, we write the function to match its argument against a pattern
+so that the variables in the pattern will be bound to the corresponding
+values for the <code>Square</code> we wish to draw. The center point will be
+<code>(x,y)</code>, the distance from the center to each side will be
+<code>d</code>, and the color will be <code>rgb</code>. We call the <code>polygon</code>
+function with an appropriate list of points for the four corners of the
+square, and pass the result to the <code>withRGB</code> function to apply a
+color to the shape. If you try to apply <code>fillSquare</code> to the square
+mentioned previously,
+<code>fillSquare (Square (200,100) 50 (RGB 255 255 255))</code>, the system
+should again complain about the lack of an appropriate ``show''
+function. The result is of the type <code>Draw ()</code>, which the system
+might also call <code>Graphic</code>. The square has not been drawn yet, but
+this <code>Graphic</code> value packages up all the information that the
+Graphics Library will need to display it. The next step will do so.
+
+<P>
+</LI>
+<LI>To display a square on the screen, we need to use the function
+<code>showGraphic</code>, which is already defined in your script.  For
+reference, here is the definition:
+<PRE>
+showGraphic g = runGraphics $ do {
+    w &lt;- openWindow "Graphics Window" (400,300);
+    drawInWindow w g;
+    getKey w;
+    closeWindow w
+}
+</PRE>
+Try applying <code>showGraphic</code> to the result of various calls to
+<code>fillSquare</code>. Each time you do, it should create a graphics window,
+display a filled square, and wait for you to hit any key before closing
+the window. For testing, it will be convenient to define some sample
+squares. Add some more lines like the following to your script and reload:
+<PRE>
+redGiant = Square (150,150) 100 (RGB 255 0 0)
+whiteDwarf = Square (250,250) 25 (RGB 255 255 255)
+</PRE>
+Now you can easily try drawing squares by entering
+<code>showGraphic (fillSquare redGiant)</code>, etc., at the <code>Main&gt; </code>
+prompt in Hugs. However, this only lets you draw one square at a time.
+To combine several squares in one picture, we need the
+<code>overGraphic</code> function. It will be easiest to use this as a binary
+operator, as follows:
+<code>showGraphic ((fillSquare redGiant) `overGraphic` (fillSquare whiteDwarf))</code>.
+Notice how the squares are combined, and see what happens if you reverse the
+order of the squares.
+
+<P>
+</LI>
+<LI>Now let's do a list of <code>Square</code>s. We will need a function
+which takes a list of squares, fills each one, and combines them all
+into a single <code>Graphic</code>. As usual when working with a list of
+things, we will define the function by recursion. Here is the base case,
+which uses the special value <code>emptyGraphic</code> to produce a blank
+picture:
+<PRE>
+fillSquareList [] = emptyGraphic
+</PRE>
+The recursive case will have the following form:
+<PRE>
+fillSquareList (s : ss) =
+</PRE>
+When this pattern matches, <code>s</code> will be the first square on the
+list, and <code>ss</code> will be a list of the remaining squares. Write an
+appropriate right-hand side for this case of the function. You will need
+to use <code>fillSquare</code> to produce a <code>Graphic</code> from <code>s</code>, and
+<code>fillSquareList</code> to produce another <code>Graphic</code> from <code>ss</code>;
+then these two <code>Graphic</code>s will need to be combined into one with
+<code>overGraphic</code>. When you have added the function to your script, try
+it out with <code>showGraphic (fillSquareList [redGiant, whiteDwarf])</code>.
+
+<P>
+</LI>
+<LI>We will also want a function to <SPAN  CLASS="textit">generate</SPAN> a list of squares,
+so that we don't have to type them all in by hand. Here is an example,
+which has already been entered in your script file:
+<PRE>
+diagonalSquares (x,y) d rgb 0 = []
+diagonalSquares (x,y) d rgb n = Square (x,y) d rgb :
+                                diagonalSquares (x+d,y+d) d rgb (n-1)
+</PRE>
+Try this:
+<code>showGraphic (fillSquareList (diagonalSquares (50,50) 25 (RGB 255 255 255) 9))</code>.
+The cases for this function mean that <code>diagonalSquares (x,y) d rgb n</code>
+will produce a list of <code>n</code> squares (because the list is empty
+when <code>n</code> is <code>0</code>, and it gets one extra element for each
+recursive call as <code>n</code> counts down to <code>0</code>). The first one will
+be centered at <code>(x,y)</code>, with dimension <code>d</code> and color
+<code>rgb</code>. Succeeding squares will be offset by adding <code>d</code> to the
+<code>x</code> and <code>y</code> coordinates of the center; the effect will be that
+each square will be centered on the lower-right corner of the previous
+one. You should get a picture that looks like a white staircase.
+
+<P>
+</LI>
+<LI>A simple modification to the previous code gives us a row of
+squares of different sizes. Create a new function named
+<code>vanishingSquares</code> which is similar to <code>diagonalSquares</code>
+except replace the argument <code>d</code> in the recursive call (to
+<code>vanishingSquares</code>, of course) with the expression <code>(d `quot` 2)</code>.
+To try this out, you will probably want to start with a larger
+initial square; something like this should work:
+<code>showGraphic (fillSquareList (vanishingSquares (200,100) 80 (RGB 255 255 255) 7))</code>
+
+<P>
+</LI>
+<LI>Now we can approach our original goal of creating an interesting
+picture by replacing the single recursive call in the previous item with
+four separate calls, one at each of the four corners of the central
+square. Each of these recursive calls will produce a list of squares, so
+we will need to append all of the lists together, using <code>++</code>. Here
+is a skeleton of the code for you to fill in:
+<PRE>
+squareDesign (x,y) d rgb 0 =
+squareDesign (x,y) d rgb n = Square (x,y) d rgb :
+                             (squareDesign (x-d,y-d) (d `quot` 2) rgb (n-1) ++
+                              squareDesign (x-d,y+d) (d `quot` 2) rgb (n-1) ++
+                              squareDesign                                  ++
+                              squareDesign                                 )
+</PRE>
+When you have the finished function saved in your script file, load it
+into Hugs and try the following:
+<code>showGraphic (fillSquareList (squareDesign (200,150) 70 (RGB 255 255 255) 5))</code>
+<BR>
+You can change the <code>5</code> to <code>6</code> to draw one more level, but it
+will probably crash if you try to do 7 or more levels (each level has
+four times as many squares, so there are 4096 squares at level 7).
+
+<P>
+</LI>
+<LI>The last step will be to change the color as well as the size.
+Modify the recursive calls so that the upper-left and lower-right
+corners have only half the red component of the current square, while
+the upper-right and lower-left corners have only half the green
+component; leave the blue component untouched. You will need to
+pattern-match on the color argument to extract the red, green, and blue
+components; that is, you will have something like <code>(RGB r g b)</code>
+instead of the simple variable <code>rgb</code>. Call the new function
+<code>colorDesign</code>.
+
+<P>
+</LI>
+<LI>As a final problem, how could you change the code to draw the
+larger squares on the bottom, instead of on top? Whichever function
+needs to be modified, name the new version by appending a <code>2</code>; for
+example, if you modify <code>colorDesign</code>, then your new function should
+be named <code>colorDesign2</code>.
+
+<P>
+</LI>
+</OL>
+
+<P>
+When you are done, make sure your script file with all of the above code
+is saved in your folder on the <code>I:</code> drive.
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

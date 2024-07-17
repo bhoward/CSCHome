@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 4 - CSC 122: Computer Science II, Spring
+2005</title>
+<style type="text/css">
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             tr.TableHeadingColor {background-color: #CCCCFF}
+             tr.TableRowColor {background-color: #FFFFFF}
+             div.solution {color: red}
+             div.solution td {color: red}
+             img.validator {float: right; border: none}
+             
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 122: Computer Science II, Spring 2005</h1>
+
+<h2>Project 4</h2>
+
+<h3>Decisions, decisions, decisions</h3>
+
+<h3>Deadline: Thursday, May 12, 5:00 p.m.</h3>
+
+<dl>
+<dt>Overview:</dt>
+
+<dd>
+<p>A decision tree can be viewed as a flow chart or diagram
+representing a classification system or predictive model. The tree
+is structured as a sequence of questions, the answers to which
+trace a path down the tree to a leaf containing the path's
+classification or prediction.. The classification or prediction
+made by the model can be a qualitative judgment (e.g., these are
+responders) or a numerical forecast (e.g., sales will increase 15
+percent). Decision trees can be used in many ways, from mining data
+contained in very large databases to making decisions in response
+to simple yes/no questions. Decision trees can also "learn" by
+being extended when an incorrect answer is found at the end of a
+path.</p>
+
+<p>In this assignment you will have the opportunity to build,
+modify and use binary decision trees. In the tree that you
+maintain, each internal node is a yes/no question with two
+children. Leaves contain the results of traversing the various
+paths. You are to write a Java application that learns about the
+universe of your choice by asking the user yes/no questions. For
+example, the program might learn about animals by having the
+following dialog with its user. (User responses are in
+uppercase.)</p>
+
+<pre>
+  Think of an animal and I will guess it.
+
+  Does it have legs? YES
+  Is it a cat? YES
+  I win! Continue? YES
+
+  Think of an animal and I will guess it.
+
+  Does it have legs? NO
+  Is it a snake? YES
+  I win! Continue? YES
+
+  Think of an animal and I will guess it.
+
+  Does it have legs? NO
+  Is it a snake? NO
+  I give up. What is it? EARTHWORM
+  Please type a question whose answer is yes for an earthworm and no for a snake:
+    DOES IT LIVE UNDERGROUND?
+  Continue? NO
+
+  Good-bye
+</pre>
+
+<p>The next set of questions might lead to <b>Is it a snake?</b> To
+which the answer might be no and the question to learn next might
+be <b>Does it live in water?</b> resulting in another node being
+added to the tree:</p>
+
+<div align="center"><img src="tree.png" width="504" height="360"
+alt="Tree example"></div>
+
+<p>It could also be the case that a result might need to be deleted
+from the tree. For example, if <b>snake</b> is deleted then
+<b>fish</b> replaces the question <b>Does it live in water?</b></p>
+
+<p>Finally, once a tree is built, it would be nice to have it
+persist between the times the application is run. Thus the tree
+should be able to be saved to a text file and rebuilt by reading
+that file when the application is launched again. In addition, it
+should be possible to save and load several different "knowledge
+bases" (decision trees).</p>
+</dd>
+
+<dt>Specification:</dt>
+
+<dd>
+<p><b>The Guessing project</b> has at least four classes:</p>
+
+<ol>
+<li><b>Driver:</b> Contains the method <b>main</b>, which creates
+an instance of <b>GuessingGUI</b> and invokes its <b>start</b>
+method. <b>Driver</b> will be used to run the application
+stand-alone (not in the BlueJ environment) once you have completed
+the rest of the project. You should test as you go by using
+instances of <b>GuessingGUI</b>, <b>Game</b> and the other classes
+you write.</li>
+
+<li><b>GuessingGUI:</b> Contains code that creates a Graphical User
+Interface with components that are used to accomplish interaction
+with the application(see below). You should study this module
+carefully as it contains calls to methods corresponding to each of
+the buttons in the GUI. It also contains methods used by
+<b>Game:</b> to open a file for reading and for writing.</li>
+
+<li><b>Game:</b> Contains a minimal amount of uninteresting code
+corresponding to each of the buttons in the GUI.</li>
+
+<li><b>DTree:</b> Is a class not yet written. It contains instance
+variables and methods corresponding to a decision tree class. The
+tree will have nodes with left and right child references, as well
+as a String item in which to store a question or a result. The left
+reference will correspond to the decision YES and the right to the
+decision NO. You will need to provide methods to: visit the next
+node (based on YES or NO decision), write a tree to a text file,
+read and create a tree from a text file, and add a question and a
+result to the tree (the result will be a leaf). <b>You will receive
+extra credit if you also implement the delete method described
+above.</b></li>
+
+<li><b>You may choose to write or include additional classes or
+methods; a DTreeNode class, for example.</b> For each such class
+and method make sure to provide complete documentation using
+JavaDoc format.</li>
+</ol>
+
+<div align="center"><img src="gui.png" width="200" height="200"
+alt="GUI"></div>
+</dd>
+
+<dt>The Project and Getting Started:</dt>
+
+<dd>
+<p><strong>The Guessing project:</strong></p>
+
+<ul>
+<li>The provided files can be copied from
+I:\csc122\public\Guessing.</li>
+
+<li>Implement the project using the test-driven implementation
+strategy: first build a test system and stubbed implementation of
+each class.</li>
+
+<li>One strategy for saving a tree to a file is to write each
+node's item field as a separate line, doing so using a preorder
+traversal of the tree (recursive or otherwise). You will need to
+mark each leaf so that you can recognize them when restoring the
+tree. One way to do this is to write an empty string as a line in
+the file prior to writing the item in the leaf node. Don't forget
+to close the file when you are finished writing the tree.</li>
+
+<li>Restore a tree from a file by first reading the first line from
+the file (it will become the root) and building the rest of the
+tree knowing that it is in preorder in the file. If you use the
+above approache, then when you encounter an empty string you know
+that the next line from the file corresponds to a leaf, and you can
+create a node without any children accordingly. If you use
+recursion, the prototype for the helper method might be:
+<b>DTreeNode readTree(BufferedReader reader)</b></li>
+</ul>
+
+<p><strong>Standards:</strong></p>
+
+<p>Your project should be well-written, neatly-formatted, modular,
+and well-documented.</p>
+
+<p><strong>Grading:</strong></p>
+
+<ul>
+<li>Correctly handling decision tree operations (48 points) 
+
+<ul>
+<li>write a tree</li>
+
+<li>read a tree</li>
+
+<li>get next node</li>
+
+<li>add a question (and result)</li>
+
+<li>delete a node (extra credit)</li>
+</ul>
+</li>
+
+<li>Correctly implementing each of the button actions in the GUI.
+This may require some modification of <b>GuessingGUI</b> and will
+certainly require modification of methods in <b>Game</b>. (40
+points) 
+
+<ul>
+<li>Clear Questions</li>
+
+<li>Load File</li>
+
+<li>Save File</li>
+
+<li>Start Game</li>
+
+<li>Delete Item (extra credit)</li>
+</ul>
+</li>
+
+<li>Documentation and style (12 points)</li>
+
+<li><b>Extra credit will not be awarded without the required items
+being completed.</b></li>
+</ul>
+</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a>, <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a>, Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> (<a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>). 
+<!--#config timefmt="%A, %B %e, %Y" -->
+ Last updated <!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

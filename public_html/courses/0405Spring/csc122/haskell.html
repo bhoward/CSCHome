@@ -1,0 +1,931 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8" />
+
+    <title>Programming with HasCl - CSC 122: Computer Science II,
+    Spring 2005</title>
+<style type="text/css">
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             tr.TableHeadingColor {background-color: #CCCCFF}
+             tr.TableRowColor {background-color: #FFFFFF}
+             div.solution {color: red}
+             div.solution td {color: red}
+             img.validator {float: right; border: none}
+             
+        span.textit {font-style: italic}
+        span.textbf {font-weight: bold}
+        span.MATH {font-style: italic}
+    
+</style>
+<style type="text/css">
+ div.c1 {text-align: center}
+</style>
+  </head>
+
+  <body>
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <h1>CSC 122: Computer Science II, Spring 2005</h1>
+
+    <h2>Programming with HasCl</h2>
+
+    <p>This handout covers the basics of programming in HasCl,
+    which is essentially a subset of the functional language
+    Haskell. Although the details are specific to the Funnie
+    environment, most of it should apply to other Haskell systems
+    such as Hugs or GHC (see <a
+    href="http://www.haskell.org/">http://www.haskell.org/</a> for
+    more details on these and other implementations of the
+    language). In comparison with other tutorials available on the
+    web, the focus here will be on learning to work with recursion
+    and some of the elementary data structures traditionally
+    encountered in Computer Science II; it is not specifically
+    about exploring the power of Haskell, which has many advanced
+    features that we will not discuss.</p>
+
+    <h2><a id="SECTION00010000000000000000"
+    name="SECTION00010000000000000000">Interacting with
+    Funnie</a></h2>
+
+    <p>When you start a session with Funnie you should see an
+    expression window, plus a browseable list of pre-defined
+    functions. This means that the system is ready to evaluate
+    expressions, calculator-style, in the context of the standard
+    collection of definitions known as the prelude. The prelude
+    defines many powerful operations on numbers, strings, and
+    lists. Try entering each of the following expressions at the
+    prompt, clicking the evaluate button after each (or hitting
+    Enter), and figure out what the responses mean; then test
+    yourself by trying similar expressions and checking that you
+    can predict what the responses will be.</p>
+<pre>
+1+2*3
+1+2^3
+(1+2)^3
+product([1, 2, 3, 4, 5, 6])
+product([1 .. 6])
+sum([1 .. 6]) / length([1 .. 6])
+sum([1 .. 6]) # length([1 .. 6])
+22/7
+22.0/7
+22#7
+22%7
+[1 .. 6] ++ reverse([1 .. 6])
+"Hello" ++ "World!"
+toUpper('a')
+map(toUpper, "Hello!")
+map(sqrt, [1 .. 6])
+map(odd, [1 .. 6])
+head([1 .. 6])
+tail([1 .. 6])
+(head([1 .. 6]), head("Hello!"))
+zip([1 .. 6], "Hello!")
+</pre>
+
+    <p>To use functions beyond those defined in the prelude, you
+    will need to enter them in a definition window. From the Window
+    menu, select ``New Definition Window,'' then click in the
+    window to start typing. When the function is complete, click on
+    the compile button; if the definition does not have any syntax
+    errors, it will be added to the list of locally-defined
+    functions in the top half of the function browser. Otherwise,
+    read the message in the error window and try again.</p>
+
+    <p>For practice, enter the following definition:</p>
+<pre>
+fact(0) = 1
+fact(n) = n * fact(n-1)
+</pre>
+
+    <p>Once you have successfully entered a definition, it will be
+    available for use in the expression window just like the
+    functions in the prelude. With the above function definition,
+    you should now be able to enter an expression such as
+    <code>fact(5)</code> to compute the factorial of 5 (<span
+    class="MATH">5!</span>). When you try this, you should also
+    click on the ``Open Stepper'' button to bring up a stepper
+    window, in which you can trace the individual evaluation
+    steps.</p>
+
+    <h2><a id="SECTION00020000000000000000"
+    name="SECTION00020000000000000000">Basic Types</a></h2>
+
+    <p>If you worked through the expressions in the previous
+    section, you have already encountered most of the standard
+    built-in types of values available in HasCl. Now we will look
+    at each in more detail.</p>
+
+    <dl>
+      <dt><strong>Num</strong></dt>
+
+      <dd>
+        <p>HasCl has a very rich collection of numeric values, but
+        as opposed to many programming languages, it does not have
+        separate types for integers and floating-point numbers;
+        instead, all numbers belong to the type <code>Num</code>.
+        Unlike the type <code>int</code> of Java, there is no upper
+        limit to the size of a <code>Num</code>. For example, we
+        may use the <code>fact</code> function defined above to
+        find <span class="MATH">52!</span> (which counts the number
+        of ways to arrange a deck of 52 playing cards):</p>
+<pre>
+fact(52) =&gt; 80658175170943878571660636856403766975289505440883277824000000000000
+</pre>
+
+        <p>This 68-digit number is a value of type
+        <code>Num</code>. HasCl will happily work with numbers
+        having thousands of digits, up to the limits of your
+        computer's memory. Arithmetic on large numbers is important
+        in applications such as cryptography, where schemes such as
+        RSA encryption are based on the ease of multiplying
+        multi-hundred-digit numbers (and the corresponding
+        difficulty of factoring the result back into the original
+        numbers).</p>
+
+        <p>All of the usual arithmetic operations are available on
+        <code>Num</code>s: <code>+</code>, <code>-</code>,
+        <code>*</code>, and <code>/</code>. In general, division of
+        two integers will produce a rational number (for example,
+        try <code>22 / 8</code>). To divide <code>a</code> by
+        <code>b</code> and get an integer result, use the
+        <code>#</code> operator: <code>a # b</code>. This gives the
+        quotient; to get the remainder, use <code>a % b</code>
+        (this is the same as in Java). Exponentiation, which is not
+        a built-in operator in Java, is written with the caret
+        operator, <code>^</code>; that is, <span
+        class="MATH"><i>a</i><sup>b</sup></span> is written
+        <code>a^b</code>.</p>
+
+        <p>We sometimes need to use an operator like a function. By
+        surrounding any operator in parentheses you can do just
+        that. For example, <code>(+)</code> is a function which
+        takes two arguments, so <code>(+)(1, 2)</code> is the same
+        as <code>1 + 2</code>.</p>
+
+        <p><span class="textbf">Question:</span> Convert the
+        expressions <code>1+(2*3)</code> and <code>(1+2)*3</code>
+        into equivalent calls to the functions <code>(+)</code> and
+        <code>(*)</code>. What can you discover about the
+        precedence rules for the arithmetic operators in HasCl
+        (that is, which of these two expressions is the same as
+        <code>1+2*3</code>)?</p>
+      </dd>
+
+      <dt><strong>Bool</strong></dt>
+
+      <dd>
+        <p>The type <code>Bool</code> represents truth conditions,
+        either <code>true</code> or <code>false</code>. It is
+        essentially equivalent to the <code>boolean</code> type of
+        Java. Comparison operators such as <code>==</code>,
+        <code>!=</code> (not equal), <code>&lt;</code>,
+        <code>&gt;=</code>, ..., return values of type
+        <code>Bool</code>. The standard logical operations are
+        available: <code>1 &lt; x &amp;&amp; x &lt; 10</code> is
+        true if <code>x</code> is both greater than 1 <span
+        class="textit">and</span> less than 10; <code>x == 2 ||
+        odd(x)</code> is true if <code>x</code> is either equal to
+        2 <span class="textit">or</span> odd; and
+        <code>not(odd(x))</code> is true if <code>x</code> is <span
+        class="textit">not</span> odd (this can also be written
+        <code>even(x)</code>).</p>
+
+        <p>Given a boolean value, the natural way to use it is to
+        make a decision between two choices. HasCl has a
+        conditional expression similar to that found in most
+        languages: if <code>b</code> has type <code>Bool</code> and
+        <code>p</code> and <code>q</code> are two expressions which
+        have the same type, then <code>if b then p else q</code> is
+        an expression that evaluates to <code>p</code> when
+        <code>b</code> is <code>true</code> and <code>q</code> when
+        <code>b</code> is <code>false</code>. For example, <code>if
+        1 &lt; x &amp;&amp; x &lt; 10 then "OK" else "Out of
+        Range"</code> will evaluate to the string <code>"OK"</code>
+        whenever <code>x</code> is strictly between 1 and 10, and
+        <code>"Out of Range"</code> otherwise.</p>
+
+        <p><span class="textbf">Question:</span> Write an
+        expression using the variable <code>x</code> which
+        evaluates to <code>"Might be prime"</code> if
+        <code>x</code> is either odd or equal to 2, and evaluates
+        to <code>"Not prime"</code> otherwise. To turn this into a
+        function named <code>primeTest</code>, enter the following
+        in a definition window and press Compile:</p>
+<pre>
+primeTest(x) = &lt;your expression here&gt;
+</pre>
+
+        <p>(where <code>&lt;your expression here&gt;</code> is
+        replaced by the expression). Test it on cases like
+        <code>primeTest(2)</code>, <code>primeTest(6)</code>, and
+        <code>primeTest(15)</code>.</p>
+
+        <p><span class="textbf">Question:</span> Write a function
+        named <code>myAnd</code> which takes two arguments,
+        <code>x</code> and <code>y</code>. Using
+        <code>if-then-else</code>, the constants <code>true</code>
+        and <code>false</code>, and the variables <code>x</code>
+        and <code>y</code>, it should produce the same result as
+        the expression <code>x &amp;&amp; y</code>. That is, it
+        should produce <code>true</code> when <code>x</code> and
+        <code>y</code> are both <code>true</code>, and
+        <code>false</code> otherwise, but you may not use the
+        built-in <code>&amp;&amp;</code> operator.</p>
+      </dd>
+
+      <dt><strong>Char</strong></dt>
+
+      <dd>
+        <p>The HasCl type <code>Char</code> can represent any
+        single character. It is essentially identical to the
+        <code>char</code> type in Java, even using the same
+        single-quote syntax: <code>'a'</code> is the character
+        <code>a</code>. If you want a single-quote character, HasCl
+        uses the same backslash escape mechanism as Java:
+        <code>'\''</code>. Here are some more escape codes for
+        characters that are otherwise hard to type:</p>
+
+        <div class="c1">
+          <table cellpadding="3" summary="escape codes">
+            <tr>
+              <td align="LEFT"><code>\n</code></td>
+
+              <td align="LEFT">newline</td>
+
+              <td align="LEFT"><code>\r</code></td>
+
+              <td align="LEFT">carriage return</td>
+            </tr>
+
+            <tr>
+              <td align="LEFT"><code>\t</code></td>
+
+              <td align="LEFT">tab</td>
+
+              <td align="LEFT"><code>\v</code></td>
+
+              <td align="LEFT">vertical tab</td>
+            </tr>
+
+            <tr>
+              <td align="LEFT"><code>\a</code></td>
+
+              <td align="LEFT">bell</td>
+
+              <td align="LEFT"><code>\f</code></td>
+
+              <td align="LEFT">form feed</td>
+            </tr>
+
+            <tr>
+              <td align="LEFT"><code>\b</code></td>
+
+              <td align="LEFT">backspace</td>
+
+              <td align="LEFT"><code>\\</code></td>
+
+              <td align="LEFT">backslash</td>
+            </tr>
+
+            <tr>
+              <td align="LEFT"><code>\'</code></td>
+
+              <td align="LEFT">single-quote</td>
+
+              <td align="LEFT"><code>\"</code></td>
+
+              <td align="LEFT">double-quote</td>
+            </tr>
+          </table>
+        </div>
+
+        <p>Unlike Java, a <code>Char</code> does not automatically
+        convert to an integer. If you want the ASCII code for a
+        character, use the <code>ord</code> function. To convert
+        from an ASCII code back to a character, use the
+        <code>chr</code> function. For example,
+        <code>ord('A')</code> returns 65, while
+        <code>chr(48)</code> gives <code>'0'</code>.</p>
+
+        <p><span class="textbf">Question:</span> Given that the
+        ASCII codes of the digits are consecutive numbers from 48
+        for <code>'0'</code> to 57 for <code>'9'</code>, write a
+        function named <code>digitToNum</code> that takes a digit
+        <code>d</code> of type <code>Char</code> and produces the
+        corresponding <code>Num</code>. For example,
+        <code>digitToNum('7')</code> should produce the result
+        <code>7</code> (note that the result is the <span
+        class="textit">number</span> 7, not the <span
+        class="textit">character</span> <code>'7'</code>).</p>
+      </dd>
+
+      <dt><strong>String</strong></dt>
+
+      <dd>
+        <p>As with many other parts of the <code>HasCl</code>
+        language, the syntax for strings is essentially the same as
+        in Java. That is, a string constant is a sequence of
+        characters surrounded by double-quotes: <code>"Like
+        this"</code>. The escape codes listed above may be used to
+        embed ``difficult'' characters in strings: <code>"My
+        favorite string is \"Hello World\"."</code> However, unlike
+        C and C++, where strings are arrays of characters
+        (reflecting the importance of the array in those
+        languages), in HasCl a <code>String</code> is a <span
+        class="textit">list</span> of elements of type
+        <code>Char</code>. We will see more about lists below, but
+        one of the implications for strings is that the common
+        operation of appending two strings is achieved by using the
+        list append operator, <code>++</code>. For example,
+        <code>"Hello" ++ "World"</code> evaluates to
+        <code>"HelloWorld"</code>.</p>
+
+        <p><span class="textbf">Question:</span> Write a function
+        named <code>echo</code> that takes a string <code>s</code>
+        and produces a new string with <code>s</code> followed by
+        <code>s</code> again in parentheses. For example,
+        <code>echo("Hello")</code> should evaluate to <code>"Hello
+        (Hello)"</code>. Be careful to get the correct spacing.</p>
+      </dd>
+
+      <dt><strong>Pairs and Tuples</strong></dt>
+
+      <dd>
+        <p>Several values may be packaged into a single data item
+        by wrapping them in a <span class="textit">tuple</span>. A
+        tuple is written as a comma-separated sequence of values in
+        parentheses: <code>(42, 'a', "Hello", true)</code>. There
+        may be any number of values (even none at all) in a tuple;
+        the special case of two values is called a <span
+        class="textit">pair</span>. The order of the values
+        matters, so the pair <code>(1, 2)</code> is different from
+        the pair <code>(2, 1)</code>. The type of a tuple is
+        written as a tuple of types, so these pairs each have type
+        <code>(Num, Num)</code>, while the first tuple above has
+        type <code>(Num, Char, String, Bool)</code>.</p>
+
+        <p><span class="textbf">Question:</span> Invent an
+        expression which has the type <code>(Bool, Char,
+        String)</code>. Now find an expression whose type is
+        <code>((Bool, Char), String)</code> (note the extra
+        parentheses). Recall that the type of an expression is
+        displayed after the colons (<code>::</code>) when it is
+        evaluated in an expression window.</p>
+      </dd>
+
+      <dt><strong>Lists</strong></dt>
+
+      <dd>
+        <p>Tuples can hold a variety of types of values; they are
+        roughly analogous to structs in C++ or simple objects in
+        Java (although the fields are accessed only by position,
+        not by name). One disadvantage of using a tuple is that a
+        particular tuple type will always contain the same number
+        of values. If we want to store a varying number of values
+        in a single data object, we use a <span
+        class="textit">list</span>. In this sense, lists are the
+        HasCl equivalent of arrays in Java; however, lists are a
+        more abstract concept than arrays (since an array is tied
+        to a specific storage mechanism in memory), and HasCl
+        provides many powerful operations on lists that have no
+        direct equivalents in Java arrays. The tradeoff for this
+        added power over tuples is that all of the data items in a
+        list have to be of the same type; it is not possible to mix
+        numbers with characters or strings in a single list (Java
+        arrays have this same restriction).</p>
+
+        <p>The basic way to write a list of values is to enclose
+        them in square brackets, separated by commas. For example,
+        <code>[1, 2, 3, 4, 5]</code> is a list of five numbers,
+        starting with <code>1</code> at the head of the list. Just
+        as with tuples, the order matters, so <code>[2, 5, 3, 1,
+        4]</code> is a different list, even though it contains the
+        same values. Since each of these values is of type
+        <code>Num</code>, we write the type of the list as
+        <code>[Num]</code>. There is an abbreviation for lists
+        which consist of a regular sequence of values: <code>[1 ..
+        5]</code> gives the list <code>[1, 2, 3, 4, 5]</code>.</p>
+
+        <p>As mentioned above, a <code>String</code> is just a list
+        of <code>Char</code>s. The notation <code>"Hello"</code>
+        gives exactly the same list as <code>['H', 'e', 'l', 'l',
+        'o']</code>. Note that a list of <code>Strings</code> is
+        <span class="textit">not</span> the same; <code>["Hello",
+        "World"]</code> is a list with two elements, each of which
+        is a list of characters (coincidentally, each one is five
+        characters long, but recall that a given type of list can
+        have any number of elements). The type of <code>["Hello",
+        "World"]</code> is <code>[String]</code>; since
+        <code>String</code> is a synonym for <code>[Char]</code>,
+        this can also be written <code>[[Char]]</code> (a list of
+        lists of characters).</p>
+
+        <p>The fundamental operations on lists allow us to take
+        them apart and put them together. Given a list, we may
+        remove the first element with <code>head</code>, and obtain
+        the list of all <span class="textit">except</span> the
+        first element with <code>tail</code>: <code>head([1, 2, 3,
+        4, 5])</code> is <code>1</code>, while <code>tail([1, 2, 3,
+        4, 5])</code> is <code>[2, 3, 4, 5]</code>. A new list may
+        be formed from a head element and a tail list with the
+        colon operator: for example, <code>[1 : [2, 3, 4,
+        5]]</code> produces <code>[1, 2, 3, 4, 5]</code>. An entire
+        list may be put together in this way, with the initial tail
+        list being the empty list, <code>[ ]</code>. That is,
+        <code>[1, 2, 3, 4, 5]</code> is equivalent to <code>[1 : [2
+        : [3 : [4 : [5 : [ ]]]]]]</code>. If you ask the type of
+        <code>[ ]</code>, the system will say <code>[ ] ::
+        [a]</code>, which is read ``<code>[ ]</code> has the type
+        list of <code>a</code>, where <code>a</code> can be <span
+        class="textit">any</span> type.'' Trying to take the
+        <code>head</code> or <code>tail</code> of an empty list
+        produces an error (try <code>head(tail([1]))</code>).</p>
+
+        <p>We have seen a number of other operations on lists
+        already. The operator <code>++</code> will append two lists
+        of the same type, so <code>[1, 2] ++ [3, 4, 5]</code>
+        produces <code>[1, 2, 3, 4, 5]</code>. The
+        <code>reverse</code> function produces a list with all the
+        same elements as its argument, but in the opposite order:
+        <code>reverse("Hello")</code> gives <code>"olleH"</code>.
+        The <code>length</code> function counts how many elements
+        are in a list; if you do <code>length([ ])</code>, the
+        answer is <code>0</code>, while <code>length(["Hello",
+        "World"])</code> is <code>2</code> (and
+        <code>length(head(["Hello", "World"]))</code> is
+        <code>5</code>). Given lists of numbers, <code>sum</code>
+        and <code>product</code> will add or multiply all of the
+        numbers together.</p>
+
+        <p>A more interesting operation is <code>map</code>, which
+        takes two arguments. The first is a one-argument function
+        and the second is a list; <code>map</code> applies the
+        function to each of the elements of the list and returns
+        the list of results. For example, <code>map(sqrt, [1 ..
+        10])</code> produces a list of the square roots of the
+        numbers from 1 to 10; it is equivalent to evaluating
+        <code>[sqrt(1), sqrt(2), ..., sqrt(10)]</code> (the
+        <code>...</code> here is not in the syntax of HasCl; I just
+        didn't feel like typing all ten terms).</p>
+
+        <p>One more function on lists that we have seen is
+        <code>zip</code>. When <code>zip</code> is applied to a
+        pair of lists, it creates a list of pairs of corresponding
+        elements from the two lists, until one or both of the lists
+        is exhausted. That is, <code>zip([1, 2, 3], ["Hello",
+        "World"])</code> produces the list <code>[(1, "Hello"), (2,
+        "World")]</code>; the <code>3</code> is ignored, because
+        there was no matching element in the second list.</p>
+
+        <p>Lists may be compared for equality; two lists are equal
+        if they have the same length and if corresponding elements
+        are equal.</p>
+
+        <p><span class="textbf">Question:</span> Write a function
+        that tests whether a string <code>s</code> is a palindrome
+        (that is, it reads the same forwards as backwards). For
+        example, <code>isPalindrome("radar")</code> should return
+        <code>true</code>, while <code>isPalindrome("Madam, I'm
+        Adam")</code> should return <code>false</code> (that is,
+        the spaces and punctuation matter, as does
+        capitalization).</p>
+      </dd>
+
+      <dt><strong>Functions</strong></dt>
+
+      <dd>
+        <p>As seen in the <code>map</code> example above, HasCl
+        allows functions to be used as values and passed as
+        arguments to other functions. HasCl is known as a
+        ``functional'' language, partly because of this treatment
+        of functions as first-class values (that is, they are
+        treated just like the other basic types of the language).
+        The type of a function which takes an argument of type
+        <code>a</code> and produces a result of type <code>b</code>
+        is <code>(a) -&gt; b</code>, which is an ASCII
+        approximation of the usual mathematical notation <span
+        class="MATH"><code>a</code> <img width="20" height="14"
+        align="BOTTOM" border="0" src="haskellimg1.png"
+        alt="$ \rightarrow$" /> <code>b</code></span> (the
+        parentheses around the argument type <code>a</code> are to
+        remind us of the parentheses around the argument in a
+        function call; this is similar to Java, where we say that
+        if <code>f</code> is a function that takes an argument of
+        type <code>a</code> and produces a result of type
+        <code>b</code>, then the <span
+        class="textit">prototype</span> for <code>f</code> is
+        <code>b f(a);</code>). To express the type of
+        <code>map</code>, note that <code>map</code> takes a
+        function of any type <code>(a) -&gt; b</code>, as well as a
+        list of type <code>[a]</code>; the result, after applying
+        the function to each element of the list, will be of type
+        <code>[b]</code>. Therefore, the system will inform us that
+        <code>map :: ((a) -&gt; b, [a]) -&gt; [b]</code> (try
+        it).</p>
+
+        <p><span class="textbf">Question:</span> What is the type
+        of <code>zip</code>?</p>
+      </dd>
+    </dl>
+
+    <h2><a id="SECTION00030000000000000000"
+    name="SECTION00030000000000000000">User-Defined Types and
+    Functions</a></h2>
+
+    <p>Apart from some of the syntactic abbreviations mentioned
+    above (for example, string constants), there is nothing special
+    about the built-in types described above. HasCl has a very
+    powerful system for defining new types and operations. The
+    basis of the means of defining new types is the
+    <code>data</code> definition, which names a new type and lists
+    all of the fundamental ways of constructing new values of the
+    type. The standard way of defining new operations is then to
+    give a series of rules that cover each case of how an argument
+    could have been constructed; since all of the constructors are
+    listed in the <code>data</code> definition, it is usually
+    sufficient to provide one rule for each constructor.</p>
+
+    <h3><a id="SECTION00031000000000000000"
+    name="SECTION00031000000000000000">Enumerated Types</a></h3>
+
+    <p>A simple example is a type which is just an enumeration of
+    all the possible values. Consider a <code>Direction</code>
+    type, which may be <code>North</code>, <code>East</code>,
+    <code>South</code>, or <code>West</code>. Here is an
+    appropriate definition:</p>
+<pre>
+data Direction = North | East | South | West
+</pre>
+
+    <p>This says that the only way to construct a value of type
+    <code>Direction</code> is to give one of the four main compass
+    directions; these four constructors name the four values of the
+    type. Now suppose that we want to define a function
+    <code>degrees</code> which converts a <code>Direction</code>
+    into the corresponding numerical compass heading, where <span
+    class="MATH">0<sup><tt>o</tt></sup></span> is north, <span
+    class="MATH">90<sup><tt>o</tt></sup></span> is east, etc. The
+    following set of rules will cover all the cases:</p>
+<pre>
+degrees(North) = 0
+degrees(East)  = 90
+degrees(South) = 180
+degrees(West)  = 270
+
+</pre>
+
+    <p>That's it. Enter these lines in a New Definition window and
+    compile them. Now when the system encounters an expression such
+    as <code>degrees(West)</code>, it can evaluate it by looking at
+    the rules, producing the result <code>270</code>. We have just
+    defined a new function <code>degrees :: (Direction) -&gt;
+    Num</code>.</p>
+
+    <p>When you enter a new function definition, it is a good idea
+    to declare the expected type of the function on the first line,
+    followed by a descriptive comment (this is no different from
+    the good practice of providing function signatures and comments
+    in Java). For example, the function above could also have been
+    entered as</p>
+<pre>
+degrees :: (Direction) -&gt; Num
+// Convert a compass direction into numeric degrees
+degrees(North) = 0
+...
+</pre>
+
+    <p>The type declaration provides extra documentation about the
+    use of the function, as well as a check that the function
+    really does have the desired type (Funnie will give you an
+    error message when compile the function if you declare the
+    wrong type). Incidentally, a current limitation of Funnie is
+    that function definitions may not be deleted, and all
+    definitions of a given function must have the same name. If you
+    define a function incorrectly and it compiles with the wrong
+    type, you will need to make up a new name, such as
+    <code>degrees2</code>, for the correct function (fixing this
+    problem is on the list of improvements for the summer).</p>
+
+    <p>Another example is the type <code>Bool</code>; it acts as if
+    it were defined as <code>data Bool = false | true</code>. Here
+    is the definition of the <code>not</code> function from the
+    standard library:</p>
+<pre>
+not :: (Bool) -&gt; Bool
+// Logical negation
+not(false) = true
+not(true) = false
+</pre>
+
+    <p>As you can see, it is very similar to the
+    <code>Direction</code> type. There are exactly two values of
+    type <code>Bool</code>, <code>false</code> and
+    <code>true</code>. The <code>not</code> function has a
+    correspondingly simple definition, since it only has to
+    consider two cases for its argument. The <code>Char</code> type
+    is also handled conceptually as an enumeration, although it has
+    many more cases.</p>
+
+    <p><span class="textbf">Question:</span> Define a function
+    <code>rotateDirLeft :: (Direction) -&gt; Direction</code> which
+    will take <code>North</code> to <code>West</code>,
+    <code>East</code> to <code>North</code>, etc.</p>
+
+    <h3><a id="SECTION00032000000000000000"
+    name="SECTION00032000000000000000">Constructors with
+    Arguments</a></h3>
+
+    <p>Constructors in a <code>data</code> definition may also take
+    arguments. For example, suppose we want a type to represent
+    colors. We might use the following (a slightly different type
+    <code>Color</code> is already defined in the Graphics module in
+    Funnie, so I will use the British spelling here to avoid a
+    conflict):</p>
+<pre>
+data Colour = Red | Green | Blue
+            | Yellow | Cyan | Magenta
+            | White | Black
+            | rgb(Num, Num, Num)
+</pre>
+
+    <p>This is like an enumeration, except the last constructor can
+    take three <code>Num</code>s to represent an arbitrary color by
+    giving its red, green, and blue components (each going from 0
+    to 255). We could define a function <code>getRGB</code> of type
+    <code>(Colour) -&gt; (Integer, Integer, Integer)</code> which
+    converts any value of type <code>Colour</code> into a triple of
+    red, green, and blue components. Here is an appropriate list of
+    rules:</p>
+<pre>
+getRGB(Red)        = (255,   0,   0)
+getRGB(Green)      = (  0, 255,   0)
+getRGB(Blue)       = (  0,   0, 255)
+getRGB(Yellow)     = (255, 255,   0)
+getRGB(Cyan)       = (  0, 255, 255)
+getRGB(Magenta)    = (255,   0, 255)
+getRGB(White)      = (255, 255, 255)
+getRGB(Black)      = (  0,   0,   0)
+getRGB(rgb(r,g,b)) = (  r,   g,   b)
+</pre>
+
+    <p>The name for this kind of function definition by giving
+    rules is a ``pattern-matching'' definition. Each rule gives a
+    pattern that will be matched against an argument; if the match
+    is successful, then the rule is used; otherwise, the next rule
+    in the list is tried. For no-argument constructors, such as
+    <code>Red</code>, the name of the constructor is the entire
+    pattern. For constructors taking arguments, the pattern is
+    formed by giving the constructor name followed by enough
+    variables to match whatever argument values come along with
+    that constructor. For example, if we evaluate
+    <code>getRGB(rgb(64, 128, 192))</code>, the ninth rule will
+    succeed by matching <code>r</code> to <code>64</code>,
+    <code>g</code> to <code>128</code>, and <code>b</code> to
+    <code>192</code>. These variable matches, also known as <span
+    class="textit">bindings</span>, are roughly equivalent to
+    associating actual arguments with formal parameters in calling
+    a function in Java; for the course of the execution of the
+    function, the variables will contain the values passed in from
+    the caller (in Java this has to be qualified to say ``unless
+    the variables are assigned different values in the course of
+    execution''; HasCl has no notion of changing the value assigned
+    to a variable--this is part of what makes the functions so
+    pure, since we don't have to worry about changing the state of
+    variables--so this qualification is not necessary). Therefore,
+    in evaluating the right-hand-side of the rule, the expression
+    <code>(r, g, b)</code> becomes <code>(64, 128, 192)</code>;
+    this is the result of the function.</p>
+
+    <p>Although they depend on some special syntax, the built-in
+    tuple types are an instance of this kind of data type. For
+    example, we may define a new type that is essentially
+    equivalent to the type <code>(Bool, Char)</code> as
+    follows:</p>
+<pre>
+data BoolChar = BoolChar(Bool, Char)
+
+</pre>
+
+    <p>For convenience, we may also define functions to extract
+    individual components from a <code>BoolChar</code> value:</p>
+<pre>
+first :: (BoolChar) -&gt; Bool
+first(BoolChar(b,c)) = b
+
+second :: (BoolChar) -&gt; Char
+second(BoolChar(b,c)) = c
+</pre>
+
+    <p>These mirror the built-in functions <code>fst</code> and
+    <code>snd</code> which extract the two components of a pair.
+    Thus, we could write an expression such as
+    <code>first(BoolChar(false, 'x'))</code> to mirror the standard
+    expression <code>fst(false, 'x')</code>; each evaluates to
+    <code>false</code>.</p>
+
+    <p>The prelude does not provide functions analogous to
+    <code>fst</code> and <code>snd</code> for tuple types with more
+    values, because it is more common to extract the parts of a
+    tuple by pattern matching. For example, suppose we want to
+    write a function <code>brightness :: (Num, Num, Num) -&gt;
+    Num</code> which takes a triple of <code>Num</code>s, as
+    produced by the <code>getRGB</code> function above, and returns
+    the average of the three components. It may be defined as
+    follows:</p>
+<pre>
+brightness((r, g, b)) = (r + g + b) # 3
+</pre>
+
+    <p>Evaluating <code>brightness(getRGB(Cyan))</code> first
+    applies the <code>getRGB</code> function to <code>Cyan</code>,
+    producing the triple <code>(0, 255, 255)</code>. Then it
+    applies the <code>brightness</code> function to this result:
+    <code>brightness((0, 255, 255))</code>. This matches the rule
+    for <code>brightness</code>, binding <code>0</code> to
+    <code>r</code>, <code>255</code> to <code>g</code>, and
+    <code>255</code> to <code>b</code>. Finally, it plugs these
+    values into the right-hand-side, producing <code>(0 + 255 +
+    255) # 3</code>, which gives <code>170</code> as the final
+    result.</p>
+
+    <p><span class="textbf">Question:</span> Give a direct
+    definition of a function <code>colourBrightness :: Colour -&gt;
+    Num</code>, such that <code>colourBrightness(c)</code> produces
+    the same result as <code>brightness(getRGB(c))</code> for any
+    <code>Colour</code> value <code>c</code> (but without using the
+    <code>brightness</code> or <code>getRGB</code> functions).</p>
+
+    <h3><a id="SECTION00033000000000000000"
+    name="SECTION00033000000000000000">Recursive Data
+    Types</a></h3>
+
+    <p>At this point it is a minor step to allow recursive data
+    types--types where a constructor may take another value of the
+    type being constructed as an argument. For example, here is the
+    definition of a type <code>Path</code>, where a path is either
+    empty or it consists of a segment going right, left, up, or
+    down followed by another path:</p>
+<pre>
+data Path = End | R(Path) | L(Path) | U(Path) | D(Path)
+</pre>
+
+    <p>An example of a value of type <code>Path</code> is
+    <code>R(U(R(D(End))))</code>, which may be drawn as</p>
+
+    <div class="c1">
+      <img width="94" height="51" border="0" src="haskellimg2.png"
+      alt="\begin{figure}\setlength{\unitlength}{2mm}\begin{center}\begin{picture}(20,10) \... ...\vector(0,-1){5}} \put(15,2){\circle*{.5}} \end{picture}\end{center}\end{figure}" />
+    </div>
+
+    <p>The only extra ability needed to support this is to allow a
+    similar recursion when defining a function--we will allow the
+    use of the function being defined on the right-hand-side of a
+    rule, usually applied to a variable that was bound to another
+    instance of the type when matching one of the recursive
+    constructors. For example, here is a <code>rotateLeft</code>
+    function on <code>Path</code>s, which changes all of the path
+    segments to be rotated <span
+    class="MATH">90<sup><tt>o</tt></sup></span>
+    counter-clockwise:</p>
+<pre>
+rotateLeft(End)  = End
+rotateLeft(R(p)) = U(rotateLeft(p))
+rotateLeft(L(p)) = D(rotateLeft(p))
+rotateLeft(U(p)) = L(rotateLeft(p))
+rotateLeft(D(p)) = R(rotateLeft(p))
+
+</pre>
+
+    <p>For each of the recursive constructors, which build a longer
+    path by adding a segment onto the beginning of another path, we
+    give a rule that says how to rotate the added segment, and then
+    we make a recursive call to <code>rotateLeft</code> to rotate
+    the rest of the path. The base case is where the recursion
+    bottoms out, in this case at the empty path
+    <code>End</code>.</p>
+
+    <p>The canonical example of a recursive data type is the
+    built-in list type. Indeed, we can frequently ``code up'' other
+    recursive types by representing them as lists--you should be
+    able to imagine using <code>[Direction]</code> as a replacement
+    for <code>Path</code>, where we might write <code>[East, North,
+    East, South]</code> instead of
+    <code>R(U(R(D(End))))</code>.</p>
+
+    <p><span class="textbf">Question:</span> How would you define
+    <code>rotateDirListLeft :: ([Direction]) -&gt;
+    [Direction]</code> to perform the analogous operation to
+    <code>rotateLeft :: (Path) -&gt; Path</code>? Try to use
+    functions we have already defined.</p>
+
+    <p>Although the syntax is not legal HasCl, you should imagine
+    the list type <code>[a]</code> as being defined by</p>
+<pre>
+data [a] = [ ] | [a : [a]]
+</pre>
+
+    <p>That is, a list of values of type <code>a</code> is either
+    an empty list, <code>[ ]</code>, or the result of using the
+    colon operator to add a value of type <code>a</code> onto the
+    front of another list of values of type <code>a</code>.</p>
+
+    <p>Here is an example of defining our own version of the
+    <code>length</code> function:</p>
+<pre>
+len([ ])      = 0
+len([x : xs]) = 1 + len(xs)
+</pre>
+
+    <p>Note how the structure of the function definition exactly
+    follows the structure of the <code>data</code> definition. To
+    find the length of a list with one element (<code>x</code>)
+    added to it, we add one to the length of the shorter list,
+    obtained by recursively calling the <code>len</code> function
+    on the tail (<code>xs</code>). That rule, plus the base case
+    for the empty list, is all we need to define the function.</p>
+
+    <p><span class="textbf">Question:</span> Write a function
+    <code>countVertical :: ([Direction]) -&gt; Num</code> which
+    counts how many ``vertical'' segments (<code>North</code> or
+    <code>South</code>) are in a <code>Direction</code> list. For
+    example, evaluating the expression</p>
+<pre>
+countVertical([North, East, North, South, West])
+</pre>
+
+    <p>should produce <code>3</code>.</p>
+
+    <p>For another example, here is the definition of a
+    <code>listMap</code> function which is equivalent to the
+    built-in <code>map</code> function:</p>
+<pre>
+listMap(f, [ ])      = [ ]
+listMap(f, [x : xs]) = [f(x) : listMap(f, xs)]
+</pre>
+
+    <p>Reading this off in words, it says that the result of
+    mapping a function <code>f</code> over an empty list is just an
+    empty list, while mapping <code>f</code> over a list that
+    starts with <code>x</code> is the list with <code>f(x)</code>
+    at the head and the result of mapping <code>f</code> over the
+    rest of the list as the tail.</p>
+
+    <p><span class="textbf">Question:</span> Define your own
+    version of the <code>zip</code> function.</p>
+
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <p><a href="http://validator.w3.org/check/referer"><img
+    height="31" width="88" alt="Valid HTML 4.01!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png"
+     class="validator" /></a><a
+    href="http://jigsaw.w3.org/css-validator/check/referer"><img
+    height="31" width="88" alt="Valid CSS!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+    class="validator" /></a><a href="http://www.depauw.edu/">DePauw
+    University</a>, <a
+    href="http://www.depauw.edu/acad/computer/">Computer Science
+    Department</a>, Spring 2005<br />
+     Maintained by <a
+    href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a> (<a
+    href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+    <!--#config timefmt="%A, %B %e, %Y" -->
+     Last updated <!--#echo var="LAST_MODIFIED" -->
+    </p>
+  </body>
+</html>
+

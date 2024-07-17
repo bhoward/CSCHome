@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 12 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    p.bold {font-weight: bold}
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 12</h2>
+
+<h3>Laboratory 12 - The Company Database</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>Develop an appreciation for database management systems
+(Access, Oracle, DB2, etc.). Gain experience working with text
+files, strings, and elements of data management.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab12 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Open the company project.</strong> 
+
+<table summary="Sequence of steps" cellspacing="0" cellpadding="3"
+border="0">
+<tr valign="top" align="left">
+<td><strong>Examine</strong></td>
+<td>
+<p>This project falls far short of implementing a database
+management system and will continue to have many deficiencies after
+you complete this lab. But there are several things you will
+accomplish that will help make the project a better one from a data
+management point-of-view.</p>
+
+<p>If you are not already familiar with the Company database
+project, you might create an instance of CompanyDB and invoke its
+methods:</p>
+
+<ul>
+<li>addDepartment() - displays the GUI form used to add a
+department to the database.</li>
+
+<li>queryDeptManagers() - executes the query that lists departments
+and their managers.</li>
+
+<li>querySalary(String relop, double sal) - retrieves the name and
+salary of employees satisfying the condition. For example,
+<code>querySalary("&gt;=", 30000)</code> lists all employees making
+a salary of $30000 or more.</li>
+
+<li>shutDown() has the responsibility of writing the current state
+of the database to disk files. At this point it only writes the
+department table</li>
+</ul>
+
+<p>Each method above calls a method in another class.
+addDepartment() calls a method in Deptform, queryDeptManagers() and
+querySalary(String relop, double sal) call methods in the Query
+class, and shutDown() calls a method in the Department class.</p>
+
+<p>Before proceeding through the next steps, become familiar with
+the methods and fields in each of the classes of the project by
+looking at their code in the class editor.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Write</strong></td>
+<td>
+<p>A Deptform object can be used to add a new department to the
+database. The Submit button action checks for a blank department
+name and a blank department number, but not for a department number
+that is the same as the one currently entered.</p>
+
+<p><strong>Write a method named find</strong> in the
+DepartmentTable class that has mgrssn as a parameter and returns
+true or false according to whether there is or is not already a
+department with that mgrssn.</p>
+
+<p><strong>Modify the Submit button action,</strong> using the find
+method above to determine whether to add the department represented
+in the form. If find returns true, do not add the new department
+(it is already there), otherwise add the department. If the
+department is not to be added, modify the label at the bottom of
+the Deptform accordingly.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Imitate</strong></td>
+<td>
+<p><strong>Using the save method in the DepartmentTable class as a
+template,</strong> write a save method for the EmployeeTable class.
+Add a call to this method to the shutDown method in CompanyDB.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p><strong>Write a new query</strong> that lists all fields for
+each employee in a given department. The signature of the method
+would look like: <code>public void employeeDept(String
+departmentName)</code>. (Hint: First find the dno of the department
+with the given name, then look at each employee in the employee
+table to see if that employee's dno is the same. If so, print that
+employee.)</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Modify</strong></td>
+<td>
+<p><strong>Add statements to the constructor for CompanyDB</strong>
+so that the forms to add a department and to add an employee are
+automatically displayed when an instance of CompanyDB is
+created.</p>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

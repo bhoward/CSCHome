@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Assignments - CSC 222: Data Structures and Algorithms, Spring 2008</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 222: Data Structures and Algorithms, Spring 2008</h1>
+	
+<h2>Assignments</h2>
+	
+	
+		
+<dl>
+		    
+<dt>
+<a name="hw0207"></a>Thursday, February 7:</dt>
+		    
+<dd>Chapter 1, Exercise 21.  Get it to run under Linux, and put
+		    the resulting files in your directory under
+			<code>/home/libs/dataStr/students/</code>.  You may either put
+			all of the functions (including main and the class definition) in a single
+			source file, or you may split them up for separate compilation using a
+			Makefile as discussed in class.</dd>
+			
+			
+<dt>
+<a name="hw0219"></a>Tuesday, February 19:</dt>
+			
+<dd>Chapter 3, Exercises 18 and 44, and determine the running time of <code>numUnique</code>;<br>
+			    Chapter 4, Exercises 9, 26, and 27.</dd>
+			    
+		    
+<dt>
+<a name="pp1"></a>Friday, March 7:</dt>
+		    
+<dd>
+<a href="pp1.html">Programming Project 1</a> (<a href="libs/pp1model/">Model Solution</a>)</dd>
+		    
+		    
+<dt>
+<a name="hw0401"></a>Tuesday, April 1:</dt>
+		    
+<dd>Chapter 7, Exercises 18 and 17<br>
+		        Chapter 8, Exercises 11, 14, and 20<br>
+		        Chapter 10, Exercises 20, 22, 26, 28, and 31</dd>
+		        
+		    
+<dt>
+<a name="pp2"></a>Thursday, April 17:</dt>
+		    
+<dd>
+<a href="pp2.html">Programming Project 2</a> (<a href="libs/pp2/">Skeleton</a>)</dd>
+		        
+		    
+<dt>
+<a name="hw0508"></a>Thursday, May 8:</dt>
+		    
+<dd>Chapter 16, Exercises 13, 15, 17, 18, and 32</dd>
+		    
+		    
+<dt>
+<a name="final"></a>Tuesday, May 13:</dt>
+		    
+<dd>
+<p>Final Project and Take-Home Exam: For the project, write a "Six Degrees of Separation" program.  The
+		    	input will be a file listing groups of mutual acquaintances (described below).  The output will be the
+		    	following pieces of information:</p>
+		    	
+<ul>
+		    		
+<li>The "diameter": the greatest distance between two people in the input, in terms of lengths of
+		    		chains of acquaintances, followed by an example of a chain of that length;</li>
+		    		
+<li>The name of the person closest to the "center" of the input, in the sense of having the smallest
+		    		average distance to everyone else.</li>
+		    	
+</ul>
+		    	
+		    	
+<p>The format of the input is that it consists of a series of lines, with at most one name per line.
+		    	Blank lines terminate groups of mutual acquaintances.  For example, in the following:</p>
+		    	
+<pre>
+Dave Berque
+Doug Harms
+Brian Howard
+Adebayo Olowoyeye
+Khadija Stewart
+Scott Thede
+Gloria Townsend
+
+Paul Bender
+Jon Dellett
+Brian Howard
+Verne Leininger
+John White
+Lee Williams
+
+		    	</pre>
+		    	
+<p>Each of the first seven people knows the other six, and each of the six people in the second group knows
+		    	the other five.  The only name in common is Brian Howard (gee, I wonder why that is...), therefore the
+		    	output should be something like this:</p>
+		    	
+<pre>
+Diameter: 2
+Dave Berque knows Brian Howard
+Brian Howard knows Lee Williams
+
+Center: Brian Howard, with average distance 1.0
+		    	</pre>
+		    	
+		    	
+<p>
+<a href="libs/final/imdb.txt">Here is a data file</a> derived from <a href="http://www.imdb.com/">IMDB</a>,
+		    	so that you can test the "Kevin Bacon" hypothesis.  Note that in this case, "acquainted with" means "appeared
+		    	in a movie with"; it may well be that some of these people know each other in other ways, but we don't count
+		    	that.</p>
+		    	
+		    	
+<p>
+<a href="libs/final/example.cc">Here is a simple program</a> which shows one way to read in the input:</p>
+		    	
+<pre>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main()
+{
+    fstream fin("/home/libs/dataStr/final/imdb.txt");
+    string name;
+    int n = 0;
+    
+    while (getline(fin, name)) {
+        if (name == "") {
+            cout &lt;&lt; "Found a group of " &lt;&lt; n &lt;&lt; " names" &lt;&lt; endl;
+            n = 0;
+        } else {
+            // Got another name for the current group
+            n++;
+        }
+    }
+    
+    return 0;
+}
+		    	</pre>
+		    	
+<p>You may rely on the last line of the input file being blank.  You may also assume that the
+		    	acquaintance graph is connected -- that is, everyone is connected to everyone else by a chain of
+		    	finite length.</p>
+		    	
+		    	
+<p>Both the project and the rest of the exam should be completed individually.  You may consult with others
+		    	only on general information about C++, the STL, and the book's classes.  There are two additional written parts to the exam:</p>
+		    	
+<ol>
+		    		
+<li>Write a few paragraphs justifying your choice of data structures and algorithms in the
+		    		project.  Argue that you have made efficient choices with respect to the data to be processed.</li>
+		    		
+		    		
+<li>Choose one of the following problems from the <a href="http://acm.uva.es/problemset/">University
+		    		of Valladolid</a> programming contest archive:
+		    			<ul>
+		    				
+<li>
+<a href="http://icpcres.ecs.baylor.edu/onlinejudge/index.php?option=com_onlinejudge&Itemid=8&category=10&page=show_problem&problem=757">816: Abbott's Revenge</a>
+</li>
+		    				
+<li>
+<a href="http://icpcres.ecs.baylor.edu/onlinejudge/index.php?option=com_onlinejudge&Itemid=8&category=10&page=show_problem&problem=762">821: Page Hopping</a>
+</li>
+		    				
+<li>
+<a href="http://icpcres.ecs.baylor.edu/onlinejudge/index.php?option=com_onlinejudge&Itemid=8&category=10&page=show_problem&problem=781">840: Deadlock Detection</a>
+</li>
+		    				
+<li>
+<a href="http://icpcres.ecs.baylor.edu/onlinejudge/index.php?option=com_onlinejudge&Itemid=8&category=10&page=show_problem&problem=810">869: Airline Comparison</a>
+</li>
+		    				
+<li>
+<a href="http://icpcres.ecs.baylor.edu/onlinejudge/index.php?option=com_onlinejudge&Itemid=8&category=10&page=show_problem&problem=820">879: Circuit Nets</a>
+</li>
+		    			
+</ul>
+		    		Note that these problems are not all of equal difficulty &mdash; you may want to discuss your solution
+		    		ideas with me before making a final choice about which one you are going to work on.  Your task is
+		    		to analyze the problem and come up with appropriate data structures and algorithms to solve it.
+		    		<em>You do not need to produce finished C++ code to get full credit for this question,</em> a
+		    		description in English or pseudocode is sufficient (but I have to be able to understand what you
+		    		mean).  For extra credit, complete a C++ solution and get it accepted by the UVa online judge (you
+		    		will need to register with the site to do this &mdash; talk to me if you have any questions about this).
+		    		</li>
+		    	
+</ol>
+		    	
+		    	
+<p>The written parts should be turned in to me, either in my office or by email, by 5 pm on Tuesday,
+		    	May 13.  The project should be completed by that time as well &mdash; send me email as usual, telling
+		    	me where it is saved.</p>
+		    
+</dd>
+		<!-- 
+		    <dt><a name="hw0907"/>Thursday, September 7:</dt>
+		    <dd>Chapter 2, Exercises 19(a) and 26</dd>
+		    <dt><a name="hw0912"/>Tuesday, September 12:</dt>
+		    <dd>Chapter 3, Exercises 15 and 42</dd>
+		    <dt><a name="pp1"/>Friday, September 22:</dt>
+		    <dd><a href="pp1.html">Programming Project 1</a></dd>
+		    <dt><a name="pp2"/>Friday, October 27:</dt>
+		    <dd>Programming Project 2 (Chapter 10, Exercise 44)<br/>
+		    	To start, copy the project files:
+		    	<pre>
+cd /home/libs/dataStr/students/YOURNAMEHERE
+mkdir pp2
+cp /home/libs/dataStr/pp2/* pp2
+		    	</pre></dd>
+		    <dt><a name="hw1114"/>Tuesday, November 14:</dt>
+		    <dd>Chapter 10, Exercises 15, 26, and 28;<br/>
+		        Chapter 11, Exercises 13 and 21;<br/>
+		        Chapter 12, Exercises 13, 14, and 26;<br/>
+		        Chapter 14, Exercises 18 and 19</dd>
+		    <dt><a name="hw1207"/>Thursday, December 7:</dt>
+		    <dd>Chapter 16, Exercises 13, 15, 18, 19, and 32</dd>
+		    <dt><a name="final"/>Friday, December 15:</dt>
+		    <dd><p>Final Project and Take-Home Exam: For the project, write a Word Ladder program.  Using the file
+		    	<code>words.txt</code> (all files are located in <code>/home/libs/dataStr/pp3/</code>), which contains
+		    	over 100,000 english words, search for the shortest way to turn one given word into another, by only
+		    	changing one letter at a time.  There is a demo version in the file <code>pp3demo</code>; here is an
+		    	example of using it:</p>
+		    	<pre>
+$ ./pp3demo love hate
+Found a path of length 3
+love
+hove
+have
+hate
+		    	</pre>
+		    	<p>You are free to decide what the interface should be, although to get full credit there will need to
+		    	be a way to specify the starting and ending words without having to recompile the program (that is,
+		    	don't compile them in as constant strings).  If you wish, you may (without penalty) restrict the
+		    	program to only work on words of a given length &#8212; I have provided files named <code>words04.txt</code>
+		    	through <code>words17.txt</code> which only contain the words of length 4 through 17 (although I doubt
+		    	there are any interesting word ladders with 17 characters...).  The program should let the user know
+		    	how to specify the first and last words (for example, running <code>./pp3demo</code> without any
+		    	arguments produces the error message <code>Usage: ./pp3demo first last</code>, which is a common way
+		    	for unix command-line programs to behave).</p>
+		    	
+		    	<p>While the project may be done in groups of two or three (I have changed my mind on this), the rest
+		    	of the exam should be completed individually.  There are two parts:</p>
+		    	<ol>
+		    		<li>Write a few paragraphs justifying your choice of data structures and algorithms in the
+		    		project.  Argue that you have made efficient choices with respect to the data to be processed.</li>
+		    		
+		    		<li>Choose one of the following problems from the <a href="http://acm.uva.es/problemset/">University
+		    		of Valladolid</a> programming contest archive:
+		    			<ul>
+		    				<li><a href="http://acm.uva.es/p/v9/908.html">908: Re-connecting Computer Sites</a></li>
+		    				<li><a href="http://acm.uva.es/p/v9/924.html">924: Spreading the News</a></li>
+		    				<li><a href="http://acm.uva.es/p/v9/925.html">925: No more prerequisites, please!</a></li>
+		    				<li><a href="http://acm.uva.es/p/v9/977.html">977: Old West Rumours</a></li>
+		    				<li><a href="http://acm.uva.es/p/v9/988.html">988: Many paths, one destination</a></li>
+		    			</ul>
+		    		Note that these problems are not all of equal difficulty &#8212; you may want to discuss your solution
+		    		ideas with me before making a final choice about which one you are going to work on.  Your task is
+		    		to analyze the problem and come up with appropriate data structures and algorithms to solve it.
+		    		<em>You do not need to produce finished C++ code to get full credit for this question,</em> a
+		    		description in english or pseudocode is sufficient (but I have to be able to understand what you
+		    		mean).  For extra credit, complete a C++ solution and get it accepted by the UVa online judge (you
+		    		will need to register with the site to do this &#8212; talk to me if you have any questions about this).
+		    		</li>
+		    	</ol>
+		    	
+		    	<p>The written parts should be turned in to me, either in my office or by email, by noon on Friday,
+		    	December 15.  The project should be completed by that time as well &#8212; send me email as usual, telling
+		    	me who worked on the code and where it is saved.</p>
+		    </dd>
+		 -->
+		
+</dl>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2008<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

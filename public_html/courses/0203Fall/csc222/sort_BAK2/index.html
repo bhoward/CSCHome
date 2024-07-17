@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content=
+"text/html;CHARSET=iso-8859-1">
+<title>Animated Algorithms : Sorting</title>
+</head>
+<body>
+<h1 align="center">Sorting Algorithms</h1>
+
+<p align="center">This applet lets you observe the dynamic
+operation of several basic sort algorithms. The implementations,
+explanations<br>
+and display technique are all taken from Algorithms in C++, Third
+Edition, Sedgewick, 1998.</p>
+
+<ul>
+<li><b>Generate a data set by clicking one of the data set
+buttons.</b> This generates a data set with the appropriate
+characteristics. Each data set is an array of 512 values in the
+range 0..511. Data sets have no duplicate entries except the
+Gaussian, Limited, and Equal distributions.</li>
+
+<li><b>Run one or more sort algorithms on the data set to see how
+the algorithm works.</b> Each execution of a sort runs on the
+same data set until you generate a new one. 
+<table border="1" cellpadding="3">
+<tr>
+<td width="27%">
+<applet code="SortApplet.class" width="320" height="420" name="SortApplet" align="left">
+</applet>
+</td>
+<td width="73%">
+<p><b>Data Set Types</b></p>
+
+<ul>
+<li>Click "Random" to get an evenly distributed random data set
+with no duplications.</li>
+
+<li>Click "Ordered" to get a data set in ascending order with no
+duplications</li>
+
+<li>Click "Reverse" to get a data set in descending order with no
+duplications</li>
+
+<li>Click "Gaussian" to get a gaussian distribution with
+duplicate elements</li>
+
+<li>Click "Limited" to get an evenly distributed random data set
+with only 10 distinct values</li>
+
+<li>Click "NearOrdered" to get a data set in nearly ascending
+order with no duplications</li>
+
+<li>Click "NearReverse" to get a data set in nearly descending
+order with no duplications</li>
+
+<li>Click "Equal" to get a data set where all the values are the
+same</li>
+</ul>
+
+<p><b>Sort Algorithms</b></p>
+
+<ul>
+<li>Click "Bubble" to run the bubble sort algorithm.</li>
+
+<li>Click "Insert" to run the insertion sort algorithm.</li>
+
+<li>Click "Select" to run the selection sort algorithm.</li>
+
+<li>Click "Shell" to run the shellsort algorithm.</li>
+
+<li>Click "Heap" to run the heapsort algorithm.</li>
+
+<li>Click "Quick" to run the quicksort algorithm.</li>
+
+<li>Click "Med3Quick" to run the median-of-3 quicksort
+algorithm.</li>
+
+<li>Click "ThreeQuick" to run the three-way partitioning
+quicksort algorithm.</li>
+
+<li>Click "Merge" to run the mergesort algorithm.</li>
+
+<li>Click "BUMerge" to run the bottom-up mergesort
+algorithm.</li>
+</ul>
+</td>
+</tr>
+</table>
+
+<br>
+<br>
+</li>
+
+<li>The display is a cartesian system where the x axis is the
+domain of possible values 'i' and the y axis is the value of the
+array at index 'i'. When a complete data set is sorted all values
+will be on the diagonal, i == a[i] (unless there were
+duplicates). The more spread out the points are the farther from
+being sorted the array is. For example, the value i=1 may start
+out in a[511] and it will end up in a[1] when the array is fully
+sorted. It takes a little thought to figure out how to interpret
+the display, but once grokked, it becomes clear.</li>
+
+<li>The display shows a number of 'Ops' which is an approximation
+of the total number of comparisons and item swaps that occurred
+during the sort. This value corresponds roughly to the complexity
+of the algorithm expressed in big-O notation. It doesn't reflect
+the implementation details that also contribute to algorithm
+performance. Different data sets will yield different performance
+for a given algorithm.</li>
+
+<li>An important characteristic of sort algorithms that has a
+large effect on their efficiency is how far elements are moved in
+a swap. Bubble sort moves elements only a short distance and the
+array crawls into sorted order. Better algorithms move elements
+farther in a single operation so that the array seems to jump
+into sorted order. The display technique used here really shows
+this effect.</li>
+
+<li>This applet redraws the array at various key points in the
+algorithm with a time delay inserted to make it run slow enough
+to watch. Because the loop/recursion structure of the various
+algorithms can be different, where the repaints occur and because
+the repaint and time delay dominate the running of the applet,
+the clock time to completion of a particular algorithm doesn't
+reflect the relative performance of the algorithm. Use the 'Ops'
+figure for comparisons.</li>
+
+<li>For a comprehensive overview of sorting algorithms and
+algorithm complexity see the Sedgewick book. The implementations
+used here are the basic ones from his book. There are plenty of
+optimizations that can be done to improve these algorithms.</li>
+</ul>
+
+<ul>
+<li style="list-style: none">
+<p><b>Basic Algorithm Characteristics</b></p>
+
+<p>The analysis of sort algorithms is complex and has a lot of
+variables, but in general the algorithms used here should come
+out something like this:</p>
+</li>
+
+<li>Bubble sort is O(N**2). The number of Ops should come out
+&lt;= 512 * 512 = 262144</li>
+
+<li>Insertion sort is O(N**2), but it can be O(N) for nearly
+sorted data.</li>
+
+<li>Selection sort is O(N**2) as well, but it only performs N-1
+swaps.</li>
+
+<li>Quicksort is O(2N lg N) on the average but can degenerate to
+(N**2)/2 in the worst case (try the ordered data set on
+quicksort). Quicksort is recursive and needs a lot of stack
+space.</li>
+
+<li>Median-of-3 quicksort makes the worst case much less likely,
+since it does a better job of picking a pivot element on which to
+partition the data set.</li>
+
+<li>Three-way partitioning quicksort improves the behavior of
+quicksort when there are a lot of items equal to the pivot.</li>
+
+<li>Shell sort (named for Mr. Shell) is less than O(N**(4/3)) for
+this implementation. Shell sort is iterative and doesn't require
+much extra memory.</li>
+
+<li>Merge sort is O(N lg N) for all data sets, so while it is
+slower than the best case for quicksort, it doesn't have
+degenerate cases. It needs additional storage equal to the size
+of the input array and it is recursive so it needs stack
+space.</li>
+
+<li>Bottom-up merge sort is a non-recursive variant which does
+the same work in a different order.</li>
+
+<li>Heap sort is guaranteed to be O(N lg N), doesn't degenerate
+like quicksort and doesn't use extra memory like mergesort, but
+its implementation has more operations so on average it's not as
+good as quicksort.</li>
+</ul>
+
+<p><a href="sort.zip">Source Code</a></p>
+
+<p>This page and applet were originally written by <a href=
+"mailto:davidh@sncorp.com">David M. Howard, October 1998</a>. They
+were extended (with twice as many sorts and data distributions) by
+<a href="mailto:bhoward@depauw.edu">Brian Howard</a> (no
+relation) in September 2002.</p>
+
+<p><a href=
+"http://www.geocities.com/SiliconValley/Network/1854">David
+Howard's Home</a>, and <a href=
+"http://www.csc.depauw.edu/~bhoward/">Brian Howard's Home</a></p>
+</body>
+</html>
+

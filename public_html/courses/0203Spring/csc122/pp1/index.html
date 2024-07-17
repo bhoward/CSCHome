@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 1</TITLE>
+<META NAME="description" CONTENT="Programming Project 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 1</H1>
+
+Due:  Monday, February 17, in class.
+
+Write a program to perform Shakersort on a file of integers. Shakersort
+operates similarly to Bubblesort, only it makes passes over the data in
+alternating directions. For example, if the contents of the file have
+been read into an array with the following configuration:
+<PRE>
+   4   7   9   5   3   7   8   4   3   2   1   9
+</PRE>
+Shakersort first makes a pass to the right (from cell zero to cell
+eleven), comparing adjacent cells' values and swapping them if the left
+cell's contents is greater that that of the right cell. Here are the
+results:
+<PRE>
+   4   7   5   3   7   8   4   3   2   1   9   9
+</PRE>
+Then Shakersort makes a second pass to the left (from cell ten to cell
+zero), comparing adjacent cells' values and swapping them under the same
+conditions. Here are the results:
+<PRE>
+   1   4   7   5   3   7   8   4   3   2   9   9
+</PRE>
+Make the third (and every odd numbered pass) from the left to the right
+and the fourth (and every even numbered pass) from the right to the
+left, until the array is sorted.
+
+Make each pass one shorter than the pass before to account for the
+integer that has found its final placement. Stop just as soon as the
+algorithm has ascertained that the list is sorted. This describes the
+basic project. For full credit, please add these refinements:
+
+<UL>
+<LI>Count the number of comparisons that the Shakersort executes for
+each set of data. Output and clearly label this integer.
+
+</LI>
+<LI>Determine if Shakersort performs better than the Bubblesort in our
+book. Copy this sort and use it to sort the same data that Shakersort
+uses. Output and clearly label this integer.
+
+</LI>
+<LI>Place a getch( ) at the conclusion of each function that prints
+data.
+
+</LI>
+<LI>Use the data that we supply for lists of sizes 100, 1000 and
+10000.  The data files are named <code>100.dat</code>, <code>1000.dat</code>, and
+<code>10000.dat</code> in the folder <code>I:\CSC122\Public\PP1Data</code>.
+ 
+</LI>
+<LI>Your main should be organized this way:
+<PRE>
+void main( )
+{  for (int i=0; i&lt;3; i++)
+   {  readData( ... );
+      printData( ... );
+      shakersort( ... );
+      printData( ... );
+      readData( ... );
+      printData( ... );
+      bubblesort( ... );
+      printData( ... );
+      displayStatisticalResults( ... );
+   }
+}
+</PRE>
+</LI>
+</UL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

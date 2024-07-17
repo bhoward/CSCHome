@@ -1,0 +1,642 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Final Exam Practice - CSC 121: Computer Science I, Spring
+2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Final Exam Practice</h2>
+
+<p>IMPORTANT: This is a practice exam. We sampled topics from the
+<a href="finaltopics.html">Final Exam Topics</a> document to give
+you a sense of the exam that is approaching. Memorizing and/or
+studying the content of this one, single sample set of practice
+problems cannot substitute for several weeks of thoroughly studying
+all the class notes, homework problems, textbook readings,
+laboratory exercises, and programming projects.</p>
+
+<h2>Group 1, Problems Stressing Material After Exam Two</h2>
+
+<ol>
+<li>
+<p>Consider the following field declaration for a class:</p>
+
+<pre>
+String[ ] wordList = new String[100];
+       
+</pre>
+
+<p>Write a method for the class that takes a parameter named word
+of class String and a parameter named len of type int. The method
+should return the number of times that word appears in cells 0..len
+- 1 of the array wordList. (Assume len &lt;= 100)</p>
+
+<div class="solution">
+<pre>
+public int countWords(String word, int len)
+{
+    int count = 0;
+    for (int i = 0; i &lt; len; i++) {
+        if (wordList[i].equals(word)) {
+            count++;
+        }
+    }
+    return count;
+}
+       
+</pre>
+</div>
+</li>
+
+<li>
+<p>Consider an array whose contents are:</p>
+
+<pre>
+17  14  8  19  3  12  6  7
+       
+</pre>
+
+<p>Show how this array would look after each step of the Bubble
+Sort algorithm is carried out.</p>
+
+<div class="solution">
+<pre>
+14  8  17  3  12  6  7  19
+8  14  3  12  6  7  17  19
+8  3  12  6  7  14  17  19
+3  8  6  7  12  14  17  19
+3  6  7  8  12  14  17  19
+3  6  7  8  12  14  17  19
+3  6  7  8  12  14  17  19
+       
+</pre>
+</div>
+</li>
+
+<li>
+<p>What output is produced by the following code fragment?</p>
+
+<pre>
+for (int ct = 1; ct &lt;= 3; ct++) {
+    System.out.println(ct);
+    for (int i = 3; i &lt;= 4; i++) {
+        System.out.println(ct + " " + i);
+    }
+    System.out.println("Hi ho");
+}
+       
+</pre>
+
+<div class="solution">
+<pre>
+1
+1 3
+1 4
+Hi ho
+2
+2 3
+2 4
+Hi ho
+3
+3 3
+3 4
+Hi ho
+       
+</pre>
+</div>
+</li>
+
+<li>
+<p>What is the output from the following code fragment?</p>
+
+<pre>
+String sentence = "to be or not to be";
+String[ ] words = sentence.split(" ");
+int len = words.length;
+
+for (int pass = 1; pass &lt; len; pass++) {
+    System.out.println("Pass " + pass);
+    for (int i = 0; i &lt; len - pass; i++) {
+        if (words[i].compareTo(words[i + 1]) &gt; 0) {
+            String temp = words[i];
+            words[i] = words[i + 1];
+            words[i + 1] = temp;
+        }
+        System.out.println(words[i] + " " + words[i + 1]);
+    }
+}
+
+for (int i = len - 1; i &gt;= 0; i--) {
+    System.out.println(words[i]);
+}
+       
+</pre>
+
+<div class="solution">
+<pre>
+Pass 1
+be to
+or to
+not to
+to to
+be to
+Pass 2
+be or
+not or
+or to
+be to
+Pass 3
+be not
+not or
+be or
+Pass 4
+be not
+be not
+Pass 5
+be be
+to
+to
+or
+not
+be
+be
+       
+</pre>
+</div>
+</li>
+</ol>
+
+<p>Questions 5 - 10 refer to the following field declarations for a
+class called Matrix:</p>
+
+<pre>
+int[ ][ ] grid = new int[10][11];
+int[ ][ ] grid2 = new int[10][11];
+</pre>
+
+<ol start="5">
+<li>How many integers can grid store? 
+
+<div class="solution">There are 10 rows with 11 cells in each row,
+for a total of <strong>110</strong> ints.</div>
+</li>
+
+<li>Write a method init that initializes all of the values of grid
+to be 0. 
+
+<div class="solution">
+<pre>
+public void init()
+{
+    for (int row = 0; row &lt; 10; row++) {
+        for (int col = 0; col &lt; 11; col++) {
+            grid[row][col] = 0;
+        }
+    }
+}
+   
+</pre>
+</div>
+</li>
+
+<li>Write a method same that returns true, if grid and grid2
+contain exactly the same elements. Otherwise, the method should
+return false. 
+
+<div class="solution">
+<pre>
+public boolean same()
+{
+    for (int row = 0; row &lt; 10; row++) {
+        for (int col = 0; col &lt; 11; col++) {
+            if (grid[row][col] != grid2[row][col]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+   
+</pre>
+</div>
+</li>
+
+<li>
+<p>What output is produced by the following fragment?</p>
+
+<pre>
+for (int row = 1; row &lt;= 2; row++) {
+    for (int col = 1; col &lt;= 3; col++) {
+        grid[row][col] = row + col;
+    }
+}
+
+for (int col = 1; col &lt;= 3; col++) {
+    for (int row = 1; row &lt;= 2; row++) {
+        System.out.print(grid[row][col]);
+    }
+    System.out.println();
+}
+       
+</pre>
+
+<div class="solution">
+<pre>
+23
+34
+45
+   
+</pre>
+</div>
+</li>
+
+<li>Write a method minRow which computes the sum of the values in
+each row, and returns the index of the row with the smallest sum. 
+
+<div class="solution"><strong>(Clarification: the method should use
+the values of grid.)</strong> This is easiest if we also write a
+method sumRow which takes a row index and returns the sum of all
+the values in that row: 
+
+<pre>
+public int sumRow(int row)
+{
+    int sum = 0;
+    for (int col = 0; col &lt; 11; col++) {
+        sum += grid[row][col];
+    }
+    return sum;
+}
+
+public int minRow()
+{
+    int min = 0;  // index of smallest row so far
+    int minSum = sumRow(min);
+    for (int row = 1; row &lt; 10; row++) {
+        int sum = sumRow(row);
+        if (sum &lt; minSum) {
+            min = row;
+            minSum = sum;
+        }
+    }
+    return min;
+}
+   
+</pre>
+</div>
+</li>
+
+<li>Write a method average which returns the average of all of the
+values in grid2. 
+
+<div class="solution">
+<pre>
+public double average()
+{
+    int sum = 0;
+    for (int row = 0; row &lt; 10; row++) {
+        sum += sumRow(row);  // or write out the loop as above
+    }
+    return (double) sum / (grid.length * grid[0].length);  // or (10 * 11)
+}
+   
+</pre>
+</div>
+</li>
+</ol>
+
+<p>For the remaining questions in this group, consider the
+following database table:</p>
+
+<table border="1" summary="student database">
+<caption>Students</caption>
+
+<thead>
+<tr>
+<th>firstName</th>
+<th>lastName</th>
+<th>id</th>
+<th>class</th>
+<th>GPA</th>
+<th>tuition</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>George</td>
+<td>Williams</td>
+<td>314159</td>
+<td>4</td>
+<td>3.82</td>
+<td>25000</td>
+</tr>
+
+<tr>
+<td>Susanna</td>
+<td>Maigret</td>
+<td>271828</td>
+<td>2</td>
+<td>3.95</td>
+<td>26000</td>
+</tr>
+
+<tr>
+<td>Alice</td>
+<td>Victor</td>
+<td>161803</td>
+<td>1</td>
+<td>2.75</td>
+<td>23000</td>
+</tr>
+
+<tr>
+<td colspan="6">(data omitted)</td>
+</tr>
+</tbody>
+</table>
+
+<ol start="11">
+<li>Which column should be the key of this table, and why? 
+
+<div class="solution">The key should be <strong>id</strong>, since
+it is the only value which will uniquely identify a given student
+(two students could easily have the same first name, last name,
+class number, GPA, or tuition rate).</div>
+</li>
+
+<li>Give a portion of a class definition for a Student object. You
+should show the field definitions, one of the accessors, and one of
+the mutators. 
+
+<div class="solution">
+<pre>
+public class Student {
+    private String firstName;
+    private String lastName;
+    private int id;
+    private int class;
+    private double GPA;
+    private int tuition;
+    
+    public String getFirstName()
+    {
+        return firstName;
+    }
+    
+    public void setGPA(double newGPA)
+    {
+        GPA = newGPA;
+    {
+}
+   
+</pre>
+</div>
+</li>
+
+<li>Give a portion of a class definition for a StudentTable object.
+You should show the field definitions, the constructor, an add
+method which takes a Student parameter, and a find method which
+takes a student id and returns a matching Student object (or null
+if there is no match). You should ignore anything to do with
+reading from or writing to files. 
+
+<div class="solution">
+<pre>
+public class StudentTable {
+    private ArrayList students;
+    
+    public StudentTable()
+    {
+        students = new ArrayList();
+    }
+    
+    public void add(Student student)
+    {
+        students.add(student);
+    }
+    
+    public Student find(int id)
+    {
+        for (int i = 0; i &lt; students.size(); i++) {
+            Student student = (Student) students.get(i);
+            if (student.getID() == id) {
+                return student;
+            }
+        }
+        return null;
+    }
+}
+   
+</pre>
+</div>
+</li>
+
+<li>Write a method displayClass which takes a class number (1 to 4)
+as parameter and prints a table giving the first and last names of
+all of the members of the given class. You should assume that this
+method belongs to a Query class, which has a StudentTable field
+named students. 
+
+<div class="solution">
+<pre>
+public void displayClass(int class)
+{
+    for (int i = 0; i &lt; students.size(); i++) {
+        Student student = students.get(i);
+        if (student.getClass() == class) {
+            System.out.println(student.getFirstName() + " " + student.getLastName());
+        }
+    }
+}
+   
+</pre>
+</div>
+</li>
+
+<li>Write a method applyScholarship which takes no parameters. It
+should reduce by 2000 the tuition of every student who is not a
+senior (class 4) and who has a GPA of at least 3.5. In the table
+above, only Susanna Maigret would qualify among those students
+shown; her tuition would drop to 24000. Again, this method should
+belong to a Query class, so it has access to the field students. 
+
+<div class="solution">
+<pre>
+public void applyScholarship()
+{
+    for (int i = 0; i &lt; students.size(); i++) {
+        Student student = students.get(i);
+        if (student.getClass() != 4 &amp;&amp; student.getGPA &gt;= 3.5) {
+            student.setTuition(student.getTuition() - 2000);
+        }
+    }
+}
+   
+</pre>
+</div>
+</li>
+</ol>
+
+<h2>Group 2, Problems Stressing Material Previous to Exam Two</h2>
+
+<ol>
+<li>
+<p>Consider the following field declaration</p>
+
+<pre>
+int[ ] myArray = new int[10];
+       
+</pre>
+
+<p>Performing a cyclic shift left on an array means to shift every
+element of the array one cell to the left. The element that used to
+be in the first cell (0) of the array becomes the last cell in the
+array.</p>
+
+<p>For example, if the original array contains the values:</p>
+
+<pre>
+7 5 4 3 8 6 2 4 7 9
+       
+</pre>
+
+<p>The new array would be:</p>
+
+<pre>
+5 4 3 8 6 2 4 7 9 7
+       
+</pre>
+
+<p>Write a method that takes myArray as a parameter and modifies it
+by performing the cyclic shift left operation on the array.</p>
+
+<div class="solution">
+<pre>
+public void cyclicShiftLeft(int[ ] myArray)
+{
+    int temp = myArray[0];
+    for (int i = 1; i &lt; myArray.length; i++) {
+        myArray[i - 1] = myArray[i];
+    }
+    myArray[myArray.length - 1] = temp;
+}
+   
+</pre>
+</div>
+</li>
+
+<li>
+<p>What output is produced by the following code fragment?</p>
+
+<pre>
+int X = 1;
+while (X &lt;= 4) {
+    if (X == 1) {
+        X++;
+        System.out.println(X);
+    }
+    else if (X == 2) {
+        X = X + 2;
+    }
+    else if (X == 3) {
+        System.out.println(X + 1);
+    }
+    else if (X == 4) {
+        System.out.println(X * X);
+        X = X + 3
+    }
+    System.out.println(X);
+}
+   
+</pre>
+
+<div class="solution">
+<pre>
+2
+2
+4
+16
+7
+   
+</pre>
+</div>
+</li>
+
+<li>Write a method that takes two parameters Num1 and Num2 of type
+int. The method should print all the integers between 1 and 100
+inclusive which are evenly divisible by both Num1 and Num2. 
+
+<div class="solution">
+<pre>
+public void printDivisible(int Num1, int Num2)
+{
+    for (int i = 1; i &lt;= 100; i++) {
+        if (i % Num1 == 0 &amp;&amp; i % Num2 == 0) {
+            System.out.println(i);
+        }
+    }
+}
+   
+</pre>
+</div>
+</li>
+</ol>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

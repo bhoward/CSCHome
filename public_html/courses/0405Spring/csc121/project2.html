@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 2 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+             body {background-color: #e0e0ff}
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             div.solution {color: red}
+             img.validator {float: right; border: none}
+             
+    span.standout {font-weight: bold; color: red}
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Project 2</h2>
+
+<h3>A Calculator Simulator - GUI and Stacks<br>
+ Deadline: 5:00pm, Wednesday, March 30</h3>
+
+<p><img src="labs/calculator.jpg" width="720" height="252" alt=
+"Calculator GUI before and after"></p>
+
+<dl>
+<dt>Items to do and point distribution:</dt>
+
+<dd>
+<p>You have already been working on this project and are almost
+finished. The items to be completed, including what you have
+already done are:</p>
+
+<ol>
+<li><span class="standout">*</span> (10 pts) Add new buttons *, /,
+(, and ).</li>
+
+<li><span class="standout">*</span> (10 pts) Enable event handling
+for * and / together with the ability to multiply and divide.</li>
+
+<li><span class="standout">*</span> (10 pts) Define Stack methods
+push, isEmpty and makeEmpty.</li>
+
+<li>(15 pts) Define Stack method stackDump.</li>
+
+<li>(10 pts) Use stackDump in the CalcEngine as described below in
+the Details section.</li>
+
+<li>(25 pts) Add a new operator, ^, for exponentiation, so that 3 ^
+4 = 81.</li>
+
+<li>(10 pts) Find and correct an error in how one of the operators,
++, *, -, / works.</li>
+
+<li>(10 pts) Programming style, formatting (readability), and
+comments, especially describing methods.</li>
+</ol>
+
+<p><span class="standout">* You should have already completed
+this.</span></p>
+</dd>
+
+<dt>Details:</dt>
+
+<dd>
+<p>You have been given a calculator project that will function once
+you complete item 3 above. You should have completed item 3 in lab
+6. Following are the details for items 4 through 7.</p>
+
+<p><strong>Item 4:</strong> Write a stackDump method in the Stack
+class. This method will remove all items from the stack,
+<strong>but before doing so will display</strong> the contents of
+the stack from top to bottom in a terminal window.</p>
+
+<p><strong>Item 5:</strong> Modify the CalcEngine class so that it
+calls the stackDump method if division by zero could occur, and
+call it anywhere else that the keySequenceError() method is called.
+That is, replace the keySequenceError() call with the stackDump()
+method call. <strong>Be sure to test this change by entering a
+calculation such as 1 + (2 / 0), and verifying that the correct
+stack contents are displayed.</strong></p>
+
+<p><strong>Item 6:</strong> Add a '^' button to the calculator GUI
+interface. There is one empty spot for it. You can place it where
+you wish, but all operators should be grouped together. The
+simplest thing to do is to put '^' in the empty spot. Enable event
+listening for '^' and write the statements necessary for the
+operation to be carried out. As an overview, if 4 ^ 5 is entered,
+you will need a while loop that produces a result of 4*4*4*4*4.
+Don't forget to handle special cases like 4 ^ 0 and 0 ^ 4.
+<strong>Note: Java does not have a built-in integer exponentiation
+operator, so you should use a while loop for ^.</strong></p>
+
+<p><strong>Item 7:</strong> There is a 'bug' in the calculator,
+left there by an incompetent programmer. One of the operators
+doesn't produce the expected result. Your job is to find it and fix
+it!</p>
+</dd>
+
+<dt>Turning in your project:</dt>
+
+<dd>
+<p>Copy your project to the appropriate CSC121 folder in the
+Project2 folder on the I: drive. Send an email message to your
+instructor when you have done this, naming the programmer or pair
+of programmers who completed the project.</p>
+</dd>
+</dl>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img class=
+"validator" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt=
+"Valid HTML 4.01!" width="88" height="31"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img class=
+"validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+alt="Valid CSS!" width="88" height="31"></a><a href=
+"http://www.depauw.edu/">DePauw University</a>, <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a>, Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> (<a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>). 
+<!--#config timefmt="%A, %B %e, %Y" -->
+ Last updated <!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

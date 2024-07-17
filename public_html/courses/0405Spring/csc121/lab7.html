@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 7 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    p.bold {font-weight: bold}
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 7</h2>
+
+<h3>Laboratory 7 - Simulation with Random Numbers</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>To construct a class from scratch. To develop a simulation
+driven by random numbers.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab7 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Open the simulation1 project. (Test each step as you
+complete it)</strong> 
+
+<table border="0" cellpadding="3" cellspacing="0" summary=
+"Sequence of steps">
+<tr align="left" valign="top">
+<td><strong>Read</strong></td>
+<td>
+<p>The project simulation1 has an empty class called Bowling. You
+will implement a simple bowling simulation in stages. The game of
+bowling consists of throwing a heavy ball down an alley at a set of
+ten pins. A player bowls ten frames and, except for the tenth
+frame, has up to two throws per frame. If the player knocks down
+all ten pins on the first throw, the frame is complete. Otherwise,
+the player gets one more chance to knock down the rest of the pins.
+<strong>In the tenth frame,</strong> a bowler who knocks down ten
+pins on the first throw gets <em>two</em> additional throws; a
+bowler who knocks down a total of ten pins on the first two throws
+gets one additional throw. Otherwise, a bowler gets a total of two
+throws, as in any other frame.</p>
+
+<p><strong>Note: Read the description above carefully, because our
+simulation simplifies the real-world rules of bowling; for example,
+there is no extra scoring for strikes or spares (apart from the
+handling of the tenth frame). In particular, be sure that you
+understand how the maximum score in our simulation is
+120.</strong></p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Do</strong></td>
+<td>
+<p>Create the Bowling class by opening the class editor
+(double-click the Bowling class diagram) and create the class
+shell:</p>
+
+<pre>
+    public class Bowling {
+
+    }
+                   
+</pre>
+
+<p>Add the following fields: <strong>firstBall</strong>,
+<strong>secondBall</strong>, <strong>extraBall</strong>,
+<strong>frame</strong>, and <strong>score</strong>, all of which
+are of type int. The class constructor should initialize all of
+these to 0.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td>&nbsp;</td>
+<td>
+<p><b>Write</b> a method called <b>updateScore</b>. It will add
+<strong>firstBall</strong> and <strong>secondBall</strong> to
+score. If it is the 10th frame, it will also add
+<strong>extraBall</strong> to score.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td>&nbsp;</td>
+<td>
+<p><b>Write</b> a void method called <b>displayFrame</b>. It will
+display the frame number, the first and second throws, and the
+total score so far in the following format:</p>
+
+<pre>
+    Results for frame # 1
+      First ball: 8
+      Second ball: 2
+      Score so far: 10
+                   
+</pre>
+
+<p>If it is the 10th frame, it will display the frame as
+follows:</p>
+
+<pre>
+    **** This game is over - Final Score ****
+    Results for frame # 10
+      First ball: 9
+      Second ball: 1
+      Extra ball: 6
+      Total for game: 95
+                   
+</pre>
+
+<p>Test this method before going to the next step of the lab. You
+may need to write temporary mutator methods to set firstBall,
+secondBall, extraBall and frame for the purpose of testing.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td>&nbsp;</td>
+<td>
+<p><b>Write</b> a void method called <b>bowlFrame</b>:</p>
+
+<ul>
+<li>If frame is 10 when entering the method, just invoke the
+displayFrame() method and exit.</li>
+
+<li>Otherwise, increment frame and throw the first ball,
+<code>(int)(Math.random()*11)</code>, recording the number of pins
+knocked down in firstBall.</li>
+
+<li>If less than ten pins are knocked down, throw the second ball,
+knowing that it can knock down at most the number of pins left
+after the first ball was thrown (<code>10 - firstBall</code>).
+Record the number of pins in secondBall. Note: You will need to
+initialize secondBall to 0 each time in this method, in case a
+second ball is not thrown.</li>
+
+<li>Also throw a second ball if the value of frame after
+incrementing it is 10, and all ten pins were knocked down on the
+first throw. In this case, all ten pins are available again on the
+second throw.</li>
+
+<li>If the value of frame after incrementing it is 10, and all the
+pins were knocked down in the second throw, throw an extra ball in
+an attempt to knock down up to ten more pins. Record the result in
+extraBall. Note: You will need to initialize extraBall to 0 in case
+an extra ball is not thrown.</li>
+
+<li>Finally, update the score by calling the method updateScore,
+display the frame results by calling displayFrame and exit the
+method.</li>
+</ul>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td>&nbsp;</td>
+<td>
+<p><b>Write</b> a method called <b>reset</b>. This method will
+initialize firstBall, secondBall, extraBall, score, and frame to
+0.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Play</strong></td>
+<td>
+<p>To play a game, simply create an instance of Bowling, reset, and
+invoke bowlFrame 10 times. Play the game two or three times to make
+sure it works. Make sure you invoke reset between games.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Do</strong></td>
+<td>
+<p><b>Write</b> an int method for the Bowling class called
+<strong>playGame</strong> that invokes bowlFrame 10 times. playGame
+should reset before playing, and should return the score of the
+game as an int.</p>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img class=
+"validator" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt=
+"Valid HTML 4.01!" width="88" height="31"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img class=
+"validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+alt="Valid CSS!" width="88" height="31"></a><a href=
+"http://www.depauw.edu/">DePauw University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

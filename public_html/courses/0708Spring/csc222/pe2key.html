@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Practice Exam 2 - CSC 222: Data Structures and Algorithms, Spring 2008</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 222: Data Structures and Algorithms, Spring 2008</h1>
+	
+<h2>Practice Exam 2</h2>
+	
+
+<P>
+This exam is open-book and
+open-note. Please allow some time to check your work. If you need
+extra space, write on the back.</P>
+
+
+<OL>
+
+<LI>(5 points) Consider the <code>tnode</code> class template from the text (trimmed a little for space):
+<PRE>
+template &lt;typename T&gt;
+class tnode {
+public:
+    T nodeValue;
+    tnode&lt;T&gt; *left, *right;
+    
+    tnode(const T&amp; item, tnode&lt;T&gt; *lptr = 0, tnode&lt;T&gt; *rptr = 0) :
+        nodeValue(item), left(lptr), right(rptr) { }
+};
+</PRE>
+Suppose that <code>root</code> points to a binary search tree of <code>int</code>s (ordered by the
+usual <code>&lt;</code> relation). Given a function <code>test</code> from <code>int</code> to
+<code>bool</code>, write an efficient function with the following prototype:
+<PRE>
+bool printSmallest(const node&lt;int&gt; *root)
+</PRE>
+which searches for the <SPAN CLASS="textit">smallest</SPAN> value <code>n</code> in the tree such
+that <code>test(n)</code> is <code>true</code>. If such an <code>n</code> is found, it
+should print <code>n</code> to <code>cout</code> and return <code>true</code>; otherwise,
+it should return <code>false</code> and not print anything.
+For example, if <code>test(n)</code> returns <code>true</code> when <code>n</code> is
+even, and <code>false</code> otherwise, then <code>printSmallest(root)</code> should
+print the smallest even number (if any) in the tree pointed to by
+<code>root</code> (and return <code>true</code> if a number was printed).
+
+<div class="solution">
+
+<pre>
+bool printSmallest(const node&lt;int&gt; *root)
+{
+    // Handle the base case of an empty tree:
+    if (root == 0) return false;
+    
+    // Now check in the left child:
+    if (printSmallest(root-&gt;left)) return true;
+    
+    // Not found to the left -- check root:
+    if (test(root-&gt;nodeValue)) {
+        cout &lt;&lt; root-&gt;nodeValue;
+        return true;
+    }
+    
+    // Last chance -- try the right child:
+    return printSmallest(root-&gt;right); 
+}
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>(4 points) Consider the following C++ function:
+<PRE>
+tnode&lt;int&gt; *fibber(int n)
+{
+    if (n &lt;= 1) return 0;
+    tnode&lt;int&gt; *p = fibber(n - 1);
+    tnode&lt;int&gt; *q = fibber(n - 2);
+    return new tnode&lt;int&gt;(n, p, q);
+}
+</PRE>
+Draw the tree that results from the function call <code>fibber(5)</code>.
+
+<div class="solution">
+
+<pre>
+       5
+     /   \
+    4     3
+   / \   /
+  3   2 2
+ /
+2
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>(4 points) What is the output of the following C++ code?
+<PRE>
+multiset&lt;string&gt; m;
+m.insert("to"); m.insert("be"); m.insert("or");
+m.insert("not"); m.insert("to"); m.insert("be");
+
+set&lt;string&gt; s;
+multiset&lt;string&gt;::const_iterator it;
+for (it = m.begin(); it != m.end(); ++it) {
+    cout &lt;&lt; *it;
+    pair&lt;set&lt;string&gt;::iterator, bool&gt; p = s.insert(*it);
+    if (p.second) cout &lt;&lt; " inserted" &lt;&lt; endl;
+    else cout &lt;&lt; " not inserted" &lt;&lt; endl;
+}
+
+set&lt;string&gt;::const_iterator sit;
+for (sit = s.begin(); sit != s.end(); ++sit) {
+    cout &lt;&lt; *sit &lt;&lt; " ";
+}
+cout &lt;&lt; endl;
+</PRE>
+
+
+<div class="solution">
+
+<pre>
+be inserted
+be not inserted
+not inserted
+or inserted
+to inserted
+to not inserted
+be not or to 
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>(4 points) Suppose we have a hash table using linear probe open
+addressing where the key values are integers and the hash function is
+simply the identity function. Therefore, if the table has size <SPAN CLASS="MATH"><I>m</I></SPAN>, the
+key <SPAN CLASS="MATH"><I>k</I></SPAN> will hash to the index <SPAN CLASS="MATH"><I>k</I> mod <I>m</I></SPAN>
+(that is, <code>k % m</code>). Let
+<SPAN CLASS="MATH"><I>m</I> = 10</SPAN> and give an example of a sequence of five distinct keys that will require
+the maximum amount of probing to insert in an initially empty
+table.
+
+<div class="solution">
+10, 20, 30, 40, 50 (or any sequence where all the keys have the same value mod 10)
+</div>
+
+
+<P>
+What is the big-O running time of the worst case for inserting <SPAN CLASS="MATH"><I>N</I></SPAN>
+values in an open-addressed hash table of size <SPAN CLASS="MATH">2<I>N</I></SPAN>?</P>
+
+
+<div class="solution">
+In the worst case, each insertion will require a number of probes equal to the number of entries already in the table,
+plus one.  Therefore, we need the sum <SPAN CLASS="MATH">1 + 2 + 3 + ... + <I>N</I></SPAN>, which is
+<SPAN CLASS="MATH">O(<I>N</I><SUP>2</SUP>)</SPAN>.
+</div>
+
+</LI>
+
+
+<LI>(4 points) Show the 2-3-4 tree that results from inserting the values 42, 19,
+37, 65, 55, 49, and 51, in order.
+
+<div class="solution">
+
+<pre>
+     37,55
+   /   |    \
+  /    |     \
+19  42,49,51  65
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>(2 points) Draw a red-black tree that corresponds to the result of the
+previous question (mark the red nodes with a star or some other special
+notation).
+
+<div class="solution">
+
+<pre>
+    37
+   /  \
+ 19   55*
+     /  \
+   49    65
+  /  \
+42*   51*
+</pre>
+
+</div>
+
+</LI>
+
+
+<LI>(3 points) Show the result of inserting the number 45 in the above red-black
+tree.
+<div class="solution">
+
+<pre>
+      49
+     /  \
+  37*    55*
+ /  \   /  \
+19  42 51  65
+      \
+       45*
+</pre>
+The easiest way to see this is to work with the corresponding 2-3-4 tree, where
+the 49 had to split up into the root node:
+<pre>
+    37,49,55
+   /  |   \  \
+19  42,45  51  65
+</pre>
+
+</div>
+
+</LI>
+
+
+</OL>
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2008<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

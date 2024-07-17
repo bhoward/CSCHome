@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 1 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+             body {background-color: #e0e0ff}
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             div.solution {color: red}
+             img.validator {float: right; border: none}
+             
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Project 1</h2>
+
+<h3>A Graphics Satellite Rescue Simulation<br>
+ Deadline: 5:00pm, Monday, March 7</h3>
+
+<p style="color: red"><strong><em>Alert:</em> Someone from your
+team of ten people has reported to us that your prototype is ready
+for delivery to NASA. We have reviewed it and found that several
+things are missing, some things have been implemented incorrectly,
+and we have some specification changes requested by NASA. Since the
+above deadline is rapidly approaching, it is your responsibility as
+the two lead programmers to make all of these changes on behalf of
+your whole team.</strong></p>
+
+<p>Please review the original specification below and then make the
+following changes <strong>(Note: You should not modify any of the
+base classes - Canvas, Circle, Triangle, or Diamond. You will need
+to modify each of the other classes to some degree.)</strong>:</p>
+
+<ul>
+<li>(5 pts) NASA is not pleased with the magenta color of the space
+shuttle. Change it to more of a NASA color of your choosing.</li>
+
+<li>(10 pts) The space shuttle is anchored in the middle of the
+window and can only move in the downward direction. The
+specification calls for the shuttle to be anchored at the left side
+of the window and that upward movement be possible by typing the
+'K' key.</li>
+
+<li>(5 pts) The fuel cell is initially visible and hanging alone in
+space. It should not be visible initially and should have an
+initial position that is not likely to intersect with the space
+station (the bottom left corner of the window, for example).</li>
+
+<li>(10 pts) The specification calls for three speed options, B, I,
+and A. Your team used A, B, and C. Make this change and the
+corresponding change to the label at the top of the window.</li>
+
+<li>(10 pts) The specification called for the space station to
+begin an orbit at random position at the top of the window. It
+always begins a new orbit at the same position.</li>
+
+<li>(20 pts) The specification requires that no more than 3 fuel
+cells can be used in any fueling attempt. This was not implemented.
+The specification has been slightly modified. The shuttle will
+carry 5 fuel cells and will keep track of how many it has launched.
+After all 5 have been launched, the shuttle simply watches as the
+space station hurls toward earth and crashes. The 3 second wait
+upon crash does seem to be working.</li>
+
+<li>(20 pts) A new specification has been requested for handling a
+successful docking of the fuel cell with the space station. Rather
+than the space station turning green and waiting for 3 seconds
+before starting a new orbit, the following should occur. The fuel
+cell will become invisible. The shuttle will travel toward the
+space station on the same path as the fuel cell (a while loop),
+dock with the space station as the fuel cell did, wait 3 seconds
+and then travel back to the left side of the window. Then the space
+station will turn green and a new orbit will begin. You can look to
+see how the fuel cell recognizes that it has met the space station
+to complete this feature. To do this you should write a docking
+method for the shuttle. The method should have 2 parameters, namely
+the x and y coordinates of the station. Invoke the docking method
+from the fuel cell object.</li>
+
+<li>(10 pts) Finally, the fuel cell never disappears when it
+reaches the right side of the window or after refueling, as it
+should.</li>
+
+<li>(10 pts) Programming style, formatting (readability), and
+comments, especially describing methods.</li>
+</ul>
+
+<hr>
+<h3>The Original Specification</h3>
+
+<dl>
+<dt>Overview:</dt>
+
+<dd>
+<p>NASA has a tentative contract with your software company,
+National Enterprise for Rescue Deployment Simulation (NERDS) to
+create a space station refueling simulation that will be used by
+NASA personnel as a training tool. Your company has promised to
+deliver a prototype of the simulation by Friday, February 25. If
+the prototype is successful, your company will receive the full
+contract worth 2.5 million dollars.</p>
+
+<p>The simulation will have a space shuttle launch a fuel cell,
+which will dock with an orbiting space station. Because of a low
+fuel supply, the space station has entered a state of unplanned
+orbital descent and will eventually crash into the earth if it does
+not receive a new supply of fuel soon.</p>
+</dd>
+
+<dt>Prototype specification:</dt>
+
+<dd>
+<p><b>Choosing level of difficulty:</b> The simulation will provide
+an option for selecting a level of difficulty, beginner (B),
+intermediate (I), or advanced (A). The level determines the speed
+at which the space station is orbiting.</p>
+
+<p><b>The Space Station:</b> The space station is a Diamond object.
+It has a fueling port, namely the lowest vertex of the diamond.
+Space station movement begins at a random horizontal location and a
+vertical location of 0. To simulate orbiting, the space station
+will move left to right on a downward sloping line across the
+window disappearing on the right and reappearing on the left. Each
+new orbit will begin at a slightly lower level that the previous
+orbit. The color of the space station changes from green to yellow
+after one orbit, indicating a low fuel supply.</p>
+
+<p><b>The Space Shuttle:</b> The space shuttle will be a Triangle
+located in the middle of the left side of the window with its base
+always on the left window boundary and its nose pointing to the
+right. The position of the shuttle can be adjusted slightly up or
+down according to whether the 'J' or the 'K' key on the keyboard is
+pressed. 'J' will cause the shuttle to move down and the 'K' key
+will move the shuttle up. Up and down distance shifts will be the
+same for each key. Pressing the space bar will launch a fuel cell,
+a blue ball, from the space shuttle. The fuel cell will appear at
+the nose of the shuttle and travel at a reasonable rate of speed
+from the shuttle to the right side of the window on the horizontal
+line passing through the shuttle's nose. If refueling is not
+successful after three tries or if the space station reaches the
+bottom of the window without refueling the space station crashes,
+indicated by its color turning to red and no screen activity for
+three seconds, after which the space station will initialize a
+beginning orbit for another fueling attempt.</p>
+
+<p><b>The fueling process:</b> If the fuel cell makes contact with
+the fuel port of the space station, fueling will occur
+automatically. The color of the space station will change to green,
+there will be no screen activity for three seconds and then the
+space station will begin a new orbit for another fueling attempt.
+If the fuel cell misses the space station it simply disappears and
+becomes a new piece of space junk.</p>
+
+<p><b>Starting and stopping the simulation:</b> Pressing the 'S'
+key will start the simulation and pressing the 'X' key will stop
+it.</p>
+</dd>
+
+<dt>Turning in your project:</dt>
+
+<dd>Copy your project to the appropriate folder(s) under the
+Project-01 folder on the I: drive. Send an email message to your
+instructor when you have done this, naming the programmer or pair
+of programmers who completed the project.</dd>
+</dl>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img class=
+"validator" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt=
+"Valid HTML 4.01!" width="88" height="31"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img class=
+"validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+alt="Valid CSS!" width="88" height="31"></a><a href=
+"http://www.depauw.edu/">DePauw University</a>, <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a>, Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> (<a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>). 
+<!--#config timefmt="%A, %B %e, %Y" -->
+ Last updated <!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

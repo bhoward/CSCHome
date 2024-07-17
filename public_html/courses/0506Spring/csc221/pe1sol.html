@@ -1,0 +1,472 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Practice Exam 1 - CSC 221: Computer Organization, Spring 2006</title>
+<link type="text/css" href="default.css" rel="stylesheet">
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 221: Computer Organization, Spring 2006</h1>
+	
+<h2>Practice Exam 1</h2>
+	
+	
+
+<P>
+The exam will be open-book, so that you don't have to memorize the ASCII
+table or the details of the Pep/8 architecture.</P>
+
+
+<OL>
+
+<LI>
+<P>How many memory reads are required to fetch and execute the
+instruction</P>
+
+<PRE>
+add     X, Y
+</PRE>
+
+<P>on a two-address architecture (where <code>X</code> and <code>Y</code> are
+direct-mode operands)?  Recall that this instruction is roughly
+equivalent to <code>X += Y</code> in C++.</P>
+
+
+<DIV class="solution">
+There will be one group of reads to fetch the instruction and its operands (it is not specified how many bytes this will involve,
+nor is it clear how many bytes may be fetched in one read, but let's assume that this counts as a single read operation).  Then the value
+of <code>X</code> will need to be read, followed by the value of <code>Y</code>, for a total of <b>three</b> reads.
+</DIV>
+
+
+<P>
+How many memory <SPAN CLASS="textit">writes</SPAN> are required?</P>
+
+
+<DIV class="solution">
+The only write will be to store the modified value of <code>X</code> back into memory.
+</DIV>
+
+
+<P>
+Give an equivalent sequence of instructions for the Pep/8 architecture,
+and tell how many memory reads and writes are required for
+it.</P>
+
+
+<DIV class="solution">
+Since the Pep/8 is a one-address architecture, we need to use the accumulator to do the addition:
+<pre>
+LDA     X,d
+ADDA    Y,d
+STA     X,d
+</pre>
+This requires fetching three separate instructions from memory (for a total of nine bytes; each instruction causes a one-byte read
+of the instruction specifier, followed by a two-byte read of the operand), plus one read each for <code>X</code> and <code>Y</code>(two bytes each).
+This makes for <b>five</b> reads (or <b>eight</b>, if you count the operand fetches separately), for a total of 13 bytes.  As with the two-address code,
+there is only one write needed, of the two-byte result for <code>X</code>.
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Fill in the missing entries.</P>
+
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING="3" BORDER="1">
+
+<TR>
+<TD ALIGN="CENTER">Binary</TD>
+<TD ALIGN="CENTER">ASCII</TD>
+<TD ALIGN="CENTER">Decimal</TD>
+<TD ALIGN="CENTER">Hexadecimal</TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><TT>  
+1101001 </TT></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>'i'</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>105</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>69</TT></SPAN></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>0100110</TT></SPAN></TD>
+<TD ALIGN="CENTER"><TT> '&amp;' </TT></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>38</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>26</TT></SPAN></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1111110</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>'~'</TT></SPAN></TD>
+<TD ALIGN="CENTER"><TT> 126 </TT></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>7E</TT></SPAN></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1001110</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>'N'</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>78</TT></SPAN></TD>
+<TD ALIGN="CENTER"><TT> 4E
+</TT></TD>
+
+</TR>
+
+</TABLE>
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Fill in the missing entries.  For this problem, all binary numbers
+are 8 bits.</P>
+
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING="3" BORDER="1">
+
+<TR>
+<TD ALIGN="CENTER">Decimal</TD>
+<TD ALIGN="CENTER">Sign Magnitude</TD>
+<TD ALIGN="CENTER">2's Complement</TD>
+<TD ALIGN="CENTER">Excess 127</TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><TT>  
+-100 </TT></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1110 0100</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1001 1100</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>0001 1011</TT></SPAN></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>-127</TT></SPAN></TD>
+<TD ALIGN="CENTER"><TT> 1111 1111 </TT></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1000 0001</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>0000 0000</TT></SPAN></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>-1</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1000 0001</TT></SPAN></TD>
+<TD ALIGN="CENTER"><TT> 1111 1111 </TT></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>0111 1110</TT></SPAN></TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>-22</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1001 0110</TT></SPAN></TD>
+<TD ALIGN="CENTER"><SPAN class="solution"><TT>1110 1010</TT></SPAN></TD>
+<TD ALIGN="CENTER"><TT> 0110 1001
+</TT></TD>
+
+</TR>
+
+</TABLE>
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Convert the following C++ program to Pep/8 Assembly Language:</P>
+
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+
+int a, b;
+
+int main() {
+  cin &gt;&gt; a;
+  cin &gt;&gt; b;
+  b += a;
+  a = b - a;
+  cout &lt;&lt; a;
+  cout &lt;&lt; b;
+}
+</PRE>
+
+
+<DIV class="solution">
+
+<PRE>
+        BR      main
+a:      .BLOCK  2
+b:      .BLOCK  2
+main:   DECI    a,d
+        DECI    b,d
+        LDA     b,d
+        ADDA    a,d
+        STA     b,d
+        LDA     b,d     ; redundant
+        SUBA    a,d
+        STA     a,d
+        DECO    a,d
+        DECO    b,d
+        STOP
+        .END
+</PRE>
+
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Evaluate the following expressions, giving the results in hexadecimal:</P>
+
+<OL>
+
+<LI>
+<!-- MATH
+ $\texttt{3E92}+\texttt{147B}$
+ -->
+
+<SPAN CLASS="MATH"><code>3E92</code> + <code>147B</code></SPAN>
+<SPAN class="solution">= <code>530D</code> (binary:
+<code>0011 1110 1001 0010</code> + <code>0001 0100 0111 1011</code> = <code>0101 0011 0000 1101</code>)</SPAN>
+
+</LI>
+
+<LI>
+<!-- MATH
+ $\texttt{7000}-\texttt{1234}$
+ -->
+
+<SPAN CLASS="MATH"><code>7000</code> - <code>1234</code></SPAN>
+<SPAN class="solution">= <code>5DCC</code> (binary:
+<code>0111 0000 0000 0000</code> - <code>0001 0010 0011 0100</code> = <code>0101 1101 1100 1100</code>)</SPAN>
+
+</LI>
+
+<LI>
+<!-- MATH
+ $\texttt{05F6}\times\texttt{8}$
+ -->
+
+<SPAN CLASS="MATH"><code>05F6</code> &times; <code>8</code></SPAN>
+<SPAN class="solution">= <code>2FB0</code> (binary:
+<code>0000 0101 1111 0110</code> &times; <code>1000</code> = <code>0010 1111 1011 0000</code>)</SPAN>
+
+</LI>
+
+</OL>
+
+</LI>
+
+
+<LI>
+<P>Convert the following Pep/8 program to an equivalent program in C++:</P>
+
+<PRE>
+newLine: .EQUATE 0x000A
+         BR      main
+x:       .WORD   1
+y:       .WORD   2
+z:       .WORD   3
+c:       .BYTE   4
+main:    DECI    y,d
+         LDA     y,d
+         ASLA
+         STA     x,d
+         ASLA
+         ASLA
+         ADDA    x,d
+         ADDA    z,d
+         STA     x,d
+         DECO    x,d
+         CHARO   newLine,i
+         DECO    y,d
+         LDA     z,d
+         ORA     0x0030,i
+         STBYTEA c,d
+         CHARO   c,d
+         STOP
+         .END
+</PRE>
+
+
+<DIV class="solution">
+
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+
+int x = 1;
+int y = 2;
+int z = 3;
+char c = 4;
+
+int main() {
+  cin &gt;&gt; y;
+  x = y * 2;
+  x = y * 8 + x + z; // effect is x = y * 10 + z;
+  cout &lt;&lt; x &lt;&lt; endl;
+  cout &lt;&lt; y;
+  c = z | '0';
+  cout &lt;&lt; c; // effect is cout &lt;&lt; z; if z is a single (decimal) digit
+}
+</PRE>
+
+</DIV>
+
+
+<P>
+What is the output of the above program if the user enters <code>42</code>?</P>
+
+
+<DIV class="solution">
+The output will be
+<PRE>
+423
+423
+</PRE>
+Note that printing <code>y * 10 + z</code> is always the same as printing <code>y</code> followed by <code>z</code>, if <code>z</code> is
+a single digit (provided the arithmetic doesn't overflow).
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Convert the decimal number 3.375 into a fixed-point binary form, with four bits for each of the integer and fractional parts
+(<SPAN CLASS="textit">e.g.</SPAN>, <code>0001.0000</code> represents the number 1.0).</P>
+
+
+<DIV class="solution">
+
+<code>0011.0110</code> (that is, 3 and 6/16)
+</DIV>
+
+
+<P>
+Convert the same number into a floating-point binary form, with a three-bit (excess 3) exponent and a four-bit significand.</P>
+
+
+<DIV class="solution">
+When normalized, the above becomes <code>1.1011</code> &times; 2<sup>1</sup>.  Therefore, the sign is <code>0</code>, the exponent is
+<code>100</code>, and the significand is <code>1011</code>, for a result of <code>0100 1011</code>.
+</DIV>
+
+
+<P>
+Compare the ranges (smallest and largest positive numbers) representable in the above two formats.  Assume the usual conventions for
+handling signs, infinities, NaNs, and denormalized numbers.</P>
+
+
+<DIV class="solution">
+The smallest (non-zero) positive number in both formats is <code>0000 0001</code>.  As a fixed-point number, it represents
+<code>0000.0001</code>, which is 0.0625 (1/16).  As a floating-point number, it is one of the denormalized numbers; its value is
+<code>0.0001</code> &times; 2<sup>-2</sup>, or <code>0.000001</code>, which is 0.015625 (1/64).
+<BR>
+The largest positive number in the fixed-point format is <code>0111 1111</code>, which represents 7.9375 (7 and 15/16).  The largest positive
+number in the floating-point format (avoiding infinity and the NaNs) is <code>0110 1111</code>, which represents <code>1.1111</code> &times; 2<sup>3</sup>,
+or <code>1111.1</code>, which is 15.5.
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Consider the following recursive function in C++:</P>
+
+<PRE>
+int gcd(int a, int b)
+{
+    if (b == 0) return a;
+    int r = a % b;
+    return gcd(b, r);
+}
+</PRE>
+
+<P>Sketch the layout of items in a stack frame for this function:</P>
+
+
+<DIV class="solution">
+
+<TABLE BORDER="1">
+
+<TR>
+<TD><code>r</code></TD>
+</TR>
+
+<TR>
+<TD><code>retAddr</code></TD>
+</TR>
+
+<TR>
+<TD><code>b</code></TD>
+</TR>
+
+<TR>
+<TD><code>a</code></TD>
+</TR>
+
+<TR>
+<TD><code>retVal</code></TD>
+</TR>
+
+</TABLE>
+
+</DIV>
+
+
+<P>
+If each <code>int</code> occupies 2 bytes, and memory addresses also take 2 bytes, then how many bytes will be needed on the
+runtime stack to handle the call <code>gcd(12, 20)</code>?</P>
+
+
+<DIV class="solution">
+Each stack frame needs 10 bytes, as shown above.  Here is the sequence of function calls to compute the result:
+<PRE>
+gcd(12, 20)
+gcd(20, 12)
+gcd(12, 8)
+gcd(8, 4)
+gcd(4, 0)
+</PRE>
+The last call returns the result, 4, which is then returned by all of the stacked calls in turn.  Since there were five stacked function calls,
+we will need <b>50 bytes</b> on the runtime stack to handle the call.  (In fact, a smart compiler might recognize that the recursive call is what is
+known as a "tail call", and optimize the code to reuse the stack frame on each call rather than pushing a new one, so we could get away
+with only 10 bytes, but that's beyond what you should be thinking about for this course.  Pretend I didn't say anything....)
+</DIV>
+
+</LI>
+
+</OL>
+
+
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img height="31" width="88" alt="Valid HTML 4.01!" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class="validator"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img height="31" width="88" alt="Valid CSS!" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class="validator"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2006<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

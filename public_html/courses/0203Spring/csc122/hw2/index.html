@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Homework 2</TITLE>
+<META NAME="description" CONTENT="Homework 2">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hw2.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Homework 2</H1>
+
+Due Monday, February 10, at the start of class.
+
+<OL>
+<LI>Use the formal definition of Big O notation to show that <SPAN CLASS="MATH">2<I>X</I><SUP>3</SUP> + <I>X</I></SPAN> is <SPAN CLASS="MATH"><I>O</I>(<I>X</I><SUP>3</SUP>)</SPAN>.
+
+</LI>
+<LI>Write two program fragments labeled (A) and (B) such that (A) has
+a "better" run-time when expressed in big-oh notation but takes longer
+to run for a small input (say an input size of 10).
+
+</LI>
+<LI>What is the run-time of the following fragment expressed in big-oh notation as a function of its input <SPAN CLASS="MATH"><I>n</I></SPAN>?
+<PRE>
+cin &gt;&gt; n;
+for (int i=1; i &lt;=n+6; i++)
+   for (int j=1; j&lt;=n+10; j++)
+      cout &lt;&lt; i * j &lt;&lt; endl;
+for (int k=1; k &lt;= n+1000; k++)
+      cout &lt;&lt; "Hello" &lt;&lt; end;
+</PRE>
+
+</LI>
+<LI>If a piece of code runs in time <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>2</SUP>)</SPAN> and takes 2 minutes to
+run when N is 10,000 how long would you estimate the fragment would take
+to run when N=40,000? Why is your answer only an estimate?
+
+</LI>
+<LI>If a piece of code runs in time <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>3</SUP>)</SPAN> and takes 2 minutes to
+run when N is 10,000 how long would you estimate the fragment would take
+to run when N=30,000?
+
+</LI>
+<LI>What is the run-time of the following fragment expressed in big-oh
+notation as a function of its input <SPAN CLASS="MATH"><I>n</I></SPAN>?
+<PRE>
+cin &gt;&gt; n;
+for ( i=1; i&lt;=n; i++ )
+{  temp = n;
+   while ( temp &gt; 0 )
+   {  cout &lt;&lt; n * temp &lt;&lt; endl;
+      temp = temp / 2;
+   }
+}
+</PRE>
+</LI>
+</OL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 3</TITLE>
+<META NAME="description" CONTENT="Programming Project 3">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp3.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 3</H1>
+
+<P>
+This assignment is due Friday, April 9, by the start of class.
+
+<P>
+<DL>
+<DT></DT>
+<DD><B>Objectives:</B>
+
+<UL>
+<LI>Familiarity with implementing classes
+</LI>
+<LI>Familiarity with using lists
+</LI>
+</UL>
+
+<P>
+</DD>
+<DT></DT>
+<DD><B>Assignment:</B>
+
+<P>
+Part 1 (50 points): Implement class bigInt using lists. A bigInt is a
+class that permits a client program to manipulate integers that can be
+quite a bit larger than built-in ints. The header file for bigInts is
+attached to this assignment sheet.
+
+<P>
+Your implementation of bigInts must use the list class. Suggestions for
+implementing bigInts will be discussed in class.
+
+<P>
+Part 2 (50 points): Write a program that prompts the user for an integer
+(let's call it <SPAN CLASS="MATH"><I>n</I></SPAN>), then calculates <SPAN CLASS="MATH"><I>n</I>!</SPAN> and <!-- MATH
+ $\textit{fibb}(n)$
+ -->
+<SPAN CLASS="MATH"><I>fibb</I>(<I>n</I>)</SPAN>. Your program should
+use bigInts. If either <SPAN CLASS="MATH"><I>n</I>!</SPAN> or <!-- MATH
+ $\textit{fibb}(n)$
+ -->
+<SPAN CLASS="MATH"><I>fibb</I>(<I>n</I>)</SPAN> causes overflow, your program
+should print a message indicating overflow occurred, otherwise it should
+print the appropriate value. For example, the following is a sample run:
+<PRE>
+Please enter an int 45
+The 45th fibonacci number is:
+1134903170
+45! is:
+119622220865480194561963161495657715064383733760000000000
+
+Please enter an int 100
+The 100th fibonacci number is:
+354224848179261915075
+Overflow occurred when calculating n!
+
+Please enter an int 600
+Overflow occurred when calculating fibb(n)
+Overflow occurred when calculating n!
+</PRE>
+
+<P>
+Folder "Lab3 Template" in the public folder on the I: drive contains the
+header files and list for this assignment; you should start this
+assignment by copying this folder to your I: drive folder.
+</DD>
+</DL>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

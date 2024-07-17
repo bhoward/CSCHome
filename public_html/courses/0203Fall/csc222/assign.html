@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Assignments - CSC 222, Data Structures, Fall 2002</title>
+<!--#include virtual="/~bhoward/common/head.html" -->
+<meta name="keywords" content="CSC 222,Assignments,Fall 2002,Brian Howard,DePauw University">
+<meta name="description" content="Assignment page for CSC 222, Data Structures, Fall 2002">
+</head>
+
+<body>
+<h1>Assignments</h1>
+<dl>
+<dt>Homework 1, due Friday, August 30 (<a href="local/hw1sol/">Solutions</a>)</dt>
+<dd>Chapter 1, Exercises 1, 3 (page 11), 4, 5, 7, 8, 16, and 17 (pages 19-21)<br>
+    Chapter 2, Exercises 2 (page 33), 28-31 (page 48), and 51 (page 64)</dd>
+
+<dt>Programming Project 1, due Friday, September 13, at 5 p.m. (<a href="libs/pp1model/shuffle.cc">Model Solution</a>)</dt>
+<dd>Implement the <em>in-shuffle</em> and <em>out-shuffle</em>
+operations on linked lists, and demonstrate that the
+<a href="http://www.maa.org/mathland/mathtrek_8_3_98.html">magic trick
+discussed in class</a> works by creating an ordered list of cards,
+performing an <em>in</em>, <em>out</em>, <em>out</em> sequence of
+shuffles, and then displaying the fifth card in the deck (which should be
+the original first card).  For extra credit, allow the user to specify
+which position the first card should be moved to, and do the correct
+sequence of shuffles.</dd>
+
+<dt>Homework 2, due Monday, September 23 (<a href="local/hw2sol/">Solutions</a>)</dt>
+<dd>Chapter 6, Exercises 5, 6 (page 272), 11, 14 (page 274), 15, 18 (page 277),
+        22 (page 279), 26, 27 (page 284), 33, and 35 (pages 291-2)<br>
+    Chapter 7, Exercises 1 (page 321), 8, and 9 (pages 324-5)</dd>
+
+<dt>Homework 3, due Friday, October 18 (<a href="local/hw3sol/">Solutions</a>)</dt>
+<dd>Chapter 8, Exercises 1, 2, 5, 6, 9, 24<br>
+    Chapter 9, Exercises 1, 2, 3, 4, 5, 21</dd>
+
+<dt>Programming Project 2, due Monday, November 4, at 5 p.m. (<a href="libs/pp2model/places.cc">Model Solution</a>)</dt>
+<dd>Write a program which will efficiently perform the following operations (allow
+the user to choose these from a menu):
+<ul>
+  <li>Read place information from
+    <a href="libs/pp2data/placese.txt"><tt>/home/libs/dataStr/pp2data/placese.txt</tt></a>
+    (roughly places east of the Mississippi)</li>
+  <li>Read place information from
+    <a href="libs/pp2data/placesw.txt"><tt>/home/libs/dataStr/pp2data/placesw.txt</tt></a>
+    (roughly places west of the Mississippi)</li>
+  <li>Ask for a place name and display information about all the matching places</li>
+  <li>Ask for a number, <em>n</em>, and display the <em>n</em><sup>th</sup> largest place</li>
+  <li>Quit (this one is easy...)</li>
+</ul>
+The files of place information, which are based on
+<a href="http://ftp.census.gov/geo/www/gazetteer/places.html">data from the U.S. Census Bureau</a>,
+have the following format on each line:
+<pre>
+place name (40 characters wide; may contain spaces)
+state abbreviation (2 characters)
+population (10 characters, right justified)
+degrees latitude (11 characters, prefixed + for North)
+degrees longitude (12 characters, prefixed - for West or + for East)
+</pre>
+For example, <tt>placesw.txt</tt> starts as follows:
+<pre>
+Adak Station                            AK      4633 +51.842900 -176.640278
+Akhiok                                  AK        77 +56.977320 -154.217551
+Akiachak                                AK       481 +60.871740 -161.403575
+Akiak                                   AK       285 +60.885659 -161.192264
+Akutan                                  AK       589 +54.136299 -165.786036
+Alakanuk                                AK       544 +62.675611 -164.643602
+Alcan                                   AK        27 +62.722977 -141.188178
+Aleknagik                               AK       185 +59.285485 -158.628962
+Allakaket                               AK       170 +66.545170 -152.733117
+Ambler                                  AK       311 +67.076879 -157.918155
+Amchitka                                AK        25 +51.567103 +178.877380</pre>
+If the user chooses to read both files of place information, then the queries should search the
+combined list of places.  We will discuss appropriate data structures and algorithms in class
+after the fall break; be prepared to make suggestions.</dd>
+
+<dt>Review Problems for Friday, November 15 (<a href="local/bstsol/">Solutions</a>)</dt>
+<dd>Chapter 12, Exercises 26, 27, 47, 51, 73, 79, and 80<br>
+    Chapter 13, Exercises 39 and 48</dd>
+
+<dt>Review Problems for Friday, December 6 (<a href="local/graphsol/">Solutions</a>)</dt>
+<dd>Chapter 17, Exercises 17 and 27<br>
+    Chapter 18, Exercises 6, 7, 15, 16, 50, and 51</dd>
+</dl>
+
+<hr>
+<!--#include virtual="/~bhoward/common/foot.html" -->
+</body></html>

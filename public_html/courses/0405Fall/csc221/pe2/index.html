@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Practice Exam 2</TITLE>
+<META NAME="description" CONTENT="Practice Exam 2">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pe2.css">
+
+</HEAD>
+
+<BODY >
+<H1 ALIGN="CENTER">Practice Exam 2</H1>
+
+<P>
+The exam will be open-book, so that you don't have to memorize the ASCII
+table or the details of the Pep/7 architecture.
+
+<P>
+
+<OL>
+<LI>Convert the following C++ program to Pep/7 assembly language:
+<PRE>
+int a, b, limit;
+
+int main() {
+  a = 0;
+  b = 1;
+  cin &gt;&gt; limit;
+  while (b &lt; limit) {
+    b += a;
+    a = b - a;
+  }
+  cout &lt;&lt; a &lt;&lt; endl;
+}
+</PRE>
+
+<P>
+</LI>
+<LI>Consider the boolean formula <!-- MATH
+ $(a+b')\cdot(b'+c')\cdot(a'+c)$
+ -->
+<SPAN CLASS="MATH">(<I>a</I> + <I>b'</I>)<SUP> . </SUP>(<I>b'</I> + <I>c'</I>)<SUP> . </SUP>(<I>a'</I> + <I>c</I>)</SPAN>.
+
+<OL>
+<LI>Construct a truth table for this formula.
+
+<P>
+</LI>
+<LI>Draw a circuit using AND, OR, and NOT gates with inputs <SPAN CLASS="MATH"><I>a</I></SPAN>, <SPAN CLASS="MATH"><I>b</I></SPAN>,
+and <SPAN CLASS="MATH"><I>c</I></SPAN>, whose output is the value of this formula.
+
+<P>
+</LI>
+<LI>Draw an equivalent circuit using as few gates as possible.
+</LI>
+</OL>
+
+<P>
+
+</LI>
+<LI>Convert the following Pep/7 program to an equivalent program in
+C++:
+<PRE>
+        BR      main
+n:      .BLOCK  d#2
+fact:   .WORD   d#1
+
+main:   LOADA   d#7, i
+        STOREA  n, d
+L1:     COMPA   d#0, i
+        BREQ    L2
+        JSR     mul
+        LOADA   n, d
+        SUBA    d#1, i
+        STOREA  n, d
+        BR      L1
+L2:     DECO    fact, d
+        CHARO   h#0a, i
+        STOP
+
+i:      .EQUATE d#0
+p:      .EQUATE d#2
+mul:    ADDSP   d#-4, i
+        LOADA   d#0, i
+        STOREA  p, s
+        STOREA  i, s
+L3:     COMPA   n, d
+        BREQ    L4
+        LOADA   p, s
+        ADDA    fact, d
+        STOREA  p, s
+        LOADA   i, s
+        ADDA    d#1, i
+        STOREA  i, s
+        BR      L3
+L4:     LOADA   p, s
+        STOREA  fact, d
+        ADDSP   d#4, i
+        RTS
+        .END
+</PRE>
+
+<P>
+</LI>
+<LI>Modify the above program so that the subroutine <code>mul</code> doesn't
+use the global variables <code>n</code> and <code>fact</code>; instead, it should
+take the values of <code>n</code> and <code>fact</code> as parameters, and produce
+the new value of <code>fact</code> as a return value.  Show both the
+modifications necessary to <code>mul</code> and to <code>main</code>.
+
+<P>
+</LI>
+</OL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

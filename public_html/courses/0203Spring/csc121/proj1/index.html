@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 1</TITLE>
+<META NAME="description" CONTENT="Programming Project 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science I,CS1">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="proj1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 1</H1>
+
+<P>
+Due: Wednesday March 12th for Berque's section, Thursday March 13th for
+Howard's section, and Friday March 14th for Townsend's section. Your
+instructor will specify the time at which the project is due. Copy the
+folder named <code>graphicstemplate</code> from the <code>public</code> folder to
+your own account. Rename this folder as ``<code>Project1</code>''. Do your
+work for this project in that folder.
+
+<P>
+You are required to come to lab on March 4th with two items that will
+collectively count as your prelab grade: (a) a paper and pencil
+first-attempt at stage one of this project (see below), and (b) a paper
+and pencil first-attempt at a solution to a practice problem for exam
+one that may be found in <code>I:\public\ExamOne</code> in
+<code>exam1LabPrep.doc</code>. During lab you will work to implement this
+practice problem on the computer. When you are finished, a tutor or
+instructor will check off your work for laboratory credit. Then, you may
+use the remaining lab time to work on this project.
+
+<P>
+Please be sure that your comments contain your name, instructor, and
+directory number (CSC121XX). You should also include a comment
+explaining what the program does, as well as any other appropriate
+comments in the program.
+
+<P>
+Overview: In planning for next year's holiday buying rush, the software
+company that has just hired you, Wally's Quick and Cheap Computer Kits,
+or Wally's QACCK, is developing a new video game. Your job, should you
+choose to accept it, is to develop an initial version of the game by
+writing a program that allows the player to try to launch new fuel
+supplies up to a satellite, which is flying above the earth.
+
+<P>
+At the start of the game, the player will be asked to select a level of
+difficulty that will control the speed at which the satellite moves.
+There are several ways you can let the user select the level of
+difficulty. Any reasonable method is fine.
+
+<P>
+Once the difficulty level has been selected, an object (the satellite)
+will appear near the upper left corner of the screen. The object should
+be any shape, which has not already been defined in
+<code>mygraph.h</code>--for example, a rectangle, stick-figure or rocket. The
+object will move horizontally across the screen. When the object reaches
+the right edge of the screen, its direction should be reversed, and it
+should travel back toward the left edge of the screen. When it reaches
+the left edge, its direction should be reversed again (this process
+should continue until the game is over.) If you prefer to deal with the
+edges of the screen in some other manner, that is also fine. For
+example, you might decide that when the object hits the right edge of
+the screen it should reappear at the left edge again.
+
+<P>
+Near the bottom center of the screen, display a small ball (there is a
+ball class which is already defined in <code>mygraph.h</code>), which is
+assumed to contain a fresh fuel supply for the satellite.
+
+<P>
+If the user presses `S' or `s', the ball (which contains a fresh fuel
+supply for the satellite) should be launched upward and at an angle that
+takes it roughly toward the top left corner of the screen; if the user
+presses `D' or `d', the ball should be launched straight up; and, if the
+user presses `F' or `f', the ball should be launched at an angle that
+takes it toward the top right corner of the screen. Once launched, the
+fuel ball should travel toward the top of the screen in an attempt to
+intercept the satellite.
+
+<P>
+If the fuel ball travels off the top of the screen without intercepting
+the satellite, it should be repositioned back at the bottom of the
+screen so that the user can press a key to launch it again. The player
+should be given five chances to intercept the satellite. If the
+satellite is intercepted, then the game ends and a congratulatory
+message is printed that thanks the user for saving the satellite. If the
+fixed number of tries is exceeded and the satellite has still not been
+intercepted by the fuel ball, then the satellite should fall to the
+bottom of the screen.
+
+<P>
+The screen might look something like this (Note that the arrows will not
+be displayed on the screen; the arrows are just there to indicate the
+motion of the objects):
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="320" HEIGHT="240" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{figure}\begin{center}\begin{picture}(200,150)
+\put(0,0){\framebox (200,15...
+...rcle*{10}}
+\put(130,20){\vector(-1,1){50}}
+\end{picture}\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00001000000000000000">
+Notes:</A>
+</H2>
+
+<P>
+Since other programmers working for our small, but growing, software
+company will expand your program at a later date, it is essential that
+you design the program well. This includes using functions and
+parameters to break the program into manageable pieces, selecting good
+identifier names, indenting the program neatly, and using pre- and post-
+conditions and other comments to explain the program. 
+
+<P>
+Several aspects of this project have been intentionally left undefined.
+Feel free to resolve any unspecified design decisions however you see
+fit. As long as you meet the requirements described above, feel free to
+be creative and have fun.
+
+<P>
+This is not a short assignment, and there are some general problem
+solving strategies that can help you organize your work. You should
+begin by outlining the main tasks you want the program to perform.
+Sketch the general outline of the main program and some of the major
+functions you will use. 
+
+<P>
+It is then essential that you develop your program in stages rather than
+trying to code a program that does everything at once. This allows you
+to concentrate on one issue at a time and permits you to thoroughly test
+each part of your program before you move on. This method of developing
+software is called incremental coding. 
+
+<P>
+One possible set of stages follows:
+<DL>
+<DT><STRONG>Stage 1:</STRONG></DT>
+<DD>Write a program that lets the user specify the degree of
+difficulty of the game (doing all error checking). Then place a square
+object (in a later stage we can worry about changing the square to
+another shape) near the top left corner of the screen and let it slide
+to the right. The harder the degree of difficulty specified by the user,
+the faster the object should move. Do not worry about bouncing the
+object off the right side of the screen at this point. Stop the program,
+when the user presses a key. Test this stage before going on to the next
+stage.
+
+<P>
+</DD>
+<DT><STRONG>Stage 2:</STRONG></DT>
+<DD>Modify the program so that the object ``bounces'' off
+the sides of the screen. Test this stage before going on.
+
+<P>
+</DD>
+<DT><STRONG>Stage 3:</STRONG></DT>
+<DD>Modify the program so that the fuel ball is displayed at
+the bottom of the screen. The fuel ball can be a ``ball object'' as
+defined in <code>mygraph.h</code>, although you are free to define other
+shapes if you prefer. When the user presses an appropriate key, the fuel
+ball should travel up toward the top of the screen either straight up,
+or toward the right or left corner depending on the key that was
+pressed. If the user presses a key other than the ones which were
+mentioned on the previous page, the program should beep. You will need
+to modify the loop, so that the program stops, when the fuel-ball moves
+off the top of the screen. Allow the user to launch only ONE fuel ball
+at this stage. 
+
+<P>
+Stages 1, 2 and 3 (as described above) compose the basic assignment.
+Print your program, when you are satisfied that these three stages work
+correctly and your coding style matches that required by your
+instructor. Turn in this copy to your instructor. We hope that you will
+consider the four additional stages below and other modifications of
+your own choosing. These are not required for full credit. We list them,
+because we know that students enjoy the unit one graphics environment
+and are motivated to expand their programs. Graphics programs such as
+this one extend themselves well to the educational and entertainment
+fields, as examples. Your instructor will give you more information
+about how s/he will use your extra work, should you choose to extend
+your program.
+
+<HR>
+
+<P>
+</DD>
+<DT><STRONG>Stage 4:</STRONG></DT>
+<DD>Modify the program so that the user has 5 chances to
+launch a fuel ball. Think about what to do if the user presses a key
+while the fuel ball is already moving. You might ignore this situation,
+or relocate the fuel ball at the bottom of the screen again, or take
+some other action. You will not need any new loops to do this stage,
+instead, make some changes to the current loop and also relocate the
+fuel ball to the bottom of the screen each time it moves off of the top.
+Test this stage before going on.
+
+<P>
+</DD>
+<DT><STRONG>Stage 5:</STRONG></DT>
+<DD>Modify the program so that the game ends with a
+congratulatory message if the fuel ball intercepts the satellite. Test
+this stage before going on.
+
+<P>
+</DD>
+<DT><STRONG>Stage 6:</STRONG></DT>
+<DD>Modify the program so that the game ends with the
+satellite falling to the bottom of the screen, if the user fails to
+intercept the satellite after trying five times. Test this stage before
+going on.
+
+<P>
+</DD>
+<DT><STRONG>Stage 7:</STRONG></DT>
+<DD>Modify the copy of the <code>mygraph.h</code> file which is in
+your <code>MyLibr</code> directory by defining another type of object, such as
+a rectangle. Modify your program to use this new object instead of the
+square as the satellite. You can make your new object as simple or as
+complex as you like, but if you make it complicated, you may have to
+define what it means to intercept the satellite somewhat roughly.
+</DD>
+</DL>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

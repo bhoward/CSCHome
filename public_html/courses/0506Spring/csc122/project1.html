@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 1 - 
+	CSC 122: Computer Science II, Spring 2006</title>
+<link type="text/css" href="default.css" rel="stylesheet">
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>
+	CSC 122: Computer Science II, Spring 2006</h1>
+	
+<h2>Project 1</h2>
+	
+		
+<h3>Ramping up with Java - Traversing a maze</h3>
+		
+<h3>Deadline: Friday, February 10, 5:00 p.m.</h3>
+
+		
+<dl>
+			
+<dt>Overview:</dt>
+			
+<dd>This project deals with the classic "mouse in a maze" problem.
+				You are to write a program that reads in a maze from a text file
+				and stores it in a two-dimensional array. The program should then
+				preprocess the maze to mark (in the array, not on the screen) all
+				of the useless cells.  Finally if a path exists, the maze will be
+				displayed in a terminal window with the path clearly marked.
+				Otherwise a message indicating that there is no path should be
+				displayed.</dd>
+
+			
+<dt>Specification:</dt>
+			
+<dd>
+<ul>
+				
+<li>The maze will be represented by a 2-D array, type <code>int[ ][ ]</code> that
+					has exactly 20 rows and 70 columns. It will be initialized by
+					reading lines from a text file. Each character in the file is
+					either a * for a free cell or a blank space for a wall cell.</li>
+				
+<li>The maze has at most one entry point on the
+					left edge and at most one exit point on the right edge.</li>
+				
+<li>The cells around the border of the maze (top row, bottom row,
+					left edge, right edge) are all "wall" cells except for the
+					entry and exit if they exist.  That is, the path will not run
+					along the edges of the maze.</li>
+				
+<li>The maze does not contain any cycles. The consequences of this
+					will be discussed in class.</li>
+				
+<li>The state of an array cell, once processed (see below), will be
+					one of FREE, WALL, or USELESS defined as constants:
+<pre>
+private final int FREE = 0;
+private final int WALL = 1;
+private final int USELESS = 2;
+</pre>
+</li>
+			
+</ul>
+
+			
+<p>
+<strong>Maze file format:</strong>
+</p>
+			
+<ul>
+				
+<li>The filename will be of the form <code>*.dat</code> and will be a standard
+					text file.</li>
+				
+<li>Each line in the file corresponds to a row in the matrix.</li>
+				
+<li>An asterisk in the line represents a FREE space (potentially
+					on a path) and a space represents a WALL.</li>
+				
+<li>The length of a line is the number of characters to the last
+					asterisk. So the first and last lines of the file will have
+					length 0. Thus before reading the file you should initialize
+					all cells of the maze array to WALL to facilitate loading the
+					array from the file. The maze array will not have any USELESS
+					cells until it has been preprocessed (see below).</li>
+				
+<li>An example maze file is displayed below:<br>
+					
+<img src="maze1.png" alt="Maze1.DAT Example"></li>
+			
+</ul>
+
+			
+<p>
+<strong>Displaying the maze:</strong>
+</p>
+			
+<ul>
+				
+<li>Display a WALL cell as a '|' character</li>
+				
+<li>Display a USELESS cell as a '?' character</li>
+				
+<li>Display a FREE cell as a ' ' character.</li>
+			
+</ul>
+			
+			
+<p>
+<strong>The algorithm:</strong>
+</p>
+			
+<ul>
+				
+<li>Initialize the maze.</li>
+				
+<li>Read the maze file one line at a time and set the next row of
+					the maze accordingly.</li>
+				
+<li>Preprocess the maze as follows -
+					<ul>
+						
+<li>Examine each FREE cell of the maze array. If 3 of its
+							4 neighbors are WALL or USELESS make the cell
+							USELESS.</li>
+						
+<li>Repeat the above step until you make a pass that
+							results in no cells being marked USELESS.</li>
+					
+</ul>
+				
+</li>
+				
+<li>At this point you either have a path, indicated by the FREE
+					cells, or you have no path. To determine if you have a path,
+					traverse it by finding the entry point on the left edge, following the FREE cells through the array, and
+					successfully (or not) reaching a free cell on the right hand
+					side. This kind of technique (making an optimal decision at
+					each step) is referred to as a greedy algorithm.</li>
+			
+</ul>
+</dd>
+
+
+			
+<dt>The Project and Getting Started:</dt>
+			
+<dd>
+				
+<p>
+<strong>The maze project:</strong>
+</p>
+				
+<ul>
+					
+<li>The project should consist of three classes &ndash; Driver, Maze,
+						and Infile.</li>
+					
+<li>Driver (client) &ndash; Creates instances of Infile and Maze and
+						invokes appropriate methods from each.</li>
+					
+<li>Maze (server/client) &ndash; Initializes the maze array, loads
+						the maze array from the input file, preprocesses the array,
+						determines if there is a path through the maze, displays
+						the maze accordingly.</li>
+					
+<li>Infile (server) &ndash; This class will be given to you in the
+						maze project.</li>
+					
+<li>The project can be copied from <code>I:\csc122\public\maze</code>
+</li>
+					
+<li>Implement the project using the test driven implementation
+						strategy: first build a test system and stubbed
+						implementation of each class.</li>
+					
+<li>Test on the mazes stored in the project file, <code>Maze1.Dat</code>
+						and <code>Maze2.Dat</code>.</li>
+				
+</ul>
+
+				
+<p>
+<strong>Standards:</strong>
+</p>
+				
+<p>Your project should be well-written, neatly-formatted, modular,
+					and well-documented.</p>
+
+				
+<p>
+<strong>Grading:</strong>
+</p>
+				
+<ul>
+					
+<li>Getting filename and opening file (15 pts)</li>
+					
+<li>Reading the maze (20 points)</li>
+					
+<li>Preprocessing correctly (20 points)</li>
+					
+<li>Handling the greedy step correctly (traversing the maze
+						after preprocessing) (20 points)</li>
+					
+<li>Detecting maze with no solution (10 points)</li>
+					
+<li>Documentation and style (15 points)</li>					
+				
+</ul>
+			
+</dd>
+		
+</dl>
+	
+
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img height="31" width="88" alt="Valid HTML 4.01!" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class="validator"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img height="31" width="88" alt="Valid CSS!" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class="validator"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2006<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

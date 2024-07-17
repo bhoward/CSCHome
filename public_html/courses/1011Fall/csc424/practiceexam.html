@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Practice Midterm - CSC 424: Programming Languages, Fall 2010</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 424: Programming Languages, Fall 2010</h1>
+	
+<h2>Practice Midterm</h2>
+	
+	
+	
+<ol>
+	
+<li>Consider the following grammar for a restricted subset of C++
+variable declarations:
+<pre>
+&lt;Declaration&gt; ::= &lt;Type&gt; &lt;Declarator&gt; ;
+       &lt;Type&gt; ::= int | char
+ &lt;Declarator&gt; ::= * &lt;Declarator&gt;
+                | &lt;Declarator&gt; [ &lt;Num&gt; ]
+                | ( &lt;Declarator&gt; )
+                | &lt;Var&gt;
+</pre>
+Assume the usual definitions of <code>&lt;Num&gt;</code> and <code>&lt;Var&gt;</code>.
+<ol type="a">
+
+<li>(5 points) Show two different parse trees for the declaration <code>char *a[10];</code>
+</li>
+
+<li>(5 points) Modify the grammar to make it unambiguous, so that
+<code>char *a[10];</code> has its usual interpretation (that is, it should be
+more like <code>char *(a[10]);</code> than <code>char (*a)[10];</code>).</li>
+
+</ol>
+	
+</li>
+	
+	
+<li>
+<p>Modula-2 solved the dangling-else problem of Pascal by adding an
+explicit <code>end</code> keyword; to avoid a pile-up of<code>end</code>s after a
+cascade of nested <code>if</code>s, it also added an <code>elsif</code> clause:</p>
+
+<pre>
+if test1 then
+    body1
+elsif test2 then
+    body2
+elsif test3 then
+    body3
+else
+    body4
+end
+</pre>
+
+<p>There may be zero or more <code>elsif</code> clauses, and the final
+<code>else</code> clause is optional.</p>
+
+<p>(4 points) Write grammar rules which will allow the non-terminal
+<code>&lt;IfStmt&gt;</code> to expand to a Modula-2 <code>if</code> statement, assuming that
+the non-terminals <code>&lt;BoolExpr&gt;</code> and <code>&lt;StmtSequence&gt;</code> are already
+defined to produce the test expressions and clause bodies.</p>
+	
+</li>
+	
+	
+<li>(5 points) A typical compiler works in several phases: lexical analysis,
+syntactic analysis, semantic analysis and intermediate code generation,
+optimization, and object code generation.  List some advantages of
+separating each of these phases</li>
+
+	
+<li>(2 points each) For each of the following binding times, give an example of
+some attribute in C++ that is bound at that point:
+<ul>
+
+<li>Language definition time</li>
+
+<li>Implementation time</li>
+
+<li>Compile time</li>
+
+<li>Link time</li>
+
+<li>Run time</li>
+
+</ul>
+	
+</li>
+
+	
+<li>(5 points) The following is a legal statement in C++:
+<pre>
+for (int i = 10; i &gt; 0; (cout &lt;&lt; "Hello" &lt;&lt; endl), i++) i--;
+</pre>
+Critique the design decisions behind this, listing as many good or
+bad aspects as you can.
+	</li>
+
+	
+<li>(3 points) Consider the following function skeleton in C++ (none of the
+omitted statements declare variables):
+<pre>
+void f() {
+    int a, b, c;
+    ...
+    for (int d = a; d &lt; b; d++) {
+        int b, c;
+        ...
+    }
+    if (b == c) {
+        int c, d, e, f;
+        ...
+    } else {
+        int g, h, i;
+        ...
+    }
+}
+</pre>
+If an <code>int</code> takes 4 bytes of memory, what is the minimum amount of variable
+storage space that must be allocated for each call to <code>f</code>, and where is that
+memory located?
+	</li>
+
+	
+<li>Consider the following code in a language somewhat like C++:
+<pre>
+int x;
+
+void setx(int n) { x = n; }
+
+void f() {
+    setx(1);
+    cout &lt;&lt; x &lt;&lt; ", ";
+}
+
+void g() {
+    int x = 0;
+    setx(2);
+    cout &lt;&lt; x &lt;&lt; ", ";
+}
+
+int main() {
+    f();
+    g();
+    cout &lt;&lt; x &lt;&lt; endl;
+}
+</pre>
+		
+<ol type="a">
+			
+<li>
+				(3 points) What is the output if the language uses static
+				scoping?
+			</li>
+			
+<li>
+				(3 points) What is the output if the language uses dynamic
+				scoping?
+			</li>
+		
+</ol>
+	
+</li>
+	
+	
+<li>
+		(2 points each; based on Exercise 8.5 of Webber) For each of the following ML
+		function definitions, predict what type ML will infer for <code>f</code>.  For example,
+		given the function definition <code>fun f(x) = 1;</code> the answer should be
+		<code>'a -&gt; int</code> (the actual name of the type variable doesn't matter).
+		<ol type="a">
+			
+<li>
+			
+<pre>
+fun f(x, y) = x;
+			</pre>
+			
+</li>
+			
+<li>
+			
+<pre>
+fun f(g) = g(1);
+			</pre>
+			
+</li>
+			
+<li>
+			
+<pre>
+fun f(g, x) = g(x + 1);
+			</pre>
+			
+</li>
+			
+<li>
+			
+<pre>
+fun f(g, h, x) = g(x) + h(g(x));
+			</pre>
+			
+</li>
+		
+</ol>
+	
+</li>
+	
+	
+<li>
+		(4 points; Exercise 9.4 of Webber) Write an ML function <code>multpairs</code> of type
+		<code>(int * int) list -&gt; int list</code> that takes a list of pairs of integers and
+		returns a list of the products of each pair.  For example, if the input is
+		<code>[(1,2), (3,4)]</code>, your function should return <code>[2, 12]</code>.
+	</li>
+	
+	
+<li>
+		(6 points; Exercise 9.23 of Webber) Write a function <code>convert</code> of type
+		<code>('a * 'b) list -&gt; 'a list * 'b list</code> that converts a list of pairs into a
+		pair of lists, preserving the order of the elements.  For example,
+		<code>convert [(1,2), (3,4), (5,6)]</code> should evaluate to
+		<code>([1, 3, 5], [2, 4, 6])</code>.
+	</li>
+	
+</ol>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2010<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

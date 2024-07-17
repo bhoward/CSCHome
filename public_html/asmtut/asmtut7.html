@@ -1,0 +1,124 @@
+<HTML>
+<head><title>String Instructions</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic6"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut4.html#topic3">Up</A> <A HREF="asmtut6.html#topic5">&lt;&lt;</A> <A HREF="asmtut8.html#topic7">&gt;&gt;</A> </CENTER><HR>
+
+<H3>String Instructions</H3>
+<P>
+The string instructions facilitate operations on sequences of bytes or
+words. None of them take an explicit operand; instead, they all work
+implicitly on the <EM>source</EM> and/or <EM>destination</EM> strings. The
+current element (byte or word) of the source string is at DS:SI, and the
+current element of the destination string is at ES:DI. Each instruction
+works on one element and then automatically adjusts SI and/or DI; if the
+Direction flag is clear, then the index is incremented, otherwise it is
+decremented (when working with overlapping strings it is sometimes
+necessary to work from back to front, but usually you should leave the
+Direction flag clear and work on strings from front to back).<P>
+To work on an entire string at a time, each string instruction can be
+accompanied by a repeat prefix, either <TT>REP</TT> or one of <TT>REPE</TT>
+and <TT>REPNE</TT> (or their synonyms <TT>REPZ</TT> and <TT>REPNZ</TT>).
+These cause the instruction to be repeated the number of times in the
+count register, CX; for <TT>REPE</TT> and <TT>REPNE</TT>, the Zero flag is
+tested at the end of each operation and the loop is stopped if the
+condition (Equal or Not Equal to zero) fails.<P>
+The <TT>MOVSB</TT> and <TT>MOVSW</TT> instructions have the following forms:
+<PRE>
+        MOVSB
+        REP MOVSB
+
+        MOVSW
+        REP MOVSW
+</PRE>
+The first form copies a single byte from the source string, at address
+DS:SI, to the destination string, at address ES:DI, then increments (or
+decrements, if the Direction flag is set) both SI and DI.  The second
+form performs this operation and then decrements CX; if CX is not zero,
+the operation is repeated.  The effect is equivalent to the following
+pseudo-C code:
+<PRE>
+while (CX != 0) {
+        *(ES*16 + DI) = *(DS*16 + SI);
+        SI++;
+        DI++;
+        CX--;
+}
+</PRE>
+(recall that <TT>ES*16 + DI</TT> is the physical address corresponding
+to the segment and offset ES:DI).  The remaining two forms move a word
+at a time, instead of a single byte; correspondingly, SI and DI are
+incremented or decremented by 2 each time through the loop.<P>
+The <TT>STOSB</TT> and <TT>STOSW</TT> instructions are similar to
+<TT>MOVSB</TT> and <TT>MOVSW</TT>, except the source byte or word comes from
+AL or AX instead of the memory address in DS:SI.  For example, the
+following is a very fast way to initialize the block of memory from
+<TT>ES:1000h</TT> to <TT>ES:4FFFh</TT> with zeroes:
+<PRE>
+        MOV     DI, 1000h       ;Starting address
+        MOV     CX, 2000h       ;Number of words
+        MOV     AX, 0           ;Word to store at each location
+        CLD                     ;Make sure direction is increasing
+        REP STOSW               ;Perform the initialization
+</PRE>
+Correspondingly, the <TT>LODSB</TT> and <TT>LODSW</TT> instructions are
+variations on the move instructions where the <EM>destination</EM> is the
+accumulator (instead of the memory address in ES:DI).  These are not
+very useful operations with the repeat prefix; instead, they are used as
+part of larger loops to perform more complex string processing.  For
+example, here is a program fragment that will convert the NUL-terminated
+string starting at the address in DX to be all lower-case (there is a
+faster way to do the conversion of each character, using the
+<TT>XLATB</TT> instruction, but that is not the point here):
+<PRE>
+        MOV     SI, DX          ;Initialize source
+        MOV     DI, DX          ;  and destination indices
+        MOV     AX, DS          ;Copy DS (source segment)
+        MOV     ES, AX          ;  into ES (destination segment)
+        CLD
+NextCh  LODSB                   ;Load next character into AL
+        CMP     AL, 'A'
+        JB      NotUC           ;Jump if below 'A'
+        CMP     AL, 'Z'
+        JA      NotUC           ;  or above 'Z'
+        ADD     AL, 'a' - 'A'   ;Convert UC to lc
+NotUC   STOSB                   ;Store modified character back
+        CMP     AL, 0
+        JNE     NextCh          ;Do next character if not at end of string
+</PRE>
+None of the preceding string operations have any effect on the status
+flags.  By contrast, the remaining two string operations are executed
+<EM>solely</EM> for their effect on the status flags, just like the
+<TT>CMP</TT> operation on numbers.  The <TT>CMPSB</TT> and <TT>CMPSW</TT>
+operations compare the current bytes or words of the source and
+destination strings by subtracting the destination from the source and
+recording the properties of the result in FLAGS.  The <TT>SCASB</TT> and
+<TT>SCASW</TT> operations are the variants of this that use the
+accumulator (AL or AX) for the source.  Each of these may be preceded by
+either of the repeat prefixes <TT>REPE</TT> or <TT>REPNE</TT>, which cause
+the operation to be repeated up to CX times, as long as the condition
+holds true after each iteration.  Here is the corresponding pseudo-C for
+<TT>REPE CMPSB</TT>:
+<PRE>
+while (CX != 0) {
+        SetFlags(*(DS*16 + SI) - *(ES*16 + DI));
+        SI++;
+        DI++;
+        CX--;
+        if (!ZeroFlag) break;
+}
+</PRE>
+A common use of the <TT>REPNE SCASB</TT> instruction is to find the length
+of a NUL-terminated string.  Here is an example:
+<PRE>
+        MOV     DI, DX          ;Starting address in DX (assume ES = DS)
+        MOV     AL, 0           ;Byte to search for (NUL)
+        MOV     CX, -1          ;Start count at FFFFh
+        CLD                     ;Increment DI after each character
+        REPNE SCASB             ;Scan string for NUL, decrementing CX for each char
+        MOV     AX, -2          ;CX will be -2 for length 0, -3 for length 1, ...
+        SUB     AX, CX          ;Length in AX
+</PRE>
+
+</BODY></HTML>

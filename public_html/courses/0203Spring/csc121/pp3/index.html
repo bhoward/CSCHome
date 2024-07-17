@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Homework 3</TITLE>
+<META NAME="description" CONTENT="Programming Homework 3">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science I,CS1">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp3.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Homework 3</H1>
+
+<P>
+This assignment is due by the start of class on Friday, February 28. You
+are encouraged to do this homework with your partner, and you are
+welcome to get help on it during the lab time Tuesday.
+
+<P>
+Submit a printout of your solution to the problem below. Make sure that
+your name and account name are in comments at the top; for example,
+<PRE>
+/* Description: Programming Homework 3
+   Filename:    program3.cpp
+   Account:     CSC121xx
+   Author:      Your Name
+   Date:        Today's Date
+*/
+</PRE>
+If you work with your partner, you only need to submit one copy of the
+program; be sure that both of your names are listed in the comments (the
+account name should be the one in which the solution is stored).
+
+<P>
+You should start by copying the folder called <code>Program3</code> from my
+public directory, <code>I:\CSC121\public\Howard\</code>, into your own folder,
+<code>I:\CSC121\CSC121xx\</code>.  When you open your copy of the project, by
+following the same instructions as for the labs, you should see the
+comments shown above; modify them as needed and continue writing your
+program.
+
+<P>
+Please remember that you will be graded on program style as well
+as correct output.  Style points include proper use of functions to
+break up your code, indentation of function and loop bodies to make the
+structure of your code easy to read, and the inclusion of comments to
+identify the parts of the program and to state the required pre- and
+post-conditions for each function other than <code>main</code>.  A program
+without all of these style points will not receive full credit.
+
+<P>
+The assignment is to produce a program that first asks for a number of
+grades, <SPAN CLASS="MATH"><I>n</I></SPAN>, and then asks for a grade <SPAN CLASS="MATH"><I>n</I></SPAN> times in succession.  For
+each of the <SPAN CLASS="MATH"><I>n</I></SPAN> grades, which should be a number between 0 and 100, it
+should print the corresponding letter grade (use the scale where 90 and
+up is an A, 80 to 89 is a B, 70 to 79 is a C, 60 to 69 is a D, and 0 to
+59 is an F).  It should also count how many of each letter grade are
+entered; at the end, it should print a table giving these counts.
+
+<P>
+For example, here is a sample session (the <code>_</code>'s are to indicate
+user input; your program will not show them):
+<PRE>
+How many grades? _5_
+Enter grade 1: _92_
+That's an A
+Enter grade 2: _73_
+That's a C
+Enter grade 3: _80_
+That's a B
+Enter grade 4: _100_
+That's an A
+Enter grade 5: _59_
+That's an F
+
+Grade counts
+A: 2
+B: 1
+C: 1
+D: 0
+F: 1
+</PRE>
+
+<P>
+Your program should also contain the usual introduction and farewell
+messages.  The <code>main</code> function should just call the other functions
+in sequence; it should not contain any of the grade reading or counting
+code itself.
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

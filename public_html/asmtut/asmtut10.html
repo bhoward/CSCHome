@@ -1,0 +1,34 @@
+<HTML>
+<head><title>Writing Programs for DOS</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic9"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut9.html#topic8">&lt;&lt;</A> <A HREF="asmtut11.html#topic10">&gt;&gt;</A> </CENTER><HR>
+
+<H2>Writing Programs for DOS</H2>
+
+Several major simplifications are made when we limit consideration to
+assembly programs that will run under MS-DOS.  First, even in Windows
+95, DOS programs run in 16-bit Virtual 8086 mode (on older machines, DOS
+runs in Real mode, which is the same for most practical purposes).  This
+means that we don't have to worry about the extra complications of
+32-bit registers and addressing modes (of course, people developing
+large applications will find many advantages to using the more advanced
+32-bit modes, but almost no one developing large applications should be
+doing more than small pieces of the application in assembly language).
+Second, under DOS we can write <TT>.COM</TT> programs, which have a
+simpler structure than <TT>.EXE</TT> programs; this allows us to ignore
+most of the issues of using segment registers, at the cost of limiting
+the size of program text plus initialized data to a maximum of 64K.
+Finally, programs under DOS can make use of numerous built-in
+subroutines (accessed through software interrupts) from DOS and the BIOS
+(Basic I/O System) to perform common I/O tasks.  Performing I/O in a
+Windows program is substantially more complex, even in C; writing a
+simple "Hello World'' program in assembly language to run under Windows
+involves an enormous amount of added complexity.<P>
+
+<A HREF="asmtut11.html#topic10"><B>The Structure of a <TT>.COM</TT> File</B></A><BR>
+
+<A HREF="asmtut12.html#topic11"><B>DOS Interrupts</B></A><BR>
+
+</BODY></HTML>

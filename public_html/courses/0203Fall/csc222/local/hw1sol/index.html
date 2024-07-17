@@ -1,0 +1,501 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Homework 1 Solutions</TITLE>
+<META NAME="description" CONTENT="Homework 1 Solutions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Data Structures, Algorithms">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hw1sol.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Homework 1 Solutions</H1>
+
+<UL>
+<LI><SPAN  CLASS="textbf">Exercise 1.1.</SPAN> <I>Give the output that a connectivity algorithm should
+produce when given the input <code>0-2</code>, <code>1-4</code>, <code>2-5</code>,
+<code>3-6</code>, <code>0-4</code>, <code>6-0</code>, and <code>1-3</code>.</I>
+
+The output should be the edges <code>0-2</code>, <code>1-4</code>, <code>2-5</code>,
+<code>3-6</code>, <code>0-4</code>, and <code>6-0</code>.  After those six connections,
+all of the nodes are connected to each other, so any further input
+should cause no output.  In particular, the connection <code>1-3</code> is
+redundant because there was already the path <code>1-4-0-6-3</code>.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 1.3.</SPAN> <I>Describe a simple method for counting the number of sets
+remaining after using the <SPAN  CLASS="textbf">union</SPAN> and <SPAN  CLASS="textbf">find</SPAN> operations to
+solve the connectivity problem as described in the text.</I>
+
+If there are <SPAN CLASS="MATH"><I>N</I></SPAN> nodes, then there will initially be <SPAN CLASS="MATH"><I>N</I></SPAN> sets.  After
+each <SPAN  CLASS="textbf">union</SPAN> operation, two sets will be joined into one, thus
+reducing the total number of sets by one.  Therefore, a simple method of
+counting the sets is to count the number of <SPAN  CLASS="textbf">union</SPAN>s, <SPAN CLASS="MATH"><I>U</I></SPAN>; the number of
+sets will be <SPAN CLASS="MATH"><I>N</I> - <I>U</I></SPAN>.
+
+As a corollary to this, after <SPAN CLASS="MATH"><I>N</I> - 1</SPAN> <SPAN  CLASS="textbf">union</SPAN> operations there will
+only be one set remaining, so all further <SPAN  CLASS="textbf">find</SPAN> operations should
+show that every node belongs to the same set.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 1.4.</SPAN> <I>Show the contents of the <code>id</code> array after each
+<SPAN  CLASS="textbf">union</SPAN> operation when you use the quick-find algorithm (Program
+1.1) to solve the connectivity problem for the sequence <code>0-2</code>,
+<code>1-4</code>, <code>2-5</code>, <code>3-6</code>, <code>0-4</code>, <code>6-0</code>, and
+<code>1-3</code>. Also give the number of times the program accesses the
+<code>id</code> array for each input pair.</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="579" HEIGHT="208" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{tabular}{cc\vert ccccccc\vert c}
+\multicolumn{9}{c}{} &amp; accesses\\
+\te...
+...box{Light}{4} &amp; $N+6$\\
+1 &amp; 3 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; 4 &amp; $2$
+\end{tabular}">
+<BR>
+
+</DIV>
+The total number of accesses to <code>id[]</code> for the seven pairs is
+<SPAN CLASS="MATH">6<I>N</I> + 34</SPAN>, where <SPAN CLASS="MATH"><I>N</I></SPAN> is the size of the object array (which is set at
+10,000 in Program 1.1, but which can be as small as 7 for this list of
+pairs).  This does not include the <SPAN CLASS="MATH"><I>N</I></SPAN> accesses required to initialize
+the array.
+
+Each pair processed requires 2 accesses for the find, plus <SPAN CLASS="MATH"><I>N</I></SPAN> accesses
+if a union is required, and an additional 2 accesses for each entry
+whose identity needs to be changed (although a good compiler would
+eliminate one of these, since the value of <code>id[q]</code> doesn't need to
+be looked up each time).
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 1.5.</SPAN> <I>Do Exercise 1.4, but use the quick-union algorithm
+(Program 1.2).</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="579" HEIGHT="208" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{tabular}{cc\vert ccccccc\vert c}
+\multicolumn{9}{c}{} &amp; accesses\\
+\te...
+...orbox{Light}{4} &amp; $9$\\
+1 &amp; 3 &amp; 2 &amp; 4 &amp; 5 &amp; 6 &amp; 4 &amp; 4 &amp; 4 &amp; $8$
+\end{tabular}">
+<BR>
+
+</DIV>
+The total number of accesses to <code>id[]</code> for the seven pairs is 36.
+Again, this does not include the <SPAN CLASS="MATH"><I>N</I></SPAN> accesses required to initialize the
+array.
+
+Each pair processed requires 1 access for each node visited in the find
+(including <code>p</code> and <code>q</code>, and all of the nodes at higher levels
+in their trees).  If there is a union, it requires only 1 more access.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 1.7.</SPAN> <I>Do Exercise 1.4, but use the weighted quick-union
+algorithm (Program 1.3).</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="635" HEIGHT="208" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="\begin{tabular}{cc\vert ccccccc\vert c}
+&amp; &amp; \texttt{id[0]}/ &amp; \texttt{id[1]}/ &amp;...
+...1 &amp; $5$\\
+1 &amp; 3 &amp; 0/7 &amp; 0/2 &amp; 0/1 &amp; 0/2 &amp; 1/1 &amp; 0/1 &amp; 3/1 &amp; $6$
+\end{tabular}">
+<BR>
+
+</DIV>
+The total number of accesses to <code>id[]</code> for the seven pairs is 30.
+Again, this does not include the <SPAN CLASS="MATH"><I>N</I></SPAN> accesses required to initialize the
+array.
+
+The number of accesses required for finds and unions are the same as for
+the quick-union algorithm in the previous exercise, but the numbers are
+different because different choices are made (according to the weights
+in the <code>sz</code> array).
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 1.8.</SPAN> <I>Do Exercise 1.4, but use the weighted quick-union
+algorithm with path compression by halving (Program 1.4).</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="635" HEIGHT="208" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.png"
+ ALT="\begin{tabular}{cc\vert ccccccc\vert c}
+&amp; &amp; \texttt{id[0]}/ &amp; \texttt{id[1]}/ &amp;...
+... &amp; $8$\\
+1 &amp; 3 &amp; 0/7 &amp; 0/2 &amp; 0/1 &amp; 0/2 &amp; 1/1 &amp; 0/1 &amp; 3/1 &amp; $12$
+\end{tabular}">
+<BR>
+
+</DIV>
+The total number of accesses to <code>id[]</code> for the seven pairs is 45.
+Again, this does not include the <SPAN CLASS="MATH"><I>N</I></SPAN> accesses required to initialize the
+array.
+
+The additional code for path compression causes the find to perform 3
+additional array accesses for each non-root node visited.  On a larger
+amount of data, this should be offset by the compressed path lengths;
+this effect does not show up on the data in the exercise.  In fact, no
+path compression occurs at all (as can be seen by comparing the above
+table with the previous exercise).  If another find were done on node 4,
+for example, then <code>id[4]</code> would be changed to point directly to the
+root, 0, thereby improving the speed of future finds; the same would
+happen with a find on node 6.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 1.16.</SPAN> <I>Show how to modify Program 1.3 to implement <SPAN  CLASS="textbf">full</SPAN>
+path compression, where we complete each <SPAN  CLASS="textbf">union</SPAN> operation by
+making every node that we touch point to the root of the new tree.</I>
+
+Here is my solution, which does not do exactly what the problem states,
+but which is as close as I could get in a reasonably clean program (and
+which matches full path compression as described in other texts).  What
+is missing is that it does the compression entirely within the
+<SPAN  CLASS="textbf">find</SPAN> step, so each touched node only points to the root of its
+old tree.  The alternative would be to add more code to the <SPAN  CLASS="textbf">union</SPAN>
+operation, so that the root used for the nodes touched in the smaller
+tree is the root of the new, combined tree.  This would be complicated,
+since there would also have to be compression code in the case that the
+union is not needed.
+
+My code works by making a second pass from the starting node up to the
+root, after doing the initial <SPAN  CLASS="textbf">find</SPAN>; on this pass, the <code>id</code>
+value of each node on the path is set directly to point to the root
+found in the first pass.
+
+Replace the <code>for</code> loops in the <SPAN  CLASS="textbf">find</SPAN> part of Program 1.3 by
+the following code:
+<PRE>
+for (i = p; i != id[i]; i = id[i]) ;
+int pRoot = i;
+i = p;
+while (i != pRoot) {
+    int temp = id[i];  // Save the link to the next node
+    id[i] = pRoot;     // Update the id entry
+    i = temp;          // Move to the next node
+}
+for (j = q; j != id[j]; j = id[j]) ;
+int qRoot = j;
+j = q;
+while (j != qRoot) {
+    int temp = id[j];  // Save the link to the next node
+    id[j] = qRoot;     // Update the id entry
+    j = temp;          // Move to the next node
+}
+</PRE>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 1.17.</SPAN> <I>Answer Exercise 1.4, but using the weighted quick-union
+algorithm with full path compression (Exercise 1.16).</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="635" HEIGHT="208" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.png"
+ ALT="\begin{tabular}{cc\vert ccccccc\vert c}
+&amp; &amp; \texttt{id[0]}/ &amp; \texttt{id[1]}/ &amp;...
+... &amp; $7$\\
+1 &amp; 3 &amp; 0/7 &amp; 0/2 &amp; 0/1 &amp; 0/2 &amp; 1/1 &amp; 0/1 &amp; 3/1 &amp; $11$
+\end{tabular}">
+<BR>
+
+</DIV>
+The total number of accesses to <code>id[]</code> for the seven pairs is 41.
+Once again, this does not include the <SPAN CLASS="MATH"><I>N</I></SPAN> accesses required to
+initialize the array.
+
+The table is identical to the one for Exercise 1.8, except for the
+number of array accesses.  My version of full path compression adds two
+extra accesses for each non-root node touched while doing the
+<SPAN  CLASS="textbf">find</SPAN>, as compared to the weighted quick-union algorithm with no
+compression.  Again, the data set is too small to see any compression
+taking place.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 2.2.</SPAN> <I>How long does it take to count to 1 billion (ignoring
+overflow)?  Determine the amount of time it takes the program
+</I><PRE>
+int i, j, k, count = 0;
+for (i = 0; i &lt; N; i++)
+  for (j = 0; j &lt; N; j++)
+    for (k = 0; k &lt; N; k++)
+      count++;
+</PRE><I>
+to complete in your programming environment, for <SPAN CLASS="MATH"><I>N</I> = 10</SPAN>, <SPAN CLASS="MATH">100</SPAN>, and
+<SPAN CLASS="MATH">1000</SPAN>.  If your compiler has optimization features that are supposed to
+make programs more efficient, check whether or not they do so for this
+program.</I>
+
+Here is my program, which is stored in <code>/home/libs/dataStr/Ex2_2/main.cc</code>:
+<PRE>
+// Sedgewick, Exercise 2.2
+// Programmer:  Brian Howard
+// Date:  September 1, 2002
+
+#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+using namespace std;
+
+// Here is a general-purpose timing function.
+//
+// It takes a pointer to a function which will be run repeatedly
+// in order to obtain an accurate estimate of its running time; by
+// running for at least 1000 clock ticks or 10 seconds (whichever is
+// longer), we should get three digits of accuracy.  Choosing 10 seconds
+// means that even timing a function that only takes 10 clock cycles,
+// on a 4 GHz processor, we will not be able to overflow a 32-bit count.
+//
+// It also takes a pointer to another function which embodies all of
+// the computation we _don't_ want to time; this will include the function
+// call and timing loop overhead.
+//
+// Returns the running time in seconds.
+double time_function(void (*f)(), void (*g)()) {
+  // First, we'll figure out how many clock ticks to run;
+  // use the longer of 1000 ticks and 10 seconds
+  clock_t num_ticks = 10 * CLOCKS_PER_SEC;
+  if (num_ticks &lt; 1000) num_ticks = 1000;
+
+  // We count how many times the function can be called in at least
+  // num_ticks clock ticks (guaranteed to run at least once)
+  unsigned long count = 0, n;
+  clock_t end_time = clock() + num_ticks;
+  do {
+    f();
+    ++count;
+  } while (clock() &lt; end_time);
+
+  // Run it again count times and time it, without all the extra calls to clock()
+  clock_t start = clock();
+  for (n = 0; n &lt; count; ++n) f();
+  clock_t ticks = clock() - start;
+
+  // Now run the overhead function the same number of times and time it
+  clock_t start2 = clock();
+  for (n = 0; n &lt; count; ++n) g();
+  clock_t ticks2 = clock() - start2;
+
+  // Compute the number of seconds each call took (less overhead) and return
+  return static_cast&lt;double&gt;(ticks - ticks2) / CLOCKS_PER_SEC / count;
+}
+
+// This is the function we want to test for the exercise, for N = 10
+void test10() {
+  int i, j, k, count = 0;
+  for (i = 0; i &lt; 10; i++)
+    for (j = 0; j &lt; 10; j++)
+      for (k = 0; k &lt; 10; k++)
+        count++;
+}
+
+// This is the function we want to test for the exercise, for N = 100
+void test100() {
+  int i, j, k, count = 0;
+  for (i = 0; i &lt; 100; i++)
+    for (j = 0; j &lt; 100; j++)
+      for (k = 0; k &lt; 100; k++)
+        count++;
+}
+
+// This is the function we want to test for the exercise, for N = 1000
+void test1000() {
+  int i, j, k, count = 0;
+  for (i = 0; i &lt; 1000; i++)
+    for (j = 0; j &lt; 1000; j++)
+      for (k = 0; k &lt; 1000; k++)
+        count++;
+}
+
+// Here is a dummy version so we can subtract the loop and function call overhead
+void dummy() {
+  int i, j, k, count = 0;
+}
+
+// Here is the driver
+int main() {
+  double test_time10, test_time100, test_time1000;
+
+  test_time10 = time_function(test10, dummy);
+  cout &lt;&lt; "Time taken for N = 10 is " &lt;&lt; test_time10 &lt;&lt; endl;
+
+  test_time100 = time_function(test100, dummy);
+  cout &lt;&lt; "Time taken for N = 100 is " &lt;&lt; test_time100 &lt;&lt; endl;
+
+  test_time1000 = time_function(test1000, dummy);
+  cout &lt;&lt; "Time taken for N = 1000 is " &lt;&lt; test_time1000 &lt;&lt; endl;
+
+  return 0;
+}
+</PRE>
+
+Running this for the given values of <SPAN CLASS="MATH"><I>N</I></SPAN> on Jupiter (which has a 1.4 GHz
+Pentium 4 processor--do <code>cat /proc/cpuinfo</code> for details) produces
+the following output:
+<PRE>
+Time taken for N = 10 is 5.45081e-06
+Time taken for N = 100 is 0.00455509
+Time taken for N = 1000 is 4.39
+</PRE>
+Turning on optimization with the <code>-O2</code> flag to <code>g++</code> produces
+the following:
+<PRE>
+Time taken for N = 10 is 1.80492e-06
+Time taken for N = 100 is 0.0012358
+Time taken for N = 1000 is 1.092
+</PRE>
+
+Using Borland 5.02 on the PC in my office, which has a 2 GHz
+Pentium 4 running Windows XP, produces the following (after correcting
+for the fact that Borland 5.02 prefers old-style headers, such as
+<code>time.h</code>):
+<PRE>
+Time taken for N = 10 is 1.25869e-06
+Time taken for N = 100 is 0.000900523
+Time taken for N = 1000 is 0.696867
+</PRE>
+Essentially the same numbers were obtained after turning on optimization
+for speed, as well as after disabling all optimizations; one possibility
+is that I wasn't changing the optimization mode correctly (since I'm not
+very familiar with the Borland compiler).
+
+Visual C++ 6.0 on the PC in my office produces the following:
+<PRE>
+Time taken for N = 10 is 2.87745e-006
+Time taken for N = 100 is 0.00247712
+Time taken for N = 1000 is 2.2624
+</PRE>
+This is running in Debug mode, with no optimizations at all.
+
+Three years ago I ran essentially this same program under Visual C++ 6.0 on
+a 350 MHz Pentium 2 running Windows 95, which produced the following output:
+<PRE>
+Time taken for N = 10 is 2.23923e-005
+Time taken for N = 100 is 0.0158786
+Time taken for N = 1000 is 15.33
+</PRE>
+Switching from Debug mode (optimization turned off) to Release mode
+(optimization for fastest speed) in Visual C++ produced the following:
+<PRE>
+Time taken for N = 10 is 0
+Time taken for N = 100 is 0
+Time taken for N = 1000 is 0
+</PRE>
+These indicate that the <code>for</code> loops took essentially no time at all
+(beyond overhead) for any value of <SPAN CLASS="MATH"><I>N</I></SPAN>. My guess is that the
+optimization figured out that the loops were not doing anything, so it
+eliminated them.
+
+Note that in each case, the time taken to count to one billion <SPAN CLASS="MATH"><I>N</I> = 1000</SPAN>) was
+roughly 1000 times the time to count to one million (<SPAN CLASS="MATH"><I>N</I> = 100</SPAN>), which was
+in turn roughly 1000 times the time to count to one thousand (<SPAN CLASS="MATH"><I>N</I> = 10</SPAN>).
+This is what we expect from an algorithm which takes time proportional
+to <SPAN CLASS="MATH"><I>N</I></SPAN>, even though the constants may differ widely.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 2.28.</SPAN> <I>You are given the information that the running time of
+one algorithm is <!-- MATH
+ $O(N\log N)$
+ -->
+<SPAN CLASS="MATH"><I>O</I>(<I>N</I> log&nbsp;<I>N</I>)</SPAN> and that the running time of another
+algorithm is <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>3</SUP>)</SPAN>.  What does this statement imply about the
+relative performance of the algorithms?</I>
+
+Nothing.  This is analogous to saying, ``Fred is less than 30 years old
+and Herb is less than 40 years old; which one is younger?''  Fred could
+be 29 and Herb 2, or the other way around, or they could be the same
+age.  Just knowing upper bounds is not enough to make comparisons.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 2.29.</SPAN> <I>You are given the information that the running time of
+one algorithm is always about <SPAN CLASS="MATH"><I>N</I> log&nbsp;<I>N</I></SPAN> and that the running time of another
+algorithm is <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>3</SUP>)</SPAN>.  What does this statement imply about the
+relative performance of the algorithms?</I>
+
+Again, this is not enough information.  If the running time of the
+second algorithm is always about <SPAN CLASS="MATH"><I>N</I></SPAN> (that is, it is linear), then it
+will be faster than the first algorithm for large enough <SPAN CLASS="MATH"><I>N</I></SPAN>.  On the
+other hand, if the running time of the second algorithm is always about
+<SPAN CLASS="MATH"><I>N</I><SUP>2</SUP></SPAN>, then it will be slower than the first algorithm for large enough
+<SPAN CLASS="MATH"><I>N</I></SPAN>.  In both cases it is true that the running time of the second
+algorithm is <SPAN CLASS="MATH"><I>O</I>(<I>N</I><SUP>3</SUP>)</SPAN>; this statement makes no claim that <SPAN CLASS="MATH"><I>N</I><SUP>3</SUP></SPAN> is a
+<SPAN  CLASS="textbf">tight</SPAN> upper bound on the running time.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 2.30.</SPAN> <I>You are given the information that the running time of
+one algorithm is always about <SPAN CLASS="MATH"><I>N</I> log&nbsp;<I>N</I></SPAN> and that the running time of another
+algorithm is always about <SPAN CLASS="MATH"><I>N</I><SUP>3</SUP></SPAN>.  What does this statement imply about the
+relative performance of the algorithms?</I>
+
+For large enough values of <SPAN CLASS="MATH"><I>N</I></SPAN>, the first algorithm will run much faster
+than the second, because <SPAN CLASS="MATH"><I>N</I> log&nbsp;<I>N</I></SPAN> grows only slightly more than
+linearly in <SPAN CLASS="MATH"><I>N</I></SPAN>.  The qualification is needed because the definition of
+a function being ``about <SPAN CLASS="MATH"><I>f</I> (<I>N</I>)</SPAN>'' includes terms which may only become
+insignificant relative to <SPAN CLASS="MATH"><I>f</I> (<I>N</I>)</SPAN> when <SPAN CLASS="MATH"><I>N</I></SPAN> gets large.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 2.31.</SPAN> <I>You are given the information that the running time of
+one algorithm is always proportional to <SPAN CLASS="MATH"><I>N</I> log&nbsp;<I>N</I></SPAN> and that the running time of another
+algorithm is always proportional to <SPAN CLASS="MATH"><I>N</I><SUP>3</SUP></SPAN>.  What does this statement imply about the
+relative performance of the algorithms?</I>
+
+This is no different from the previous exercise, because for large
+enough <SPAN CLASS="MATH"><I>N</I></SPAN>, the function <SPAN CLASS="MATH"><I>N</I><SUP>3</SUP></SPAN> is larger than any fixed constant times
+<SPAN CLASS="MATH"><I>N</I> log&nbsp;<I>N</I></SPAN>.  There is a little more slack in that the constant of
+proportionality might be huge for the first algorithm and tiny for the
+second, so that it would take a very large value of <SPAN CLASS="MATH"><I>N</I></SPAN> for the second
+to overtake the first (ignoring the effects of any additive terms which
+may also take a long time to become insignificant), but eventually the
+<SPAN CLASS="MATH"><I>N</I> log&nbsp;<I>N</I></SPAN> algorithm will be faster than the <SPAN CLASS="MATH"><I>N</I><SUP>3</SUP></SPAN> algorithm.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 2.51.</SPAN> <I>You are given the information that the time complexity of
+one problem is <SPAN CLASS="MATH"><I>N</I> log&nbsp;<I>N</I></SPAN> and that the time complexity of another
+problem is <SPAN CLASS="MATH"><I>N</I><SUP>3</SUP></SPAN>.  What does this statement imply about the
+relative performance of specific algorithms that solve the problems?</I>
+
+Saying that the time complexity of a problem is <SPAN CLASS="MATH"><I>f</I> (<I>N</I>)</SPAN> means that the
+worst-case running time of the best algorithm for the problem is
+proportional to <SPAN CLASS="MATH"><I>f</I> (<I>N</I>)</SPAN>.  While the statement does not provide enough
+information to compare arbitrary algorithms for the two problems
+(essentially, the time complexity gives us a <SPAN  CLASS="textbf">lower</SPAN> bound, so we
+are dealing with a question like ``Fred is more than 30 years old and
+Herb is more than 40 years old; which is older?''), it does allow us to
+compare the performance of the <SPAN  CLASS="textbf">best</SPAN> algorithms--the first
+problem has an algorithm whose worst-case behavior is much
+better than that of <SPAN  CLASS="textbf">any</SPAN> algorithm for the second problem, for
+large enough values of <SPAN CLASS="MATH"><I>N</I></SPAN>.  This is only a statement about worst-case
+behavior, however; it could well be the case that the <SPAN  CLASS="textbf">average</SPAN>
+behavior of an algorithm for the second problem is actually better than
+the average behavior of even the best algorithm for the first problem
+(this could probably be true only if the worst-case input were very
+rare, but that is not an unusual situation for worst-cases).
+</LI>
+</UL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

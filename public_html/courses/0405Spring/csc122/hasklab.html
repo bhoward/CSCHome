@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8" />
+
+    <title>HasCl Laboratory Exercise - CSC 122: Computer Science
+    II, Spring 2005</title>
+<style type="text/css">
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             tr.TableHeadingColor {background-color: #CCCCFF}
+             tr.TableRowColor {background-color: #FFFFFF}
+             div.solution {color: red}
+             div.solution td {color: red}
+             img.validator {float: right; border: none}
+             
+        span.textit {font-style: italic}
+        span.textbf {font-weight: bold}
+        span.MATH {font-style: italic}
+    
+</style>
+  </head>
+
+  <body>
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <h1>CSC 122: Computer Science II, Spring 2005</h1>
+
+    <h2>HasCl Laboratory Exercise</h2>
+
+    <p>By working through the steps in this handout, you will
+    develop a HasCl program to draw a picture made up of many
+    overlapping squares of different sizes and colors.</p>
+
+    <ol>
+      <li>
+        The following data type, which is defined in the Graphics
+        module in Funnie, represents a graphical object to be
+        displayed on the screen: 
+<pre>
+data Graphic = Square(Num, Num, Num, Color) | Over(Graphic, Graphic) | Blank
+</pre>
+        This says that a <code>Graphic</code> value is either a
+        single square or the combination of one
+        <code>Graphic</code> over another, or nothing at all. A
+        square needs four parameters--the value <code>Square(x, y,
+        w, c)</code> describes a square whose lower-left corner is
+        at the point <span class="MATH">(<i>x</i>,
+        <i>y</i>)</span>, with width <span
+        class="MATH"><i>w</i></span> and color <span
+        class="MATH"><i>c</i></span>. The first three parameters,
+        <span class="MATH"><i>x</i></span>, <span
+        class="MATH"><i>y</i></span>, and <span
+        class="MATH"><i>w</i></span>, are all numbers expressing
+        positions or distances relative to the coordinate system of
+        the graphics window: the lower-left corner is at <span
+        class="MATH">(- 50, - 50)</span>, and the upper-right
+        corner is at <span class="MATH">(50, 50)</span>, regardless
+        of the actual size of the window. The color, <span
+        class="MATH"><i>c</i></span>, is specified as a value of
+        the following data type, which is also defined in the
+        Graphics module: 
+<pre>
+data Color = RGB(Num, Num, Num)
+</pre>
+        The value <code>RGB(r, g, b)</code> specifies a color with
+        red, green, and blue components given by the numbers <span
+        class="MATH"><i>r</i></span>, <span
+        class="MATH"><i>g</i></span>, and <span
+        class="MATH"><i>b</i></span>, respectively, where each
+        component ranges from 0 (completely absent) to 255 (full
+        strength). The Graphics module also defines some useful
+        constants of type <code>Color</code>; for example,
+        <code>red</code> is the value <code>RGB(255,0,0)</code>
+        (look in the module browser in Funnie to see what other
+        colors are defined).
+      </li>
+
+      <li>
+        For this item, all we will do is display a single square.
+        Following the description above, we can form a green
+        square, 30 units on each side, with lower-left corner at
+        <span class="MATH">(10, 20)</span>, by using the expression
+        <code>Square(10, 20, 30, RGB(0, 255, 0))</code>. If you
+        type this in, the system should pop-up a graphics window
+        containing the square. 
+
+        <p>For testing, it will be convenient to define some sample
+        squares. Enter each of the following in a separate
+        definition window:</p>
+<pre>
+redGiant = Square(-20, -10, 50, RGB(255, 0, 0))
+whiteDwarf = Square(10, 30, 20, RGB(255, 255, 255))
+purpleMedium = Square(0, -20, 35, RGB(128, 0, 128))
+</pre>
+        Now you can easily draw a square by entering its name,
+        <span class="textit">e.g.</span>, <code>redGiant</code>, in
+        a Funnie expression window. However, this only lets you
+        draw one square at a time. To combine several squares in
+        one picture, we need the <code>Over</code> constructor of
+        the <code>Graphic</code> data type, as follows:
+        <code>Over(redGiant, whiteDwarf)</code>. Notice how the
+        squares are combined, and see what happens if you reverse
+        the order of the squares.
+      </li>
+
+      <li>
+        Now let's display a list of <code>Square</code>s. We will
+        need a function which takes a list of squares and combines
+        them all into a single <code>Graphic</code>. As usual when
+        working with a list of things, we will define the function
+        by recursion. Here is the base case, which uses the special
+        value <code>Blank</code> to produce a blank picture: 
+<pre>
+showSquareList([ ]) = Blank
+</pre>
+        The recursive case will have the following form: 
+<pre>
+showSquareList([s : ss]) =
+</pre>
+        When this pattern matches, <code>s</code> will be the first
+        square on the list, and <code>ss</code> will be a list of
+        the remaining squares. Write an appropriate right-hand side
+        for this case of the function. The square <code>s</code> is
+        already a <code>Graphic</code>; you will need to use
+        <code>showSquareList</code> to produce another
+        <code>Graphic</code> from <code>ss</code>. These two
+        <code>Graphic</code>s will then need to be combined into
+        one with <code>Over</code>. When you have defined the
+        function, try it out with <code>showSquareList([redGiant,
+        whiteDwarf])</code>.
+      </li>
+
+      <li>
+        We will also want a function to <span
+        class="textit">generate</span> a list of squares, so that
+        we don't have to type them all in by hand. Here is an
+        example: 
+<pre>
+diagonalSquares(x, y, d, rgb, 0) = [ ]
+diagonalSquares(x, y, d, rgb, n) = [Square(x, y, d, rgb) :
+                                    diagonalSquares(x+d/2, y+d/2, d, rgb, n-1)]
+</pre>
+        After entering this function, evaluate
+        <code>showSquareList(diagonalSquares(-30, -30, 10, white,
+        9))</code>. The cases for this function mean that
+        <code>diagonalSquares(x, y, d, rgb, n)</code> will produce
+        a list of <code>n</code> squares (because the list is empty
+        when <code>n</code> is <code>0</code>, and it gets one
+        extra element for each recursive call as <code>n</code>
+        counts down to <code>0</code>). The first one will have its
+        corner at <code>(x,y)</code>, with width <code>d</code> and
+        color <code>rgb</code>. Succeeding squares will be offset
+        by adding <code>d/2</code> to the <code>x</code> and
+        <code>y</code> coordinates of the corner; the effect will
+        be that each square will be centered on the upper-right
+        corner of the previous one. You should get a picture that
+        looks like a white staircase.
+      </li>
+
+      <li>A simple modification to the previous code gives us a
+      chain of squares of different sizes. Create a new function
+      named <code>vanishingSquares</code> which is similar to
+      <code>diagonalSquares</code> except replace the size argument
+      <code>d</code> in the recursive call (to
+      <code>vanishingSquares</code>, of course) with the expression
+      <code>d*3/4</code>. To try this out, you will probably want
+      to start with a larger initial square; something like this
+      should work: <code>showSquareList(vanishingSquares(-30, -30,
+      20, white, 7))</code></li>
+
+      <li>
+        Now we can approach our original goal of creating an
+        interesting picture by replacing the single recursive call
+        in the previous step with four separate calls, one at each
+        of the four corners of the initial square. Each of these
+        recursive calls will produce a list of squares, so we will
+        need to append all of the lists together, using
+        <code>++</code>. Here is a skeleton of the code for you to
+        fill in: 
+<pre>
+squareDesign(x, y, d, rgb, 0) = 
+squareDesign(x, y, d, rgb, n) = [Square(x, y, d, rgb) :
+                                 squareDesign(x-d/4, y-d/4, d/2, rgb, n-1) ++
+                                 squareDesign(x-d/4, y+3*d/4, d/2, rgb, n-1) ++
+                                 squareDesign(                             ) ++
+                                 squareDesign(                               )]
+</pre>
+        When you have successfully compiled the finished function,
+        try evaluating the following expression:
+        <code>showSquareList(squareDesign(-20, -20, 40, white,
+        4))</code>. You can change the <code>4</code> to
+        <code>5</code> to draw one more level, but it will take too
+        long if you try to do 6 or more levels (each level has four
+        times as many squares, so there are 1024 squares at level
+        6).
+      </li>
+
+      <li>
+        The last step will be to change the color as well as the
+        size. Modify the recursive calls so that the upper-left and
+        lower-right corners have only half the red component of the
+        current square, while the upper-right and lower-left
+        corners have only half the green component; leave the blue
+        component untouched. The easiest way to do this is to write
+        two auxilliary functions, <code>lessRed</code> and
+        <code>lessGreen</code>, each of type <code>(Color) -&gt;
+        Color</code>. Here is one: 
+<pre>
+lessRed(RGB(r, g, b)) = RGB(r/2, g, b)
+</pre>
+        You will need to enter this and a similar definition for
+        <code>lessGreen</code>, then write a new function similar
+        to <code>squareDesign</code> that calls these functions in
+        the appropriate places. Call this new function
+        <code>colorDesign</code>, and test it.
+      </li>
+
+      <li>As a final problem, how could you change the code to draw
+      the larger squares under the smaller squares, instead of
+      overlapping them? Whichever function needs to be modified,
+      name the new version by appending a <code>2</code>; for
+      example, if you modify <code>colorDesign</code>, then your
+      new function should be named <code>colorDesign2</code>.</li>
+    </ol>
+
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <p><a href="http://validator.w3.org/check/referer"><img
+    height="31" width="88" alt="Valid HTML 4.01!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png"
+     class="validator" /></a><a
+    href="http://jigsaw.w3.org/css-validator/check/referer"><img
+    height="31" width="88" alt="Valid CSS!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+    class="validator" /></a><a href="http://www.depauw.edu/">DePauw
+    University</a>, <a
+    href="http://www.depauw.edu/acad/computer/">Computer Science
+    Department</a>, Spring 2005<br />
+     Maintained by <a
+    href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a> (<a
+    href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+    <!--#config timefmt="%A, %B %e, %Y" -->
+     Last updated <!--#echo var="LAST_MODIFIED" -->
+    </p>
+  </body>
+</html>
+

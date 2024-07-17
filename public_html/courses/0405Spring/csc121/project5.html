@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 5 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Project 5</h2>
+
+<h3>Mining Data from Web Logs<br>
+ Deadline: 5:00pm, Thursday, May 12</h3>
+
+<dl>
+<dt>Description</dt>
+
+<dd>
+<p>After many years of working with computers, Professor X, a
+Computer Scientist at a small midwestern college, recently went off
+of the deep end, deciding to give it all up and go on the road
+playing banjo as a member of a bluegrass band. Expecting to gain
+little income from his new venture, he has an unusual and
+innovative idea for a business on the Web, a new dot-com, that will
+essentially run itself, allowing him ample time for his new
+pursuit.</p>
+
+<p>He is keeping his idea a secret, but figures that if he is able
+to easily monitor web activity he will be able to make minor
+changes to the web site to keep the business going. There are
+several places that web activity data are stored, one of them being
+the Web Log. He has a list of reports that he would like to
+generate and, because of your experience analyzing web logs, thinks
+you are the person to write the software application that will
+allow him to do so.</p>
+
+<p>Since it has been a while since you actually worked with a web
+log, here is a description of the log entries you will be
+examining:</p>
+
+<pre>
+207.46.98.33 - - [01/Nov/2004:04:28:32 -0500] "GET /~runner/csc121/resources.htm HTTP/1.0" 200 3973
+</pre>
+
+<ul>
+<li><code>207.46.98.33</code> is the IP address of the client
+(e.g., Internet Explorer) which made this request of the web
+server</li>
+
+<li><code>- -</code> are always dashes in this log, but otherwise
+could contain information about the client, such as userid</li>
+
+<li><code>[01/Nov/2004:04:28:32 -0500]</code> is the time the
+server finished processing the request. The format is always the
+same: <code>[dd/mmm/yyyy:hh:mm:ss (+ or -)zzzz]</code></li>
+
+<li><code>"GET /~runner/csc121/resources.htm HTTP/1.0"</code> is
+the actual request from the client. <code>GET</code> is the method
+used, <code>/~runner/csc121/resources.htm</code> is the requested
+web page, and <code>HTTP/1.0</code> is the protocol used by the
+client</li>
+
+<li><code>200</code> is the status code sent to the client from the
+server. Codes beginning in 2 indicate the page was successfully
+delivered to the client; codes beginning in 4 indicate an error
+caused by the client (a non-existant page was requested, for
+example)</li>
+
+<li><code>3973</code> is the size of the page returned to the
+client</li>
+</ul>
+
+<p>Notice that each item above is separated from the other by a
+space. Note also that some of the items themselves contain spaces.
+If you were to read a line from the log file, one way to split the
+line into pieces would be to use the split method, as in
+line.split(" "). Then you would get an array of Strings with 10
+elements, element 0 being "207.46.98.33", elements 1 and 2 both
+being "-", element 3 being "[01/Nov/2004:04:28:32" and so on.</p>
+</dd>
+
+<dt>Items to do and point distribution:</dt>
+
+<dd>
+<p>Professor X would like the following information, for the time
+period spanned by the log, included in a report written to a text
+file:</p>
+
+<ul>
+<li>The number of distinct visitors (client ip addresses) to the
+web site</li>
+
+<li>The visitor who made the largest number of requests over all
+visits</li>
+
+<li>The most requested page</li>
+
+<li>The peak hour of the day, for each of the nine days</li>
+
+<li>The peak day</li>
+</ul>
+
+<p>The format of the report is up to you, but it should have a
+title and each of the requested statistics should be appropriately
+labeled and easily readable.</p>
+
+<p><strong>Copy the project</strong>
+<code>I:\CSC121\public\webanalyzer</code> to your own folder. The
+project has several classes including one called Analyzer. This is
+an empty class which you will need to write from scratch for this
+assignment. Analyzer will have three main methods, input(Infile
+inf), process(), and output(Outfile outf). Each of these are
+described below. You are likely to decide to define "helper"
+methods in addition to these three. A driver class will be calling
+your methods, so they need to have the prescribed interface and
+functionality.</p>
+
+<p><strong>The project folder also contains a web log,</strong>
+<code>access_logcps.txt</code>. This log has nine days worth of
+data, November 1 - November 9, 2004.</p>
+
+<p><strong>public boolean input(Infile inf)</strong> - This method
+will use the read method of the Infile class (see that class
+interface) to add web log records to an ArrayList. The ArrayList
+will serve as a basis for analysis to be done by the process
+method. Each line of the input is a String and contains a full log
+record as described above. input() should return true or false
+according to whether an ArrayList of length greater than zero has
+been successfully constructed. After reading the last line from the
+input, you should close() the input file.</p>
+
+<p><strong>public void process()</strong> - This method will
+construct, populate and prepare the structures required for
+analysis. For example in order to compute the peak day and hour
+statistic, you will likely construct a 2-D array of frequency
+counts of visits, day x hour (9 x 24). You might want to use the
+method parseInt from the Integer class to convert a String to an
+int. You should extract day and hour from the time field of the web
+log entry. The syntax for using the function is:</p>
+
+<pre>
+int myInt = Integer.parseInt( &lt;The String to convert&gt; );
+       
+</pre>
+
+<p><strong>public void output(Outfile outf)</strong> - This method
+will use the write method of the Outfile class (see that class
+interface) to create a text file containing the results of the
+analysis. You should use the structures created by the process
+method to produce your report.You might want to produce the report
+in a terminal window before writing it to a text file. You should
+close the output file after writing the last line of output.</p>
+
+<ol>
+<li>(15 points) Correct implementation of the input() method.</li>
+
+<li>(15 points) Correct implementation of the output() method.</li>
+
+<li>(15 points) Correct implementation of the process method and
+the associated structures.</li>
+
+<li>(10 points) The correct number of distinct visitors (client ip
+addresses) to the web site.</li>
+
+<li>(10 points) The correct visitor who made the largest number of
+requests and the visit count for this visitor.</li>
+
+<li>(10 points) The correct most requested page and its request
+count.</li>
+
+<li>(10 points) The correct peak hour report and visit count for
+each of the nine days in the log.</li>
+
+<li>(10 points) The correct peak day and visit count.</li>
+
+<li>(5 points) Programming style, formatting (readability), and
+comments, especially describing methods.</li>
+</ol>
+</dd>
+
+<dt>Turning in your project:</dt>
+
+<dd>When you are finished, copy your project to the appropriate
+folder under <code>I:\CSC121\Project5</code> and send an email
+message to your instructor naming the members (1 or 2) of your
+team.</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

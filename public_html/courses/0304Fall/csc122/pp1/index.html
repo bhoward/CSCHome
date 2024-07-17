@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Assignment 1</TITLE>
+<META NAME="description" CONTENT="Programming Assignment 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science II,CS2">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hw1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Assignment 1</H1>
+
+<P>
+<SPAN  CLASS="textbf"><BIG CLASS="LARGE">This assignment is due Tuesday, September 9, by the start of
+class.</BIG></SPAN>
+
+<P>
+Write a program that does the following:
+
+<OL>
+<LI>Prompt the user to enter a file name for input.
+
+<P>
+</LI>
+<LI>Open the specified file. If the file doesn't exist, print an error
+message and exit the program.
+
+<P>
+</LI>
+<LI>Read in all the words from the input file. You may assume that
+there are no more than 250 words in the file.
+
+<P>
+You may also assume that a ``word'' is a contiguous group of non-white
+space characters. This sounds complicated, but is really not. For
+example, in the previous sentence, <code>not.</code> would be a word, as would
+<code>"word"</code> in the sentence before that--note the inclusion of the
+period and the quotation marks.
+
+<P>
+</LI>
+<LI>Sort the set of words into alphabetical order. Remember that
+alphabetical order in C++ means that capital words come first, then
+non-capitalized, etc. Keep in mind that you can compare strings using
+the same comparison operators (<code>&lt;</code>, <code>&gt;</code>, etc.) that you use
+with numbers.
+
+<P>
+</LI>
+<LI>Prompt the user to enter a file name for output.
+
+<P>
+</LI>
+<LI>Write the words, in alphabetical order, to the output file.
+</LI>
+</OL>
+
+<P>
+Place the work for this assignment in your personal <code>I:\CSC122</code>
+folder in a folder called <code>HW1</code>. See below for how to create a
+project from scratch - call the project <code>hw1.ide</code>. Turn in a
+printout of this assignment on the due date in class. There is a file
+called <code>sample.txt</code> in the <code>public\Thede</code> folder that you can
+use to test your program.
+
+<P>
+There are a number of topics that will be useful for the assignment:
+
+<UL>
+<LI>File I/O--<code>fstream</code> variables, etc.
+</LI>
+<LI>Strings
+</LI>
+<LI>Arrays
+</LI>
+<LI>Sorting--bubble sort is the easiest to code, but you can use any
+algorithm you want, as long as it works.
+</LI>
+</UL>
+You may want to brush up on these, either with your CS1 books or
+Appendix A in the textbook.
+
+<P>
+
+<H2><A NAME="SECTION00001000000000000000">
+Creating a Borland C++ Project from Scratch</A>
+</H2>
+From the <code>File</code> menu, choose <code>Project...</code> out of the
+<code>New</code> submenu.  The ``New Target'' dialog box will appear.  Enter
+the correct project path and name in the first text box; for this
+assignment, you would enter <code>I:\CSC122\YourName\HW1\hw1.ide</code>.  Make
+sure that ``Application [.exe]'' is selected under ``Target Type,'' and
+that the ``Platform'' and ``Target Model'' are ``Win32'' and ``Console''
+(it will probably default to ``GUI,'' so you will need to be sure this
+gets changed).  Now click the ``Advanced'' button and uncheck the boxes
+labeled <code>.rc</code> and <code>.def</code>, then click ``OK'' twice to make each
+dialog go away.  Finally, double-click the <code>.cpp</code> node in the
+project window that appears and you will get an editor window where you
+can start entering your program.
+
+<P>
+To attach additional source files to a project, choose
+<code>File/New/TextEdit</code> and then <code>File/Save as...</code> from the menu.
+Give your file an appropriate name in the ``Save File'' dialog and click
+``OK.''  Now, in the project window, right-click on the <code>.exe</code> node
+(at the top) and choose ``Add node'' from the context menu.  This will
+bring up a file chooser; select the new file you just created and click
+``OK.''  The next time you build the project, this new file will be
+compiled in with the rest of the program.
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

@@ -1,0 +1,576 @@
+<HTML>
+<head><title>Instructions</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic3"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut1.html#topic0">Up</A> <A HREF="asmtut3.html#topic2">&lt;&lt;</A> <A HREF="asmtut5.html#topic4">&gt;&gt;</A> </CENTER><HR>
+
+<H3>Instructions</H3>
+
+Here are the most important instructions (in my opinion) that have been
+available on all Intel processors since the 8086.  Different assemblers
+may have minor variations in how these instructions are represented in
+assembly code; I give the NASM form here.  Throughout this section, when
+specifying the valid forms of operands, I will write <TT>reg8</TT> to
+stand for any 8-bit register, <TT>reg16</TT> for any of the eight general-
+and special-purpose 16-bit registers, <TT>mem8</TT> for a memory reference
+to a single byte, <TT>mem16</TT> for a memory reference to a word (with
+the low-order byte at the given address), <TT>imm8</TT> for an 8-bit
+immediate value, and <TT>imm16</TT> for a 16-bit immediate value.  If an
+operand may be either a register or memory reference, I will write
+<TT>r/m8</TT> or <TT>r/m16</TT>; if it may also be an immediate value, then
+I will write <TT>r/m/i8</TT> or <TT>r/m/i16</TT>.  A segment register as an
+operand will be written <TT>segreg</TT>.<P>
+
+<A HREF="asmtut5.html#topic4"><B>Data Movement Instructions</B></A><BR>
+
+The fundamental data movement operation is <TT>MOV dest, source</TT>,
+which copies a byte or a word from the source location to the
+destination.  In general, either the source or the destination must be a
+register (you can't copy directly from one memory location to another
+with <TT>MOV</TT>); the only exception is that an immediate value may be
+moved straight to memory (however, there is no way to put an immediate
+value into a segment register in one operation).  Here are the accepted
+forms:
+<PRE>
+        MOV     reg8, r/m/i8
+        MOV     mem8, reg8
+        MOV     mem8, BYTE imm8
+
+        MOV     reg16, r/m/i16
+        MOV     mem16, reg16
+        MOV     mem16, WORD imm16
+
+        MOV     r/m16, segreg
+        MOV     segreg, r/m16
+</PRE>
+The CS segment register may not be used as a destination (you wouldn't
+want to do this anyway, since it would change where the next instruction
+comes from; to get this effect, you need to use a proper flow control
+instruction such as <TT>JMP</TT>).<P>
+To perform a swap of two locations instead of a one-way copy, there is
+also an exchange operation:
+<PRE>
+        XCHG    reg8, r/m8
+        XCHG    reg16, r/m16
+</PRE>
+As a special case of this that does nothing except occupy space and take
+up processor time, the instruction to exchange the accumulator with
+itself (<TT>XCHG AX, AX</TT>) is given the special "no-operation''
+mnemonic:
+<PRE>
+        NOP
+</PRE>
+For the special purpose of copying a far pointer (that is, a pointer
+that includes a segment address, so that it can refer to a location
+outside the current segment) from memory into registers, there are the
+<TT>LDS</TT> and <TT>LES</TT> instructions.  Here are the accepted forms:
+<PRE>
+        LDS     reg16, mem32
+        LES     reg16, mem32
+</PRE>
+For example, the instruction <TT>LDS SI, [200h]</TT> is equivalent to the
+pair of instructions <TT>MOV SI, [200h]</TT> and <TT>MOV DS, [202h]</TT>.
+The 8086 only supports loading the pointer into the DS or ES segment
+register.<P>
+An operation that is frequently useful when setting up pointers is to
+load the "effective address'' of a memory reference.  That is, this
+instruction does the displacement plus base plus index calculation, but
+just stores the resulting address in the destination register, rather
+than actually fetching the data from the address.  Here is the only form
+allowed on the 8086:
+<PRE>
+        LEA     reg16, mem
+</PRE>
+To push and pop data from the stack, the 8086 provides the following
+instructions.  The top of stack is located at offset SP within the stack
+segment, so <TT>PUSH AX</TT>, for example, is equivalent to
+<TT>SUB SP, 2</TT> (recall that the stack grows downward) followed by
+<TT>MOV [SS:SP], AX</TT> (except that <TT>[SS:SP]</TT> isn't a valid form of
+memory reference).
+<PRE>
+        PUSH    r/m16
+        PUSH    segreg
+
+        POP     r/m16
+        POP     segreg
+</PRE>
+As with <TT>MOV</TT>, you are not allowed to <TT>POP</TT> into the CS
+register (although you may <TT>PUSH CS</TT>).<P>
+Although they were not provided on the original 8086, the instructions
+to push and pop the FLAGS register (as mentioned earlier) are available
+in Virtual-8086 mode on the Pentium (they were actually introduced in
+the 80186):
+<PRE>
+        PUSHF
+        POPF
+</PRE>
+Here are the other ways of reading or modifying the FLAGS register
+(apart from setting flags as the result of an arithmetic operation, or
+testing them with a conditional branch, of course).  The Carry,
+Direction, and Interrupt Enable flags may be cleared and set:
+<PRE>
+        CLC
+        CLD
+        CLI
+        STC
+        STD
+        STI
+</PRE>
+The Carry flag may also be complemented, or "toggled'' between 0 and 1:
+<PRE>
+        CMC
+</PRE>
+Finally, the bottom eight bits of the FLAGS register (containing the
+Carry, Parity, Auxiliary Carry, Zero, and Sign flags, as described
+above) may be transferred to and from the AH register:
+<PRE>
+        LAHF
+        SAHF
+</PRE>
+
+<A HREF="asmtut6.html#topic5"><B>Arithmetic and Logical Instructions</B></A><BR>
+
+All of the two-operand arithmetic and logical instructions offer the
+same range of addressing modes.  For example, here are the valid forms
+of the <TT>ADD</TT> operation:
+<PRE>
+        ADD     reg8, r/m/i8
+        ADD     mem8, reg8
+        ADD     mem8, BYTE imm8
+
+        ADD     reg16, r/m/i16
+        ADD     mem16, reg16
+        ADD     mem16, WORD imm16
+</PRE>
+Just as with the <TT>MOV</TT> instruction, the first operand is the
+destination and the second is the source; the result of performing the
+operation on the two operands is stored in the destination (if it gets
+stored anywhere).  Unlike <TT>MOV</TT>, most of these instructions also
+set or clear the appropriate status flags to reflect the result of the
+operation (for some of the instructions, this is their <EM>only</EM>
+effect).<P>
+To add two numbers, use the <TT>ADD</TT> instruction.  To continue adding
+further bytes or words of a multi-part number, use the <TT>ADC</TT>
+instruction to also add one if the Carry flag is set (indicating a
+carry-over from the previous byte or word).  For example, to add the
+32-bit immediate value <TT>12345678h</TT> to the 32-bit double word stored
+at location <TT>500h</TT>, do <TT>ADD [500h], 5678h</TT> followed by
+<TT>ADC [502h], 1234h</TT>.<P>
+Subtraction is analogous:  use the <TT>SUB</TT> instruction to subtract
+a single pair of bytes or words, and then use the <TT>SBB</TT> ("Subtract
+with Borrow'') instruction to take the Carry into account for further
+bytes or words.<P>
+An important use of subtraction is in comparing two numbers; in this
+case, we are not interested in the exact value of their difference, only
+in whether it is zero or negative, or whether there was a carry or
+overflow.  The <TT>CMP</TT> ("Compare'') instruction performs this task;
+it subtracts the source from the destination and adjusts the status
+flags accordingly, but throws away the result.  This is exactly what is
+needed to get conditions such as <TT>LE</TT> to work; after doing
+<TT>CMP AX, 10</TT>, for example, the status flags will be set in such a
+way that the <TT>LE</TT> condition is true precisely when the value in AX
+(treated as a signed integer) is less than or equal to 10.<P>
+The two-operand logical instructions are <TT>AND</TT>, <TT>OR</TT>,
+<TT>XOR</TT>, and <TT>TEST</TT>.  The first three perform the expected
+bitwise operations; for example, the nth bit of the destination after
+the <TT>AND</TT> operation will be 1 (set, true) if the nth bit of both the
+source and the destination were 1 before the operation, otherwise it
+will be 0 (clear, false).  The <TT>TEST</TT> instruction is to <TT>AND</TT>
+as <TT>CMP</TT> is to <TT>SUB</TT>; it performs a bitwise and operation, but
+the result is only reflected in the flags.  For example, after the
+instruction <TT>TEST [321h], BYTE 12h</TT>, the Zero flag will be set if
+neither bit 1 nor bit 4 (<TT>12h</TT> is <TT>00010010</TT> in binary,
+indicating that bits 1 and 4 are to be tested) of the byte at address
+<TT>321h</TT> were 1, otherwise it will be clear.<P>
+Multiplication and division are also binary operations, but the
+corresponding instructions on the 8086 only allow one of the operands to
+be specified (and it can only be a register or memory reference, not an
+immediate value).  The other operand is implicitly contained in the
+accumulator (and sometimes also the DX register).  The <TT>MUL</TT> and
+<TT>DIV</TT> instructions operate on unsigned numbers, while <TT>IMUL</TT>
+and <TT>IDIV</TT> operate on two's-complement signed numbers.  Here are
+the valid forms for <TT>MUL</TT>; the others are analogous:
+<PRE>
+        MUL     reg8
+        MUL     BYTE mem8
+
+        MUL     reg16
+        MUL     WORD mem16
+</PRE>
+For 8-bit multiplication, the quantity in AL is multiplied by the given
+operand and the 16-bit result is placed in AX.  For 16-bit
+multiplication, the 32-bit product of AX and the operand is split, with
+the low word in AX and the high word in DX.  In both cases, if the
+result spills into the high-order byte/word, then the Carry and Overflow
+flags will be set, otherwise they will be clear.  The other flags will
+have garbage in them; in particular, you will not get correct information
+from the Zero or Sign flags (if you want that information, follow the
+multiplication with <TT>CMP AX, 0</TT>, for example).<P>
+For division, the process is reversed. An 8-bit operand will be divided
+into the number in AX, with the quotient stored in AL and the remainder
+left in AH. A 16-bit operand will be divided into the 32-bit quantity
+whose high word is in DX and whose low word is in AX; the quotient will
+be in AX and the remainder will be in DX after the operation. None of
+the status flags are defined after a division. Also, if the division
+results in an error (division by zero, or a quotient that is too large),
+the processor will trigger interrupt zero (as if it had executed
+<TT>INT 0</TT>).<P>
+The <TT>CBW</TT> and <TT>CWD</TT> instructions, which take no operands, will
+sign-extend AL into AX or AX into DX, respectively, just as needed
+before performing a signed division.  For example, if AL contains
+<TT>11010110</TT>, then after <TT>CBW</TT> the AH register will contain
+<TT>11111111</TT> (and AL will be unchanged).<P>
+Multiplication and division by powers of two are frequently performed by
+shifting the bits to the left or right.  There are several varieties of
+shift and rotate instructions, all of which allow the following forms:
+<PRE>
+        RCL     reg8, 1
+        RCL     reg8, CL
+        RCL     BYTE mem8, 1
+        RCL     BYTE mem8, CL
+
+        RCL     reg16, 1
+        RCL     reg16, CL
+        RCL     WORD mem16, 1
+        RCL     WORD mem16, CL
+</PRE>
+The second operand specifies how many bit positions the result should be
+shifted by:  either one or the number in the CL register.  For example,
+the accumulator may be multiplied by 2 with <TT>SHL AX, 1</TT>; if CL
+contains the number 4, the accumulator may be multiplied by 16 with
+<TT>SHL AX, CL</TT>.<P>
+There are three shift instructions---<TT>SAR</TT>, <TT>SHR</TT>, and
+<TT>SHL</TT>.  The "shift-left'' instruction, <TT>SHL</TT>, shifts the
+highest bit of the operand into the Carry flag and fills in the lowest
+bit with zero.  The "shift-right'' instruction, <TT>SHR</TT>, does the
+opposite, moving zero in from the top and shifting the lowest bit out
+into the Carry; this is appropriate for an unsigned division, with the
+Carry flag giving a 1-bit remainder.  On the other hand, the
+"shift-arithmetic-right'' instruction, <TT>SAR</TT>, leaves a copy of the
+highest bit in place as it shifts; this is appropriate for a signed
+division, since it preserves the sign bit.<P>
+For example, -53 is represented in 8-bit two's-complement by the
+binary number <TT>11001011</TT>.  After a <TT>SHL</TT> by one position, it will be
+<TT>10010110</TT>, which represents -106.  After a <TT>SAR</TT>, it will
+be <TT>11100101</TT>, which represents -27.  After a <TT>SHR</TT>, it will
+be <TT>01100101</TT>, which represents +101 in decimal; this corresponds
+to the interpretation of the original bits as the unsigned number 203
+(which yields 101 when divided by 2).<P>
+When shifting multiple words by one bit, the Carry can serve as the
+bridge from one word to the next.  For example, suppose we want to
+multiply the double word (4 bytes) starting at address <TT>1230h</TT> by 2;
+the instruction <TT>SHL WORD [1230], 1</TT> will shift the low-order word,
+putting its highest bit into the Carry flag.  Now we need an instruction
+that will shift the Carry into the lowest bit of the word at <TT>1232h</TT>;
+if we wanted to continue the process, we would also need it to shift the
+highest bit of that word back out into the Carry.  The effect here is
+that the bits in the operand plus the Carry have been <EM>rotated</EM> one
+position to the left.  The desired instruction is <TT>RCL WORD [1232], 1</TT>
+("rotate-carry-left'').  There is a corresponding
+"rotate-carry-right'' instruction, <TT>RCR</TT>; there are also two
+rotate instructions which directly shift the highest bit down to the
+lowest and <I>vice versa</I>, called <TT>ROL</TT> and <TT>ROR</TT>.<P>
+There are four unary arithmetic and logical instructions.  The increment
+and decrement operations, <TT>INC</TT> and <TT>DEC</TT>, add or subtract one
+from their operand; they do not affect the Carry bit.  The negation
+instruction, <TT>NEG</TT>, takes the two's-complement of its operand,
+while the <TT>NOT</TT> instruction takes the one's-complement (flip each
+bit from 1 to 0 or 0 to 1).  <TT>NEG</TT> affects all the usual flags, but
+<TT>NOT</TT> does not affect any of them.  The valid forms of operand are
+the same for all of these instructions; here are the forms for
+<TT>INC</TT>:
+<PRE>
+        INC     reg8
+        INC     BYTE mem8
+
+        INC     reg16
+        INC     WORD mem16
+</PRE>
+
+<A HREF="asmtut7.html#topic6"><B>String Instructions</B></A><BR>
+<P>
+The string instructions facilitate operations on sequences of bytes or
+words. None of them take an explicit operand; instead, they all work
+implicitly on the <EM>source</EM> and/or <EM>destination</EM> strings. The
+current element (byte or word) of the source string is at DS:SI, and the
+current element of the destination string is at ES:DI. Each instruction
+works on one element and then automatically adjusts SI and/or DI; if the
+Direction flag is clear, then the index is incremented, otherwise it is
+decremented (when working with overlapping strings it is sometimes
+necessary to work from back to front, but usually you should leave the
+Direction flag clear and work on strings from front to back).<P>
+To work on an entire string at a time, each string instruction can be
+accompanied by a repeat prefix, either <TT>REP</TT> or one of <TT>REPE</TT>
+and <TT>REPNE</TT> (or their synonyms <TT>REPZ</TT> and <TT>REPNZ</TT>).
+These cause the instruction to be repeated the number of times in the
+count register, CX; for <TT>REPE</TT> and <TT>REPNE</TT>, the Zero flag is
+tested at the end of each operation and the loop is stopped if the
+condition (Equal or Not Equal to zero) fails.<P>
+The <TT>MOVSB</TT> and <TT>MOVSW</TT> instructions have the following forms:
+<PRE>
+        MOVSB
+        REP MOVSB
+
+        MOVSW
+        REP MOVSW
+</PRE>
+The first form copies a single byte from the source string, at address
+DS:SI, to the destination string, at address ES:DI, then increments (or
+decrements, if the Direction flag is set) both SI and DI.  The second
+form performs this operation and then decrements CX; if CX is not zero,
+the operation is repeated.  The effect is equivalent to the following
+pseudo-C code:
+<PRE>
+while (CX != 0) {
+        *(ES*16 + DI) = *(DS*16 + SI);
+        SI++;
+        DI++;
+        CX--;
+}
+</PRE>
+(recall that <TT>ES*16 + DI</TT> is the physical address corresponding
+to the segment and offset ES:DI).  The remaining two forms move a word
+at a time, instead of a single byte; correspondingly, SI and DI are
+incremented or decremented by 2 each time through the loop.<P>
+The <TT>STOSB</TT> and <TT>STOSW</TT> instructions are similar to
+<TT>MOVSB</TT> and <TT>MOVSW</TT>, except the source byte or word comes from
+AL or AX instead of the memory address in DS:SI.  For example, the
+following is a very fast way to initialize the block of memory from
+<TT>ES:1000h</TT> to <TT>ES:4FFFh</TT> with zeroes:
+<PRE>
+        MOV     DI, 1000h       ;Starting address
+        MOV     CX, 2000h       ;Number of words
+        MOV     AX, 0           ;Word to store at each location
+        CLD                     ;Make sure direction is increasing
+        REP STOSW               ;Perform the initialization
+</PRE>
+Correspondingly, the <TT>LODSB</TT> and <TT>LODSW</TT> instructions are
+variations on the move instructions where the <EM>destination</EM> is the
+accumulator (instead of the memory address in ES:DI).  These are not
+very useful operations with the repeat prefix; instead, they are used as
+part of larger loops to perform more complex string processing.  For
+example, here is a program fragment that will convert the NUL-terminated
+string starting at the address in DX to be all lower-case (there is a
+faster way to do the conversion of each character, using the
+<TT>XLATB</TT> instruction, but that is not the point here):
+<PRE>
+        MOV     SI, DX          ;Initialize source
+        MOV     DI, DX          ;  and destination indices
+        MOV     AX, DS          ;Copy DS (source segment)
+        MOV     ES, AX          ;  into ES (destination segment)
+        CLD
+NextCh  LODSB                   ;Load next character into AL
+        CMP     AL, 'A'
+        JB      NotUC           ;Jump if below 'A'
+        CMP     AL, 'Z'
+        JA      NotUC           ;  or above 'Z'
+        ADD     AL, 'a' - 'A'   ;Convert UC to lc
+NotUC   STOSB                   ;Store modified character back
+        CMP     AL, 0
+        JNE     NextCh          ;Do next character if not at end of string
+</PRE>
+None of the preceding string operations have any effect on the status
+flags.  By contrast, the remaining two string operations are executed
+<EM>solely</EM> for their effect on the status flags, just like the
+<TT>CMP</TT> operation on numbers.  The <TT>CMPSB</TT> and <TT>CMPSW</TT>
+operations compare the current bytes or words of the source and
+destination strings by subtracting the destination from the source and
+recording the properties of the result in FLAGS.  The <TT>SCASB</TT> and
+<TT>SCASW</TT> operations are the variants of this that use the
+accumulator (AL or AX) for the source.  Each of these may be preceded by
+either of the repeat prefixes <TT>REPE</TT> or <TT>REPNE</TT>, which cause
+the operation to be repeated up to CX times, as long as the condition
+holds true after each iteration.  Here is the corresponding pseudo-C for
+<TT>REPE CMPSB</TT>:
+<PRE>
+while (CX != 0) {
+        SetFlags(*(DS*16 + SI) - *(ES*16 + DI));
+        SI++;
+        DI++;
+        CX--;
+        if (!ZeroFlag) break;
+}
+</PRE>
+A common use of the <TT>REPNE SCASB</TT> instruction is to find the length
+of a NUL-terminated string.  Here is an example:
+<PRE>
+        MOV     DI, DX          ;Starting address in DX (assume ES = DS)
+        MOV     AL, 0           ;Byte to search for (NUL)
+        MOV     CX, -1          ;Start count at FFFFh
+        CLD                     ;Increment DI after each character
+        REPNE SCASB             ;Scan string for NUL, decrementing CX for each char
+        MOV     AX, -2          ;CX will be -2 for length 0, -3 for length 1, ...
+        SUB     AX, CX          ;Length in AX
+</PRE>
+
+<A HREF="asmtut8.html#topic7"><B>Program Flow Instructions</B></A><BR>
+
+All of the previous instructions execute sequentially; that is, when one
+instruction finishes, the next instruction is taken from the very next
+memory location.  This is the default operation for the instruction
+pointer, IP---after each byte of instruction is fetched, the IP is
+incremented in preparation for the next fetch.  The program flow
+instructions provide the facilities to modify the course of execution,
+allowing conditional execution (by jumping over parts of the code if
+certain conditions are met) and looping (by jumping backwards in the
+code).<P>
+The unconditional jump instruction, <TT>JMP</TT>, causes IP (and sometimes
+CS) to be modified so that the next instruction is fetched from the
+location given in the operand (the <EM>target</EM>).  Here are the valid forms:
+<PRE>
+        JMP SHORT imm8
+        JMP     imm16
+        JMP     imm16:imm16
+        JMP     r/m16
+        JMP FAR mem32
+</PRE>
+The short version saves space when the target of the jump is within a
+few dozen instructions forward or backward; the assembler computes the
+difference between the new address and the next address sequentially,
+and just stores this difference as one (signed) byte. The second (and
+most common) version allows a jump to any location in the current code
+segment, while the third allows a jump to any location in memory by also
+specifying an immediate value to be loaded into CS. The fourth version
+will take the target address from a register or memory location; since
+this address is only 16 bits, the target has to be within the segment.
+Finally, the far version fetches both the offset and the segment from
+four consecutive bytes in memory (compare to the <TT>LDS</TT> and
+<TT>LES</TT> instructions; <TT>JMP FAR mem32</TT> could have been called
+"<TT>LCS IP, mem32</TT>'').<P>
+The conditional jump instructions, <TT>Jcc</TT>, where <TT>cc</TT> is one of
+the condition codes listed earlier (<TT>E</TT>, <TT>NE</TT>, ...),
+perform a short jump if the condition is true, based on the current
+contents of the status flags.  For example, the code sample that was
+given in the discussion of <TT>LODSB</TT>, to convert a string to
+lower-case, used the <TT>JA</TT> and <TT>JB</TT> instructions; these
+made their jump if the result of the previous comparison
+found that the current character was above 'Z' or below 'A'.  Since a
+conditional jump can only be to a nearby target, it is sometimes
+necessary to combine conditional and unconditional jumps as follows:
+<PRE>
+        JNLE    NoJLE
+        JMP     target
+NoJLE:
+</PRE>
+This will have the same effect as <TT>JLE target</TT>, except there is no
+restriction on how far away the target may be (within the code segment).<P>
+There are two specialized versions of conditional jump that are
+particularly useful when executing a loop a fixed number of times.  The
+looping statements
+<PRE>
+        LOOP    imm8
+        LOOPE   imm8
+        LOOPNE  imm8
+</PRE>
+(as usual, the synonyms <TT>LOOPZ</TT> and <TT>LOOPNZ</TT> are also
+available) are very similar to the <TT>REP</TT>, <TT>REPE</TT>, and
+<TT>REPNE</TT> prefixes from the string instructions.  The <TT>LOOP</TT>
+instruction decrements CX and makes a short jump if the count has not
+reached zero.  The <TT>LOOPE</TT> instruction adds the condition that it
+will only take the jump if the Zero flag is set (usually indicating that
+the last comparison had equal operands); the <TT>LOOPNE</TT> will only
+take the jump if the Zero flag is clear.  The string operation
+<TT>REP MOVSB</TT>, for example, could have been performed with
+<PRE>
+Repeat  MOVSB
+        LOOP    Repeat
+</PRE>
+(except this would have been considerably slower, since it requires
+repeatedly fetching and decoding the two instructions instead of just
+fetching and decoding the single <TT>REP MOVSB</TT> instruction once).<P>
+After looping or repetitive string operations, it is occasionally
+necessary to test whether the count register reached zero (to check
+whether the loop ran for the full count or whether it exited early
+because the Zero flag changed).  The instruction
+<PRE>
+        JCXZ    imm8
+</PRE>
+serves exactly this purpose; it takes a short jump if the CX register
+contains zero.  It is short for performing <TT>CMP CX, 0</TT> followed by
+<TT>JZ imm8</TT>.<P>
+All of the above branching instructions are variations on the infamous
+<TT>GOTO</TT> statement; they cause a permanent change in the course of
+execution.  To perform an operation more like a function or subroutine
+call, where the flow of control will eventually return to pick up with
+the next instruction, the 8086 provides two mechanisms:
+<TT>CALL</TT>/<TT>RET</TT> and <TT>INT</TT>/<TT>IRET</TT>.<P>
+The <TT>CALL</TT> instruction offers a similar range of addressing modes
+to the <TT>JMP</TT> instruction, except there is no "short'' call:
+<PRE>
+        CALL    imm16
+        CALL    imm16:imm16
+        CALL    r/m16
+        CALL FAR mem32
+</PRE>
+A call is the same as a jump, except the instruction pointer is first
+pushed onto the stack (in the second and fourth versions, which include
+a new segment, the current CS register is also pushed).<P>
+To reverse the effect of a <TT>CALL</TT>, when the subroutine is done it
+should execute a <TT>RET</TT> or <TT>RETF</TT> instruction; this pops the
+return address off of the stack and back into IP (and <TT>RETF</TT> also
+pops the saved value of CS, to return from a far call). After the
+return, the next instruction that will be fetched will be from the next
+location after the <TT>CALL</TT>.  There is an optional 16-bit immediate
+operand that may be specified with a return instruction; this value is
+added to the stack pointer after popping off the return address, to
+recover however many bytes had been pushed onto the stack with
+parameters before the call.  For example, here is one way to implement a
+subroutine to print a character, where the calling code first pushes the
+character (as the low byte of a word, since there is no option to push a
+single byte) before making the call:
+<PRE>
+PutChar PUSH    BP      ;Save current values of registers that we'll modify
+        PUSH    AX
+        PUSH    DX
+        MOV     BP, SP  ;Copy stack pointer to BP
+        MOV     AH, 2   ;DOS function code for printing a character
+        MOV     DL, [BP + 8]    ;Fetch character parameter from stack
+;Stack contains (from tos) DX, AX, BP, return address, and parameter
+        INT     21h     ;Call DOS function
+        POP     DX      ;Restore modified registers
+        POP     AX
+        POP     BP
+        RET     2       ;Return and pop 2 byte parameter
+</PRE>
+For completeness, here is what a typical call might look like (in fact,
+this is a complete routine to print a NUL-terminated string, assuming
+that the string starts at DS:SI):
+<PRE>
+NextCh  LODSB           ;Load next character into AL
+        CMP     AL, 0
+        JE      Done    ;Quit if NUL
+        PUSH    AX      ;Set up parameter for call
+        CALL    PutChar
+        JMP     NextCh  ;Continue with next character
+Done:
+</PRE>
+This is just one of several common conventions for passing parameters to
+subroutines; even more common is to just specify that, for example, the
+character will be passed directly in the DL register.<P>
+The other function-call-like mechanism is the <EM>interrupt</EM>.  We have
+been using this all along to call the standard DOS services, such as
+printing a character or a '$'-terminated string.  The <TT>INT</TT>
+instruction behaves much like the <TT>CALL FAR</TT> instruction except for two
+things:  it pushes the FLAGS register before pushing CS and IP (the idea
+is that an interrupt should be able to completely restore the state of
+the processor when it is finished, since this is also the mechanism used
+for handling hardware interrupts from the rest of the system---they can
+happen at any time, independent of what the processor might be working
+on, and they should occur as transparently to the current process as
+possible), and it gets the target address from a standard table of
+<EM>interrupt handler vectors</EM> kept at the bottom of memory.  When the
+processor executes <TT>INT n</TT>, where <TT>n</TT> is an 8-bit immediate
+value, it fetches a far pointer (that is, a 4-byte combination of
+segment and offset) from the memory address <TT>0000:4n</TT>; this is the
+target address for the interrupt call.  For example, the address of the
+DOS interrupt handler, the routine called when <TT>INT 21h</TT> is
+executed, is stored at locations <TT>0000:0084</TT> through
+<TT>0000:0087</TT>; the first two bytes give the offset, to load into IP,
+and the second two bytes give the segment, to load into CS.<P>
+To return from an interrupt handler, the <TT>IRET</TT> instruction is
+used.  It pops the IP, CS, and FLAGS registers, which causes the state
+of the machine to return to where it left off when the interrupt
+occurred.<P>
+
+</BODY></HTML>

@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming in Linux (part 1)</TITLE>
+<META NAME="description" CONTENT="Programming in Linux (part 1)">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Data Structures,Algorithms">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="linux1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming in Linux (part 1)</H1>
+
+<P>
+This document and its successor summarize the essential commands needed
+to edit, compile, and run programs in the Linux environment. There are
+many more detailed tutorials on these topics on the Web; here are a
+few:
+
+<UL>
+<LI>Basic Unix (and Unix-like) commands:
+<BR><A HREF="http://www.isu.edu/departments/comcom/unix/workshop/unixindex.html">http://www.isu.edu/departments/comcom/unix/workshop/unixindex.html</A>
+<BR><A HREF="http://www.math.utah.edu/lab/unix/unix-tutorial.html">http://www.math.utah.edu/lab/unix/unix-tutorial.html</A>
+<BR><A HREF="http://www.ee.surrey.ac.uk/Teaching/Unix/">http://www.ee.surrey.ac.uk/Teaching/Unix/</A>
+<BR><A HREF="http://unixhelp.ed.ac.uk/">http://unixhelp.ed.ac.uk/</A>
+<BR><A HREF="http://isis.acomp.usf.edu/UNIX/">http://isis.acomp.usf.edu/UNIX/</A>
+
+<P>
+</LI>
+<LI>Editing with <code>emacs</code>:
+<BR><A HREF="http://www.lib.uchicago.edu/keith/tcl-course/emacs-tutorial.html">http://www.lib.uchicago.edu/keith/tcl-course/emacs-tutorial.html</A>
+<BR>
+There is also an on-line tutorial within <code>emacs</code>.  After starting
+the editor, hit `Control-H' and then `t'.
+
+<P>
+</LI>
+<LI>Editing with <code>vi</code>:
+<BR><A HREF="http://curiac.acomp.usf.edu/unix/vi_guide.html">http://curiac.acomp.usf.edu/unix/vi_guide.html</A>
+<BR>
+There is also an on-line tutorial which takes about half an hour; run
+<code>vimtutor</code> at the shell prompt.
+
+<P>
+</LI>
+<LI>Debugging with <code>ddd</code> or <code>gdb</code>:
+<BR><A HREF="http://heather.cs.ucdavis.edu/~matloff/ddd.html">http://heather.cs.ucdavis.edu/~matloff/ddd.html</A>
+<BR><A HREF="http://www.cs.princeton.edu/~benjasik/gdb/gdbtut.html">http://www.cs.princeton.edu/~benjasik/gdb/gdbtut.html</A>
+</LI>
+</UL>
+
+<P>
+There is also a good book available from O'Reilly which covers all of
+this material in more depth:  ``Programming With Gnu Software'', by Mike
+Loukides and Andy Oram.
+
+<P>
+The following material was originally written by Art Matheny of the
+University of South Florida, available at
+<A HREF="http://curiac.acomp.usf.edu/ism3230/unix.html">http://curiac.acomp.usf.edu/ism3230/unix.html</A>.  It has been
+modified slightly to match the environment here at DePauw.
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+Getting Started with Unix</A>
+</H1>
+
+<P>
+This tutorial is for those who have never used Unix before. It covers
+only the most essential commands that you need to begin with and
+indicates where to look to learn more. It is assumed that you have this
+document in printed form so that you can go through the steps on the
+computer as you read.
+
+<P>
+<DL>
+<DT><STRONG>Log In</STRONG></DT>
+<DD>&nbsp;
+
+<P>
+To begin with, you need to log in to jupiter or one of the other Linux
+machines in Julian 276. If you want to log in from across the network,
+use <code>telnet jupiter.csc.depauw.edu</code> (more securely, use SSH instead
+of TELNET; on Windows you will need to install a client such as
+<code>PuTTY</code>, available from
+<A HREF="http://www.chiark.greenend.org.uk/~sgtatham/putty/">http://www.chiark.greenend.org.uk/~sgtatham/putty/</A>).  For a graphical
+interface, use the X-Win32 program installed on the campus lab PCs.
+
+<P>
+You will need the username and password from the sheet I gave you (and you will
+probably want to change the password to something more memorable, with the
+<code>passwd</code> command).
+
+<P>
+</DD>
+<DT><STRONG>The unix prompt</STRONG></DT>
+<DD>&nbsp;
+
+<P>
+Unix is fundamentally a command-line operating system. If you are logged in
+with an X Windows session (either in 276 or by using X-Win32), you will see
+a familiar windowed interface, but this is just a front-end for the underlying
+system. To do much of your work, you will need to open one or more ``Terminal''
+windows.
+
+<P>
+To make it go, you have to type in commands at what is called ``the unix
+prompt''. The prompt is usually the name of the host followed by a
+dollar sign, but it varies depending on how the system administrator
+has set it up. When the cursor is on the line with this prompt, unix is
+awaiting your command. In the examples below, we will assume the 
+prompt is ``<code>jupiter$</code>''. You do not type the prompt; you type what comes
+after it.
+
+<P>
+</DD>
+<DT><STRONG>Some Essential Commands</STRONG></DT>
+<DD>&nbsp;
+
+<P>
+Here is a walking tour of some essential unix commands:
+
+<OL>
+<LI><code>jupiter$ ls</code>
+<BR>
+This shows a list of the files in the current directory. You might not
+have any files yet, so let's make one.
+
+<P>
+</LI>
+<LI><code>jupiter$ cp /proc/version version</code>
+<BR>
+This copies an existing file into the current directory. You own the
+copy.
+
+<P>
+</LI>
+<LI><code>jupiter$ ls</code>
+<BR>
+You should now see ``<code>version</code>'' among any other files that you have.
+
+<P>
+</LI>
+<LI><code>jupiter$ ls -l</code>
+<BR>
+Unix commands usually have options to modify how the command behaves.
+Options are usually specified by a hyphen followed by a single letter.
+In this case the ``<code>-l</code>'' option specifies that you want a ``long''
+listing, which shows lots more information that just the file name.
+
+<P>
+</LI>
+<LI><code>jupiter$ cat version</code>
+<BR>
+This prints the contents of the file. It describes some of the details of the
+version of unix (actually, linux) that we are running. If a new version is
+installed, the original file will change. But the copy that you just made is
+yours and does not change until you change it yourself.
+
+<P>
+</LI>
+<LI><code>jupiter$ pwd</code>
+<BR>
+This shows the ``present working directory''. Unless you have gotten way
+ahead of me, this is your ``home directory''. You own this directory.
+You can create new files in you home directory and modify and delete
+them at will. Other users on the system have their own home directories,
+and you cannot mess with their files unless they explicitly grant
+permissions that allow you access to them.
+
+<P>
+Take a close look at the output of the <code>pwd</code> command. This is what is
+called a ``path'' in unix. Unix organizes files in one big tree, where
+each node of the tree has a name. The path is the sequence of nodes the
+system needs to follow to get from the root of the tree to your home
+directory.
+
+<P>
+</LI>
+<LI><code>jupiter$ mkdir xyz</code>
+<BR>
+You can build up the unix directory tree starting from your home
+directory. The <code>mkdir</code> command makes a new directory. Let's see where unix
+put it.
+
+<P>
+</LI>
+<LI><code>jupiter$ ls</code>
+<BR>
+The <code>xyz</code> directory is within your home directory. Directories can contain
+directories as well as files! You can now put files in the <code>xyz</code>
+directory.
+
+<P>
+</LI>
+<LI><code>jupiter$ cd xyz</code>
+<BR>
+This changes your current working directory to the <code>xyz</code> subdirectory.
+
+<P>
+</LI>
+<LI><code>jupiter$ pwd</code>
+<BR>
+Notice that the <code>xyz</code> node has been added to the path.
+
+<P>
+</LI>
+<LI><code>jupiter$ cat version</code>
+<BR>
+This results in an error because there is no file called <code>version</code> in the
+current directory.
+
+<P>
+</LI>
+<LI><code>jupiter$ emacs tutorial</code>
+<BR>
+Type the current paragraph of this tutorial. Use the cursor keys to move
+the cursor around. Use backspace to correct mistakes. When you are
+finished hit `Control-X Control-S' to save the file and then `Control-X
+Control-C' to quit (if you are using X Windows, you may also perform these
+actions by selecting menu actions or clicking on toolbar icons). You
+should now be out of <code>emacs</code> and back at the unix prompt.
+
+<P>
+</LI>
+<LI><code>jupiter$ ls</code>
+<BR>
+The <code>ls</code> command shows the files in the current directory, which is
+the <code>xyz</code> subdirectory. So the files in your home directory do not
+appear. The only file that show up at this point is the file that you
+just created with the text editor.
+
+<P>
+</LI>
+<LI><code>jupiter$ cd ..</code>
+<BR>
+The double-period designation in this command is unix notation for the
+``parent directory''.
+
+<P>
+</LI>
+<LI><code>jupiter$ pwd</code>
+<BR>
+<P>
+You should now be back at your home directory. When you said ``<code>cd ..</code>'',
+the current directory moved from <code>xyz</code> to its parent, which is your
+home directory. The <code>xyz</code> directory is a ``subdirectory'' of your home
+directory. The home directory is the ``parent'' of <code>xyz</code>. A directory may
+contain any number of subdirectories, but a directory has one and only
+one parent. (Exception: the root directory, whose name is just <code>/</code>, has no parent.)
+
+<P>
+</LI>
+<LI><code>jupiter$ mv version oldversion</code>
+<BR>
+This moves the file. In this case that means that the name of the file
+is changed.
+
+<P>
+</LI>
+<LI><code>jupiter$ ls</code>
+<BR>
+Note that <code>version</code> is gone, but <code>oldversion</code> is now there. It is the same
+file, but with a different name.
+
+<P>
+</LI>
+<LI><code>jupiter$ mv oldversion xyz</code>
+<BR>
+This is different from the previous <code>mv</code> because the destination is a
+directory.
+
+<P>
+</LI>
+<LI><code>jupiter$ cd xyz</code>
+
+<P>
+</LI>
+<LI><code>jupiter$ ls</code>
+<BR>
+Note that <code>oldversion</code> has been moved into the <code>xyz</code>
+subdirectory.
+
+<P>
+</LI>
+<LI><code>jupiter$ cat version</code>
+<BR>
+Again this results in an error because there is no file called
+<code>version</code> in the current directory. But we know that there is a file
+named <code>version</code> somewhere in the tree. How do we access it?
+
+<P>
+</LI>
+<LI><code>jupiter$ cat /proc/version</code>
+<BR>
+You can always give the ``full path'' name of a file regardless of the
+current directory. Full path names begin with a slash (<code>/</code>) and list all
+of the nodes in the path from the root directory to the file. In this
+case the path is short, but in general there may be many nodes to type.
+
+<P>
+</LI>
+<LI><code>jupiter$ cd</code>
+<BR>
+Sometimes you just want to get back to your home directory. The <code>cd</code> with
+no arguments does exactly that.
+
+<P>
+</LI>
+<LI><code>jupiter$ ls xyz</code>
+<BR>
+This lists the files in the <code>xyz</code> directory.
+
+<P>
+</LI>
+<LI><code>jupiter$ cat xyz/oldversion</code>
+<BR>
+This displays the contents of the <code>oldversion</code> file. This command
+illustrates what is called a ``relative path'' name of a file. Since the
+path does not begin with a slash (<code>/</code>), the system follows the specified
+tree nodes beginning with the current directory. So the path is relative
+to the current directory.
+
+<P>
+</LI>
+<LI><code>jupiter$ ls ..</code>
+<BR>
+The relative path may contain ``<code>..</code>'' to access the parent
+directory. This command therefore shows what is in the parent of your
+home directory (probably a bunch of other people's home directories).
+
+<P>
+</LI>
+<LI><code>jupiter$ man ls</code>
+<BR>
+There are many, many commands on a unix system. The printed manual that
+explains the syntax and options for each command is several volumes in
+size (and very expensive). But the manual pages are installed on-line on
+most systems. The <code>man</code> command takes the name of a command or program as
+its argument. It displays the manual page for that command or program.
+In this case, you see the <code>man</code> page for the <code>ls</code> command.
+
+<P>
+When you are in the <code>man</code> display, use the following commands:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">space bar</TD>
+<TD ALIGN="LEFT">advance to the next page</TD>
+</TR>
+<TR><TD ALIGN="LEFT">return (or enter)</TD>
+<TD ALIGN="LEFT">advance one line</TD>
+</TR>
+<TR><TD ALIGN="LEFT">q</TD>
+<TD ALIGN="LEFT">quit</TD>
+</TR>
+<TR><TD ALIGN="LEFT">?</TD>
+<TD ALIGN="LEFT">help</TD>
+</TR>
+</TABLE>
+</DIV>
+</LI>
+</OL>
+
+<P>
+</DD>
+<DT><STRONG>Explore <TT>man</TT> pages</STRONG></DT>
+<DD>&nbsp;
+
+<P>
+Now that you know about the <code>man</code> command, you can find out about other
+important unix commands. What you should do now is read the <code>man</code> pages in
+the list of must-know commands below. These give a lot more detail than
+what you need to know to get started, but read the description of what
+the command does and skim the rest just to see what information is
+available.
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>man</code></TD>
+<TD ALIGN="LEFT">Manual page</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>more</code></TD>
+<TD ALIGN="LEFT">Display a file one screen at a time</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ls</code></TD>
+<TD ALIGN="LEFT">List files in a directory</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>cp</code></TD>
+<TD ALIGN="LEFT">Copy a file</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>pwd</code></TD>
+<TD ALIGN="LEFT">Show path of current directory</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>rm</code></TD>
+<TD ALIGN="LEFT">Remove (delete) a file</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>rmdir</code></TD>
+<TD ALIGN="LEFT">Remove a directory</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>mkdir</code></TD>
+<TD ALIGN="LEFT">Make a new directory</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>passwd</code></TD>
+<TD ALIGN="LEFT">Change your login password</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>date</code></TD>
+<TD ALIGN="LEFT">Show the date and time</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>emacs</code></TD>
+<TD ALIGN="LEFT">Text editor (<code>vi</code> is also popular)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>lpr</code></TD>
+<TD ALIGN="LEFT">Print a file</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>talk</code></TD>
+<TD ALIGN="LEFT">Live communication with other users</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>w</code></TD>
+<TD ALIGN="LEFT">Show who is logged in and what they are doing</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>ps</code></TD>
+<TD ALIGN="LEFT">Show what processes you are running</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>wc</code></TD>
+<TD ALIGN="LEFT">Word count utility</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+</DD>
+</DL>
+
+<P>
+Part 2 will continue with the use of <code>g++</code> and <code>make</code> to build
+programs written in C++.
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

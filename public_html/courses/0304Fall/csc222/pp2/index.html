@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 2</TITLE>
+<META NAME="description" CONTENT="Programming Project 2">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp2.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 2</H1>
+
+<P>
+This project will be due by 5 pm, Monday, September 29.  To submit your
+project, save it in the <code>pp2</code> directory located in your directory under
+<code>/home/libs/dataStr/students/</code> on one of the department's Linux
+machines (this is a shared directory, so you should be able to reach it
+from any of the machines, including Jupiter).
+
+<P>
+You may work on this project by yourself or in a group of two or three.
+If you work in a group, be sure to include everyone's name in the
+comments at the top of <SPAN  CLASS="textit">each</SPAN> file.  Also, be sure you understand
+the guidelines for group work listed in the syllabus--the fundamental
+idea is that everyone in the group should understand what everyone else
+has done, and be able to recreate it on their own.
+
+<P>
+The project is Programming Exercise 5-42 in the text (p. 279).
+Note that the instruction for part (c) is misleading; it should read
+<BLOCKQUOTE>
+<SPAN  CLASS="textbf">(c)</SPAN> Use these new operations to implement the following
+functions:
+
+</BLOCKQUOTE>
+That is, you should implement the <code>insertOrder</code> and
+<code>removeDuplicates</code> functions using the <code>insert</code> and
+<code>erase</code> members that you added to the miniVector class in parts (a)
+and (b).
+
+<P>
+You should start by creating your <code>pp2</code> directory and copying the
+book's miniVector implementation into it (the following commands assume
+that you start in your directory under
+<code>/home/libs/dataStr/students/</code>):
+<PRE>
+mkdir pp2
+cd pp2
+cp /home/libs/dataStr/pp2/minivec.h minivec.h
+</PRE>
+The member functions for parts (a) and (b) go in your <code>minivec.h</code>
+file, while the code for parts (c) and (d) should go in a separate
+<code>.cc</code> file in the same directory.  Remember to
+<code>#include "minivec.h"</code> from your main program, so that the correct
+version of miniVector will be defined.
+
+<P>
+Here is a sample output:
+<PRE>
+Original random integers:
+11 1 19 6 13 18 17 13 3 4 2 4 13 3 8
+
+Ordered integers using insertOrder:
+1 2 3 3 4 4 6 8 11 13 13 13 17 18 19
+
+Unique integers using removeDuplicates:
+1 2 3 4 6 8 11 13 17 18 19
+</PRE>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

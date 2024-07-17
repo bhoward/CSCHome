@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CSC 498: Senior Project, Fall 2010</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="CourseInfo.html">Overview</a></b></td><td><b><a href="Timetable.html">Schedule</a></b></td><td><b><a href="Grading.html">Grading</a></b></td><td><b><a href="Proposal.html">Proposal</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 498: Senior Project, Fall 2010</h1>
+
+
+<h2>Project Ideas</h2>
+
+
+<h3>Programming Languages</h3>
+
+
+<ol>
+
+<li>Extend the language interpreter developed in class projects.  Possible
+extensions:
+	<ul>
+	
+<li>Function definitions and subroutine calls</li>
+	
+<li>Additional data types, variable declarations, and type-checking</li>
+	
+<li>Support for modular programming, importing code from other modules</li>
+	
+</ul>
+
+</li>
+
+
+<li>Design a project to accept character input that denotes a formal
+context-free grammar definition.  Also accept a character string.  Output 1 or
+0, if the string is a legal sentence in the grammar or not.</li>
+
+</ol>
+
+
+<h3>Compilers</h3>
+
+
+<ol>
+
+<li>Design a new programming language which is geared toward a particular
+audience or application.  An example would be a small, simple and syntactically
+clean language which helps children learn how to program.  After designing the syntax
+and semantics of the language, implement a compiler or interpreter for it.  You
+will need to keep the language simple if this project is to be doable as you
+will likely find that you need to debug your language design (as well as your
+program) as the semester progresses.  Keeping in mind that it took an entire
+semester to implement a compiler for YASL even though you did not have to
+design the language, you will need your language to be simpler if you are going
+to have time to complete the language design as well as the compiler
+implementation.</li>
+
+
+<li>Design a programming language that has commands for manipulating a
+picture of a graphical robot or other object.  Then write a program which reads
+in a user's program which might contain constructs such as:
+<pre>
+  for i = 1 to 10 do
+    begin
+      raise_leg(left);
+      lower_leg(left);
+      raise_leg(right);
+      lower_leg(right);
+    end;
+</pre>
+As your program
+interprets the commands, alter the robots image to carry out the corresponding
+actions. It will be very important to define a reasonable (not too large) set
+of commands for the robot, along with a reasonable set of commands (loops,
+branches) which can be used to control the robot.  If you have had the graphics
+class you might be able to include embellishments for the robot such as making
+the robot move in 3D.  Plan your language carefully before you start.</li>
+
+</ol>
+
+
+<h3>Human Computer Interaction</h3>
+
+
+<ol>
+
+<li>Following up on the algorithms discussed in the HCI class for unistroke
+handwriting recognition, and the papers we discussed on the topics of gestures
+and gedrics, implement a system that allows the user to launch Windows
+applications by drawing appropriate gestures (either on the desktop or on a
+special icon).  The user would be able to "register" a unistroke gesture
+along with the path and filename of the application to be launched when that
+gesture is recognized at a later date.  After registration, whenever the user
+draws the gesture, the appropriate application is launched.  You would need to
+implement a version of the unistroke handwriting recognition algorithm in order
+to do this project.</li>
+
+
+<li>Design and implement two versions of a simple software system (such as a
+text editor, paint program, etc.).  For the first version you should follow the
+intelligent agent (anti-Shneiderman) design philosophy by having the system
+adapt to perceived user preferences (you will need to decide how to do this,
+but one example would be to have the menus reorder themselves dynamically to
+put items commonly used by the user at the top).  For the second version you
+should follow the opposite design philosophy by following the principles of
+consistency, predictability, and keeping the user in control of all actions. 
+Carry out a formal usability study to compare the two interfaces and present
+the results of this comparison along with the final programs.  Try to determine
+if the audience has an impact on the preferred choice of interface (perhaps
+novices will prefer the intelligent agent approach and experienced users will
+dislike this approach)?</li>
+
+</ol>
+
+
+<h3>Theory of Computation</h3>
+
+
+<ol>
+
+<li>Develop a tool which allows the student to draw a transition diagram for
+a <i>deterministic</i> finite state machine.  Ideally the student would enter
+the transition diagram graphically (i.e. by positioning the states and arcs
+using the mouse).  The student can then enter a string to be recognized by the
+machine, and the machine will try to process the string while providing an
+indication of whether or not the string is accepted.</li>
+
+
+<li>Develop a tool to illustrate the algorithm for converting an arbitrary
+NFA to a DFA which accepts the same language.  The user should be able to enter
+an NFA using some appropriate strategy.  Then the program should work through
+the steps of the state-subset construction algorithm in order to build the
+corresponding DFA.  The steps should be illustrated as they are carried out.</li>
+
+
+<li>If you have had the compilers course consider implementing a Turing
+Machine which would run on short "programs" specified by the user. 
+Ideally the TM would be represented graphically as a tape, a read/write head,
+and a control.  The student could step through his/her program while watching
+the TM carry out the computation step by step.</li>
+
+</ol>
+
+
+<h3>Artificial Intelligence</h3>
+
+
+<ol>
+
+<li>Write a program that reads a set of facts from a file (written in some
+sort of simplified logical language), then proves queries from a user based on
+those facts.  Options for increasing the complexity of this project include:
+<ul>
+
+<li>Store the facts and interpret the queries in plain English.</li>
+
+
+<li>Make the system adaptive so that as facts are proven, they are
+added to the set of facts that are known.  Also allow the user to assert new
+facts as time goes on.  For even more complexity, the set of known facts could
+be stored in an on-line database.</li>
+
+
+<li>Have the prover identify reasons why a query is not able to be
+proven, and tell the user what "missing" facts are necessary for the query to
+be true.</li>
+
+</ul>
+</li>
+
+
+<li>Write a single-player chess/checkers/backgammon games with a good AI
+(using at least heuristics and alpha-beta search, for example).  Options for
+increasing the complexity of this project include:
+<ul>
+
+<li>Give the game a good graphical interface.</li>
+
+
+<li>Add the capability for two player network play.</li>
+
+
+<li>Instead of using heuristics and alpha-beta search, write a
+program that learns as it plays, possibly using reinforcement learning.</li>
+
+</ul>
+</li>
+
+
+<li>Write and train a neural network classifier to predict various pieces of
+weather data (for example, rainfall or temperature) from a set of other related
+weather data.  The network should use some sort of feedback (for example, back
+propagation) to do its training.  To increase complexity, you might<b> </b>allow
+an adaptive network, which would allow new training data to be added to the
+network as classification occurs.</li>
+
+
+<li>Write a program that locates a specific type of item in image files -
+for example, locating ships in an ocean satellite image, storms in a weather
+satellite image, or obstacles for a robot navigation image).  Another example
+might be writing an optical character recognizer, to convert an image of text
+into a text file.</li>
+
+
+<li>Write a program that parses English sentences.  The complexity of this
+project would depend on the complexity of sentences that are successfully
+parsed.</li>
+
+
+<li>Write a program that reads a file containing information on "current"
+world conditions and possible actions, then prompts the user for a desired
+goal.  The program should then plan a sequence of actions to accomplish that
+goal.  Additional complexity could result from interpreting the conditions and goal
+in English, or in implementing a more complex planning algorithm (for example,
+GRAPHPLAN).</li>
+
+</ol>
+
+
+<h3>Graphics</h3>
+
+
+<ol>
+
+<li>Extend the key frame animator project so the user can create and edit a
+graphical world.  The program would define a set of built-in objects (e.g.
+ellipsoids, cubes, etc.) and allow the user to insert and position these in the
+graphical world.  The user would be able to select an object already in the
+world and modify it (e.g., change its shape, color, surface lighting parameters,
+etc.).  It should also be possible to insert light sources into the world and
+modify them in a similar manner.</li>
+
+
+<li>Extend the key frame animator project to include multiple, concurrent
+views of the world.  For example, one camera (i.e., window) might be located on
+top of the world, one on the side, and another attached to a point on an object
+in the world.  Cameras should also be treated as "movable" objects in
+the world; in other words, you should be able to specify the position of a
+camera at each key frame just like you specify the position of the other
+objects in the world. As the animation proceeds, all windows show the same
+animation from that camera's perspective.</li>
+
+</ol>
+
+
+<h3>Networking</h3>
+
+
+<ol>
+
+<li>A number of algorithms exist that are highly parallel in nature.  For
+example, a merge sort could potentially sort each half in parallel (i.e., at
+the same time), and when both halves are sorted they can be merged together. 
+If you have multiple computers available the parallel parts can be farmed out
+by the "client" computer to each of the "server" computers;
+the servers would then transmit the results back to the client.  For this
+project you'll choose an appropriate parallel algorithm, develop a protocol for
+client/server communication, and implement this using a networking protocol
+(e.g., UDP).  You should also experiment with the system to determine how the
+performance of the parallel algorithm is affected by various parameters, such
+as the number of server machines, the size of the parallel tasks, delay in the
+network, etc.</li>
+
+
+<li>Chatrooms are a very popular network application.  For this project
+you'll develop a protocol for a chatroom application and implement this as
+client/server applications using a network protocol (e.g., UDP/TCP).  You
+should include some form of registration and authentication (i.e., users must
+validate themselves ("log on") before they can join a chatroom).</li>
+
+
+<li>Peer-to-peer applications are popular alternatives to some client-server
+applications.  In a peer-to-peer setup two hosts communicate directly with each
+other rather than always using a centralized "server" host.  Napster
+is a popular (and controversial!) peer-to-peer application. A peer-to-peer
+application may still involve some limited communication with a centralized
+server, but the vast majority of network activity is between peers.  For this
+project you'll choose a problem that lends itself to a peer-to-peer solution,
+develop a protocol for this, and implement this as peer and server applications
+using a networking protocol (e.g., UDP/TCP).</li>
+
+</ol>
+
+
+<h3>Database and File Systems</h3>
+
+
+<ol>
+
+<li>Design and implement an SQL driven database, such as LLBean online, that
+incorporates stored procedures, user views, triggers, indexes where
+appropriate, and a clear and robust user interface. The system could be WEB
+based or a desktop application developed with Visual Basic or C++ Builder.</li>
+
+
+<li>Implement a mini DBMS using the UNIX file system. Develop a logical
+storage mechanism that incorporates the idea of a data dictionary and a table
+storage mechanism. Provide a library of functions that a C++ programmer could
+use to interact with your database.</li>
+
+
+<li>Develop a B+-tree library with functions such as create, insert, and
+delete, and search. You would also want to provide several utility functions
+that would allow inspection of the various nodes of the tree.  Demonstrate the
+library with several applications that use it. This project requires no file
+processing since your library could be demonstrated by displaying information
+in leaf nodes.</li>
+
+</ol>
+
+
+<h3>Operating Systems</h3>
+
+
+<ol>
+
+<li>Implement through simulation a variety of CPU scheduling algorithms.
+Conduct a study that compares them for performance and complexity.</li>
+
+
+<li>Study threaded applications by implementing a variety of multi-threaded
+applications in different environments, Linux, C++-Builder, Java, Visual Basic.
+As an example you might run three different sorting algorithms simultaneously
+and compare results at the end.</li>
+
+
+<li>Develop a synchronized application, such as a game or chat, in
+client-server mode on the Linux machines using remote procedure calls.</li>
+
+</ol>
+
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="CourseInfo.html">Overview</a></b></td><td><b><a href="Timetable.html">Schedule</a></b></td><td><b><a href="Grading.html">Grading</a></b></td><td><b><a href="Proposal.html">Proposal</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2010<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

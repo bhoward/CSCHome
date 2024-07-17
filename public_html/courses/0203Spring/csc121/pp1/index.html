@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Homework 1</TITLE>
+<META NAME="description" CONTENT="Programming Homework 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science I,CS1">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp1.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Homework 1</H1>
+
+<P>
+This assignment is due by the start of class on Friday, February 7. You
+are encouraged to do this homework with your partner, and you are
+welcome to get help on it during the lab time Tuesday.  The purpose of
+this assignment is to get practice writing your own programs.  You will
+need to be able to write out a program like this on paper for the first
+exam, so you might want to approach this homework by writing out
+your solution on paper before going to the lab to type it in and test
+it.
+
+<P>
+Submit a printout of your solution to the problem below. Make sure that
+your name and account name are in comments at the top; for example,
+<PRE>
+/* Description: Programming Homework 1
+   Filename:    program1.cpp
+   Account:     CSC121xx
+   Author:      Your Name
+   Date:        Today
+*/
+</PRE>
+If you work with your partner, you only need to submit one copy of the
+program; be sure that both of your names are listed in the comments (the
+account name should be the one in which the solution is stored).
+
+<P>
+You should start by copying the folder called <code>Program1</code> from my
+public directory, <code>I:\CSC121\public\Howard\</code>, into your own folder,
+<code>I:\CSC121\CSC121xx\</code>.  When you open your copy of the project, by
+following the same instructions as for the labs, you should see the
+comments shown above; modify them as needed and continue writing your
+program.
+
+<P>
+This first program will be graded on two criteria: the program should
+produce the correct output for any reasonable input, and the program
+should be structured with at least two functions besides <code>main</code>, as
+described below.
+
+<P>
+The assignment is to produce a temperature conversion program. When the
+program starts, there should be a function to greet the user and explain
+what the program is going to do. Then there should be a second function
+which asks the user for a temperature, <code>f</code>, in degrees Fahrenheit,
+calculates the equivalent temperature in degrees Celsius using the
+formula <code>c = (f - 32) * 5 / 9</code>, and displays the result.
+
+<P>
+You may follow the grade average program discussed in class as a
+model.  If you want to look at that program, it is stored in
+<code>I:\CSC121\public\Howard\Jan31\</code>.
+
+<P>
+For extra practice (though <SPAN  CLASS="textit">not</SPAN> for extra credit), modify the
+program to also ask for a temperature in Celsius and convert it back to
+Fahrenheit.  The formula you will need is <code>f = 32 + c * 9 / 5</code>. For
+the more adventurous, use the material from this week on loops to add a
+graphical display of the temperature.  For example, with an input of
+<SPAN CLASS="MATH">59<SUP><TT>o</TT></SUP></SPAN> F, the output might be
+<PRE>
+The equivalent temperature is 15 degrees Celsius:
+-20       -10       0         10        20        30        40
+************************************
+</PRE>
+(Hint: with the scale shown here, there are <code>21 + c</code> stars to
+represent the temperature <code>c</code>.)  Don't worry about fractional
+temperatures, or about temperatures that would go off the scale (either
+too low or too high); we will talk about mechanisms to handle such cases
+in a few weeks.
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

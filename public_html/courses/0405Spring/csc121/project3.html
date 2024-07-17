@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 3 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Project 3</h2>
+
+<h3>A Bank Simulation - Queues<br>
+ Deadline: 5:00pm, Monday, April 18</h3>
+
+<dl>
+<dt>Items to do and point distribution:</dt>
+
+<dd>
+<p>You have been hired as a consultant by Fifth Third Bank to
+evaluate the arrangement of tellers and waiting lines in one of
+their branches. Your team is not the first to get this job; another
+firm created a partially-working simulation before all of their
+programmers quit because they thought the bank's name was too
+silly. Your task is to complete the simulation and use it to
+determine an optimum number of tellers and waiting lines for the
+branch.</p>
+
+<p><strong>Copy the project</strong> I:\CSC121\public\Bank to your
+own folder, and then open it in BlueJ. You will find various items
+labeled TODO in the source files; these are the pieces that the
+previous team left undone. You will need to become familiar with
+the interfaces of several of the classes, for example the Queue
+class. For your efforts in completing this project, you will be
+awarded the following point values:</p>
+
+<ol>
+<li>(5 points) In Bank.resetSimulation(), initialize the fields
+that will record the bank-level statistics (there are seven of
+them).</li>
+
+<li>(15 points) Also in Bank.resetSimulation(), fill in the code
+needed to set up the tellers and queues in the case of a single
+shared queue.</li>
+
+<li>(10 points) In Bank.runSimulation(), supply the code to choose
+which teller has the next scheduled finishing time.</li>
+
+<li>(10 points) Also in Bank.runSimulation(), write the code that
+processes the next event by updating the clock and calling either
+processArrival or processFinish.</li>
+
+<li>(10 points) In Bank.processArrival(), replace the code that
+randomly chooses a teller with code that will behave more
+intelligently: choose an idle teller if there is one, or else
+choose the teller with the shortest waiting line.</li>
+
+<li>(5 points) In Bank.recordEndOfService(), fill in the code to
+update the totalCustomerTime and maxCustomerTime (use the code in
+recordStartOfService as a model).</li>
+
+<li>(10 points) In Queue.enqueue(), finish the code so the customer
+is added to the end of the queue, and make sure the maximumLength
+statistic is properly updated.</li>
+
+<li>(10 points) In Teller.serve(), finish the code to calculate the
+next finish time for the teller.</li>
+
+<li>(10 points) Change the default simulation parameters so that
+the service times range from 5 to 9 minutes, and then adjust the
+number of tellers so that no more than a few customers are left in
+line at the end of the day (but don't add so many tellers that they
+spend a lot of time idle).</li>
+
+<li>(5 points) Run the simulation enough times to decide whether it
+is better to have a single queue or multiple queues, then change
+the default value for the field named multipleQueues to reflect the
+better choice (in terms of customer waiting times).</li>
+
+<li>(10 points) Programming style, formatting (readability), and
+comments, especially describing methods.</li>
+</ol>
+</dd>
+
+<dt>Turning in your project:</dt>
+
+<dd>When you are finished, copy your project to the appropriate
+folder under I:\CSC121\project-03 and send an email message to your
+instructor naming the members (1 or 2) of your team.</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

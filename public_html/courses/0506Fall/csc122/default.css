@@ -1,0 +1,11 @@
+table.dir {background-color: #c0c0ff}
+table.dir td:hover {background-color: #a0a0ff}
+table.dir a {text-decoration: none}
+h1 {text-align: center}
+h2 {text-align: center}
+dt {font-weight: bold}
+tr.TableHeadingColor {background-color: #CCCCFF}
+tr.TableRowColor {background-color: #FFFFFF}
+div.solution {color: red}
+div.solution td {color: red}
+img.validator {float: right; border: none}

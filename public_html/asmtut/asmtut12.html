@@ -1,0 +1,70 @@
+<HTML>
+<head><title>DOS Interrupts</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic11"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut10.html#topic9">Up</A> <A HREF="asmtut11.html#topic10">&lt;&lt;</A> &gt;&gt; </CENTER><HR>
+
+<H3>DOS Interrupts</H3>
+
+MS-DOS provides many common services through <TT>INT 21h</TT>.  Entire
+books have been written about the variety of functions available; I will
+just list the most basic ones for console input and output here.
+<UL>
+
+<LI> <B>Input a character</B>.
+<PRE>
+        MOV     AH, 01h
+        INT     21h
+</PRE>
+After the interrupt, AL contains the ASCII code of the input character.
+The character is echoed (displayed on the screen).  Use function code 8
+instead of 1 for no echo.<P>
+<LI> <B>Input a string</B>.
+<PRE>
+        SECTION .data
+Buffer  DB      BUFSIZE         ;BUFSIZE is max number of chars to read, &lt;= 255
+        RESB    BUFSIZE + 1
+
+        SECTION .text
+        MOV     DX, Buffer
+        MOV     AH, 0Ah
+        INT     21h
+</PRE>
+After the interrupt, <TT>BYTE [Buffer + 1]</TT> will contain the number of
+characters read, and the characters themselves will start at
+<TT>Buffer + 2</TT>.  The characters will be terminated by a carriage
+return (ASCII code 13), although this will not be included in the count.<P>
+<LI> <B>Output a character</B>.
+<PRE>
+        MOV     DL, ...
+        MOV     AH, 02h
+        INT     21h
+</PRE>
+Load the desired character into DL, then call the interrupt with
+function code 2 in AH.<P>
+<LI> <B>Output a string</B>.
+<PRE>
+        MOV     DX, ...
+        MOV     AH, 09h
+        INT     21h
+</PRE>
+Load the address of a '$'-terminated string into DX, then call the
+interrupt with function code 9 in AH.<P>
+<LI> <B>Exit</B>.
+<PRE>
+        MOV     AL, ...
+        MOV     AH, 4Ch
+        INT     21h
+</PRE>
+Load the return code (0 for normal exit, non-zero for error) into AL,
+then call the interrupt with function code <TT>4Ch</TT> in AH.  This is the
+proper DOS exit routine; however, if you are running your program with
+DEBUG, this will exit DEBUG.  An alternative is to go behind DOS's back
+and use the BIOS routine accessed by <TT>INT 20h</TT>, which will return
+control to the DEBUG prompt when executed.
+</UL>
+
+
+
+</BODY></HTML>

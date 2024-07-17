@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 3 - 
+	CSC 122: Computer Science II, Spring 2006</title>
+<link type="text/css" href="default.css" rel="stylesheet">
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>
+	CSC 122: Computer Science II, Spring 2006</h1>
+	
+<h2>Project 3</h2>
+	
+		
+<h3>Linked Lists - Lindenmayer Systems</h3>
+		
+<h3>Deadline: Tuesday, April 11, 5:00 p.m.</h3>
+
+		
+<dl>
+			
+<dt>Overview:</dt>
+			
+<dd>
+			
+<p>You are to write a program that generates fractals using
+			what are known as <em>Lindenmayer systems</em>, or L-systems.  The concept
+			of an L-system was introduced in the 1960's by Aristid Lindenmayer
+			as a simple model of the growth of plants.  It is based on the idea
+			of a <em>formal grammar</em>, as used by linguists to analyze the
+			structure of natural languages (and by computer scientists to specify
+			the structure of programming languages).  For more details on
+			the theory behind L-systems, consult
+			<a href="http://en.wikipedia.org/wiki/L-system"><code>http://en.wikipedia.org/wiki/L-system</code></a>.</p>
+			
+			
+<p>The best way to understand the version of L-system we will be
+			using is to consider a simple example (this is essentially Lindenmayer's
+			original model for the growth of algae, although we will cast it in more
+			familiar terms).  Let the symbol B represent a baby bunny, and let the
+			symbol A stand for an adult rabbit.  If we assume that an adult rabbit
+			produces one baby bunny each month, and that it takes a baby one month to
+			mature into an adult, then we could model the growth of a population of
+			rabbits with the following rules:</p>
+			
+<ul>
+				
+<li>A --&gt; AB</li>
+				
+<li>B --&gt; A</li>
+			
+</ul>
+			
+<p>The arrow (--&gt;) is read as "produces" or "develops into" (after one
+			month), so the first rule says that an adult rabbit develops into an adult
+			(itself) and a baby after one month, while a baby bunny develops into an
+			adult after one month.  We are also assuming that these (idealized) rabbits
+			are immortal; as you can see in the interpretation of the rules, each
+			rabbit present in one month will continue into the next (accompanied by
+			an ever-increasing crowd of relatives...).</p>
+			
+			
+<p>In addition to a set of symbols and a list of rules, an L-system
+			needs a starting point, known as the "axiom".  For our rabbits, suppose
+			we start with a single baby bunny, B, as our axiom.  Given a starting
+			point, an L-system develops in a series of stages (months, in our case).
+			At each stage, every member in the current population (represented as a
+			string of symbols) is replaced by the right-hand-side of the rule for
+			that symbol; if there is no rule for a given symbol, it remains unchanged.
+			For example, here are the first few stages of the growth of our rabbit
+			population:</p>
+			
+<table summary="rabbit population growth">
+			
+<thead>
+				
+<tr>
+					
+<td>Month</td><td>Population</td>
+				
+</tr>
+			
+</thead>
+			
+<tbody>
+				
+<tr>
+					
+<td>0</td><td>B</td>
+				
+</tr>
+				
+<tr>
+					
+<td>1</td><td>A</td>
+				
+</tr>
+				
+<tr>
+					
+<td>2</td><td>AB</td>
+				
+</tr>
+				
+<tr>
+					
+<td>3</td><td>ABA</td>
+				
+</tr>
+				
+<tr>
+					
+<td>4</td><td>ABAAB</td>
+				
+</tr>
+				
+<tr>
+					
+<td>5</td><td>ABAABABA</td>
+				
+</tr>
+				
+<tr>
+					
+<td>6</td><td>ABAABABAABAAB</td>
+				
+</tr>
+			
+</tbody>
+			
+</table>
+			
+			
+<p>Looking at the size of the rabbit population in each month reveals
+			a familiar sequence: 1, 1, 2, 3, 5, 8, 13, ....  Indeed, we have
+			reproduced the original model of rabbit population growth studied by
+			Leonardo of Pisa (son of Bonacci, hence "Fibonacci") about 800 years
+			ago, although of course he didn't phrase it in terms of L-systems.</p>
+			
+			
+<p>To summarize, an L-system is specified by giving a list of rules
+			describing how the symbols develop in each stage, plus an axiom which
+			serves as the starting string of symbols.  We will only consider
+			<em>deterministic</em> L-systems, where there is at most one rule for
+			each symbol, although the generalization to <em>stochastic</em> L-systems
+			(where one of several rules is chosen at random for each symbol) is also
+			very interesting.</p>
+			
+			
+<p>To use an L-system to generate fractals, we will apply a graphical
+			interpretation to some of the generated symbols.  The graphics will be in
+			the form of commands to a "turtle" -- an imaginary animal that crawls
+			around leaving trails on the screen.  Our turtle will be provided by the
+			<code>Turtle</code> class, which has the following methods:</p>
+			
+<ul>
+				
+<li>
+<strong>init():</strong> resets the turtle on a blank screen,
+				heading to the right (in the positive x direction)</li>
+				
+<li>
+<strong>drawForward():</strong> moves the turtle one unit forward
+				and leaves a trail</li>
+				
+<li>
+<strong>moveForward():</strong> moves the turtle one unit forward
+				but does not leave a trail</li>
+				
+<li>
+<strong>left():</strong> turns the turtle counter-clockwise by the
+				angle delta (see below)</li>
+				
+<li>
+<strong>right():</strong> turns the turtle clockwise by the angle
+				delta (see below)</li>
+				
+<li>
+<strong>reverse():</strong> turns the turtle around 180 degrees</li>
+				
+<li>
+<strong>reflect():</strong> switches the meaning of left and right
+				("flips the turtle on its back")</li>
+				
+<li>
+<strong>push():</strong> saves the current position and heading of
+				the turtle on a stack</li>
+				
+<li>
+<strong>pop():</strong> restores a position and heading from the
+				stack</li>
+				
+<li>
+<strong>setDelta(float delta):</strong> sets the turtle's basic
+				turning angle to <strong>delta</strong>, measured in degrees; the default
+				value for a newly-constructed turtle is 90 degrees -- usually you will
+				want to call setDelta immediately after constructing the turtle</li>
+				
+<li>
+<strong>display():</strong> shows a window with a visual representation
+				of the trail left by the turtle; it will be scaled and centered to fit in
+				the window</li>
+			
+</ul>
+			
+			
+<p>You will need to write a function called <strong>interpret</strong> that
+			takes a sequence of symbols (as generated by running the L-system to a given
+			stage) and gives the appropriate sequence of commands to the turtle.  You
+			should follow the conventions of the program FRACTINT
+			(<a href="http://spanky.triumf.ca/www/fractint/fractint.html"><code>http://spanky.triumf.ca/www/fractint/fractint.html</code></a>)
+			which interprets F as <strong>drawForward</strong>, G as
+			<strong>moveForward</strong>, + as <strong>right</strong>, - as
+			<strong>left</strong>, | as <strong>reverse</strong>, ! as <strong>reflect</strong>,
+			[ as <strong>push</strong>, and ] as <strong>pop</strong>; any other character is ignored.
+			For example, if the sequence of symbols were stored in a String, you could write the following:</p>
+			
+<pre>
+    public void interpret(String sequence, delta)
+    {
+        Turtle t = new Turtle();
+        t.setDelta(delta);
+        t.init();
+        for (int i = 0; i &lt; sequence.length(); i++) {
+            switch(sequence.charAt(i)) {
+            case 'F':
+                t.drawForward();
+                break;
+            case 'G':
+                t.moveForward();
+                break;
+            case '+':
+                t.right();
+                break;
+            case '-':
+                t.left();
+                break;
+            case '|':
+                t.reverse();
+                break;
+            case '!':
+                t.reflect();
+                break;
+            case '[':
+                t.push();
+                break;
+            case ']':
+                t.pop();
+                break;
+            default:
+                // Do nothing
+                break;
+            }
+        }
+        t.display();
+    }
+			</pre>
+			
+			
+<p>Given this function, calling <code>interpret("F-F++F-F", 60)</code>
+			results in the following display:</p>
+			
+<img src="koch1.png" alt="Stage 1 Koch curve">
+			<p>This is the first stage of part of the Koch snowflake curve.  The entire
+			curve may be generated using the axiom F++F++F and the single rule
+			F --&gt; F-F++F-F; here is the result of applying this rule for 3 stages:</p>
+			
+<img src="koch3.png" alt="Stage 3 Koch snowflake">
+			<p>As a final example, the axiom FX together with the rules F --&gt; (nothing),
+			X --&gt; -FX++FY-, and Y --&gt; +FX--FY+ produce the "dragon curve".  Here it is,
+			generated to 15 stages (resulting in about 200,000 symbols) and interpreted
+			with an angle of 45 degrees:</p>
+			
+<img src="dragon15.png" alt="Stage 15 Dragon curve">
+			
+			<p>Of course, since this project deals with linked lists, you won't have
+			the sequence of symbols stored in a String, so you can't use the above
+			version of <strong>interpret</strong> without modification.  Why don't
+			we want to use a String?  Because many L-systems produce sequences that
+			grow exponentially in the number of stages, so we may well be generating
+			sequences of millions of symbols.  Although it isn't a problem just to store
+			millions of characters in a Java String, it <em>is</em> a problem to
+			replace one of those characters by the several that might take its place
+			when generating the next stage of a sequence -- besides the fact that
+			Java String objects are immutable, so you have to make a copy of the
+			entire String to change any part of it, there is the simple problem for
+			any data structure using contiguous storage that to insert several things
+			in place of one <em>you have to shift everything else to make room</em>!
+			These problems are solved if we switch to a linked-list representation of
+			the sequence of symbols: it is an easy matter to splice in a replacement
+			set of nodes each time a symbol needs to be substituted by the
+			right-hand-side of its corresponding rule.</p>
+			
+</dd>
+
+			
+<dt>Specification:</dt>
+			
+<dd>
+			
+<p>
+<strong>Input file format:</strong> The input to the program will be
+			a text file giving the following information on successive lines:</p>
+			
+<ul>
+				
+<li>The axiom of the L-system</li>
+				
+<li>The number of rules in the L-system</li>
+				
+<li>The rules of the L-system, each on two lines: the first line will
+				give the symbol on the left-hand-side of the rule, and the second line
+				will give the (possibly empty) sequence of replacement symbols on the
+				right-hand-side of the rule</li>
+				
+<li>The number of stages to generate</li>
+				
+<li>The angle delta to assign to the turtle</li>
+			
+</ul>
+			
+<p>All of the symbols used in rules will be from the ASCII character set, so you
+			can rely on their code values being less than 128 (in case you want to
+			use them as array indices, for example).</p>
+			
+			
+<p>For example, here is a file describing the dragon curve shown above
+			(this is the file <code>dragon.txt</code> in the folder
+			<code>I:\CSC122\public\LSystem</code>):</p>
+			
+<pre>
+    FX
+    3
+    F
+    
+    X
+    -FX++FY-
+    Y
+    +FX--FY+
+    15
+    45
+			</pre>
+			
+			
+<p>You should use the <strong>Infile</strong> class from the previous
+			projects to read the lines of the file.  To convert a string <code>s</code> to an
+			int, use the static method <code>Integer.parseInt(s)</code>; there
+			are similar methods for the other primitive types (for example,
+			<code>Float.parseFloat(s)</code>).</p>
+			
+</dd>
+
+			
+<dt>The Project and Getting Started:</dt>
+			
+<dd>
+				
+<p>
+<strong>The LSystem project:</strong>
+</p>
+				
+<ul>
+					
+<li>The project should consist of at least four classes &ndash; Driver,
+					    LSystem, Turtle, and Infile.</li>
+					
+<li>Driver (client) &ndash; Creates an instance of LSystem and invokes
+						appropriate methods from it.</li>
+					
+<li>LSystem (server and client) &ndash; Provides methods to read a system
+					    description from an Infile, generate the appropriate number of
+					    stages of the system, and interpret the result by giving a
+					    sequence of Turtle commands.  The sequences of symbols should
+					    be generated as a linked list, so there should also be a Node
+					    class (perhaps private to LSystem, or perhaps housed in a
+					    separate LinkedList class).</li>
+					
+<li>Turtle (server) - This class will be given to you in the
+						LSystem folder, and is described above.</li>
+					
+<li>Infile (server) &ndash; This class will be given to you in the
+						LSystem folder, and is the same as in previous projects.</li>
+					
+<li>The provided files can be copied from I:\csc122\public\LSystem</li>
+					
+<li>Implement the project using the test-driven implementation
+						strategy: first build a test system and stubbed
+						implementation of each class.</li>
+				
+</ul>
+
+				
+<p>
+<strong>Standards:</strong>
+</p>
+				
+<p>Your project should be well-written, neatly-formatted, modular,
+					and well-documented.</p>
+
+				
+<p>
+<strong>Grading:</strong>
+</p>
+				
+<ul>
+					
+<li>Reading the L-system description (20 pts)</li>
+					
+<li>Generating the stages of the L-system (40 points)</li>
+					
+<li>Interpreting the resulting sequence of symbols (20 points)</li>
+					
+<li>Documentation and style (20 points)</li>					
+				
+</ul>
+			
+</dd>
+		
+</dl>
+	
+
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img height="31" width="88" alt="Valid HTML 4.01!" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class="validator"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img height="31" width="88" alt="Valid CSS!" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class="validator"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2006<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

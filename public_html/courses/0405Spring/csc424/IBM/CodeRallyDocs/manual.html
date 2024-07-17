@@ -1,0 +1,460 @@
+<HTML>
+<head>
+  <link rel="stylesheet" href="../images/book.css" charset="ISO-8859-1" type="text/css">
+  <title>CodeRally Manual</title>
+</head>
+<body>
+
+<h2>Welcome to CodeRally!</h2>
+
+<P>
+CodeRally gives you the opportunity to pit your Java programming skills against other teams in a world
+of car rally racing. Each team will write a Java 
+class which represents and controls a <I>RallyCar</I>. Your car (class) will be placed on a 
+simulated race track along with cars from other teams.
+</P>
+
+<P>
+Rally cars can move around on a track and obtain important 
+information such as the location of various objects on the track and the current 
+capabilities of other cars. Cars 
+can collide with other cars, throw spare tires to distract other cars, and they 
+can enter a protected mode to (temporarily) protect themselves from being hurt 
+by other cars.
+</P>
+
+<P>
+The rally pits cars against each other in a series of matches. A match consists of up to 
+six cars competing with each other. Each car starts a match positioned in a random location and facing a 
+random direction on a finite two-dimensional grid, with the same amount of fuel 
+and spare tires as the other cars. Driving around the track uses fuel. The track contains places where cars 
+can go to get additional fuel and different places they can go to pick up spare 
+tires. If a car runs out of fuel it can no longer move, so it is important to constantly check your fuel and refuel 
+if necessary.
+</P>
+
+<P>
+During each match, a car can accumulate “points.” Cars can 
+earn points in four ways: by successfully throwing a spare tire at another car, 
+by passing checkpoints in order or out of order around the track, and by the 
+amount of fuel remaining at the end of a match. Cars with the highest 
+point totals from each match advance to subsequent rounds.
+</P>
+
+<P>
+The rest of this guide shows how to create a car and how to invoke its various capabilities.
+You should work now to understand the code structure that your car must implement, and discuss
+the strategy for your car to use during the game. It is permissible for players to openly discuss code
+structure and strategy during this time.
+</p>
+
+<p>
+The coding part of the CodeRally starts when you get access to your machine. You will use the Eclipse
+development environment to create and test your car. You must use Eclipse to develop your car 
+code, since the simulated track runs under Eclipse.
+</p>
+
+<p>
+You can test your car during the coding phase in two ways. First, there will be a private version
+of the track environment on your machine. The private track contains a collection of sample cars
+with various capabilities (but no cars from other teams). You may run your car on this private 
+track to see how it performs. Only you will be able to see the results of running your car on the private 
+track.
+</P>
+
+<p>
+The second way to test a car is to submit it to the public CodeRally track. When you 
+submit your car to the public track, you will obtain a snapshot on your machine 
+of all other cars that have been submitted up to that point in time. You will be 
+able to run a public version of the CodeRally track to watch the performance of your car 
+against other player's submitted cars (and vice versa).
+</p>
+
+<p>
+The performance of your car on the public track during the coding phase does not count.
+It is strictly an opportunity for you to see how your car performs against other player's
+cars in order to consider making changes.
+</p>
+
+<p>
+It is not a requirement to submit your car to the public track during coding phase. However, 
+all teams must submit their final cars prior to the end of the coding phase to be included in
+the final tournament.</P>
+
+<p>
+The final versions of all cars (the last submission you make) 
+will compete in a tournament which will take place [**]. The cars will initially be grouped randomly
+into matches with up to five other cars. After each round, cars will be regrouped according to the
+points they accumulate and a new round will begin.</P>
+
+<p>
+All cars will compete in at least three rounds. After that, 
+eliminations will take place based on points and a new series of rounds will 
+begin. Each car will start each new series of rounds with zero points and random regrouping.
+The winning car will be will be the player whose car earns the most points in the final tournament 
+round.
+</p>
+
+<p>
+The remainder of this guide is intended to help you understand how to design and implement your car.
+JavaDoc files are also available, describing the classes and interfaces that relate to coding your car.
+</p>
+
+<p/>
+
+<p><center><b>Good luck in the CodeRally!</b></center></p>
+
+<h2>Coding Your Car – Overview</h2>
+
+<p>When you start Eclipse on your machine and open the CodeRally project, you will find a skeleton for the class
+<span class="code">RallyCar.java</span>. This is the class that will contain the code making up your car.
+You may add fields and declare additional methods, as well as create other Java classes.</P>
+
+<p>The RallyCar class contains stubs for certain methods required in cars; you will have to fill 
+in the code in these methods. Modifying these methods is the primary manner in which you create the 
+“personality” of your car. You may also add other fields and methods to the RallyCar
+class to further define its characteristics.</P>
+
+<p>When you have a version of the RallyCar class that you wish to test in the private track, save your RallyCar
+code and then click the “Run against samples” button on the Eclipse toolbar, which has the following icon:
+
+<img src="../images/test.gif" width=16 height=16 hspace=2 vspace=2/>
+
+If you are not sure about the function of an icon, move the mouse over it to see a ToolTip display of its function.
+</P>
+
+<p>
+When you wish to submit your RallyCar to the public track, save your code and click the “Submit code” button on 
+the Eclipse toolbar, which has the following icon
+
+<img src="../images/submit.gif" width=16 height=16 hspace=2 vspace=2/>.</P>
+
+<p>
+Once you have submitted your car to the public track, you can 
+run your car in the public track and view its performance against other 
+submitted cars. To run the public track, click the “Run against other teams” button, which has the following icon:
+
+<img src="../images/tournament.gif" width=16 height=16 hspace=2 vspace=2/>
+
+</p>
+
+<p>
+The class Car.java is the superclass of RallyCar. It defines a number of methods that are 
+inherited by RallyCar. These methods can be extremely useful in controlling your car.
+</p>
+
+<p>
+You should not modify anything in the Car class. In fact, when you run your car, it will actually run with a different 
+version of the Car class from the one you see in your environment. In particular, the Car
+class you will see contains some dummy initialization and return value code that 
+will be replaced when you run in the private or public track.
+</p>
+
+<p>
+In addition to the above classes, your environment will contain three Java interfaces that
+define the interfaces presented by various components of the track:
+</p>
+
+<ul>
+<li>IObject.java
+<p/>
+<p>
+This is the interface of all objects in the simulated track. Every object implements this 
+interface, which declares methods getX() and getY() 
+that return the location of the object on the track. All track coordinates are non-negative 
+values of type double.
+</p>
+</li>
+
+<li>ISpareTire.java
+<p>
+This interface extends IObject and defines the interface of all spare tires that are currently active in the 
+simulated track. Every spare tire implements this interface, which declares methods getHeading()
+and getSpeed(). Thus every spare tire contains methods 
+that allow cars to determine important characteristics of the spare tire as the 
+tire moves across the track.
+</p>
+</li>
+
+<li>ICar.java
+<p>
+This interface extends IObject and defines the interface for all cars on the simulated track.
+Thus it defines methods your car can invoke either on itself or on an opponent’s car. These
+methods are described in further detail below and in the JavaDocs for the CodeRally environment.
+</p>
+</li>
+</ul>
+
+<h2>The CodeRally Track Simulation</h2>
+<h3>Identification</h3>
+<p>
+There are three method stubs in the RallyCar class that your team must fill in to identify your car. The first is 
+getSchoolName(), which must return a string of no more than 25 characters giving the name of your 
+School or University. Cars that do not assign their school name in getSchoolName() will not be allowed to
+compete in the tournament.
+</p>
+
+<p>
+The second required identification method is getName(),
+which must return a string of no more than 25 characters assigning a name to your car. You may choose any name
+you wish for your car, but inappropriate names may be modified or the car may be eliminated.
+</p>
+
+<p>The third identification method is getColor(),
+which must return a byte constant chosen from the predefined car colors given in 
+the Car class. You can use this method to assign a color to your car, which determines its appearance in the graphical 
+display of the CodeRally environment. The default value returned by getColor() is CAR_BLUE.</P>
+
+<p>
+The identification methods must not do any computations other than returning the specified constant values.
+</p>
+
+<h3>Initialization</h3>
+<p>
+When your car is placed into a track, the simulator invokes the initialize() method in your car. Put any 
+initialization code you want to have executed into this method. You may make use of the entire API at 
+this time. Be aware that the simulator will provide only a limited amount of time (1 second) for your 
+initialization code to execute before it begins the game. If your initialization code fails to 
+complete within the time limit, your car will enter the track in an uninitialized state, with unpredictable results.
+</p>
+
+<h3>Moving Your Car</h3>
+<p>
+Once the simulator finishes its timed calls to each car’s 
+initialize() routine, it calls the move() method in each car in sequential 
+order. This happens once every clock tick. The code in your car’s move()
+method determines what actions it takes during the course of a game. In addition to the input parameters to move(), 
+which give some status information, methods are available to your car to query 
+its own status, to change variables such as the desired direction and speed at 
+which it should move, to query the status of other cars, to find the location of 
+objects on the track (for example, the gas stations which can be used to refuel 
+or places where you can pick up spare tires), and to throw spare tires from your 
+car.
+</p>
+
+<p>
+move() has four parameters that provide information about what happened during the
+<I>previous</I> movement cycle. These parameters specify (1) how much 
+time (in milliseconds) your move() method used the previous time it was 
+called; (2) whether your car hit a wall during the previous cycle, (3) 
+whether your car collided with another car during the previous cycle, and (4) 
+whether your car was hit by a spare tire from another car during the previous 
+cycle. The first parameter is an int, the second is a boolean, 
+the third and fourth parameters are an ICar reference to the corresponding car (or null, if no collision or hit 
+occurred). The first parameter is useful in determining whether your car is in danger of exceeding the maximum 
+amount of time allowed to complete a move.
+</p>
+
+<h3>CodeRally Track Details</h3>
+<p>
+A CodeRally track is a two-dimensional world of 1010 units in X by 580 units in Y, <i>with the origin in the top left 
+corner</i>. There is a wall around the outside edge of the track, and cars cannot go beyond the wall.
+There are no walls on the interior of the world. Cars can move freely about the world, unless they bump into another 
+car. Objects move in directions called <i>headings</i>, which are measured in integer degrees. Zero degrees 
+is “straight up”. All headings are positive numbers in the range 0..359 and increase in the clockwise direction.
+</p>
+<p>
+The figure below describes the world:
+</p>
+
+<img src="world.gif" width=328 height=235 hspace=10 vspace=10/>
+
+<p/>
+
+<p>
+The world has the following characteristics:</p>
+<ul>
+<li>The world is driven by a ticking clock whose value can be read using getClockTicks().</li>
+
+<li>Each car starts the match with 100 fuel units and 3 spare tires.</li>
+
+<li>Setting steering and throttle causes a car to 
+move continuously with those settings until it is instructed to do otherwise, 
+although it may be blocked by walls or other cars.</li>
+
+<li>Cars can change throttle and steering instantaneously. Speed and direction will not change
+instantaneously because the cars have inertia.
+</li>
+
+<li>The minimum throttle of a car (MIN_THROTTLE) is -50 units and the maximum throttle (MAX_THROTTLE) 
+is 100; the maximum rate of change of speed from a stopped position (except in collisions) is 8 units per tick.
+</li>
+
+<li>The minimum steering setting (MAX_STEER_LEFT) is -10, and the maximum steering setting (MAX_STEER_RIGHT) 
+is 10. The rate of change of heading is dependant on speed and can be found via the getChangeInHeading() 
+method.
+</li>
+
+<li>The location of a car on the track is a point. Cars are 60 units long and 40 units wide, centered at their location.
+</li>
+
+<li>To keep the detection of a round spare tire hitting a rectangular car simple, a spare tire will hit a
+car when its location passes within 40 units of the car’s location.
+</li>
+
+<li>Spare tires thrown by a car move at a constant 
+velocity of 12 units per tick until they hit a car or a wall, at which time they 
+disappear. Checkpoints, fuel depots, and spare tire depots do not affect spare 
+tires as they move across the world. Spare tires do not hit each other if they 
+pass over the same location.
+</li>
+
+<li>The maximum amount of fuel a car can have is 100 units.
+</li>
+
+<li>The maximum number of spare tires a car can have is 5.
+</li>
+
+<li>Whenever a car’s location is within 25 units of a 
+fuel depot, the car’s fuel is increased at a constant rate of 1 unit per clock 
+tick up to the maximum. There are 3 randomly placed fuel depots during each 
+match.
+</li>
+
+<li>Whenever a car’s location is within 25 units of a 
+spare tire depot, and the car has less than 5 spare tires, the car will pick up 
+a spare tire every 5 clock ticks. There are 3 randomly placed spare tire depots 
+during each match.
+</li>
+
+<li>Cars can protect themselves against collisions 
+with spare tires or other cars by entering “protect mode”. A car moving in protect mode consumes 
+fuel at twice the normal rate. Protect mode lasts for 50 clock ticks.</li>
+
+<li>Colliding with another car will cause your momentum to be transferred to the other car and both cars
+will loose 10 fuel units.
+</li>
+
+<li>Throwing a spare tire and successfully hitting 
+another car will increase your points by 10. The car that is hit will loose 10 fuel units, its move()
+method will not be called for 10 clock ticks, and it will be pushed in the 
+direction that the spare tire was traveling. You will not get any points for hitting a 
+car which is in protected mode, nor will it affect that other car.</li>
+
+<li>Once a car throws a spare tire, that car will be 
+unable to throw another spare tire for 25 clock ticks from the time the tire was 
+thrown.</li>
+
+<li>The time limit to complete a single move is 500 
+milliseconds. If a car’s move() method does not return within 500 milliseconds of the time when it is called, 
+the move() will not be called again for the rest of the match and the most recent steering 
+and throttle settings will be maintained.</li>
+
+<li>There are a number of ordered checkpoints placed in a route on each track. Passing 
+within 25 units of any checkpoint will give you 2 points, but going to the next 
+successive checkpoint will give you 6 points. Returning to the same checkpoint 
+twice in a row will not give you any points.</li>
+
+<li>Points are earned according to the following table. Remember that it is total points earned that
+determines which cars advance during elimination rounds.
+
+<table cellSpacing=2 cellPadding=1 border=0>
+ <tr>
+  <td><b>Action</b></td>
+  <td><b>Points Earned</b></td>
+ </tr>
+ <tr>
+  <td>Passing any checkpoint</td>
+  <td>2</td>
+ </tr>
+ <tr>
+  <td>Passing a checkpoint in successive order</td>
+  <td>6</td>
+ </tr>
+ <tr>
+  <td>Hitting another car with a spare tire</td>
+  <td>10</td>
+ </tr>
+ <tr>
+  <td>For each 10 units of fuel left after a match</td>
+  <td>1</td>
+ </tr>
+</table>
+</li>
+
+</ul>
+
+<h3>General Information, Caveats, Constraints, and Restrictions</h3>
+
+<ul>
+
+<li>The Java JRE being use for CodeRally is version 1.4.1.</li>
+
+<li>Cars may not define any constructors.</li>
+
+<li>Cars may not use static initialization blocks to 
+initialize their cars.</li>
+
+<li>All the Java code for your car must be contained 
+within the RallyCar class.</li>
+
+<li>Cars may not create their own threads, processes, 
+print jobs, files, or other similar system functions.</li>
+
+<li>Cars may use System.out.println() 
+to display information on the Eclipse console, but the time it takes to do this 
+is charged against the car’s move() time limit. (Actions like this are relatively time-consuming.)</li>
+
+<li>You may run the simulation in Java debug mode. However, understand that when running either the 
+private or public worlds in debug mode, all move and initialization time limits 
+are automatically turned off. If your moves are taking a long time, you should 
+test your car in run mode to ensure that it is not going over the time 
+limits.</li>
+
+<li>You may not talk to anyone other than your own 
+team members once the coding phase of the CodeRally starts.</li>
+
+<li>Any player that submits a car containing code deemed to be intentionally designed
+to damage the CodeRally environment will be disqualified.</li>
+
+</ul>
+
+
+<h2>Example RallyCar Code</h2>
+<p>The following code snippets show simple examples of various 
+operations which might be used inside a move() method. Note that <I>these are separate code snippets</I>, not a 
+single complete move() method. Note also that these are only examples, intended to give you an idea of how to do
+things within your car. Winning cars will undoubtedly utilize sophisticated strategies which take full advantage
+of the range of method calls available to them.</p>
+
+<p>
+The list of methods available to cars is documented in the JavaDoc descriptions of the classes and interfaces of 
+the CodeRally environment. The primary challenge in the CodeRally is for you to decide on a strategy which uses the
+available methods to optimum advantage for your car.</p>
+
+<span class="code"><pre>
+/**
+ * Go toward the first spare tire depot.
+ */
+public void move(int lastMoveTime, boolean hitWall, ICar collidedWithCar, ICar hitBySpareTire) {
+  // pick a spare tire depot
+  IObject st = getSpareTireDepot()[0];
+  // go toward the checkpoint
+  int h = getHeadingTo(st);
+  if (getHeading() > h)
+    setSteeringSetting(MAX_STEER_LEFT);
+  else
+    setSteeringSetting(MAX_STEER_RIGHT);
+  setThrottle(MAX_THROTTLE);
+}
+</pre>
+<p/>
+<pre>
+/**
+ * Put the car in reverse for a few moves if you collide with another car.
+ */
+protected int wait;
+public void move(int lastMoveTime, boolean hitWall, ICar collidedWithCar, ICar hitBySpareTire) {
+  if (collidedWithCar != null)
+    wait = 10;
+  if (wait > 0)
+    setThrottle(MIN_THROTTLE);
+  else
+    setThrottle(MAX_THROTTLE);
+  if (wait > 0)
+    wait--;
+}
+</pre></span>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming Project 1 - CSC 222: Data Structures and Algorithms, Spring 2008</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 222: Data Structures and Algorithms, Spring 2008</h1>
+	
+<h2>Programming Project 1</h2>
+	
+		
+<p>
+			This project will be due by 5 pm, Friday, March 7. To submit your
+			project, save it in the
+			<code>pp1</code>
+			directory located in your directory under
+			<code>/home/libs/dataStr/students/</code>
+			on one of the department's Linux machines (this is a shared
+			directory, so you should be able to reach it from any of the
+			machines, including oort).
+		</p>
+
+		
+<p>
+			You may work on this project by yourself or in a group of two or
+			three. If you work in a group, be sure to include everyone's name in
+			the comments at the top of
+			<i>each</i>
+			file. Also, be sure you understand the guidelines for group work
+			listed in the syllabus--the fundamental idea is that everyone in the
+			group should understand what everyone else has done, and be able to
+			recreate it on their own.
+		</p>
+
+		
+<p>
+			The project is Programming Exercise 5-42 in the text (pp. 279-280).
+			Note that the instruction for part (c) is misleading; it should read
+		</p>
+		
+<blockquote>
+			
+<b>(c)</b>
+			Use these new operations to implement the following functions:
+		</blockquote>
+		
+<p>
+			That is, you should implement the
+			<code>insertOrder</code>
+			and
+			<code>removeDuplicates</code>
+			functions using the
+			<code>insert</code>
+			and
+			<code>erase</code>
+			members that you added to the miniVector class in parts (a) and (b).
+		</p>
+
+		
+<p>
+			You should start by creating your
+			<code>pp1</code>
+			directory and copying the Makefile and the book's
+			<code>miniVector</code>
+			implementation into it (the following commands assume that you start
+			in your directory under
+			<code>/home/libs/dataStr/students/</code>):
+		</p>
+		
+<pre>
+mkdir pp1
+cd pp1
+cp /home/libs/dataStr/examples/Makefile .
+cp /home/libs/dataStr/ftsoftds/include/d_vector.h minivec.h
+		</pre>
+
+		
+<p>
+			The member functions for parts (a) and (b) go in your
+			<code>minivec.h</code>
+			file, while the code for parts (c) and (d) should go in a separate
+			<code>.cc</code>
+			file in the same directory. Remember to
+			<code>#include "minivec.h"</code>
+			from your main program, so that the correct version of miniVector
+			will be defined, and edit the Makefile to reflect your source,
+			header, and executable file names.
+		</p>
+
+		
+<p>Here is a sample output:</p>
+		
+<pre>
+Original random integers: 11 1 19 6 13 18 17 13 3 4 2 4 13 3 8
+
+Ordered integers using insertOrder: 1 2 3 3 4 4 6 8 11 13 13 13 17 18 19
+
+Unique integers using removeDuplicates: 1 2 3 4 6 8 11 13 17 18 19
+		</pre>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2008<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

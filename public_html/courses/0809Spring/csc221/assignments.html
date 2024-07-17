@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Assignments - CSC 221: Computer Organization, Spring 2009</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 221: Computer Organization, Spring 2009</h1>
+	
+<h2>Assignments</h2>
+	
+	
+		
+<dl>
+			
+<dt>
+<a name="hw0206"></a>Friday, February 6:</dt>
+			
+<dd>Chapter 2, Exercises 2, 3, 8, 16, and 18</dd>
+			
+<dt>
+<a name="hw0218"></a>Wednesday, February 18:</dt>
+			
+<dd>Chapter 3, Exercises 20, 23, 25, 27, 36, 39, 48, and 49</dd>
+			
+<dt>
+<a name="hw0225"></a>Wednesday, February 25:</dt>
+			
+<dd>Chapter 4, Exercises 4, 6, 9, and 14</dd>
+			
+<dt>
+<a name="hw0318"></a>Wednesday, March 18:</dt>
+			
+<dd>Chapter 5, Exercises 9, 12, 16, 19, 24, and 30</dd>
+			
+<dt>
+<a name="makeup"></a>Monday, March 30:</dt>
+			
+<dd>Exam 1 Make-up Project: Write a program which will read an 8-bit
+			binary number and print out the ten interpretations from problem 3 of
+			the exam.  Here are two examples of running it:
+			<pre>
+Enter binary (8 bits): 01010001
+Unsigned int: 81
+Hexadecimal: 51
+Octal: 121
+Two's complement: 81
+Sign magnitude: 81
+One's complement: 81
+Excess-127: -46
+ASCII: Q
+Pep/8: CHARO direct
+Floating-point: 4.25
+
+Enter binary (8 bits): 10001000
+Unsigned int: 136
+Hexadecimal: 88
+Octal: 210
+Two's complement: -120
+Sign magnitude: -8
+One's complement: -119
+Excess-127: 9
+ASCII: N/A
+Pep/8: SUBX immediate
+Floating-point: -0.125
+			</pre>
+			There is a folder in the public directory of the I: drive for this course
+			containing a Windows executable of the demonstration
+			version which produced the above output, along with some starter C++ code
+			which you may use.  The grade for this project will be 10% for each correct
+			interpretation, applied as a replacement for whatever grade you received on
+			the exam (that is, if you correctly do 7 of the interpretations, I will give
+			you 70% on the exam, if that is larger than your actual score).  You may
+			talk to other people about this project, but all code you submit must be
+			your own (other than my starter code).
+			</dd>
+			
+<dt>
+<a name="hw0410"></a>Friday, April 10:</dt>
+			
+<dd>Chapter 6, Exercises 4, 13, 15, and 18</dd>
+			
+<dt>
+<a name="pp0420"></a>Monday, April 20:</dt>
+			
+<dd>Programming Project: Write <strong>and test</strong> a program in Pep/8
+			assembly language to do the following:
+			<ul>
+				
+<li>Read a list of at most 100 positive numbers from the input, terminated
+					with 0 if there are fewer than 100;</li>
+				
+<li>Sort the numbers;</li>
+				
+<li>Print the sorted list of numbers on the output.</li>
+			
+</ul>
+			To get a score of 80 points out of 100, your program must have the above behavior.
+			To qualify for an additional 10 points each, your program should do the following:
+			<ul>
+				
+<li>The main program should be structured as a series of calls to subprograms:
+					read an array of numbers, sort an array, print an array;</li>
+				
+<li>The sorting algorithm should be O(N log N) instead of O(N^2) -- I suggest
+					Quicksort. Here is one version in C++: <pre>
+      void swap(int &amp;a, int &amp;b)
+      {
+          int temp = a;
+          a = b;
+          b = temp;
+      }
+
+      int partition(int a[], int left, int right)
+      {
+          int pivot = a[left];
+          int i = left;
+
+          for (int j = left + 1; j &lt;= right; j++) {
+              if (a[j] &lt; pivot) {
+                  i++;
+                  swap(a[j], a[i]);
+              }
+          }
+
+          swap(a[left], a[i]);
+          return i;
+      }
+
+      // Sort array elements a[left] through a[right], inclusive.
+      void quicksort(int a[], int left, int right)
+      {
+          if (right &lt;= left) return;
+          int i = partition(a, left, right);
+          quicksort(a, left, i - 1);
+          quicksort(a, i + 1, right);
+      }</pre>
+</li>
+      		
+</ul>
+      		I strongly recommend that you write the program in C++ first, then translate your
+      		working (i.e., tested and debugged) C++ program into Pep/8 assembly language, and then
+      		test it again on the Pep/8 simulator.  Your testing should be thorough enough to
+      		convince yourself that the translation has been done correctly and that the program
+      		has no bugs.  You may work on this project in pairs; make sure that your name(s) are
+      		given in comments at the top of the source code.  When you are finished, either email
+      		the Pep/8 source code file to me, or put it in your folder on the I: drive and email
+      		me the directory and file name.
+      		</dd>
+			
+<dt>
+<a name="hw0422"></a>Wednesday, April 22:</dt>
+			
+<dd>Chapter 10, Exercises (15g, 16g, 17g, 21e, 22e, 23e, 27e, 28e), (31e, 32e), 33e, 36e, and 44</dd>
+			
+<dt>
+<a name="hw0506"></a>Wednesday, May 6:</dt>
+			
+<dd>
+<strong>Because of the timing of this assignment and the final, I am making it optional.  If you
+			    would like to complete it and submit it for grading, I will consider it as extra credit (but note
+			    that I tend not to give much partial credit on extra credit problems, so please don't submit unless
+			    you have complete solutions).</strong>
+<br>
+			    As practice for the exam, do Chapter 11, Exercises 8(b, c, e, and h) and 11.<br>
+			    As a further exercise, do Chapter 11, Exercise 16(a), <b>except</b> have 8 states (000 through 111)
+			    instead of 4, and build the circuit in Logisim.  Incorporate the 7-segment decoder from class in the
+			    circuit so it will display numbers from 0 to 7 when counting.  Save the <code>.circ</code> file in
+			    your folder on the <code>I:</code> drive and email me the file name (or just attach the file).</dd>
+<!--
+			<dd>Programming Project: Translate the following C++ program into Pep/8 assembly language
+				<b>and test it</b> on the Pep/8 simulator.  Your testing should be thorough enough to
+				convince yourself that the translation has been done correctly and that the program
+				has no bugs.  The action of the program should be to read a list of integers from
+				input, terminated by -9999 (which is not included in the list).  It should then
+				print the list in non-decreasing order on the output, then stop.  The only limit
+				on the size of the list should be the number of linked-list nodes that can be
+				allocated in memory (without running into the stack... &#x8212; for extra credit, calculate
+				exactly how large the list can be for your implementation).  Credit will be based on
+				both correctness and readability.
+				<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+struct node {
+    int data;
+    node *next;
+};
+
+// Insert x into an ordered (non-decreasing) linked list, returning
+// a pointer to the (possibly different) head of the list.
+node *insert(int x, node *head)
+{
+    if (head == 0 || head-&gt;data &gt;= x) {
+        node *p = new node;
+        p-&gt;data = x;
+        p-&gt;next = head;
+        return p;
+    } else {
+        head-&gt;next = insert(x, head-&gt;next);
+        return head;
+    }
+}
+
+node *read()
+{
+    node *result = 0;
+    int n;
+    cin &gt;&gt; n;
+    while (n != -9999) {
+        result = insert(n, result);
+        cin &gt;&gt; n;
+    }
+    return result;
+}
+
+void write(node *head)
+{
+    while (head != 0) {
+        cout &lt;&lt; head-&gt;data &lt;&lt; endl;
+        head = head-&gt;next;
+    }
+}
+
+int main()
+{
+    write(read());
+    return 0;
+}
+				</pre>
+			</dd>
+			-->
+		
+</dl>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2009<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

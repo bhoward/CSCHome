@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Homework 2 Solutions</TITLE>
+<META NAME="description" CONTENT="Homework 2 Solutions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Data Structures,Algorithms">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="hw2sol.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Homework 2 Solutions</H1>
+
+<UL>
+<LI><SPAN  CLASS="textbf">Exercise 6.5.</SPAN> <I>Give all sequences of three compare-exchange operations
+that will sort three elements (see Program 6.1).</I>
+
+The context of this and the next question is in Median-of-Three
+partitioning for Quicksort (Section 7.5).  In Program 7.4, the first,
+middle, and last elements of the subfile to be sorted are arranged in
+order by the sequence of statements
+<PRE>
+compexch(a[l], a[r-1]);
+compexch(a[l], a[r]);
+compexch(a[r-1], a[r]);
+</PRE>
+(recall that the middle element has already been swapped into position
+<code>r-1</code>).  The question is, what other sequences of compares and
+exchanges will guarantee that the three elements will be put in order?
+
+Suppose that our three elements are <code>a[1]</code>, <code>a[2]</code>, and
+<code>a[3]</code>, and let us write <code>i-j</code> for the operation
+<code>compexch(a[i], a[j])</code>.  Let's analyze the cases:
+
+<UL>
+<LI>If the first operation is <code>1-2</code>, then we know that the
+smaller of the first two elements will be put in position 1 and the
+larger in position 2.  The second operation will have to compare
+one of these with element 3.  If we compare 1 and 3, then we will
+know the smallest of the three elements; it should go to position 1,
+so the operation should be <code>1-3</code> (since <code>3-1</code> would put
+the smallest up in position 3).  If instead we compare 2 and 3 on
+the second operation, then we will find out the largest element; we
+want it to go to position 3, so the operation should be <code>2-3</code>.
+In either case, once we get the smallest or largest value in
+position, we just need to compare and exchange the other two values
+to get them in place, which gives us our third operation.  This
+gives us two possible sequences starting with <code>1-2</code>:
+<DIV ALIGN="CENTER">
+<code>1-2</code>, <code>1-3</code>, <code>2-3</code>
+<BR>
+<code>1-2</code>, <code>2-3</code>, <code>1-2</code>
+
+</DIV>
+
+</LI>
+<LI>Now, if the first operation is <code>1-3</code>, then similar
+reasoning gives us the following possible sequences:
+<DIV ALIGN="CENTER">
+<code>1-3</code>, <code>1-2</code>, <code>2-3</code>
+<BR>
+<code>1-3</code>, <code>2-3</code>, <code>1-2</code>
+
+</DIV>
+
+</LI>
+<LI>If the first operation is <code>2-1</code>, then that means that the
+smaller of the first two elements will be in position 2; if we now
+compare it against the value in position 3, we will find the smallest
+value after two operations, but it will be in either position 2 or 3,
+which does no good if we can only do one more operation to get the
+values in order.  Therefore, the only choice we have for the second
+operation is to compare positions 1 and 3; this will find the largest
+value, so the operation should be <code>1-3</code> (since <code>3-1</code> would
+put the largest in position 1).  After this, the third operation needs
+to arrange the smallest and middle values, so it must be <code>1-2</code>.
+That is, we have found only one possible sequence starting with <code>2-1</code>:
+<DIV ALIGN="CENTER">
+<code>2-1</code>, <code>1-3</code>, <code>1-2</code>
+
+</DIV>
+
+</LI>
+<LI>If the first operation is <code>2-3</code>, then by reasoning similar
+to the first two cases we get the following possible sequences:
+<DIV ALIGN="CENTER">
+<code>2-3</code>, <code>1-2</code>, <code>2-3</code>
+<BR>
+<code>2-3</code>, <code>1-3</code>, <code>1-2</code>
+
+</DIV>
+
+</LI>
+<LI>If the first operation is <code>3-1</code>, then we are stuck.  Comparing
+1 and 2 will give us the largest value, but it won't be in position 3.
+Similarly, comparing 2 and 3 can find the smallest value on the second
+operation, but it can't put it into position 1.  Therefore, no sequences
+of three compare-exchanges can start with <code>3-1</code>.
+
+</LI>
+<LI>Finally, if the first operation is <code>3-2</code>, then we have a
+situation similar to the third case above, for <code>2-1</code>.  The second
+operation must be <code>1-3</code>, which puts the smallest value in position 1.
+The third operation then has to be <code>2-3</code>, so our eighth and final
+possible sequence is
+<DIV ALIGN="CENTER">
+<code>3-2</code>, <code>1-3</code>, <code>2-3</code>
+
+</DIV>
+</LI>
+</UL>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.6.</SPAN> <I>Give a sequence of five compare-exchange operations that
+will sort four elements.</I>
+
+Here is one solution; I don't know how many there are:  <code>1-2</code>,
+<code>3-4</code>, <code>1-3</code>, <code>2-4</code>, <code>2-3</code>.  The first two steps
+force the smallest item to be in either position 1 or 3,
+so the third step chooses between them and puts the smallest into
+position 1.  The first two steps also force the largest item to
+be in either position 2 or 4, so the fourth step resolves
+the situation by putting the largest into 4.  Finally, the two
+middle elements must be in positions 2 and 3, so the last
+step arranges them in proper order.
+
+Incidentally, it is easy to prove that these numbers cannot be improved.
+Since each <code>compexch</code> operation puts just two items in order, it
+can only cut the number of possible orderings of the elements down by a
+factor of two (the ultimate goal of a sorting procedure is to force any
+initial ordering into one particular one, so we can view each step as
+cutting down the range of possible permutations until only one remains).
+There are 6 possible orderings of three elements, so if two operations
+would only cut the possibilities down by a factor of 4, that is not
+enough.  Similarly, there are 24 possible permutations of four elements
+(recall that, in general, there are <SPAN CLASS="MATH"><I>n</I>!</SPAN> permutations of <SPAN CLASS="MATH"><I>n</I></SPAN> elements);
+four operations could only cut this down by a factor of at most 16, so
+they would not be sufficient.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.11.</SPAN> <I>Show, in the style of Figure 6.2, how selection sort
+sorts the sample file <SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN>.</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="344" HEIGHT="280" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{figure}
+\begin{center}\sf\setlength{\tabcolsep}{0pt}
+\begin{tabular}{cc...
+...Light}{\makebox[12pt]{Y\vphantom{X}}}
+\end{tabular}
+\end{center}
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.14.</SPAN> <I>Is selection sort stable?</I>
+
+No.  When placing a selected item into position, the item that was in
+that spot previously will be swapped to an arbitrary location in the unsorted
+portion of the file, possibly passing over other items with the same
+key.  For example, look at the items <SPAN  CLASS="textsf">S</SPAN> and <SPAN  CLASS="textsf">S'X</SPAN> in the
+figure above.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.15.</SPAN> <I>Show, in the style of Figure 6.3, how insertion sort
+sorts the sample file <SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN>.</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="344" HEIGHT="255" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{figure}
+\begin{center}\sf\setlength{\tabcolsep}{0pt}
+\begin{tabular}{cc...
+...mash Q\vphantom X}&amp; S &amp; S &amp; T &amp; U &amp; Y
+\end{tabular}
+\end{center}
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.18.</SPAN> <I>Is insertion sort stable?</I>
+
+Yes.  Since each item is moved to the left only as long as it passes
+items with strictly higher keys, the relative order of items with the
+same key will never change.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.22.</SPAN> <I>Is bubble sort stable?</I>
+
+Yes.  As each item bubbles to the left, it stops when it sees an item
+whose key is less than or equal to its own; therefore, no item will pass
+another item with the same key.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.26.</SPAN> <I>Which of the three elementary methods (selection sort,
+insertion sort, or bubble sort) runs fastest for a file with all keys
+identical?</I>
+
+Insertion sort will be the fastest, because it only has to make <SPAN CLASS="MATH"><I>N</I> - 1</SPAN>
+comparisons and no exchanges.  Bubble sort (with the optimization that
+it quits after a pass in which no exchanges are performed) will be
+almost as fast, except it needs to do the extra work to check whether
+the file is sorted after making the pass.  Bubble sort without that
+optimization will use about <SPAN CLASS="MATH"><I>N</I><SUP>2</SUP>/2</SPAN> comparisons, as will selection sort.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.27.</SPAN> <I>Which of the three elementary methods runs fastest for a
+file in reverse order?</I>
+
+Selection sort will be the fastest, because while all three methods
+perform about <SPAN CLASS="MATH"><I>N</I><SUP>2</SUP>/2</SPAN> comparisons in this case, selection sort will only
+do about <SPAN CLASS="MATH"><I>N</I>/2</SPAN> exchanges; the other two will each do about <SPAN CLASS="MATH"><I>N</I><SUP>2</SUP>/2</SPAN>
+exchanges (every comparison results in an exchange).
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.33.</SPAN> <I>Is shellsort stable?</I>
+
+No.  When the file is <SPAN CLASS="MATH"><I>k</I></SPAN>-sorted for a value of <SPAN CLASS="MATH"><I>k</I> &gt; 1</SPAN>, it is possible for two
+items with the same key to switch positions (if they are not a multiple
+of <SPAN CLASS="MATH"><I>k</I></SPAN> positions apart, they will not be compared with each other in a
+<SPAN CLASS="MATH"><I>k</I></SPAN>-sort).  For example, look at the items <SPAN  CLASS="textsf">S</SPAN> and <SPAN  CLASS="textsf">S'X</SPAN> in
+the next question.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 6.35.</SPAN> <I>Give diagrams corresponding to Figures 6.8 and 6.9 for
+the keys <SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN>.</I>
+
+Using the increment sequence <code>1 4 13 ...</code>, we only need to perform
+a 4-sort followed by a 1-sort.  For the 4-sort, first here is the
+diagram corresponding to Figure 6.8:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="344" HEIGHT="394" BORDER="0"
+ SRC="img3.png"
+ ALT="\begin{figure}
+\begin{center}\sf\setlength{\tabcolsep}{0pt}
+\begin{tabular}{cc...
+...t}{\makebox[12pt]{S\vphantom{X}}} &amp; Y
+\end{tabular}
+\end{center}
+\end{figure}">
+</DIV>
+Now the only part we need to show corresponding to Figure 6.9 is the
+1-sort:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="344" HEIGHT="236" BORDER="0"
+ SRC="img4.png"
+ ALT="\begin{figure}
+\begin{center}\sf\setlength{\tabcolsep}{0pt}
+\begin{tabular}{cc...
+...t}{\makebox[12pt]{U\vphantom{X}}} &amp; Y
+\end{tabular}
+\end{center}
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 7.1.</SPAN> <I>Show, in the style of the example given [in Section 7.1],
+how quicksort sorts the file <SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN>.</I>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="344" HEIGHT="292" BORDER="0"
+ SRC="img5.png"
+ ALT="\begin{figure}
+\begin{center}\sf\setlength{\tabcolsep}{0pt}
+\begin{tabular}{cc...
+...ash Q\vphantom X}&amp; S &amp; S &amp; T &amp; U &amp; Y
+\end{tabular}
+\end{center}
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 7.8.</SPAN> <I>About how many comparisons will quicksort
+(Program 7.1) make when sorting a file of <SPAN CLASS="MATH"><I>N</I></SPAN> equal elements?</I>
+
+Examining the partitioning step in Program 7.1 reveals that 
+when all the keys are equal it will arrange to put the pivot right in the
+middle for each subfile.  Since the subfiles decrease in size by a factor
+of 2 on each recursive call, there will be <SPAN CLASS="MATH">log<SUB>2</SUB><I>N</I></SPAN> levels of recursion
+with about <SPAN CLASS="MATH"><I>N</I></SPAN> comparisons on each level, for a total of about <SPAN CLASS="MATH"><I>N</I> log<SUB>2</SUB><I>N</I></SPAN>
+comparisons.  This is the best case for quicksort, except for all of the
+needless exchanges done while partitioning--since every element is equal
+to the pivot, every element will be swapped to the other side.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 7.9.</SPAN> <I>About how many comparisons will quicksort (Program 7.1) make
+when sorting a file consisting of <SPAN CLASS="MATH"><I>N</I></SPAN> items that have just two different
+key values (<SPAN CLASS="MATH"><I>k</I></SPAN> items with one value, <SPAN CLASS="MATH"><I>N</I> - <I>k</I></SPAN> items with the other)?</I>
+
+When I assigned this problem, I didn't realize what a proper solution would
+involve.  Since this is not really a full-fledged course in algorithm
+analysis, we will not look at a complete solution to this problem.  However,
+an approximate answer comes from the observation that after the first
+partitioning pass, one of the partitions will contain all equal elements,
+while the other may contain a mixture (because some of the elements equal
+to the pivot may have been swapped over to that side).  Even the partition
+with a mixture of elements will probably be more homogeneous than the
+original, though, because it will contain all of the elements different
+from the pivot, plus only a few of the elements equal to the pivot.
+Therefore, after a few passes, each subfile will contain only one kind of
+element.  According to the previous exercise, these will continue to be
+split evenly until subfiles with only one element are reached; since
+most of the passes will split the subfiles evenly, there will be about
+<SPAN CLASS="MATH">log<SUB>2</SUB><I>N</I></SPAN> levels of recursion, so again we find about <SPAN CLASS="MATH"><I>N</I> log<SUB>2</SUB><I>N</I></SPAN> comparisons.
+</LI>
+</UL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

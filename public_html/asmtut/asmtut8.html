@@ -1,0 +1,177 @@
+<HTML>
+<head><title>Program Flow Instructions</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic7"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut4.html#topic3">Up</A> <A HREF="asmtut7.html#topic6">&lt;&lt;</A> <A HREF="asmtut9.html#topic8">&gt;&gt;</A> </CENTER><HR>
+
+<H3>Program Flow Instructions</H3>
+
+All of the previous instructions execute sequentially; that is, when one
+instruction finishes, the next instruction is taken from the very next
+memory location.  This is the default operation for the instruction
+pointer, IP---after each byte of instruction is fetched, the IP is
+incremented in preparation for the next fetch.  The program flow
+instructions provide the facilities to modify the course of execution,
+allowing conditional execution (by jumping over parts of the code if
+certain conditions are met) and looping (by jumping backwards in the
+code).<P>
+The unconditional jump instruction, <TT>JMP</TT>, causes IP (and sometimes
+CS) to be modified so that the next instruction is fetched from the
+location given in the operand (the <EM>target</EM>).  Here are the valid forms:
+<PRE>
+        JMP SHORT imm8
+        JMP     imm16
+        JMP     imm16:imm16
+        JMP     r/m16
+        JMP FAR mem32
+</PRE>
+The short version saves space when the target of the jump is within a
+few dozen instructions forward or backward; the assembler computes the
+difference between the new address and the next address sequentially,
+and just stores this difference as one (signed) byte. The second (and
+most common) version allows a jump to any location in the current code
+segment, while the third allows a jump to any location in memory by also
+specifying an immediate value to be loaded into CS. The fourth version
+will take the target address from a register or memory location; since
+this address is only 16 bits, the target has to be within the segment.
+Finally, the far version fetches both the offset and the segment from
+four consecutive bytes in memory (compare to the <TT>LDS</TT> and
+<TT>LES</TT> instructions; <TT>JMP FAR mem32</TT> could have been called
+"<TT>LCS IP, mem32</TT>'').<P>
+The conditional jump instructions, <TT>Jcc</TT>, where <TT>cc</TT> is one of
+the condition codes listed earlier (<TT>E</TT>, <TT>NE</TT>, ...),
+perform a short jump if the condition is true, based on the current
+contents of the status flags.  For example, the code sample that was
+given in the discussion of <TT>LODSB</TT>, to convert a string to
+lower-case, used the <TT>JA</TT> and <TT>JB</TT> instructions; these
+made their jump if the result of the previous comparison
+found that the current character was above 'Z' or below 'A'.  Since a
+conditional jump can only be to a nearby target, it is sometimes
+necessary to combine conditional and unconditional jumps as follows:
+<PRE>
+        JNLE    NoJLE
+        JMP     target
+NoJLE:
+</PRE>
+This will have the same effect as <TT>JLE target</TT>, except there is no
+restriction on how far away the target may be (within the code segment).<P>
+There are two specialized versions of conditional jump that are
+particularly useful when executing a loop a fixed number of times.  The
+looping statements
+<PRE>
+        LOOP    imm8
+        LOOPE   imm8
+        LOOPNE  imm8
+</PRE>
+(as usual, the synonyms <TT>LOOPZ</TT> and <TT>LOOPNZ</TT> are also
+available) are very similar to the <TT>REP</TT>, <TT>REPE</TT>, and
+<TT>REPNE</TT> prefixes from the string instructions.  The <TT>LOOP</TT>
+instruction decrements CX and makes a short jump if the count has not
+reached zero.  The <TT>LOOPE</TT> instruction adds the condition that it
+will only take the jump if the Zero flag is set (usually indicating that
+the last comparison had equal operands); the <TT>LOOPNE</TT> will only
+take the jump if the Zero flag is clear.  The string operation
+<TT>REP MOVSB</TT>, for example, could have been performed with
+<PRE>
+Repeat  MOVSB
+        LOOP    Repeat
+</PRE>
+(except this would have been considerably slower, since it requires
+repeatedly fetching and decoding the two instructions instead of just
+fetching and decoding the single <TT>REP MOVSB</TT> instruction once).<P>
+After looping or repetitive string operations, it is occasionally
+necessary to test whether the count register reached zero (to check
+whether the loop ran for the full count or whether it exited early
+because the Zero flag changed).  The instruction
+<PRE>
+        JCXZ    imm8
+</PRE>
+serves exactly this purpose; it takes a short jump if the CX register
+contains zero.  It is short for performing <TT>CMP CX, 0</TT> followed by
+<TT>JZ imm8</TT>.<P>
+All of the above branching instructions are variations on the infamous
+<TT>GOTO</TT> statement; they cause a permanent change in the course of
+execution.  To perform an operation more like a function or subroutine
+call, where the flow of control will eventually return to pick up with
+the next instruction, the 8086 provides two mechanisms:
+<TT>CALL</TT>/<TT>RET</TT> and <TT>INT</TT>/<TT>IRET</TT>.<P>
+The <TT>CALL</TT> instruction offers a similar range of addressing modes
+to the <TT>JMP</TT> instruction, except there is no "short'' call:
+<PRE>
+        CALL    imm16
+        CALL    imm16:imm16
+        CALL    r/m16
+        CALL FAR mem32
+</PRE>
+A call is the same as a jump, except the instruction pointer is first
+pushed onto the stack (in the second and fourth versions, which include
+a new segment, the current CS register is also pushed).<P>
+To reverse the effect of a <TT>CALL</TT>, when the subroutine is done it
+should execute a <TT>RET</TT> or <TT>RETF</TT> instruction; this pops the
+return address off of the stack and back into IP (and <TT>RETF</TT> also
+pops the saved value of CS, to return from a far call). After the
+return, the next instruction that will be fetched will be from the next
+location after the <TT>CALL</TT>.  There is an optional 16-bit immediate
+operand that may be specified with a return instruction; this value is
+added to the stack pointer after popping off the return address, to
+recover however many bytes had been pushed onto the stack with
+parameters before the call.  For example, here is one way to implement a
+subroutine to print a character, where the calling code first pushes the
+character (as the low byte of a word, since there is no option to push a
+single byte) before making the call:
+<PRE>
+PutChar PUSH    BP      ;Save current values of registers that we'll modify
+        PUSH    AX
+        PUSH    DX
+        MOV     BP, SP  ;Copy stack pointer to BP
+        MOV     AH, 2   ;DOS function code for printing a character
+        MOV     DL, [BP + 8]    ;Fetch character parameter from stack
+;Stack contains (from tos) DX, AX, BP, return address, and parameter
+        INT     21h     ;Call DOS function
+        POP     DX      ;Restore modified registers
+        POP     AX
+        POP     BP
+        RET     2       ;Return and pop 2 byte parameter
+</PRE>
+For completeness, here is what a typical call might look like (in fact,
+this is a complete routine to print a NUL-terminated string, assuming
+that the string starts at DS:SI):
+<PRE>
+NextCh  LODSB           ;Load next character into AL
+        CMP     AL, 0
+        JE      Done    ;Quit if NUL
+        PUSH    AX      ;Set up parameter for call
+        CALL    PutChar
+        JMP     NextCh  ;Continue with next character
+Done:
+</PRE>
+This is just one of several common conventions for passing parameters to
+subroutines; even more common is to just specify that, for example, the
+character will be passed directly in the DL register.<P>
+The other function-call-like mechanism is the <EM>interrupt</EM>.  We have
+been using this all along to call the standard DOS services, such as
+printing a character or a '$'-terminated string.  The <TT>INT</TT>
+instruction behaves much like the <TT>CALL FAR</TT> instruction except for two
+things:  it pushes the FLAGS register before pushing CS and IP (the idea
+is that an interrupt should be able to completely restore the state of
+the processor when it is finished, since this is also the mechanism used
+for handling hardware interrupts from the rest of the system---they can
+happen at any time, independent of what the processor might be working
+on, and they should occur as transparently to the current process as
+possible), and it gets the target address from a standard table of
+<EM>interrupt handler vectors</EM> kept at the bottom of memory.  When the
+processor executes <TT>INT n</TT>, where <TT>n</TT> is an 8-bit immediate
+value, it fetches a far pointer (that is, a 4-byte combination of
+segment and offset) from the memory address <TT>0000:4n</TT>; this is the
+target address for the interrupt call.  For example, the address of the
+DOS interrupt handler, the routine called when <TT>INT 21h</TT> is
+executed, is stored at locations <TT>0000:0084</TT> through
+<TT>0000:0087</TT>; the first two bytes give the offset, to load into IP,
+and the second two bytes give the segment, to load into CS.<P>
+To return from an interrupt handler, the <TT>IRET</TT> instruction is
+used.  It pops the IP, CS, and FLAGS registers, which causes the state
+of the machine to return to where it left off when the interrupt
+occurred.<P>
+
+</BODY></HTML>

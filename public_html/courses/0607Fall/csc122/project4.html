@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 4 - 
+	CSC 122: Computer Science II, Fall 2006</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>
+	CSC 122: Computer Science II, Fall 2006</h1>
+	
+<h2>Project 4</h2>
+	
+		
+<h3>Rumpelstiltskin</h3>
+		
+<h3>Deadline: Friday, December 8, 5:00 p.m.</h3>
+
+		
+<dl>
+			
+<dt>Overview:</dt>
+			
+<dd>
+			
+<p>In the classic fairy tale "Rumpelstiltskin", a magical creature threatens
+			to take a woman's baby unless she can guess the creature's name.  She guesses
+			names unsuccessfully for a while, then overhears that its name is Rumpelstiltskin
+			and wins the challenge (I always considered this a bit of a cheat, and wondered
+			just what the moral of the story was supposed to be, but that's beside the point...).</p>
+			
+			
+<p>In this assignment, you will implement a program to play a name guessing
+			game.  To help the computer guess a name, after each incorrect guess you will
+			tell it whether the desired name comes before or after the guess in dictionary
+			order.  When the program starts, the user can load in a list of common names from a file
+			and store them in a binary search tree.  Playing a game is then just following the
+			process of searching the tree, with the twist that it asks the user which way to go
+			from each node.  If it finds the player's name in the tree, then the computer wins.
+			If it reaches a point where there are no more possible names, then it gives up --
+			the user is then asked what name they were thinking of, and it is inserted at the
+			correct position in the tree.  In either case, the computer offers to play another
+			round.  At the end, the user is given the chance to save the names (including new
+			ones learned while playing) to a file before exiting.</p>
+			
+</dd>
+
+	
+<dt>Specification:</dt>
+	
+<dd> 
+	  
+<p>
+<b>The Guessing project</b> has at least four classes:</p>
+	  
+<ol>
+	    
+<li>
+<b>Driver:</b> Contains the method <b>main</b>, which creates an instance 
+	      of <b>GuessingGUI</b> and invokes its <b>start</b> method. <b>Driver</b> 
+	      will be used to run the application stand-alone (not in the BlueJ environment) 
+	      once you have completed the rest of the project. You should test as you 
+	      go by using instances of <b>GuessingGUI</b>, <b>Game</b> and the other classes 
+	      you write.</li>
+	    
+<li>
+<b>GuessingGUI:</b> Contains code that creates a Graphical User Interface 
+	      with components that are used to accomplish interaction with the application (see 
+	      below). You should not have to modify this class, but it is worth looking through
+	      the code to see how the methods in your <b>Game</b> class will interact with the GUI.
+	      It also contains the methods 
+	      used by <b>Game</b> to communicate with the player and to open files for reading and for writing.</li>
+	    
+<li>
+<b>Game:</b> Contains a skeleton of code with TODO comments indicating what needs to be filled in.</li>
+	    
+<li>The fourth class will be some form of binary search tree, used by the game to hold the
+	    collection of known names.  You may base this on the <b>BST</b> class discussed in class, or
+	    the version presented in the textbook; however, you will need to figure out how to adapt these
+	    classes to play the name guessing game (where the interaction with the user determines the
+	    search path through the tree).</li>
+	    
+<li>
+<b>You may choose to write or include additional classes or methods; a 
+	      TreeNode class, for example.</b> For each such class and method make sure 
+	      to provide complete documentation using JavaDoc format.</li>
+	  
+</ol>
+	
+</dd>
+	
+<dt>The Project and Getting Started:</dt>
+	
+<dd> 
+	  
+<p>
+<strong>The Guessing project:</strong>
+</p>
+	  
+<ul>
+	    
+<li>The provided files can be copied from <code>I:\10607_CSC122\public\Rumpelstiltskin</code>.  In
+	    addition to the Java files for the project skeleton described above, you will find a text file named
+	    <code>2Knames.txt</code> which has the 2000 most popular baby names from 2005, according to the
+	    U.S. Social Security Administration
+	    (<a href="http://www.ssa.gov/OACT/babynames/"><code>http://www.ssa.gov/OACT/babynames/</code></a>);
+	    the names are arranged one per line, in order from most to least popular, so they are ready to
+	    be loaded in when playing the game.</li>
+	    
+<li>Implement the project using the test-driven implementation strategy: first 
+	      build a test system and stubbed implementation of each class.</li>
+	    
+<li>When you write out the contents of the tree, you should perform a preorder traversal.  This will
+	    allow the same tree structure to be created when the file is read back in.  For each name traversed,
+	    write it to the file with the method call <code>writer.println(name);</code> (that is, you may use
+	    a <b>PrintWriter</b> object in the same way you use <code>System.out</code>).</li>
+	    
+<li>There is a demonstration version of the program in the <code>public</code> folder, named
+	    <code>RumpelstiltskinDemo.jar</code> -- it is an executable jar file which should run when double-clicked,
+	    if Java is installed correctly.</li>
+	  
+</ul>
+	  
+<p>
+<strong>Standards:</strong>
+</p>
+	  
+<p>Your project should be well-written, neatly-formatted, modular, and
+	  well-documented.</p>
+	  
+<p>
+<strong>Grading:</strong>
+</p>
+	  
+<ul>
+	    
+<li>Correctly handling binary search tree operations (60 points) 
+	      <ul>
+	        
+<li>write the tree to a file</li>
+	        
+<li>insert a name</li>
+	        
+<li>play the (binary-search-like) name guessing game</li>
+	      
+</ul>
+	    
+</li>
+	    
+<li>Correctly filling in the skeleton of the <b>Game</b> class. (20 points) </li>
+	    
+<li>Documentation and style (20 points)</li>
+	  
+</ul>
+	
+</dd>
+    
+</dl>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2006<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

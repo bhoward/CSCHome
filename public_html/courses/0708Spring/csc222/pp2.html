@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming Project 2 - CSC 222: Data Structures and Algorithms, Spring 2008</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 222: Data Structures and Algorithms, Spring 2008</h1>
+	
+<h2>Programming Project 2</h2>
+	
+		
+<p>
+			This project will be due by 5 pm, Thursday, April 17. To submit your
+			project, save it in a directory named
+			<code>pp2</code>
+			under your directory in 
+			<code>/home/libs/dataStr/students/</code>
+			on one of the department's Linux machines (this is a shared
+			directory, so you should be able to reach it from any of the
+			machines, including oort).
+		</p>
+
+		
+<p>
+			You may work on this project by yourself or in a group of two or
+			three. If you work in a group, be sure to include everyone's name in
+			the comments at the top of
+			<i>each</i>
+			file. Also, be sure you understand the guidelines for group work
+			listed in the syllabus--the fundamental idea is that everyone in the
+			group should understand what everyone else has done, and be able to
+			recreate it on their own.
+		</p>
+
+		
+<p>
+			You should start by creating your
+			<code>pp2</code>
+			directory and copying the starter files into it (the following commands
+			assume that you start in your directory under
+			<code>/home/libs/dataStr/students/</code>):
+		</p>
+		
+<pre>
+mkdir pp2
+cd pp2
+cp /home/libs/dataStr/pp2/* .
+		</pre>
+
+		
+<p>
+			The project is to create an interpreter for a tiny programming language
+			reminiscent of (old-style) BASIC.  Given a program such as this:
+		</p>
+		
+<pre>
+10 X = 10
+15 foo = 17
+20 a = X * X - foo
+25 X = ( X + 1 ) / 3
+		</pre>
+		
+<p>
+			your interpreter will execute the statements in sequence, then print out
+			the final values of all the variables:
+		</p>
+		
+<pre>
+X = 3
+a = 83
+foo = 17
+		</pre>
+		
+<p>
+			This is a very simple subset of BASIC; in a few weeks, we will discuss how
+			to extend this subset to handle statements other than assignment (such as
+			<code>INPUT</code> and <code>PRINT</code>, to allow some kind of I/O, and
+			<code>IF</code> and <code>GOTO</code>, to allow non-linear program
+			flow...).
+		</p>
+		
+		
+<p>
+			In more detail, your program will present the user with an "interpreter
+			prompt," where they can either enter/modify program statements or give
+			commands such as <code>RUN</code> to execute the program, or <code>LIST</code>
+			to display the current program.  If a command starts with a positive integer,
+			it will cause that numbered line to be added to the program (possibly replacing
+			a previous line with the same number).  Otherwise, it will be treated as an
+			immediate command: you will need to handle <code>RUN</code> and <code>LIST</code>,
+			as mentioned, plus <code>QUIT</code> to exit the interpreter (this is already
+			done in the provided code); for convenience, you may also want to handle commands such as
+			<code>LOAD "file"</code> and <code>SAVE "file"</code>, so that you don't have to
+			keep typing in lots of statements when testing.  Here is a sample interaction
+			(the user's input is after the <code>&gt; </code> prompt):
+		</p>
+		
+<pre>
+&gt; 10 X = 10
+&gt; 20 a = X * X - 17
+&gt; RUN
+X = 10
+a = 83
+Done
+&gt; 20 a = X * X - foo
+&gt; 15 foo = 17
+&gt; LIST
+10 X = 10
+15 foo = 17
+20 a = ( ( X * X ) - foo )
+&gt; RUN
+X = 10
+a = 83
+foo = 17
+Done
+&gt; 25 X = ( X + 1 ) / 3
+&gt; RUN
+X = 3
+a = 83
+foo = 17
+Done
+&gt; QUIT
+		</pre>
+		
+		
+<p>
+			Here are some comments about the above interaction:
+		</p>
+		
+<ul>
+			
+<li>The line numbers enable a crude form of program editing, since you can go back
+			and insert statements (such as 15) between existing lines, as long as there is a
+			gap between their numbers, and you can modify lines (such as 20) by replacing the
+			old version.</li>
+			
+<li>At the end of running the program, all variables assigned during execution are
+			printed out along with their final values.  Variables are printed in alphabetical
+			order, according to the ASCII rule where all upper-case letters precede lower-case
+			(so capital 'X' comes before little 'a').</li>
+			
+<li>Each "token" (variable, constant, operator, or punctuation) must be surrounded by
+			spaces.  Variables are words starting with an alphabetic letter (A-Z and a-z), constants
+			start with a digit (0-9), and everything else is an operator or punctuation (+, -, *,
+			/, =, and parentheses).</li>
+			
+<li>Arithmetic is done entirely on integers; for example, <code>11 / 3</code> produces
+			the result 3.</li>
+			
+<li>Listing the program includes superfluous parentheses, partly because it is easier
+			(hint: write an inorder traversal which prints "(", the left subexpression, the operator,
+			the right subexpression, and ")"; in the base case, just print the variable or constant),
+			and partly so that you can make sure your parser is getting the precedences correct.</li>
+		
+</ul>
+			
+		
+<p>
+			There are two main parts to the project: parsing and execution.  The following sections
+			deal with each in more detail.
+		</p>
+		
+	
+<h3>Parsing</h3>
+	
+	
+<p>
+		The constructor for the <code>Statement</code> class is passed a buffer of strings
+		containing the current line (excluding the line number, which has already been extracted).
+		A buffer is simple an STL queue, so you may use the <code>front()</code> and <code>pop()</code>
+		methods as usual to look at and erase the next available word.
+	</p>
+	
+	
+<p>
+		For an assignment statement, you may assume that the first word in the buffer will be the
+		name of the variable to be assigned, and the second word will be an equal sign.  For this
+		project, you may ignore error cases (for extra credit, augment your interpreter with
+		appropriate handling of the various syntactic errors that might occur).  The remaining
+		words will be the right-hand-side expression.  The <code>Statement</code> constructor
+		should record the variable name and the expression tree (see below) in private fields.
+	</p>
+	
+	
+<p>
+		Parsing the expression will result in an expression tree.  This will be a binary tree
+		where each of the interior nodes is labeled by an operator, whose children are
+		the operands of that operator.  Leaf nodes will be variable names or constants (stored
+		as strings, just as they are read in from the buffer).  For example, the expression
+		<code>( X + 1 ) / 3</code> will turn into the following tree:
+	</p>
+	
+<pre>
+    "/"
+    / \
+  "+" "3"
+  / \
+"X" "1"
+	</pre>
+	
+	
+<p>
+		Here is pseudocode for the operator-precedence parsing algorithm.  It makes use of two stacks:
+		a "nouns" stack which contains pointers to tree nodes, and a "verbs" stack which contains
+		strings.
+	</p>
+	
+<pre>
+
+<b>for each</b> token from the buffer:
+  <b>if</b> the token is a variable or constant,
+    push a new leaf node containing the token on the nouns stack;
+  <b>else if</b> the token is a left parenthesis,
+    push a left parenthesis on the verbs stack;
+  <b>else if</b> the token is a right parenthesis,
+    <b>while</b> the top of the verbs stack is not a left parenthesis:
+      REDUCE;
+    pop the left parenthesis from the verbs stack;
+  <b>else</b>:
+    <b>while</b> the verbs stack is not empty <b>and</b> the top of the verbs stack has precedence &gt;= the token:
+      REDUCE;
+    push the token on the verbs stack;
+<b>while</b> the verbs stack is not empty:
+  REDUCE;
+<b>return</b> the top of the nouns stack.
+	</pre>
+	
+<p>
+		The <code>REDUCE</code> operation pops an operator from the verbs stack and two operands
+		from the nouns stack (right operand first, then left), then pushes a new tree node back
+		on the nouns stack containing that operator and operands.  The precedence levels should
+		be set so that left parenthesis has the lowest precedence, then the additive operators (+
+		and -) have the next level, and the multiplicative operators (* and /) have the highest.
+		Of course, you may add more operators and give them corresponding precedence levels; this
+		is just the minimum you should support.
+	</p>
+	
+	
+<h3>Execution</h3>
+	
+	
+<p>
+		Each <code>Statement</code> object has an <code>execute</code> method which takes a
+		context and a program iterator.  In the provided code, all that it does is increment
+		the iterator and return.  You will need to add code to evaluate the expression tree and
+		store the resulting value in the context.
+	</p>
+	
+	
+<p>
+		The context is an STL map from strings (variable names) to integers (their current values).
+		Therefore, you may treat it as an array indexed by the variable names, so
+		<code>context["X"]</code> gives you the current value of <code>X</code> (or 0, if
+		<code>X</code> has not yet been assigned), and <code>context["foo"] = 17;</code>
+		enters 17 as the new value for <code>foo</code>.
+	</p>
+	
+	
+<p>
+		Evaluating an expression tree is simply a postorder traversal of the tree: evaluate the
+		left child to get an integer, evaluate the right child to get another integer, and then
+		perform the operation specified in the parent node (just use a series of <code>if</code>
+		statements to match the various operators) on those two integers to produce the final
+		result.  Evaluating a leaf node either looks up the variable in the context or converts
+		the constant (if it starts with a digit) to an integer -- use the <code>atoi</code>
+		function from the <code>cstdlib</code> header, as done in <code>basic.cc</code> to
+		process the line number.
+	</p>
+	
+	
+<p>
+		At the end of execution, add code to <code>basic.cc</code> which will print out the contents
+		of the context, as shown above.  Since an STL map is sorted by key, you will simply need to
+		iterate through the map and print out each entry in an appropriate format.
+	</p>
+
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2008<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 4 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Project 4</h2>
+
+<h3>Unistroke Character Recognition<br>
+ Deadline: 5:00pm, Friday, April 29</h3>
+
+<dl>
+<dt>Items to do and point distribution:</dt>
+
+<dd>
+<p>RonCo PDA, Inc. has issued a recall for 100,000 of their latest
+model "Palm Pilot" class PDAs. It seems that there is a bug in the
+unistroke character recognition module. No digits can be
+recognized! With your vast experience writing video games,
+calculator and bank simulations, you have been assigned the task of
+fixing this bug. Unfortunately, management has discovered the
+reason digits are not being recognized is because quality control
+missed the fact that most of the code to do this was not written!
+<strong>All of the missing code will be contained in the Recognizer
+class. You do not need to modify any other classes in the
+project.</strong></p>
+
+<p>You should make sure you understand the steps in the pattern
+recognition process (algorithm) that were discussed in class.
+Namely, <strong>translate</strong> the array of points captured by
+the mouse events, <strong>scale</strong> them, and
+<strong>normalize</strong> them. Then compare the resulting set of
+points with a "standard" set of patterns (the baseset) to find the
+baseset pattern that matches best. All of the methods you write
+will be from scratch. You will find that the normalize step has
+already been completed for you.</p>
+
+<p><strong>Copy the project</strong> I:\CSC121\public\graffiti to
+your own folder, and then open it in BlueJ. You will find various
+items labeled TO DO in the source files; these are the pieces that
+need to be written. Each TO DO item is described in more detail in
+the Recognizer class. For your efforts in completing this project,
+you will be awarded the following point values and your help will
+prevent RonCo PDA, Inc. from going bankrupt:</p>
+
+<ol>
+<li>(10 points) Write the method findMinX. It returns the smallest
+x value in the userStroke array of points.</li>
+
+<li>(5 points) Write the method findMinY. It returns the smallest y
+value in the userStroke array of points.</li>
+
+<li>(10 points) Write the method findMaxX. It returns the largest x
+value in the userStroke array of points.</li>
+
+<li>(5 points) Write the method findMaxY. It returns the largest y
+value in the userStroke array of points.</li>
+
+<li>(15 points) Write the translate method. It moves the points in
+the userStroke array by sliding them as far to the upper-left as
+possible.</li>
+
+<li>(15 points) Write the scale method. It scales the points in the
+userStroke array by stretching the user's stroke to fill the canvas
+as nearly as possible <em>while maintaining the aspect ratio</em>
+of the stroke.</li>
+
+<li>(15 points) Write the computeScore method. It computes and
+returns a "score" that is a measure of how closely the normalized
+userStroke array matches a given pattern array in the baseset
+array.</li>
+
+<li>(15 points) Write the findMatch method. It finds and returns
+the index (an int) of the base set pattern which most closely
+matches the user stroke.</li>
+
+<li>(10 points) Programming style, formatting (readability), and
+comments, especially describing methods.</li>
+</ol>
+</dd>
+
+<dt>Turning in your project:</dt>
+
+<dd>When you are finished, copy your project to the appropriate
+folder under I:\CSC121\project-04 and send an email message to your
+instructor naming the members (1 or 2) of your team.</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

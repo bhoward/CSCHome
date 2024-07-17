@@ -1,0 +1,115 @@
+<HTML>
+<head><title>Data Movement Instructions</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic4"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut4.html#topic3">Up</A> <A HREF="asmtut4.html#topic3">&lt;&lt;</A> <A HREF="asmtut6.html#topic5">&gt;&gt;</A> </CENTER><HR>
+
+<H3>Data Movement Instructions</H3>
+
+The fundamental data movement operation is <TT>MOV dest, source</TT>,
+which copies a byte or a word from the source location to the
+destination.  In general, either the source or the destination must be a
+register (you can't copy directly from one memory location to another
+with <TT>MOV</TT>); the only exception is that an immediate value may be
+moved straight to memory (however, there is no way to put an immediate
+value into a segment register in one operation).  Here are the accepted
+forms:
+<PRE>
+        MOV     reg8, r/m/i8
+        MOV     mem8, reg8
+        MOV     mem8, BYTE imm8
+
+        MOV     reg16, r/m/i16
+        MOV     mem16, reg16
+        MOV     mem16, WORD imm16
+
+        MOV     r/m16, segreg
+        MOV     segreg, r/m16
+</PRE>
+The CS segment register may not be used as a destination (you wouldn't
+want to do this anyway, since it would change where the next instruction
+comes from; to get this effect, you need to use a proper flow control
+instruction such as <TT>JMP</TT>).<P>
+To perform a swap of two locations instead of a one-way copy, there is
+also an exchange operation:
+<PRE>
+        XCHG    reg8, r/m8
+        XCHG    reg16, r/m16
+</PRE>
+As a special case of this that does nothing except occupy space and take
+up processor time, the instruction to exchange the accumulator with
+itself (<TT>XCHG AX, AX</TT>) is given the special "no-operation''
+mnemonic:
+<PRE>
+        NOP
+</PRE>
+For the special purpose of copying a far pointer (that is, a pointer
+that includes a segment address, so that it can refer to a location
+outside the current segment) from memory into registers, there are the
+<TT>LDS</TT> and <TT>LES</TT> instructions.  Here are the accepted forms:
+<PRE>
+        LDS     reg16, mem32
+        LES     reg16, mem32
+</PRE>
+For example, the instruction <TT>LDS SI, [200h]</TT> is equivalent to the
+pair of instructions <TT>MOV SI, [200h]</TT> and <TT>MOV DS, [202h]</TT>.
+The 8086 only supports loading the pointer into the DS or ES segment
+register.<P>
+An operation that is frequently useful when setting up pointers is to
+load the "effective address'' of a memory reference.  That is, this
+instruction does the displacement plus base plus index calculation, but
+just stores the resulting address in the destination register, rather
+than actually fetching the data from the address.  Here is the only form
+allowed on the 8086:
+<PRE>
+        LEA     reg16, mem
+</PRE>
+To push and pop data from the stack, the 8086 provides the following
+instructions.  The top of stack is located at offset SP within the stack
+segment, so <TT>PUSH AX</TT>, for example, is equivalent to
+<TT>SUB SP, 2</TT> (recall that the stack grows downward) followed by
+<TT>MOV [SS:SP], AX</TT> (except that <TT>[SS:SP]</TT> isn't a valid form of
+memory reference).
+<PRE>
+        PUSH    r/m16
+        PUSH    segreg
+
+        POP     r/m16
+        POP     segreg
+</PRE>
+As with <TT>MOV</TT>, you are not allowed to <TT>POP</TT> into the CS
+register (although you may <TT>PUSH CS</TT>).<P>
+Although they were not provided on the original 8086, the instructions
+to push and pop the FLAGS register (as mentioned earlier) are available
+in Virtual-8086 mode on the Pentium (they were actually introduced in
+the 80186):
+<PRE>
+        PUSHF
+        POPF
+</PRE>
+Here are the other ways of reading or modifying the FLAGS register
+(apart from setting flags as the result of an arithmetic operation, or
+testing them with a conditional branch, of course).  The Carry,
+Direction, and Interrupt Enable flags may be cleared and set:
+<PRE>
+        CLC
+        CLD
+        CLI
+        STC
+        STD
+        STI
+</PRE>
+The Carry flag may also be complemented, or "toggled'' between 0 and 1:
+<PRE>
+        CMC
+</PRE>
+Finally, the bottom eight bits of the FLAGS register (containing the
+Carry, Parity, Auxiliary Carry, Zero, and Sign flags, as described
+above) may be transferred to and from the AH register:
+<PRE>
+        LAHF
+        SAHF
+</PRE>
+
+</BODY></HTML>

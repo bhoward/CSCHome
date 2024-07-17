@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>In-Class Exercise: Bank Simulation - CSC 121: Computer
+Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>In-Class Exercise: Bank Simulation</h2>
+
+<h3>Bank Simulation (Project 3)</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>To prepare for project 3: A bank simulation using queues,
+randomization and gathering statistics.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Bank from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Complete the following.</strong> 
+
+<table summary="Sequence of steps" cellspacing="0" cellpadding="3"
+border="0">
+<tr valign="top" align="left">
+<td><strong>Observe</strong></td>
+<td>
+<p>Examine the project's class diagram:</p>
+
+<ul>
+<li><strong>Bank</strong> uses Teller, Queue, and CustomerSource
+objects directly, and Customer objects indirectly through the
+CustomerSource class.</li>
+
+<li><strong>Teller</strong> uses Bank, Queue, and Customer (from
+Queue).</li>
+
+<li><strong>Queue</strong> uses Bank and Customer.</li>
+
+<li><strong>CustomerSource</strong> uses Customer and Bank.</li>
+</ul>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Answer</strong></td>
+<td>
+<ul>
+<li>What fields define a Customer? What other data are required in
+order to compute the total time a customer spent in the Bank? A
+Teller requests the recording of start of service in its serve
+method. What exactly is recorded and how are customer fields used
+in the calculation?</li>
+
+<li>What does a Teller do when it finishes with a Customer?</li>
+</ul>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p>Complete task 7 of <a href="project3">Project 3</a>.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Answer</strong></td>
+<td>
+<ul>
+<li>The runSimulation method in the Bank class needs to know
+whether to process a customer arrival or a customer departure as
+its next task. To make this decision, it needs to know when the
+next Customer will arrive (and when a Customer will next depart
+from a Teller). Look in the CustomerSource class and describe when
+the time of the next Customer arrival is generated. Where is this
+method called in the Bank class and why does the time of next
+arrival need to be established here?</li>
+
+<li>Read the field definitions of the Bank class. They are
+separated into groups according to function: simulation components,
+simulation parameters, and statistics. List and describe the
+simulation parameter fields.</li>
+</ul>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p>Complete task 1 of <a href="project3">Project 3</a>.</p>
+
+<p>The loadFileParameters() method can be used instead of
+loadDefaultParameters() to initialize the simulation parameter
+fields. This method reads values for these fields from a text file
+instead of setting them within the simulation itself as in
+loadDefaultParameters(). Create an instance of Bank. Invoke the
+loadDefaultParameters() method and then inspect the Bank object.
+Compare the simulation parameter values with those in the
+loadDefaultParameters() method. Now invoke the loadFileParameters()
+method. A file open dialog box will appear. Choose the
+lab8parameters.txt file in the Bank folder. Now inspect the Bank
+object. Have the values of the simulation fields changed? How would
+you check to see that they are the correct values?</p>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

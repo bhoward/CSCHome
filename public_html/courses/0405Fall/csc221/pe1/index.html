@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Practice Exam 1</TITLE>
+<META NAME="description" CONTENT="Practice Exam 1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pe1.css">
+
+</HEAD>
+
+<BODY >
+<H1 ALIGN="CENTER">Practice Exam 1</H1>
+
+<P>
+The exam will be open-book, so that you don't have to memorize the ASCII
+table or the details of the Pep/7 architecture.
+
+<P>
+
+<OL>
+<LI>How many memory reads are required to fetch and execute the
+instruction
+<PRE>
+add     X, Y
+</PRE>
+on a two-address architecture (where <code>X</code> and <code>Y</code> are
+direct-mode operands)?  Recall that this instruction is roughly
+equivalent to <code>X += Y</code> in C++.
+
+<P>
+How many memory <SPAN  CLASS="textit">writes</SPAN> are required?
+
+<P>
+Give an equivalent sequence of instructions for the Pep/7 architecture,
+and tell how many memory reads and writes are required for
+it.
+
+<P>
+</LI>
+<LI>Fill in the missing entries.
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="CENTER">Binary</TD>
+<TD ALIGN="CENTER">ASCII</TD>
+<TD ALIGN="CENTER">Decimal</TD>
+<TD ALIGN="CENTER">Hexadecimal</TD>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>  
+1101001 </TT></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR><TD></TD>
+<TD ALIGN="CENTER"><TT> '&amp;' </TT></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR><TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 126 </TT></TD>
+<TD></TD>
+</TR>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 4E
+</TT></TD>
+</TR>
+</TABLE></DIV>
+
+<P>
+</LI>
+<LI>Fill in the missing entries.  For this problem, all binary numbers
+are 8 bits.
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="CENTER">Decimal</TD>
+<TD ALIGN="CENTER">Sign Magnitude</TD>
+<TD ALIGN="CENTER">2's Complement</TD>
+<TD ALIGN="CENTER">Excess 127</TD>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>  
+-100 </TT></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR><TD></TD>
+<TD ALIGN="CENTER"><TT> 1111 1111 </TT></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR><TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 1111 1111 </TT></TD>
+<TD></TD>
+</TR>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 0110 1001
+</TT></TD>
+</TR>
+</TABLE></DIV>
+
+<P>
+
+</LI>
+<LI>Convert the following C++ program to Pep/7 Assembly Language:
+<PRE>
+#include &lt;iostream.h&gt;
+
+int a, b;
+
+int main() {
+  cin &gt;&gt; a;
+  cin &gt;&gt; b;
+  b += a;
+  a = b - a;
+  cout &lt;&lt; a;
+  cout &lt;&lt; b;
+}
+</PRE>
+
+<P>
+</LI>
+<LI>Evaluate the following expressions, giving the results in hexadecimal:
+
+<OL>
+<LI><!-- MATH
+ $\texttt{3E92}+\texttt{147B}$
+ -->
+<SPAN CLASS="MATH"><texttt>3E92</texttt> + <texttt>147B</texttt></SPAN>
+</LI>
+<LI><!-- MATH
+ $\texttt{7000}-\texttt{1234}$
+ -->
+<SPAN CLASS="MATH"><texttt>7000</texttt> - <texttt>1234</texttt></SPAN>
+</LI>
+<LI><!-- MATH
+ $\texttt{05F6}\times\texttt{8}$
+ -->
+<SPAN CLASS="MATH"><texttt>05F6</texttt>&#215;<texttt>8</texttt></SPAN>
+</LI>
+</OL>
+
+<P>
+
+</LI>
+<LI>Convert the following Pep/7 program to an equivalent program in C++:
+<PRE>
+newLine: .EQUATE h#000A
+         BR      main
+x:       .WORD   d#1
+y:       .WORD   d#2
+z:       .WORD   d#3
+c:       .BYTE   d#4
+main:    DECI    y,d
+         LOADA   y,d
+         ASLA
+         STOREA  x,d
+         ASLA
+         ASLA
+         ADDA    x,d
+         ADDA    z,d
+         STOREA  x,d
+         DECO    x,d
+         CHARO   newLine,i
+         DECO    y,d
+         LOADA   z,d
+         ORA     h#0030,i
+         STBYTA  c,d
+         CHARO   c,d
+         STOP
+         .END
+</PRE>
+
+<P>
+What is the output of the above program if the user enters <code>42</code>?
+
+<P>
+
+</LI>
+<LI>Convert the decimal number 3.375 into a fixed-point binary form, with four bits for each of the integer and fractional parts (<SPAN  CLASS="textit">e.g.</SPAN>, <code>0001.0000</code> represents the number 1.0).
+
+<P>
+Convert the same number into a floating-point binary form, with a three-bit (excess 3) exponent and a four-bit significand.
+
+<P>
+Compare the ranges (smallest and largest positive numbers) representable in the above two formats.  Assume the usual conventions for handling signs, infinities, NaNs, and denormalized numbers.
+
+<P>
+</LI>
+<LI>Consider the following recursive function in C++:
+<PRE>
+int gcd(int a, int b)
+{
+    if (b == 0) return a;
+    int r = a % b;
+    return gcd(b, r);
+}
+</PRE>
+Sketch the layout of items in a stack frame for this function:
+
+<P>
+If each <code>int</code> occupies 2 bytes, and memory addresses also take 2 bytes, then how many bytes will be needed on the runtime stack to handle the call <code>gcd(12, 20)</code>?
+</LI>
+</OL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

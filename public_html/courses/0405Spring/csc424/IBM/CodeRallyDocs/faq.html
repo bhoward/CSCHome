@@ -1,0 +1,81 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../images/book.css" charset="ISO-8859-1" type="text/css">
+  <title>CodeRally Installation Instructions</title>
+</head>
+<body>
+
+<h2>CodeRally FAQ</h2>
+
+Q: What is the maximum speed of a car?
+<br>
+A: There is no resticted maximum speed.
+<p>
+
+Q. How many clock ticks are there in a match?
+<br>
+A. There are 600 clock ticks in each match.
+<p>
+
+Q: Does the oil that sometimes appears on the track affect the car`s movement?
+<br>
+A: No.
+<p>
+
+Q: How does the throttle setting affect the cars speed?
+<br>
+A: The car's speed is increased by 5% of the throttle value each clock tick.
+<p>
+
+Q: Why doesn't the public track work? I only get an empty window where I should select the opponents.
+<br>
+A: The public track will only work when:
+<ul>
+<li>You are competing in a tournament.</li>
+<li>Another player has successfully submitted their code.</li>
+<li>You have successfully submitted your code.</li>
+</ul>
+<p>
+
+Q: How much fuel does the car use when the throttle is negative?
+<br>
+A: The same fuel is required as the equivalent positive throttle value. (i.e. the absolute value of the throttle is used)
+<p>
+
+Q: What is the rate of fuel consumption?
+<br>
+A: Fuel usage is directly proportionate to the throttle setting. The formula is "fuel used per clock tick = throttle / 400". Changing the steering will not affect fuel consumption.
+<p>
+
+Q: Where can I find the source code for the sample cars?
+<br>
+A: Source code for the sample cars is not provided.
+<p>
+
+Q: What happens if two cars in protected mode run into each other? Do their speeds change?
+<br>
+A: Both cars will stop, but they will not transfer their momentum to each other. Neither car will lose fuel.
+<p>
+
+Q: How can I find the number of checkpoints or the current number of opponent cars on the track?
+<br>
+A: You can use getCheckpoints().length to find the number of checkpoints, and getOpponents().length will return the number of opponent cars.
+<p>
+
+Q. Are points awarded for hitting dead cars with a spare tire?
+<br>
+A. Cars are never "dead". You are still awared points for hitting cars that are out of fuel.
+<p>
+
+Q: What is the rate of change of heading as a function of velocity and steering setting?
+<br>
+A: The formula is "change in heading per clock tick = steering * speed / 5". The getChangeInHeading() method returns this value.
+<p>
+
+Q. Can the CodeRally game be run outside of Eclipse?
+<br>
+A. Yes, please see the installation instructions for further information.
+<p>
+
+</body>
+</html>

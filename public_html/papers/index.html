@@ -1,0 +1,445 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Brian Howard's Papers</title>
+<!--#include virtual="/~bhoward/common/head.html" -->
+<meta name="keywords" content="Brian Howard paper publication">
+<meta name="description" content="Abstracts and links to Brian Howard's technical publications">
+</head>
+
+<body>
+	<h1>Available Papers</h1>
+
+	<ul>
+		<li>Operational and Axiomatic Semantics of PCF (LISP and Functional Programming, 1990, with John C. Mitchell)
+		<ul>
+			<li><a href="#lfp1990">abstract</a></li>
+			<li><a href="lfp1990.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Fixed Points and Extensionality in Typed Functional Programming Languages (Stanford Thesis, 1992)
+		<ul>
+			<li><a href="#thesis">abstract</a></li>
+			<li><a href="thesis.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Inductive, Projective, and Retractive Types (UPenn Tech Report, 1993)
+		<ul>
+			<li><a href="#MS-CIS-93-14">abstract</a></li>
+			<li><a href="MS-CIS-93-14.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Another Iteration on Darlington's "A Synthesis of Several Sorting Algorithms" (KSU Tech Report, 1994)
+		<ul>
+			<li><a href="#KSU-CIS-94-8">abstract</a></li>
+			<li><a href="KSU-CIS-94-8.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Fixpoint Computations and Coiteration (KSU Tech Report, 1995)
+		<ul>
+			<li><a href="#KSU-CIS-95-1">abstract</a></li>
+			<li><a href="KSU-CIS-95-1.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Inductive, Coinductive, and Pointed Types (International Conference on Functional Programming, 1996)
+		<ul>
+			<li><a href="#icfp1996">abstract</a></li>
+			<li><a href="icfp1996.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Labeling Techniques and Typed Fixed-Point Operators (Higher Order Operational Techniques in Semantics, 1998, with John C. Mitchell and My Hoang)
+		<ul>
+			<li><a href="#hoots">abstract</a></li>
+			<li><a href="hoots.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>A Tool for the Automatic Adaptation of Software Components Based on Semantic Specifications (Algebraic Methodology and Software Technology, 2002, with Christian Haack, Alley Stoughton, and Joe Wells)
+		<ul>
+			<li><a href="#amast2002">abstract</a></li>
+			<li><a href="amast2002.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Design of a Simple Functional Programming Language and Environment for CS2 (Consortium for Computing Sciences in Colleges-Midwest, 2006)
+		<ul>
+			<li><a href="#ccscmw2006">abstract</a></li>
+			<li><a href="ccscmw2006.pdf">PDF</a></li>
+			<li><a href="ccscmw2006-slides.pdf">slides</a></li>
+		</ul></li>
+		
+		<li>SCALES: Learning Multimedia in a Mixed-Paradigm Language (Midstates Conference for Undergraduate Research in Computer Science and Mathematics, 2007, with Cory D. Boatright)
+		<ul>
+			<li><a href="#mcurcsm07">abstract</a></li>
+			<li><a href="mcurcsm07.pdf">PDF</a></li>
+		</ul></li>
+
+		<li>Leveraging Synergy Between Database and Programming Language Courses (Consortium for Computing Sciences in Colleges-Midwest, 2015)
+		<ul>
+			<li><a href="#ccscmw2015">abstract</a></li>
+			<li><a href="ccscmw2015.pdf">PDF</a></li>
+		</ul></li>
+		
+		<li>Emotion-Aware Music Recommendation (Proceedings of the AAAI Conference on Artificial Intelligence, 2023, with Hieu Tran, Tuan Le, Anh Do, Tram Vu, and Steven Bogaerts)
+		<ul>
+			<li><a href="#aaai2023">abstract</a></li>
+			<li><a href="aaai2023.pdf">PDF</a></li>
+		</ul></li>
+	</ul>
+
+<hr />
+
+<h2>Abstracts</h2>
+
+<a name="lfp1990"></a>
+<pre>@inproceedings(HowardPCF,
+  Author="Brian T. Howard and John C. Mitchell",
+  Title="Operational and Axiomatic Semantics of {PCF}",
+  Booktitle="LFP '90: Proceedings of the 1990 ACM Conference on {\sc Lisp} and Functional Programming",
+  Year="1990",
+  ISBN="0-89791-368-X",
+  Pages="298--306",
+  Location="Nice, France",
+  DOI="<a href="http://doi.acm.org/10.1145/91556.91677">http://doi.acm.org/10.1145/91556.91677</a>",
+  Publisher="ACM",
+  Address="New York, NY, USA")</pre>
+<ul><li><a href="lfp1990.pdf">PDF</a></li></ul>
+
+<p>PCF, as considered in this paper, is a lazy typed lambda calculus
+with functions, pairing, fixed-point operators and arbitrary algebraic
+data types.  The natural equational axioms for PCF include
+eta-equivalence and the so-called  "surjective pairing" axiom for
+pairs.  However, the reduction system <i>pcfesp</i> defined by directing
+each equational axiom is not confluent, for virtually any choice of
+algebraic data types.  Moreover, neither eta-reduction nor surjective
+pairing seems to have a counterpart in ordinary execution.  Therefore,
+we consider a smaller reduction system <i>pcf</i> without eta-reduction
+or surjective pairing.  The system <i>pcf</i>  is confluent when
+combined with any linear, confluent algebraic rewrite rules.  The
+system is also computationally adequate, in the sense that whenever a
+closed term of "observable" type has a <i>pcfesp</i> normal form, this
+is also the unique <i>pcf</i> normal form.  Moreover, the equational
+axioms for PCF, including (eta) and surjective pairing, are sound for
+<i>pcf</i> observational equivalence.  These results suggest that if we
+take the equational axioms as defining the language, the smaller
+reduction system gives an appropriate operational semantics.</p>
+
+<hr />
+
+<a name="thesis"></a>
+<pre>@phdthesis(HowardThesis,
+  Author="Brian T. Howard",
+  Title="Fixed Points and Extensionality in Typed Functional Programming Languages",
+  School="Stanford University",
+  Year="1992",
+  Order_no="UMI Order No. GAX93-02219",
+  Publisher="Stanford University",
+  Address="Stanford, CA, USA",
+  Note="Published as Stanford Computer Science Department Technical Report STAN-CS-92-1455")</pre>
+<ul><li><a href="thesis.pdf">PDF</a></li></ul>
+<p>We consider the interaction of recursion with extensional data types
+in several typed functional programming languages based on the
+simply-typed lambda calculus.  Our main results concern the relation
+between the equational proof systems for reasoning about terms and the
+operational semantics for evaluating programs.  We also present several
+results about the expressivity of the languages, compared according to
+both the functions and the data types definable in them.  The methods
+used are those of classical lambda calculus and category theory.</p>
+<p>The first language discussed is a variant of Scott and Plotkin's
+PCF, which adds to the simply-typed lambda calculus products, fixed
+points of functions, and algebraic data types specified by a signature
+and a set of equations.  PCF is able to express all partial computable
+functions over the given basic types, but the corresponding reduction
+system is not confluent if we include the usual surjective pairing
+rule, which expresses the extensionality of products.  Extensionality
+is necessary in the proof system for establishing many useful
+isomorphisms between types, but it does not seem to have an intuitive
+"computational content."  We show that a smaller reduction system
+without extensional rules is sufficient for computing the result of
+program execution, and that this smaller system is confluent whenever
+the algebraic rules are confluent and left-linear.  If the algebraic
+rules are also terminating and left-normal then a leftmost reduction
+strategy is complete for finding normal forms.</p>
+<p>We then consider a pair of languages, lambda-mu-nu and
+lambda-bottom-rho, which support the definition of structured data
+types through categorical means rather than via multi-sorted algebras.
+The first language, lambda-mu-nu, extends the types of the simply-typed
+lambda calculus with extensional products and sums, and least and
+greatest fixed points of positive recursive type expressions.  By
+dropping the extensional rules as for PCF, we obtain a confluent and
+strongly normalizing reduction system, adequate for obtaining results
+of programs.  It is easy to represent many common data types in this
+language, such as booleans, natural numbers, lists, trees, and
+(computable) streams, as well as many of the total functions over such
+structures.  Indeed, we may define more functions over the natural
+numbers than are provably total in Peano arithmetic, hence the language
+is more expressive than G&ouml;del's system <b>T</b>.  It is no more
+expressive than the Girard/Reynolds system <b>F</b> in terms of
+definable functions; however, we are able to define <em>algorithms</em>
+that are not expressible in <b>F</b>, such as a constant-time
+predecessor function on the naturals.</p>
+<p>The final language, lambda-bottom-rho, extends lambda-mu-nu by
+introducing lifted types, which contain a bottom element, signifying
+that evaluation of a term of such a type may not terminate.  Lifted
+types allow us to find fixed points of mixed-variant recursive type
+expressions; for example, the solution of <i>X = X -&gt; X_bottom</i>
+gives a type for expressions of an eager untyped lambda calculus, while
+the solution of <i>X = (X -&gt; X)_bottom</i> is suitable as a type for
+expressions of a lazy untyped calculus.  We again have a confluent
+operational semantics for the language, although of course it is not
+strongly normalizing.  However, we show that a lazy reduction strategy
+will find normal forms for terms which have them.  We also examine the
+relations among the three kinds of recursive type in lambda-bottom-rho,
+which we refer to as <em>inductive</em> (least), <em>projective</em>
+(greatest), and <em>retractive</em> (mixed-variant); in the natural cpo
+model of the language, we give conditions under which the different
+constructions will coincide.</p>
+
+<hr />
+<a name="MS-CIS-93-14"></a>
+<pre>@techreport(HowardIPR,
+  Author="Brian T. Howard",
+  Title="Inductive, Projective, and Retractive Types",
+  Institution="Department of Computer and Information Science, University of Pennsylvania",
+  Number="MS-CIS-93-14",
+  Year="1993")</pre>
+<ul><li><a href="MS-CIS-93-14.pdf">PDF</a></li></ul>
+<p>We give an analysis of classes of recursive types by presenting two
+extensions of the simply-typed lambda calculus.  The first language only
+allows recursive types with built-in principles of well-founded
+induction, while the second allows more general recursive types which
+permit non-terminating computations.  We discuss the expressive power of
+the languages, examine the properties of reduction-based operational
+semantics for them, and give examples of their use in expressing
+iteration over large ordinals and in simulating both call-by-name and
+call-by-value versions of the untyped lambda calculus.  The motivations
+for this work come from category theoretic models.</p>
+
+<hr />
+<a name="KSU-CIS-94-8"></a>
+<pre>@techreport(HowardSorting,
+  Author="Brian T. Howard",
+  Title="Another Iteration on Darlington's `A Synthesis of Several Sorting Algorithms'",
+  Institution="Department of Computing and Information Sciences, Kansas State University",
+  Number="KSU CIS 94-8",
+  Year="1994")</pre>
+<ul><li><a href="KSU-CIS-94-8.pdf">PDF</a></li></ul>
+<p>In "A Synthesis of Several Sorting Algorithms", Darlington showed
+how to use program transformation techniques to develop versions of six
+well-known sorting algorithms. The purpose of this note is to provide
+more evidence for the naturalness of the resulting taxonomy of
+algorithms by showing how it follows almost immediately from a
+consideration of the types of the objects involved. By exploiting the
+natural operations of iteration and coiteration over recursively
+defined data types, we may automatically derive the structure of each
+algorithm.</p>
+
+<hr />
+<a name="KSU-CIS-95-1"></a>
+<pre>@techreport(HowardFCC,
+  Author="Brian T. Howard",
+  Title="Fixpoint Computations and Coiteration",
+  Institution="Department of Computing and Information Sciences, Kansas State University",
+  Number="KSU CIS 95-1",
+  Year="1995")</pre>
+<ul><li><a href="KSU-CIS-95-1.pdf">PDF</a></li></ul>
+<p>Preliminary version of the next paper.</p>
+
+<hr />
+<a name="icfp1996"></a>
+<pre>@inproceedings(HowardICFP,
+  Author="Brian T. Howard",
+  Title="Inductive, Coinductive, and Pointed Types",
+  Booktitle="ICFP '96: Proceedings of the first ACM SIGPLAN international conference on Functional programming",  
+  Year="1996",
+  ISBN="0-89791-770-7",
+  Pages="102--109",
+  Location="Philadelphia, PA, USA",  DOI="<a href="http://doi.acm.org/10.1145/232627.232640">http://doi.acm.org/10.1145/232627.232640</a>",  Publisher="ACM",  Address="New York, NY, USA")</pre>
+<ul><li><a href="icfp1996.pdf">PDF</a></li></ul>
+<p>An extension of the simply-typed lambda calculus is presented which
+contains both well-structured inductive and coinductive types, and
+which also identifies a class of types for which general recursion is
+possible.  The motivations for this work are certain natural
+constructions in category theory, in particular the notion of an
+algebraically bounded functor, due to Freyd.  We propose that this is a
+particularly elegant core language in which to work with recursive
+objects, since the potential for general recursion is contained in a
+single operator which interacts well with the facilities for bounded
+iteration and coiteration.</p>
+
+<hr />
+
+<a name="hoots"></a>
+<pre>@article(MHHHoots,
+  Author="John C. Mitchell and My Hoang and Brian T. Howard",
+  Title="Labeling techniques and typed fixed-point operators",
+  Book="Higher order operational techniques in semantics",
+  Year="1998",
+  Isbn="0-521-63168-8",
+  Pages="137--174",
+  Publisher="Cambridge University Press",
+  Address="New York, NY, USA"
+)</pre>
+<ul><li><a href="hoots.pdf">PDF</a></li></ul>
+<p>Labeling techniques for untyped lambda calculus were developed by
+L&eacute;vy, Hyland, Wadsworth and others in the 1970's. A typical application
+is the proof of confluence from finiteness of developments: by labeling each
+subterm with a natural number indicating the maximum number of times this term
+may participate in a reduction step, we obtain a strongly-normalizing
+approximation of &beta;,&eta;-reduction. Confluence then follows by a syntactic
+compactness argument (repeated in the introduction of this paper).</p>
+<p>This paper presents applications of labeling to typed lambda calculi with
+fixed-point operators, including confluence and completeness of leftmost
+reduction for PCF (an applied lambda calculus with fixed-point operators and
+numeric and boolean operations) and a confluence proof for a variant of typed
+lambda calculus with subtyping. Labeling is simpler for typed calculi than
+untyped calculi because the fixed-point operator is the only source of
+nontermination. We can also use the method of logical relations for the labeled
+typed calculus, extended with basic operations like addition and conditional.
+This method would not apply to untyped lambda calculus.</p>
+
+<hr />
+
+<a name="amast2002"></a>
+<pre>@inproceedings(HHSWAdapt,
+  Author="Christian Haack and Brian Howard and Allen Stoughton and Joe B. Wells",
+  Title="Fully Automatic Adaptation of Software Components Based on Semantic Specifications",
+  Booktitle="AMAST '02: Proceedings of the 9th International Conference on Algebraic Methodology and Software Technology",
+  Year="2002",
+  Isbn="3-540-44144-1",
+  Pages="83--98",
+  Publisher="Springer-Verlag",
+  Address="London, UK"
+)</pre>
+<ul><li><a href="amast2002.pdf">PDF</a></li></ul>
+<p>We describe the design and methods of a tool that, based on 
+behavioral specifications in interfaces, automatically generates 
+simple adaptation functors to overcome minor incompatibilities 
+between SML modules. The transformations that get generated can 
+be expressed in a small recursion-free sublanguage of SML, namely 
+a typed lambda-calculus with function and record types, ML polymorphism, 
+first-order type functions and SML equality types. The transformations 
+are correct, they transform type- and behaviorally correct implementations 
+of an interface A into type- and behaviorally correct implementations of 
+an interface B. 
+
+The hope is that a tool of this kind can be useful for automatically
+overcoming incompatibilities that result from certain common interface 
+changes in the evolution of software systems. Examples are changes 
+that generalize functions by adding extra parameters, or changes that 
+give functions different, but isomorphic, types. Such changes alter 
+the types. The behavioral specifications, on the other hand, remain 
+similar, and in many cases the similarities can be automatically 
+recognized and the differences automatically overcome. Another possible 
+application domain is in automatic library retrieval based on semantic 
+specifications.</p>
+
+<hr />
+
+<a name="ccscmw2006"></a>
+<pre>@article(
+  Author="Brian T. Howard",
+  Title="Design of a simple functional programming language and environment for CS2",
+  Journal="Journal of Computing Sciences in Colleges",
+  Volume="22",
+  Number="1",
+  Year="2006",
+  Pages="98--105",
+  Publisher="Consortium for Computing Sciences in Colleges"
+  )</pre>
+<ul><li><a href="ccscmw2006.pdf">PDF</a></li>
+    <li><a href="ccscmw2006-slides.pdf">slides</a></li></ul>
+<p>There are several advantages to introducing a functional language early in
+a student's college experience: it provides an excellent setting in which to
+explore recursively-defined functions and data structures, it encourages more
+abstract thinking, and it exposes students to a language paradigm that is
+likely quite different from their previous experience. Even in a core
+curriculum based on a traditional imperative (and object-oriented) language,
+it is valuable to spend two or three weeks investigating a functional language.
+However, we have found that most existing functional languages and environments
+pose significant hurdles to the introductory student, especially when the
+language is only being used for a short time. This paper discusses some of our
+ideas to simplify the framework, and allow students to experiment easily with
+the important concepts of functional programming in the setting of CS2.</p>
+
+<hr />
+
+<a name="mcurcsm07"></a>
+<pre>@inproceedings(
+  Author="Cory D. Boatright and Brian T. Howard",
+  Title="SCALES: Learning Multimedia in a Mixed-Paradigm Language",
+  Booktitle="MCURCSM 2007: Midstates Conference for Undergraduate Research in Computer Science and Mathematics",
+  Year="2007",
+  Pages="9--17",
+  Publisher="John Carroll University"
+)</pre>
+<ul><li><a href="mcurcsm07.pdf">PDF</a></li></ul>
+<p>Learning functional programming is difficult 
+for beginning programmers, especially when 
+the most common examples come from data 
+structures such as lists and trees. We believe an environment that supports working 
+with multimedia ob jects, such as graphics 
+and music, will help a student learn functional programming in a more efficient and 
+productive manner. For this reason, we have 
+started development of a set of media libraries in the Scala programming language. 
+Our plan is to create an integrated development environment built on Eclipse that
+provides access to these tools. In this paper, we 
+explain the design of our libraries, which we 
+have named the SCALES project, and show 
+library functionality by providing examples 
+of Sierpinski's Triangle, the Towers of Hanoi, 
+and Fr&egrave;re Jacques.</p>
+
+<hr />
+
+<a name="ccscmw2015"></a>
+<pre>@article(
+  Author="Brian T. Howard",
+  Title="Leveraging Synergy Between Database and Programming Language Courses",
+  Journal="Journal of Computing Sciences in Colleges",
+  Volume="31",
+  Number="1",
+  Year="2015",
+  Pages="23-30",
+  Publisher="Consortium for Computing Sciences in Colleges"
+  )</pre>
+<ul><li><a href="ccscmw2015.pdf">PDF</a></li>
+  <li><a href="../ccscmw2015/">slides</a> (<a href="ccscmw2015-slides.pdf">PDF</a>)</li></ul>
+<p>Undergraduate courses in database systems and programming languages are
+frequently taught without much overlap. This paper argues that there is a
+substantial benefit to emphasizing some areas of commonality, both old and new,
+between the two subjects. Examples of such cross-fertilization that may be used
+to enhance one or both of the courses include query language design and
+implementation, object-relational mapping, transactional memory, and various
+aspects of the recent "NoSQL" movement.</p>
+
+<hr />
+
+<a name="aaai2023"></a>
+<pre>@article{
+  author={Tran, Hieu and Le, Tuan and Do, Anh and Vu, Tram and Bogaerts, Steven and Howard, Brian},
+  title={Emotion-Aware Music Recommendation},
+  journal={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={37},
+  number={13},
+  year={2023},
+  month={Jun.},
+  pages={16087-16095},
+  url={https://ojs.aaai.org/index.php/AAAI/article/view/26911},
+  DOI={10.1609/aaai.v37i13.26911}
+}</pre>
+<ul><li><a href="aaai2023.pdf">PDF</a></li></ul>
+<p>It is common to listen to songs that match one’s mood.
+Thus, an AI music recommendation system that is aware of the user’s emotions is likely to provide a superior user experience to one that is unaware.
+In this paper, we present an emotion-aware music recommendation system.
+Multiple models are discussed and evaluated for affect identification from a live image of the user.
+We propose two models: DRViT, which applies dynamic routing to vision transformers, and InvNet50, which uses involution.
+All considered models are trained and evaluated on the AffectNet dataset.
+Each model outputs the user’s estimated valence and arousal under the circumplex model of affect.
+These values are compared to the valence and arousal values for songs in a Spotify dataset, and the top-five closest-matching songs are presented to the user.
+Experimental results of the models and user testing are presented.</p>
+
+<hr />
+
+<!--#include virtual="/~bhoward/common/foot.html" -->
+</body>
+</html>

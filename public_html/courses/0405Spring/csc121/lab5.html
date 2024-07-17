@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 5 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+             body {background-color: #e0e0ff}
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             div.solution {color: red}
+             img.validator {float: right; border: none}
+             
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 5</h2>
+
+<h3>Laboratory 5 - GUI Design and Project 2</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>To gain experience with swing components and event handling. To
+complete the look and some functionality of project 2, where we
+will create a calculator program with a graphical user interface
+(GUI).</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab5 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up BlueJ</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Open the gui-practice project</strong> 
+
+<table border="0" cellpadding="3" cellspacing="0" summary=
+"Sequence of steps">
+<tr align="left" valign="top">
+<td><strong>Read</strong></td>
+<td>The PracticeGUI class uses several GUI components from the
+swing library: 
+
+<ul>
+<li><b>A frame:</b> see makeFrame()</li>
+
+<li><b>A menu:</b> see makeMenuBar()</li>
+
+<li><b>Labels:</b> see makeLabel() - note the formal
+parameters</li>
+
+<li><b>Buttons:</b> see makeButton() - note the formal
+parameters</li>
+
+<li><b>A panel:</b> see makePanel() - This is for the CENTER
+content of the BorderLayout manager</li>
+
+<li><b>Radio buttons:</b> see makeRadioButton() - note the formal
+parameters</li>
+</ul>
+
+<p>Note that each of the methods are private. This is because in
+this particular case none of these methods are to be used by other
+classes.</p>
+
+<p>Note also that some of these methods call other methods. For
+example makeFrame calls makeMenuBar and makePanel calls
+makeRadioButton. This is done for a couple of reasons: 1) To reuse
+code. makeButton and makeRadioButton are each called two times and
+2) to allow the length of code in methods to be relatively short
+for readability. We could have reduced the number of methods
+considerably and put all of the code in makeFrame, but then
+makeFrame would be much longer and harder to read.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Create</strong></td>
+<td>
+<p>Create an instance of PracticeGUI and observe the initial
+display. Reconcile the display with the code that produced it. Why,
+for example, does the OK button appear on the left side of the
+window? Or the Radio Buttons in the center?</p>
+
+<p>Click on the various clickable components and observe the
+results.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Add</strong></td>
+<td>
+<p>Add a new label to the layout. This should be done in the
+makeFrame method, and you should use the method makeLabel to do it.
+Make the caption to the label "PracticeGUI: Fun with GUI" and add
+it to the NORTH region of the layout. The variable you use for this
+label should be local to makeFrame.</p>
+
+<p>Note the fields of the class: frame, frameContentPane,
+stateLabel, rbOne, rbTwo, and buttonOKClicks. There are several
+other components in the class that are used, but are not declared
+as fields. This is because they are not modified directly by the
+class. The label you just made, for example, will never change
+during the life of the class, so there is no need to make it a
+field of the class.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Add</strong></td>
+<td>
+<p>When you clicked the OK button, a count of the number of times
+it had been clicked was displayed in the bottom label of the GUI.
+This did not happen when the NOT OK button was clicked. Modify the
+class by adding a new field, <b>buttonNotOKClicks</b>, so that the
+number of times this button is clicked will be reported too. You
+will need to modify the actionPerformed(ActionEvent event) method
+and make changes in a couple of other places too.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Modify</strong></td>
+<td>
+<p>You may have noticed that clicking on a RadioButton more than
+one time in a row, causes the button to be selected and then not
+selected. But the RadioButton label and the label in SOUTH both
+indicate that is it selected. Modify the actionPerformed method so
+that the RadioButton is actually black (selected) whenever it is
+clicked.</p>
+</td>
+</tr>
+
+<tr align="left" valign="top">
+<td><strong>Complete</strong></td>
+<td>
+<p>Work with your partner to start the project 2 calculator
+program. The initial version of this project is in the Lab5 folder
+and called <b>calculator.</b> It is a working calculator that does
+addition and subtraction. The goal is to take the GUI on the left
+in the figure below and add /, *, (, and ) buttons to achieve the
+look on the right. Don't worry about the caption on the bottom of
+the calculator GUI at this point.</p>
+
+<p>Once you have the new buttons located in the correct position,
+add else-if statements in the actionPerformed method to handle the
+/and * buttons. Do not worry about the ( and ) buttons now. To do
+this you will be modifying the UserInterface class by adding calls
+to calc.mult() and calc.divide().</p>
+
+<p>Next, add code to the <b>CalcEngine</b> class to have a working
+calculator with all of addition, subtraction, multiplication, and
+division finished. To do this, add the mult() and divide() methods
+to the CalcEngine class imitating plus() and minus() methods.
+Lastly, modify the calcResult() method in CalcEngine to fill in the
+calculation required for * and /. Don't forget that division by 0
+is not legal and if the denominator is 0 you should set the result
+to 0 and report an error using System.out.println. The code in
+calcResult to modify is:</p>
+
+<pre>
+        switch (operator) {
+        case '+':
+            result = intLVal + intRVal;
+            break;
+            
+        case '-':
+            result = intLVal - intRVal;
+            break;
+            
+        case '*':
+            // Mult code goes here
+            break;
+            
+        case '/':
+            // Divide code goes here
+            break;
+            
+        default:
+            keySequenceError();
+            break;
+        }
+                           
+</pre>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<div align="center"><img src="calculator.jpg" width="720" height=
+"252" alt="Calculator GUI"></div>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img class=
+"validator" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt=
+"Valid HTML 4.01!" width="88" height="31"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img class=
+"validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+alt="Valid CSS!" width="88" height="31"></a><a href=
+"http://www.depauw.edu/">DePauw University</a>, <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a>, Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> (<a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>). 
+<!--#config timefmt="%A, %B %e, %Y" -->
+ Last updated <!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

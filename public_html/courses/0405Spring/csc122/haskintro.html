@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8" />
+
+    <title>An Introduction to Haskell - CSC 122: Computer Science
+    II, Spring 2005</title>
+<style type="text/css">
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             tr.TableHeadingColor {background-color: #CCCCFF}
+             tr.TableRowColor {background-color: #FFFFFF}
+             div.solution {color: red}
+             div.solution td {color: red}
+             img.validator {float: right; border: none}
+             
+        span.textit {font-style: italic}
+        span.textbf {font-weight: bold}
+        span.MATH {font-style: italic}
+    
+</style>
+  </head>
+
+  <body>
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <h1>CSC 122: Computer Science II, Spring 2005</h1>
+
+    <h2>An Introduction to Haskell</h2>
+
+    <p>Haskell is a modern ``purely functional'' programming
+    language. A functional language is one in which functions are
+    as easy to manipulate as the more common kinds of values, such
+    as numbers and strings. By being <span
+    class="textit">purely</span> functional, Haskell does not allow
+    the operations which make functions difficult to work with in
+    traditional imperative languages: assignment to global
+    variables or reference parameters. As a result, calling a
+    function will not have any ``side-effects''--that is, it will
+    not change the values of any non-local variables--and we are
+    free to treat them as pure functions (some texts refer to these
+    as ``valued functions'').</p>
+
+    <p>As a higher-level language than C++ or Java, Haskell enables
+    programmers to be more productive and write shorter, clearer,
+    and more maintanable code. Unfortunately, industry practice has
+    not yet embraced functional programming, in part because of the
+    enormous effort it would take to retrain current programmers
+    and redesign all the support tools. There are signs that the
+    industry will gradually move to higher-level languages: for
+    example, the next version of Java will contain several new
+    language features influenced by the design of Haskell. In the
+    meantime, we will study Haskell because it provides a
+    convenient and safe (you will appreciate this safety when we
+    talk about pointers in C++) setting in which to explore
+    recursive functions and data structures.</p>
+
+    <p>Here is an example of Haskell<a id="tex2html1"
+    name="tex2html1" href="#foot28"><sup><span
+    class="arabic">1</span></sup></a> code to perform the recursive
+    Mergesort described in class:</p>
+<pre>
+merge([ ], ys) = ys
+merge(xs, [ ]) = xs
+merge([x:xs], [y:ys]) = if x &lt;= y
+                        then [ x : merge(xs, [y:ys]) ]
+                        else [ y : merge([x:xs], ys) ]
+
+mergesort([ ]) = [ ]
+mergesort([x]) = [x]
+mergesort(xs)  = let (as, bs) = splitAt(length(xs) # 2, xs)
+                 in merge(mergesort(as), mergesort(bs))
+</pre>
+
+    <p>After defining these two functions, <code>merge</code> and
+    <code>mergesort</code>, one can sort a list by entering a
+    command such as <code>mergesort([3,1,4,1,5,9,2,6,5])</code>;
+    the result is quickly printed:
+    <code>[1,1,2,3,4,5,5,6,9]</code>.</p>
+
+    <p>Even without knowing any details yet of the syntax of
+    Haskell, it should be easy to recognize the structure of
+    Mergesort in this code. The <code>mergesort</code> function is
+    specified by three rules; the first two handle the base cases
+    of an empty list or a one-element list, while the third rule
+    handles the recursive case by splitting the data into two
+    halves, calling <code>mergesort</code> on each half, and then
+    merging the results with <code>merge</code>. The
+    <code>merge</code> function is also pretty easy to read: if
+    either of the lists to be merged is empty, then it just returns
+    the other list (first two rules), otherwise it chooses the
+    smaller of the two first elements and puts it first in the
+    result, followed by another call to <code>merge</code> on the
+    remainder of the data. Compare this to the one-and-a-half pages
+    of code used for a C++ version of Mergesort in Chapter 9 of
+    Carrano &amp; Prichard (which only works on arrays of data up
+    to a fixed maximum size--we will see a way around this later,
+    but it adds several more lines to the code), and you will
+    appreciate the power of higher-level programming provided by
+    Haskell.</p>
+
+    <p>There are several points to observe about the Mergesort
+    program as we start to learn the details of Haskell. First, the
+    program is organized as a sequence of equations defining the
+    functions. Unlike the assignment statement in C++, these are
+    truly meant to be read as equations. This means that the
+    familiar sort of algebraic reasoning by ``substituting equals
+    for equals'' will work for Haskell programs. For example,
+    consider the following definition of the factorial
+    function:</p>
+<pre>
+factorial(0) = 1
+factorial(n) = n * factorial(n-1)
+</pre>
+
+    <p>(You are encouraged to try this now in Funnie, as described
+    in class and in the companion handout.) We may evaluate the
+    result of <code>factorial(4)</code> by using the equations to
+    expand the expression as follows:</p>
+<pre>
+factorial(4) = 4 * factorial(4-1)
+             = 4 * factorial(3)
+             = 4 * 3 * factorial(2)
+             = 4 * 3 * 2 * factorial(1)
+             = 4 * 3 * 2 * 1 * factorial(0)
+             = 4 * 3 * 2 * 1 * 1
+             = 24
+</pre>
+
+    <p>In Funnie, you may open a ``Stepper Window'' to see this
+    sequence of expansions.</p>
+
+    <p>The second point to observe is that the computer will choose
+    the first equation that matches the arguments in a particular
+    function call. That is, when it evaluates
+    <code>factorial(0)</code>, it uses the first equation rather
+    than trying to evaluate <code>0 * factorial(-1)</code>. This
+    means that we will usually want to handle the special ``base''
+    case(s) of functions first in our programs, followed by the
+    general recursive case.</p>
+
+    <p>Another observation about the Mergesort program is that it
+    works on <span class="textit">lists</span> of data, rather than
+    the arrays common in C++. Tied as it is to a specific layout in
+    memory (and the corresponding convention of avoiding copying
+    that block of memory by passing arrays by reference, which we
+    have already seen is a no-no in a purely functional language),
+    the array is too low-level a data structure for ordinary use in
+    Haskell. As we will see, switching to the more abstract concept
+    of a <span class="textit">list</span> of data allows an
+    additional level of flexibility in our programming. Here are
+    the operations on lists that we need for Mergesort:</p>
+
+    <ul>
+      <li>Picking off the first element (the ``head'') of a list.
+      This is commonly performed by matching a function argument
+      against a <span class="textit">pattern</span> such as
+      <code>[x:xs]</code>--read this as matching a list composed of
+      the first element <code>x</code> followed by the remainder of
+      the list (the other ``<code>x</code>'s''). If you need to
+      grab the first element of a list in an expression without
+      introducing a new function to use pattern-matching, the
+      <code>head</code> function will do the job:
+      <code>head([1,2,3])</code> is <code>1</code>.</li>
+
+      <li>Adding a new element at the head of a list. As suggested
+      by the pattern form above, this uses the colon
+      (<code>:</code>) notation. Therefore, <code>[1 :
+      [2,3]]</code> is the list <code>[1,2,3]</code>. Note the
+      asymmetrical nature of this operation: the left operand is a
+      single value, while the right operand is a list of values. If
+      you want to concatenate two lists together, use the
+      <code>++</code> operator: <code>[1,2] ++ [3,4]</code>
+      produces <code>[1,2,3,4]</code>.</li>
+
+      <li>Constructing an empty list or a single-element list. The
+      empty list is written <code>[ ]</code>, while a list
+      consisting of just the value <code>x</code> is written
+      <code>[x]</code>. As we have seen, this notation extends to
+      arbitrarily long lists by putting a comma-separated list of
+      values between the brackets. This is all an abbreviation;
+      what the computer is really thinking when you write
+      <code>[1,2,3]</code> is <code>[1 : [2 : [3 : [
+      ]]]]</code>--that is, start with the empty list and
+      successively prepend the values <code>3</code>, then
+      <code>2</code>, and finally <code>1</code> at the head.</li>
+
+      <li>
+        Getting the length of a list and splitting it into two
+        sublists. These operations are not directly built into the
+        language, but rather are provided as part of the ``Standard
+        Prelude'' of commonly used functions (think of the common
+        functions defined in C++ headers such as
+        <code>&lt;iostream&gt;</code> or
+        <code>&lt;string&gt;</code>, or the classes defined in
+        standard Java packages such as <code>java.lang</code> or
+        <code>java.io</code>). We could write these functions
+        ourselves--for example, here is a definition of
+        <code>length</code>: 
+<pre>
+length([ ]) = 0
+length([x:xs]) = 1 + length(xs)
+</pre>
+        --but they are used so frequently that people have
+        assembled a standard collection of functions that are
+        always available (without even needing the equivalent of a
+        <code>#include</code> or <code>import</code>...).
+      </li>
+    </ul>
+    <br />
+    <hr />
+
+    <h4>Footnotes</h4>
+
+    <dl>
+      <dt><a id="foot28" name="foot28">... Haskell</a><a
+      href="haskintro.html#tex2html1"><sup><span
+      class="arabic">1</span></sup></a></dt>
+
+      <dd>In fact, this is not quite standard Haskell; we will be
+      using a modified subset developed here at DePauw called <span
+      class="textit">HasCl</span>.</dd>
+    </dl>
+
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <p><a href="http://validator.w3.org/check/referer"><img
+    height="31" width="88" alt="Valid HTML 4.01!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png"
+     class="validator" /></a><a
+    href="http://jigsaw.w3.org/css-validator/check/referer"><img
+    height="31" width="88" alt="Valid CSS!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+    class="validator" /></a><a href="http://www.depauw.edu/">DePauw
+    University</a>, <a
+    href="http://www.depauw.edu/acad/computer/">Computer Science
+    Department</a>, Spring 2005<br />
+     Maintained by <a
+    href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a> (<a
+    href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+    <!--#config timefmt="%A, %B %e, %Y" -->
+     Last updated <!--#echo var="LAST_MODIFIED" -->
+    </p>
+  </body>
+</html>
+

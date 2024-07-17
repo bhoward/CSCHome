@@ -1,0 +1,887 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Practice Midterm Exam</TITLE>
+<META NAME="description" CONTENT="Practice Midterm Exam">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="practiceMidterm.css">
+
+</HEAD>
+
+<BODY >
+<H1 ALIGN="CENTER">Practice Midterm Exam</H1>
+
+<P>
+You will have 65 minutes for this exam. This exam is open book and note.
+Please allow some time to check your work. If you need extra space,
+write on the back. There are a total of 50 points on this exam.
+
+<P>
+
+<OL>
+<LI>Consider the following grammar for a restricted subset of C++
+variable declarations:
+<!-- MATH
+ \begin{displaymath}
+\begin{array}{rcl}
+\langle\textit{Declaration}\rangle  & \rightarrow & \langle\textit{Type}\rangle \; \langle\textit{Declarator}\rangle \; \texttt{;}\\[3mm]
+       \langle\textit{Type}\rangle  & \rightarrow & \texttt{int}\\
+                &  |   & \texttt{char}\\[3mm]
+\langle\textit{Declarator}\rangle   & \rightarrow & \texttt{*}\; \langle\textit{Declarator}\rangle \\
+                &  |   & \langle\textit{Declarator}\rangle \; \texttt{[}\; \langle\textit{Num}\rangle \; \texttt{]}\\
+                &  |   & \texttt{(}\; \langle\textit{Declarator}\rangle \; \texttt{)}\\
+                &  |   & \langle\textit{Var}\rangle
+\end{array} 
+\end{displaymath}
+ -->
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<TABLE>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Declaration</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Type</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Declarator</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;;</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Type</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><texttt>int</texttt></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><texttt>char</texttt></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Declarator</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT">* &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Declarator</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Declarator</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;[ &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Num</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;]</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT">( &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Declarator</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;)</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Var</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+</TABLE>
+</DIV><P></P>
+Assume the usual definitions of <!-- MATH
+ $\langle\textit{Num}\rangle$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$ \langle$"><I>Num</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$ \rangle$"></SPAN> and <!-- MATH
+ $\langle\textit{Var}\rangle$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$ \langle$"><I>Var</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$ \rangle$"></SPAN> (the SimpLan
+definitions are on the last page).
+
+<OL>
+<LI>Show two different parse trees for the declaration
+<code>char *a[10];</code> [5 points]
+
+<P>
+</LI>
+<LI>Modify the grammar to make it unambiguous, so that
+<code>char *a[10];</code> has its usual interpretation (that is, it should be
+more like <code>char *(a[10]);</code> than <code>char (*a)[10];</code>) [5 points]
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+</LI>
+<LI>Modula-2 solved the dangling-else problem of Pascal by adding an
+explicit <code>end</code> keyword; to avoid a pile-up of <code>end</code>s after a
+cascade of nested <code>if</code>s, it also added an <code>elsif</code> clause:
+<PRE>
+if test1 then
+    body1
+elsif test2 then
+    body2
+elsif test3 then
+    body3
+else
+    body4
+end
+</PRE>
+There may be zero or more <code>elsif</code> clauses, and the final
+<code>else</code> clause is optional.
+
+<OL>
+<LI>Write grammar rules which will allow the non-terminal
+<!-- MATH
+ $\langle\textit{IfStmt}\rangle$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$ \langle$"><I>IfStmt</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$ \rangle$"></SPAN> to expand to a Modula-2 <code>if</code> statement, assuming that
+the non-terminals <!-- MATH
+ $\langle\textit{BoolExpr}\rangle$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$ \langle$"><I>BoolExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$ \rangle$"></SPAN> and <!-- MATH
+ $\langle\textit{StmtSequence}\rangle$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$ \langle$"><I>StmtSequence</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$ \rangle$"></SPAN> are already
+defined to produce the test expressions and clause bodies. [4 points]
+
+<P>
+</LI>
+<LI>If SimpLan were extended with a similar <code>if</code> statement, show
+how the above example could be translated into virtual machine code (in
+place of the translations of the tests and clause bodies, just write
+<!-- MATH
+ $\mathcal{B}[\![\,\texttt{test1}\,]\!]$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$ \mathcal {B}$">[[&nbsp;<texttt>test1</texttt>&nbsp;]]</SPAN>, <!-- MATH
+ $\mathcal{P}[\![\,\texttt{body1}\,]\!]$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="$ \mathcal {P}$">[[&nbsp;<texttt>body1</texttt>&nbsp;]]</SPAN>, etc.; see the last page
+for a summary of SimpLan) [4 points]
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+</LI>
+<LI>A typical compiler works in several phases: lexical analysis,
+syntactic analysis, semantic analysis and intermediate code generation,
+optimization, and object code generation.  List some advantages of
+separating each of these phases. [5 points]
+
+<P>
+</LI>
+<LI>For each of the following binding times, give an example of
+some attribute in C++ that is bound at that point [2 points each]:
+
+<OL>
+<LI>Language definition time
+</LI>
+<LI>Implementation time
+</LI>
+<LI>Compile time
+</LI>
+<LI>Link time
+</LI>
+<LI>Run time
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI>The following is a legal statement in C++:
+<PRE>
+for (int i = 10; i &gt; 0; (cout &lt;&lt; "Hello" &lt;&lt; endl), i++) i--;
+</PRE>
+Critique the design decisions behind this, listing as many good or
+bad aspects as you can. [5 points]
+
+<P>
+
+</LI>
+<LI>Consider the following function skeleton in C++ (none of the
+omitted statements declare variables):
+<PRE>
+void f() {
+    int a, b, c;
+    ...
+    for (int d = a; d &lt; b; d++) {
+        int b, c;
+        ...
+    }
+    if (b == c) {
+        int c, d, e, f;
+        ...
+    } else {
+        int g, h, i;
+        ...
+    }
+}
+</PRE>
+If an <code>int</code> takes 4 bytes of memory, what is the minimum amount of variable
+storage space that must be allocated for each call to <code>f</code>, and where is that
+memory located? [3 points]
+
+<P>
+</LI>
+<LI>Consider the following code in a language somewhat like C++:
+<PRE>
+int x;
+
+void setx(int n) { x = n; }
+
+void f() {
+    setx(1);
+    cout &lt;&lt; x &lt;&lt; ", ";
+}
+
+void g() {
+    int x = 0;
+    setx(2);
+    cout &lt;&lt; x &lt;&lt; ", ";
+}
+
+int main() {
+    f();
+    g();
+    cout &lt;&lt; x &lt;&lt; endl;
+}
+</PRE>
+
+<OL>
+<LI>What is the output if the language uses static scoping? [3 points]
+</LI>
+<LI>What is the output if the language uses dynamic scoping? [3 points]
+</LI>
+</OL>
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+SimpLan Summary</A>
+</H1>
+
+<H2><A NAME="SECTION00011000000000000000">
+Syntax</A>
+</H2>
+<!-- MATH
+ \begin{displaymath}
+\begin{array}{rcl}
+\langle\textit{Statement}\rangle  & \rightarrow & \langle\textit{Var}\rangle \; \texttt{=}\; \langle\textit{BExpr}\rangle \; \texttt{;}\\
+              &  |   & \texttt{cin >>}\; \langle\textit{Var}\rangle \; \texttt{;}\\
+              &  |   & \texttt{cout}\; \langle\textit{PrintList}\rangle \; \texttt{;}\\
+              &  |   & \texttt{\{}\; \langle\textit{StatementList}\rangle \; \texttt{\}}\\
+              &  |   & \texttt{while (}\; \langle\textit{BExpr}\rangle \; \texttt{)}\; \langle\textit{Statement}\rangle \\
+              &  |   & \texttt{if (}\; \langle\textit{BExpr}\rangle \; \texttt{)}\; \langle\textit{Statement}\rangle \;
+                       \texttt{else}\; \langle\textit{Statement}\rangle \\
+              &  |   & \texttt{if (}\; \langle\textit{BExpr}\rangle \; \texttt{)}\; \langle\textit{Statement}\rangle \\[2mm]
+\langle\textit{StatementList}\rangle  & \rightarrow & \langle\textit{Statement}\rangle \; \langle\textit{StatementList}\rangle \\
+              &  |   & \\[2mm]
+\langle\textit{PrintList}\rangle  & \rightarrow & \texttt{<<}\; \langle\textit{BExpr}\rangle \\
+              &  |   & \texttt{<<}\; \langle\textit{StringLiteral}\rangle \\
+              &  |   & \texttt{<< endl}\;\\
+              &  |   & \\[2mm]
+\langle\textit{BExpr}\rangle      & \rightarrow & \langle\textit{BExpr}\rangle \; (\; \texttt{==}\; |\; \texttt{!=}\; |\; \texttt{<}\; |\; \texttt{<=}\; )\; \langle\textit{Expr}\rangle \\
+              &  |   & \langle\textit{Expr}\rangle \\[2mm]
+\langle\textit{Expr}\rangle       & \rightarrow & \langle\textit{Expr}\rangle \; (\; \texttt{+}\; |\; \texttt{-}\; )\; \langle\textit{Term}\rangle \\
+              &  |   & \langle\textit{Term}\rangle \\[2mm]
+\langle\textit{Term}\rangle       & \rightarrow & \langle\textit{Term}\rangle \; (\; \texttt{*}\; |\; \texttt{/}\; |\; \verb|\|\; |\; \texttt{\%}\; )\; \langle\textit{Factor}\rangle \\
+              &  |   & \langle\textit{Factor}\rangle \\[2mm]
+\langle\textit{Factor}\rangle     & \rightarrow & \langle\textit{Var}\rangle \quad|\quad\langle\textit{Num}\rangle \quad|\quad\texttt{(}\; \langle\textit{BExpr}\rangle \; \texttt{)}
+\end{array}
+\end{displaymath}
+ -->
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<TABLE>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Statement</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Var</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp; = &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;;</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><texttt>cin</texttt> &gt; &gt; &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Var</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;;</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><texttt>cout</texttt> &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>PrintList</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;;</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT">{ &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>StatementList</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;}</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><texttt>while</texttt>( &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;) &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Statement</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><texttt>if</texttt> ( &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;) &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Statement</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;<texttt>else</texttt> &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Statement</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><texttt>if</texttt> ( &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;) &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Statement</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>StatementList</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Statement</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>StatementList</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>PrintList</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT">&lt; &lt; &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT">&lt; &lt; &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>StringLiteral</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT">&lt; &lt; <texttt>endl</texttt> &nbsp;</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;( &nbsp; = = &nbsp;| &nbsp;! = &nbsp;| &nbsp; &lt; &nbsp;| &nbsp; &lt; = &nbsp;) &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Expr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Expr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Expr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Expr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;( &nbsp; + &nbsp;| &nbsp; - &nbsp;) &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Term</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Term</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Term</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Term</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;( &nbsp;* &nbsp;| &nbsp;/ &nbsp;| &nbsp;<code>\</code> &nbsp;| &nbsp;% &nbsp;) &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Factor</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">|</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Factor</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="RIGHT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Factor</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="20" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\displaystyle \rightarrow$"></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Var</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>Num</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;( &nbsp;<IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\displaystyle \langle$"><I>BExpr</I><IMG
+ WIDTH="10" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\displaystyle \rangle$"> &nbsp;)</TD>
+</TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H2><A NAME="SECTION00012000000000000000">
+Semantics</A>
+</H2>
+<!-- MATH
+ \begin{displaymath}
+\begin{array}{l}
+\mathcal{S}[\![\,\texttt{x = e;}\,]\!] = \mathcal{E}[\![\,\texttt{e}, \texttt{x}\,]\!]\\
+\mathcal{S}[\![\,\texttt{cin >> x;}\,]\!] = \texttt{READ x}\\
+\mathcal{S}[\![\,\texttt{cout << e}\;\ldots\;\,]\!] = \mathcal{E}[\![\,\texttt{e, temp}\,]\!]\;\texttt{PRINT temp}\;\ldots\\
+\mathcal{S}[\![\,\texttt{\{}\; \texttt{stmt}_1\;\ldots\;\texttt{stmt}_n\;\texttt{\}}\,]\!] =
+  \mathcal{S}[\![\,\texttt{stmt}_1\,]\!]\;\ldots\;\mathcal{S}[\![\,\texttt{stmt}_n\,]\!]\\
+\mathcal{S}[\![\,\texttt{while (be) body}\,]\!] = \parbox[t]{2in}{
+  $\texttt{L1:}\;\mathcal{E}[\![\,\texttt{be, temp}\,]\!]\;\texttt{GOFALSE L2, temp}$\\
+  $\texttt{\ \ \ }\;\mathcal{S}[\![\,\texttt{body}\,]\!]\;\texttt{GOTO L1}$\\
+  $\texttt{L2:}$\\\hspace*{1in}}\\
+\mathcal{S}[\![\,\texttt{if (be) body1 else body2}\,]\!] = \parbox[t]{2in}{
+  $\texttt{\ \ \ }\;\mathcal{E}[\![\,\texttt{be, temp}\,]\!]\;\texttt{GOFALSE L1, temp}$\\
+  $\texttt{\ \ \ }\;\mathcal{S}[\![\,\texttt{body1}\,]\!]\;\texttt{GOTO L2}$\\
+  $\texttt{L1:}\;\mathcal{S}[\![\,\texttt{body2}\,]\!]$\\
+  $\texttt{L2:}$\\\hspace*{1in}}\\
+\mathcal{S}[\![\,\texttt{if (be) body1}\,]\!] = \parbox[t]{2in}{
+  $\texttt{\ \ \ }\;\mathcal{E}[\![\,\texttt{be, temp}\,]\!]\;\texttt{GOFALSE L1, temp}$\\
+  $\texttt{\ \ \ }\;\mathcal{S}[\![\,\texttt{body1}\,]\!]$\\
+  $\texttt{L1:}$\\\hspace*{1in}}\\
+\mathcal{E}[\![\,\texttt{e1 op e2}\,]\!] =
+  \mathcal{E}[\![\,\texttt{e1}, \texttt{temp1}\,]\!]\;\mathcal{E}[\![\,\texttt{e2}, \texttt{temp2}\,]\!]\;\texttt{OP x, temp1, temp2}\\
+\mathcal{E}[\![\,\texttt{v}, \texttt{x}\,]\!] = \texttt{MOV x, v}\\
+\mathcal{E}[\![\,\texttt{n}, \texttt{x}\,]\!] = \texttt{LD x, n}\\
+\mathcal{E}[\![\,\texttt{(e)}, \texttt{x}\,]\!] = \mathcal{E}[\![\,\texttt{e}, \texttt{x}\,]\!]\\
+\end{array}
+\end{displaymath}
+ -->
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<TABLE>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>x</texttt> = <texttt>e</texttt>;&nbsp;]] = <IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>e</texttt>,<texttt>x</texttt>&nbsp;]]</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>cin</texttt> &gt; &gt; <texttt>x</texttt>;&nbsp;]] = <texttt>READx</texttt></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>cout</texttt> &lt; &lt; <texttt>e</texttt> &nbsp;... &nbsp;&nbsp;]] = <IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>e, temp</texttt>&nbsp;]] &nbsp;<texttt>PRINTtemp</texttt> &nbsp;...</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;{ &nbsp;<texttt>stmt</texttt><SUB>1</SUB> &nbsp;... &nbsp;<texttt>stmt</texttt><SUB>n</SUB> &nbsp;}&nbsp;]] = <IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>stmt</texttt><SUB>1</SUB>&nbsp;]] &nbsp;... &nbsp;<IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>stmt</texttt><SUB>n</SUB>&nbsp;]]</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>while</texttt>(<texttt>be</texttt>)<texttt>body</texttt>&nbsp;]] = <IMG
+ WIDTH="234" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$\textstyle \parbox{2in}{&lt;}$">#254#>$<texttt>L1</texttt> : &nbsp;<IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>be, temp</texttt>&nbsp;]] &nbsp;<texttt>GOFALSEL2, temp</texttt>$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">$&nbsp;&nbsp;&nbsp; &nbsp;<IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>body</texttt>&nbsp;]] &nbsp;<texttt>GOTOL1</texttt>$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">$<texttt>L2</texttt> :$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">&nbsp;*1<I>in</I></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>if</texttt> (<texttt>be</texttt>)<texttt>body1elsebody2</texttt>&nbsp;]] = <IMG
+ WIDTH="234" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$\textstyle \parbox{2in}{&lt;}$">#255#>$&nbsp;&nbsp;&nbsp; &nbsp;<IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>be, temp</texttt>&nbsp;]] &nbsp;<texttt>GOFALSEL1, temp</texttt>$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">$&nbsp;&nbsp;&nbsp; &nbsp;<IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>body1</texttt>&nbsp;]] &nbsp;<texttt>GOTOL2</texttt>$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">$<texttt>L1</texttt> : &nbsp;<IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>body2</texttt>&nbsp;]]$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">$<texttt>L2</texttt> :$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">&nbsp;*1<I>in</I></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>if</texttt> (<texttt>be</texttt>)<texttt>body1</texttt>&nbsp;]] = <IMG
+ WIDTH="234" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$\textstyle \parbox{2in}{&lt;}$">#256#>$&nbsp;&nbsp;&nbsp; &nbsp;<IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>be, temp</texttt>&nbsp;]] &nbsp;<texttt>GOFALSEL1, temp</texttt>$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">$&nbsp;&nbsp;&nbsp; &nbsp;<IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\displaystyle \mathcal {S}$">[[&nbsp;<texttt>body1</texttt>&nbsp;]]$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">$<texttt>L1</texttt> :$</TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT">&nbsp;*1<I>in</I></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>e1ope2</texttt>&nbsp;]] = <IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>e1</texttt>,<texttt>temp1</texttt>&nbsp;]] &nbsp;<IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>e2</texttt>,<texttt>temp2</texttt>&nbsp;]] &nbsp;<texttt>OPx, temp1, temp2</texttt></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>v</texttt>,<texttt>x</texttt>&nbsp;]] = <texttt>MOVx, v</texttt></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>n</texttt>,<texttt>x</texttt>&nbsp;]] = <texttt>LDx, n</texttt></TD>
+</TR>
+<TR VALIGN="MIDDLE"><TD ALIGN="LEFT"><IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;(<texttt>e</texttt>),<texttt>x</texttt>&nbsp;]] = <IMG
+ WIDTH="14" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\displaystyle \mathcal {E}$">[[&nbsp;<texttt>e</texttt>,<texttt>x</texttt>&nbsp;]]</TD>
+</TR>
+</TABLE>
+</DIV><P></P>
+<code>L1</code>, <code>L2</code>, <code>temp</code>, <code>temp1</code>, and <code>temp2</code> all represent
+unique names generated as needed.  <code>v</code> and <code>x</code> are variable names,
+and <code>n</code> is a number.
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming Project 1 - CSC 222: Data Structures and Algorithms, Fall 2006</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 222: Data Structures and Algorithms, Fall 2006</h1>
+	
+<h2>Programming Project 1</h2>
+	
+		
+<p>
+This project will be due by 5 pm, Friday, September 22.  To submit your
+project, save it in the <code>pp1</code> directory located in your directory under
+<code>/home/libs/dataStr/students/</code> on one of the department's Linux
+machines (this is a shared directory, so you should be able to reach it
+from any of the machines, including oort).</p>
+
+
+<p>
+You may work on this project by yourself or in a group of two or three.
+If you work in a group, be sure to include everyone's name in the
+comments at the top of <i>each</i> file.  Also, be sure you understand
+the guidelines for group work listed in the syllabus--the fundamental
+idea is that everyone in the group should understand what everyone else
+has done, and be able to recreate it on their own.</p>
+
+
+
+<p>
+The project is based on Programming Exercise 3-45 in the text (p. 180).
+However, instead of looking for a fixed list of keywords in the input,
+your program should first read a file containing the list of keywords.
+This file will not be in alphabetical order, so the next step will be to
+sort the keywords (just use the default ordering on strings--do not
+worry about upper- <i>vs.</i> lower-case issues). Now continue as
+described in the exercise:  prompt the user for a file name, read the
+words in that file, and count the number of occurences of each keyword.
+After reading the entire file, your program should display a table
+giving the number of times each keyword occurred in the file, then quit.</p>
+
+
+<p>
+For example, if the keyword file contains</p>
+
+<pre>
+that is not it
+</pre>
+and the second file contains
+<pre>
+To be or not to be that is the question
+That that is is that that is not is not is that it it is
+</pre>
+then the output should look something like
+<pre>
+is      7
+it      2
+not     3
+that    5
+</pre>
+
+<p>(Note that the word "That" at the beginning of the second line is not
+counted, since it is not the same word as "that".)</p>
+
+
+<p>
+For extra credit, sort the output by the frequency of the keywords, so
+that the most common words come first.  In the example above, this would
+swap the lines for "it" and "that".  Ideally, you should be able to
+use the same sorting function for this as for sorting the keywords (this
+will only work if you make the function generic).</p>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2006<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

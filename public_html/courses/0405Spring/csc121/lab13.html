@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lab 13 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    p.bold {font-weight: bold}
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Lab 13</h2>
+
+<h3>Laboratory 13 - The Web: HTML and Java Applets</h3>
+
+<dl>
+<dt>Goals:</dt>
+
+<dd>Using applets to see another way of having a Java application
+executed and to develop some understanding about how the world wide
+web works.</dd>
+
+<dt>Getting started:</dt>
+
+<dd>
+<ul>
+<li>Copy the folder Lab13 from the public folder on the I: drive to
+your class folder on the I: drive.</li>
+
+<li>Start up Dreamweaver (from the Start menu, Programming
+Languages)</li>
+</ul>
+</dd>
+
+<dt>The Steps of the Lab:</dt>
+
+<dd>
+<ol>
+<li><strong>Today you will add a few web pages to a web site. The
+purpose is help you gain insights, not to become an expert web
+author.</strong> 
+
+<table summary="Sequence of steps" cellspacing="0" cellpadding="3"
+border="0">
+<tr valign="top" align="left">
+<td><strong>Overview</strong></td>
+<td>
+<p>The web authoring tool you will use is Macromedia's Dreamweaver.
+You will 1) set up a Dreamweaver web page authoring environment, 2)
+author a few simple web pages, and 3) embed Java applications in
+web pages as applets.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Setup</strong></td>
+<td>
+<p>You will need to set up local and remote sites (folders) for
+your web site. The local folder will be the Lab13 folder that you
+copied to your I: drive folder. The remote folder will be the web
+site folder where the pages you put into production will
+reside.</p>
+
+<ul>
+<li><strong>Set up a local folder</strong> - click on Site/New Site
+in the menu bar. Give the local site the same name as your username
+(see the first image below). Click OK when ready for the next
+step.</li>
+
+<li><strong>Set up a remote folder</strong> - this folder is where
+your production web pages will be. The server is a Microsoft
+Windows 2000 server called runner.csc.depauw.edu/csc121. You have
+been assigned a folder there named with your username. After
+clicking on Remote info, you will see a window like the second
+image below. Fill it in as below, substituting your username folder
+for csinger. For password, enter cs1spring2005. When finished,
+click OK. To see both local and remote folders, click on refresh
+remote in the site window (see the third window below).</li>
+</ul>
+
+<p>You are now set up to author web pages.</p>
+
+<img src="lab13img1.png" alt="Local Info screen shot"> <img src=
+"lab13img2.png" alt="Remote Info screen shot"> <img src=
+"lab13img3.png" alt="Refresh Remote screen shot"> </td>
+</tr>
+</table>
+</li>
+
+<li><strong>Creating a web page</strong> 
+
+<table summary="Sequence of steps" cellspacing="0" cellpadding="3"
+border="0">
+<tr valign="top" align="left">
+<td><strong>Create</strong></td>
+<td>
+<p>Click on File/New in a Dreamweaver window to create a new and
+empty web page. You can author a web page similar to using a word
+processor such as MS Word. In the figure below that there is a
+small "properties" window at the bottom that can be used to format
+the text being typed or any selected text. Note that the text has
+been sized to 4, bolded and centered. Note also that if you wanted
+this text to be a hyperlink (a clickable link to another web page),
+you could browse and select the linked-to page all within the
+properties window. <strong>Play a bit and create a web page with a
+few different kinds of things on it. When you are ready you should
+upload this page to the web server. First save the page, giving it
+a name like, mypage.htm. Next, select the page in the local view by
+clicking on it, then click on the fat up-arrow in the tool bar
+below the main window. This will copy the file from your local
+folder to the web folder. You may answer either yes or no to the
+question, Copy dependent files.</strong></p>
+
+<p>Now go to the page you created by launching Internet Explorer
+and entering the url:</p>
+
+<pre>
+http://runner.csc.depauw.edu/csc121/&lt;your folder name&gt;/&lt;your page name&gt;.htm
+</pre>
+
+<img src="lab13img4.png" alt="Web Page screen shot"> 
+
+<p><strong>The process of creating a web site is similar to writing
+a program.</strong> For each page in the site, you develop it
+locally, see how it looks in a browser, and keep editing-viewing
+until the page looks the way you want for the world to view it.</p>
+</td>
+</tr>
+</table>
+</li>
+
+<li><strong>Creating a small applet based web site.</strong> 
+
+<table summary="Sequence of steps" cellspacing="0" cellpadding="3"
+border="0">
+<tr valign="top" align="left">
+<td><strong>Transfer</strong></td>
+<td>
+<p><strong>Copy the entire local site to the production
+site.</strong> Click on the top folder in the local view and then
+click the fat up arrow. Respond yes, to transfer the entire
+site.</p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Do</strong></td>
+<td>
+<p><strong>Create three web pages, calculator.htm, graphic.htm, and
+simple.htm.</strong> Pattern each of these after shuttle.htm but
+change the applet tag information accordingly... calculator.class
+and .../csc121/&lt;your username&gt;/calculator, and so on.
+<strong>"Put" these pages to the remote site when you finish
+creating them.</strong></p>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Modify</strong></td>
+<td>
+<p><strong>Create or modify the following applets accordingly
+(don't forget that you can test the applet in BlueJ before
+uploading it to the web site):</strong></p>
+
+<ul>
+<li><strong>In BlueJ, modify the Calculator class in the calculator
+project so that it is an applet.</strong> Use your notes from class
+to do this. Once complete, upload Calculator.class. Test the applet
+by browsing to the calculator.htm page and seeing that the
+calculator you wrote in project 2 earlier this semester runs from
+Internet Explorer.</li>
+
+<li><strong>In BlueJ, modify the Graphic class in the graphic
+project</strong> so that it will display a circle (g1.fill)
+surrounded by a rectangle (g1.draw). Once complete, upload
+Graphic.class and test in Internet Explorer as above.</li>
+
+<li><strong>In BlueJ, create a new (applet) class called Simple in
+the simple project.</strong> This class is similar to Graphic. Have
+the applet display some formatted text and at least one figure,
+both different from the Gui applet. As above, transfer Simple.class
+to the web site and view it in Internet Explorer.</li>
+</ul>
+</td>
+</tr>
+
+<tr valign="top" align="left">
+<td><strong>Edit</strong></td>
+<td>
+<p><strong>Finally, edit the web page lab13.htm,</strong> so that
+it has a link to each of the three web pages you just completed.
+Mimic the link to Shuttle, already in that page. Now browse your
+site to make sure all the links and all the applets are
+working.</p>
+</td>
+</tr>
+</table>
+</li>
+</ol>
+</dd>
+</dl>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

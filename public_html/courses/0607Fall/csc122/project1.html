@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Project 1 - 
+	CSC 122: Computer Science II, Fall 2006</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>
+	CSC 122: Computer Science II, Fall 2006</h1>
+	
+<h2>Project 1</h2>
+	
+		
+<h3>Ramping up with Java - Reversi</h3>
+		
+<h3>Deadline: Friday, September 1, 5:00 p.m.</h3>
+
+		
+<dl>
+			
+<dt>Overview:</dt>
+			
+<dd>
+<p>This project deals with the game of Reversi, also known as
+			Othello.  It is played on an 8-by-8 checker board, with 64 pieces
+			which are black on one side and white on the other.  Initially,
+			the four center squares are covered with pieces, turned to white on
+			one diagonal and black on the other.  The two players, black and white,
+			then take turns placing one piece of their color at a time on an empty
+			square of the board.  Any pieces of the opposite color which form a
+			contiguous line (horizontal, vertical, or diagonal) bounded at one end
+			by the new piece and at the other by another piece of the same color
+			are then flipped over to the player's color.  Each turn must result in
+			at least one of the opponent's pieces being flipped; if there is
+			nowhere that a player can put a piece, their turn is skipped.  The game
+			ends when neither player can play; the winner is the one with the most
+			pieces turned to their color.</p>
+			
+			
+<p>Your task will be to implement two strategies for this game: a
+			<i>greedy</i> approach which chooses the move that flips the most
+			pieces, and a <i>priority</i> approach which searches the squares in
+			a fixed priority order and chooses the first legal move.</p>
+			
+</dd>
+
+			
+<dt>Specification:</dt>
+			
+<dd>
+<ul>
+				
+<li>You will need a <code>Board</code> class which maintains the
+				state of the board.  It will contain an 8-by-8 array of type
+				<code>char</code>, where each cell can be <code>'.'</code>,
+				<code>'B'</code>, or <code>'W'</code>.  It should provide the
+				following methods:
+				<ul>
+				    
+<li>
+<code>void reset()</code>: clear the board and place the
+				    initial four pieces.</li>
+				    
+<li>
+<code>int checkMove(char player, java.awt.Point position)</code>:
+				    return the number of opposing pieces which would be flipped by
+				    the given player (<code>'B'</code> or <code>'W'</code>) playing
+				    at the given position (where <code>(0,0)</code> is at the upper-left
+				    and <code>(7,7)</code> is at the lower-right).  If the move is
+				    not legal, return 0.</li>
+				    
+<li>
+<code>boolean makeMove(char player, java.awt.Point position)</code>:
+				    change the board to reflect the given move (note that <code>checkMove</code>
+				    does <i>not</i> change the board), and return <code>true</code>.  If the move
+				    is not legal (that is, if <code>checkMove</code> would have returned 0), leave
+				    the board unchanged and return <code>false</code>.</li>
+				    
+<li>
+<code>int count(char player)</code>: return how many of the given player's
+				    pieces are currently face up on the board.</li>
+				    
+<li>
+<code>void display()</code>: print the board on <code>System.out</code>.
+				    For example, here is the result of calling <code>display()</code> right
+				    after <code>reset()</code>:
+				    <pre>
+........
+........
+........
+...BW...
+...WB...
+........
+........
+........
+				    </pre>
+</li>
+				
+</ul>
+</li>
+				
+				
+<li>You will need a <code>GreedyStrategy</code> class which implements the
+				greedy strategy.  It should provide the following methods:
+				<ul>
+				    
+<li>
+<code>GreedyStrategy(char player, Board board)</code>: the constructor
+				    simply saves in fields the color of its player (<code>'B'</code> or <code>'W'</code>)
+				    and a reference to the <code>Board</code> on which the game will be played.</li>
+				    
+<li>
+<code>java.awt.Point move()</code>: returns the best position at which this
+				    player should place a piece on the current board, determined by which position
+				    will result in the greatest number of opposing pieces flipped.  If there are no
+				    legal moves, then return the point <code>(0,0)</code>.</li>
+				
+</ul>
+</li>
+
+				
+<li>You will need a <code>PriorityStrategy</code> class which implements the
+				priority strategy.  It should provide the following methods:
+				<ul>
+				    
+<li>
+<code>PriorityStrategy(char player, Board board)</code>: the constructor
+				    saves in fields the color of its player (<code>'B'</code> or <code>'W'</code>)
+				    and a reference to the <code>Board</code> on which the game will be played.  It
+				    should also initialize a list of points in order of priority.  This order will
+				    be up to you -- for example, you might want to put the four corners at the top
+				    of the list, since they are very good cells to control (note that once you take
+				    a corner, it can never be flipped).</li>
+				    
+<li>
+<code>java.awt.Point move()</code>: returns the first position which has a
+				    legal move, searched in priority order.  If there are no
+				    legal moves, then return the point <code>(0,0)</code>.</li>
+				
+</ul>
+</li>
+				
+				
+<li>Finally, you will need a <code>Driver</code> class which has a <code>play()</code>
+				method.  This should construct a <code>Board</code> object, a <code>GreedyStrategy</code> for
+				black, and a <code>PriorityStrategy</code> for white, and then play a game of reversi.
+				That is, it should reset the board, then alternate asking each strategy for a move and
+				making that move.  It should print out the move and the state of the board after each
+				turn.  When neither player can move (<code>makeMove</code> has returned <code>false</code>
+				two times in a row), the game ends; the player with the higher piece count is the winner.</li>
+			
+</ul>
+</dd>
+
+			
+<dt>The Project and Getting Started:</dt>
+			
+<dd>
+				
+<p>
+<strong>Standards:</strong>
+</p>
+				
+<p>Your project should be well-written, neatly-formatted, modular,
+					and well-documented.  I suggest you use a test-driven approach to
+					implementation: first create the classes and method stubs, next write
+					appropriate tests for each method, and then fill in the bodies of
+					the methods to make the tests succeed.</p>
+					
+				
+<p>You may work in pairs or individually.  Please review the policies on collaboration
+					in the syllabus -- in particular, if you submit work developed as a pair, you need
+					to make sure that you and your partner both understand all of the code submitted.</p>
+					
+				
+<p>To submit your project, put all of the source files in an appropriately-named folder
+					within <code>I:\10607_CSC122\</code> and <a href="mailto:bhoward@depauw.edu">send me an email</a>
+					telling me where to find the files and, in the case of a pair, who your partner was.</p>
+
+				
+<p>
+<strong>Grading:</strong>
+</p>
+				
+<ul>
+					
+<li>
+<code>Board</code> constructor and <code>reset</code> method (10 points)</li>
+					
+<li>
+<code>checkMove</code> and <code>makeMove</code> methods (20 points)</li>
+					
+<li>
+<code>count</code> and <code>display</code> methods (10 points)</li>
+					
+<li>
+<code>GreedyStrategy</code> class (10 points)</li>
+					
+<li>
+<code>PriorityStrategy</code> class (15 points)</li>
+					
+<li>Appropriate priority list of cells -- document your reasoning (5 points)</li>
+					
+<li>
+<code>Driver</code> class (15 points)</li>
+					
+<li>Documentation and style (15 points)</li>					
+				
+</ul>
+				
+<p>For extra credit, add functionality so that a human player can compete against one
+				of the computer strategies.  Also, I am planning to hold a tournament among all of the
+				submissions, with 5 points of extra credit going to the winning strategy.</p>
+			
+</dd>
+		
+</dl>
+	
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2006<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

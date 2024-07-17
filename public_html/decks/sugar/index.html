@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>A Short History of Syntactic Sugar</title>
+	
+	<meta name="description" content="Syntactic sugar and comprehension syntax in Haskell, Scala, and LINQ">
+	<meta name="author" content="Brian Howard">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/web-2.0.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/fade.css">
+	
+	<script src="../modernizr.custom.js"></script>
+
+	<!-- mathjax -->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+		  inlineMath: [ ['$','$'] ],
+		  displayMath: [ ["\\[","\\]"] ],
+		  processEscapes: true
+		},
+		"HTML-CSS": { availableFonts: ["TeX"] }
+	  });
+	</script>
+
+    <!-- Grab CDN MathJax, with a protocol relative URL; fall back to local if offline -->
+	<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full.js"></script>
+	<!-- <script>window.MathJax || document.write('<script src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full.js"><\/script>')</script> -->
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="title-slide">
+	<h2>A Short History of Syntactic Sugar:<br/>
+	Comprehending Haskell, Scala<strike>, and LINQ</strike></h2>
+	<h3>Brian Howard<br/>
+	DePauw University</h3>
+</section>
+
+<section class="slide" id="quotes">
+	<h2>Syntactic Sugar (n) [Peter Landin, 1964]:</h2>
+	<blockquote cite="http://www.catb.org/jargon/html/S/syntactic-sugar.html">
+		<p>Features added to a PL to make it "sweeter" for humans, but which do not affect the expressiveness.</p>
+		<p><cite>Jargon File</cite></p>
+	</blockquote>
+	<blockquote class="slide" id="quotes2" cite="http://www.cs.yale.edu/quotes.html">
+		<p>Syntactic Sugar causes cancer of the semicolon.</p>
+		<p><cite>Alan Perlis</cite></p>
+	</blockquote>
+</section>
+
+<section class="slide" id="original-example">
+	<h2>Landin's Original Example:<br/>
+	<code>where</code> notation on top of $\lambda$-calculus</h2>
+	<ul>
+		<li>Sugared code:
+<pre><code>sqrt(dx * dx + dy * dy)
+where dx = x2 - x1
+  and dy = y2 - y1</code></pre></li>
+  		<li class="slide" id="unsugared-original-example">Unsugared code:
+<pre><code>(λ(dx, dy). sqrt(dx * dx + dy * dy))
+  (x2 - x1, y2 - y1)</code></pre></li>
+</section>
+
+<section class="slide" id="set-comprehension">
+	<h2>Set Comprehension</h2>
+	<h3>Set-Builder Notation:</h3>
+	<ul>
+		<li class="slide" id="set-comprehension-1">
+			\[\Large \{n \,|\, n \in \textrm{Nat}\quad\textrm{and}\quad n \bmod 2 = 0\} \]
+		</li>
+		<li class="slide" id="set-comprehension-2">
+			\[\Large \{2n \,|\, n \in \textrm{Nat}\} \]
+		</li>
+		<li class="slide" id="set-comprehension-3">
+			\[\Large \{(a,c) \,|\, (a,b_1)\in R,\quad (b_2,c)\in R,\quad\textrm{and}\quad b_1=b_2\} \]
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="early-comprehension">
+	<h2>Early Uses of Set Comprehension</h2>
+	<ul>
+		<li><h3>SETL (1969)</h3>
+<pre><code>{ 2 * n : n in {0 .. 50} }
+
+{ [a,c] : [a,b1] in R, [b2,c] in R | b1 = b2 }</code></pre>
+		</li>
+		<li><h3>SQL (1974)</h3>
+<pre><code>SELECT f1.a, f2.b
+FROM Friend f1, Friend f2
+WHERE f1.b = f2.a</code></pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="list-comprehension">
+	<h2>List Comprehension</h2>
+	<ul>
+		<li>Introduced by Burstall and Darlington (1977) in NPL (predecessor of Hope)</li>
+		<li>Influenced design of Miranda and eventually Haskell</li>
+		<li>Example from Turner, "Overview of Miranda" (1986):
+<pre><code>sort [] = []
+sort (a:x) = sort [ b | b &lt;- x; b &lt;= a ]
+             ++ [a] ++
+             sort [ b | b &lt;- x; b &gt; a ]</code></pre></li>
+         <li>Equivalent to using <code>map</code> and <code>filter</code>:
+<pre><code>[ f x | x &lt;- xs; p x ] = map f (filter p xs)</code></pre></li>
+	</ul>
+</section>
+
+<section class="slide" id="nested-list-comprehension">
+	<h2>Nested List Comprehension</h2>
+	<ul>
+		<li>How do you translate
+			<code>[ (x,y) | x &lt;- xs, y &lt;- ys ]</code>? (Haskell)</li>
+		<li>If <code>xs = [1, 2, 3]</code> and <code>ys = ['a', 'b']</code>,
+			then result should be<br/>
+			<code>[(1,'a'), (1,'b'), (2,'a'), (2,'b'), (3,'a'), (3,'b')]</code></li>
+		<li class="slide" id="nested-list-comprehension-2">Think nested loops:
+<pre><code>for x &lt;- xs
+  for y &lt;- ys
+    ... put (x,y) into result ...</code></pre></li>
+    </ul>
+</section>
+
+<section class="slide" id="nested-list-comprehension-again">
+	<h2>Nested List Comprehension, Again</h2>
+	<ul>
+		<li>How do you translate
+			<code>[ (x,y) | x &lt;- xs, y &lt;- ys ]</code>? (Haskell)</li>
+		<li>If <code>xs = [1, 2, 3]</code> and <code>ys = ['a', 'b']</code>,
+			then result should be<br/>
+			<code>[(1,'a'), (1,'b'), (2,'a'), (2,'b'), (3,'a'), (3,'b')]</code></li>
+   		<li>Minor problem: just using <code>map</code> would give<br/>
+    		<code>[[(1,'a'), (1,'b')],</code><br/>
+    		<code>&nbsp;[(2,'a'), (2,'b')],</code><br/>
+    		<code>&nbsp;[(3,'a'), (3,'b')]]</code></li>
+    	<li class="slide" id="nested-list-comprehension-again-2">Solution: all but innermost loop use <code>concatMap</code>:
+<pre><code>[ f x y | x &lt;- xs, y &lt;- ys ] =
+  concatMap (\x -&gt; map (\y -&gt; f x y) ys) xs</code></pre></li>
+    </ul>
+</section>
+
+<section class="slide" id="monad">
+	<h2><span title="Monad">M@#&%</span></h2>
+	<ul>
+		<li>Moggi (1989) suggested using the "standard construction" of category theory to
+		incorporate "computational" features into pure $\lambda$-calculus:
+<pre><code>C1 : M[T1]
+C2 : M[T2],  when  x : T1
+-------------------------
+let x &lt;- C1 in C2 : M[T2]
+</code></pre></li>
+		<li class="slide" id="monad-2">Look at types:
+<pre><code>(λx. C2) : T1 -&gt; M[T2]
+mapM (λx. C2) : M[T1] -&gt; M[M[T2]]</code></pre></li>
+		<li class="slide" id="monad-3">Need <code>joinM : M[M[T]] -&gt; M[T]</code> (and also <code>unitM : T -&gt; M[T]</code>)</li>
+	</ul>
+</section>
+
+<section class="slide" id="monad-comprehension">
+	<h2><span title="Monad">M@#&%</span> Comprehension</h2>
+	<ul>
+		<li>Wadler (1990) pointed out similarity with list comprehension:<br/>
+		<code>joinM</code> is just <code>concat : [[T]] -&gt; [T]</code></li>
+		<li>Given any "computation" type (or collection ...) <code>M[T]</code>, just
+		need a few functions like <code>mapM</code> and <code>joinM</code> to translate
+		a comprehension</li>
+		<li>Haskell 98 adds "do notation":
+<pre><code>do x &lt;- xs
+   y &lt;- ys
+   guard (p x y)
+   return (f x y)</code></pre></li>
+   		<li>Translates to
+   		<code>xs &gt;&gt;= \x -&gt; (ys &gt;&gt;= \y -&gt; guard (p x y) &gt;&gt; return (f x y))</code></li>
+	</ul>
+</section>
+
+<section class="slide" id="Haskell-examples-List">
+    <h2>Haskell Examples</h2>
+    <h3>List</h3>
+<pre><code>do x &lt;- [1, 2, 3]
+   y &lt;- ['a', 'b']
+   return (x, y)</code></pre>
+   <p>Result is <code>[(1,'a'), (1,'b'), (2,'a'), (2,'b'), (3,'a'), (3,'b')]</code>,<br/>
+   of type <code>[(Integer, Char)]</code></p>
+</section>
+
+<section class="slide" id="Haskell-examples-Maybe">
+    <h2>Haskell Examples, Continued</h2>
+    <h3>Maybe</h3>
+    <p>Consider a genealogy database, with some lookup functions:</p>
+<pre><code>father :: Person -&gt; Maybe Person
+mother :: Person -&gt; Maybe Person</code></pre>
+	<p>Perhaps <code>father Joe = Just Fred</code> but <code>father Fred = Nothing</code></p>
+	<div class="slide" id="Haskell-examples-Maybe-2">
+<pre><code>maternalGrandfather :: Person -&gt; Maybe Person
+maternalGrandfather p = do
+  m &lt;- mother p
+  gf &lt;- father m
+  return gf</code></pre>
+	<p>Source: <a href="http://en.wikibooks.org/wiki/Haskell/Understanding_monads"><code>http://en.wikibooks.org/wiki/Haskell/Understanding_monads</code></a></p>
+    </div>
+</section>
+
+<section class="slide" id="Haskell-examples-IO">
+    <h2>Haskell Examples, Continued</h2>
+    <h3>I/O</h3>
+<pre><code>do putStr "What is your first name? "
+   first &lt;- getLine
+   putStr "And your last name? "
+   last &lt;- getLine
+   let full = first ++ " " ++ last
+   putStrLn ("Pleased to meet you, " ++ full ++ "!")
+   return full</code></pre>
+    <p>Result is of type <code>IO String</code></p>
+	<p>Source: <a href="http://en.wikibooks.org/wiki/Haskell/do_Notation"><code>http://en.wikibooks.org/wiki/Haskell/do_Notation</code></a></p>
+</section>
+
+<section class="slide" id="Scala-for-expression">
+	<h2>Scala <code>for</code> Expressions</h2>
+	<p>Generalization of <code>for</code> loops, based on <code>do</code> notation:</p>
+<pre><code>for ( i &lt;- 0 until n ) sum += a(i)
+
+for ( i &lt;- n-1 to 1 by -1; j &lt;- 0 until i ) {
+  if (a(j) &gt; a(j+1)) {
+    val temp = a(j); a(j) = a(j+1); a(j+1) = temp
+  }
+}
+
+for {
+  (a, b1) &lt;- R
+  (b2, c) &lt;- R
+  if b1 == b2
+} yield (a, c)</code></pre>
+</section>
+
+<section class="slide" id="Scala-for-expression-2">
+	<h2>Scala <code>for</code> Expressions</h2>
+	<p>Translated into calls to methods named <code>map</code>, <code>withFilter</code>, <code>flatMap</code>, and <code>foreach</code>:</p>
+<pre><code>for { x &lt;- e } yield r</code>
+  becomes  <code>e.map { x =&gt; r }</code>
+<code>for { x &lt;- e; if g; ... } ...</code>
+  becomes  <code>for { x &lt;- e.withFilter { x =&gt; g }; ... } ...</code>
+<code>for { x &lt;- e; ... } yield r</code>
+  becomes  <code>e.flatMap { x =&gt; for { ... } yield r }</code>
+<code>for { x &lt;- e } r</code>
+  becomes  <code>e.foreach { x =&gt; r }</code>
+<code>for { x &lt;- e; ... } r</code>
+  becomes  <code>e.foreach { x =&gt; for { ... } r }</code></pre>
+  	<p>(Complications from pattern bindings and value definitions omitted)</p>
+</section>
+
+<section class="slide" id="Scala-examples-List">
+    <h2>Scala Examples</h2>
+    <h3>List</h3>
+<pre><code>for {
+  x &lt;- List(1, 2, 3)
+  y &lt;- List('a', 'b')
+} yield (x, y)</code></pre>
+   <p>Result is <code>List((1,'a'), (1,'b'), (2,'a'), (2,'b'), (3,'a'), (3,'b'))</code>,<br/>
+   of type <code>List[(Int, Char)]</code></p>
+</section>
+
+<section class="slide" id="Scala-examples-Option">
+    <h2>Scala Examples, Continued</h2>
+    <h3>Option</h3>
+    <p>Consider a genealogy database, with some lookup functions:</p>
+<pre><code>father : Person -&gt; Option[Person]
+mother : Person -&gt; Option[Person]</code></pre>
+	<p>Perhaps <code>father(Joe) = Some(Fred)</code> but <code>father(Fred) = None</code></p>
+	<div class="slide" id="Scala-examples-Option-2">
+<pre><code>def maternalGrandfather(p : Person): Option[Person] = for {
+  m &lt;- mother(p)
+  gf &lt;- father(m)
+} yield gf</code></pre>
+    </div>
+</section>
+
+<section class="slide" id="Scala-examples-Combination">
+	<h2>Scala Examples, Continued</h2>
+	<h3>List <u>and</u> Option</h3>
+<pre><code>val code = Map(1 -&gt; 'o', 3 -&gt; 'B', 5 -&gt; '!')
+for {
+  x <- List(3, 1, 4, 1, 5)
+  y <- code.get(x)
+} yield y</code></pre>
+	<p class="slide" id="Scala-examples-Combination-2">Result is
+	<code>List('B', 'o', 'o', '!')</code>,<br/>
+	of type <code>List[Char]</code></p>
+</section>
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+</html>

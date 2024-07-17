@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Practice Exam 1 - CSC 221: Computer Organization, Spring 2006</title>
+<link type="text/css" href="default.css" rel="stylesheet">
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 221: Computer Organization, Spring 2006</h1>
+	
+<h2>Practice Exam 1</h2>
+	
+	
+
+<P>
+The exam will be open-book, so that you don't have to memorize the ASCII
+table or the details of the Pep/8 architecture.</P>
+
+
+<OL>
+
+<LI>
+<P>How many memory reads are required to fetch and execute the
+instruction</P>
+
+<PRE>
+add     X, Y
+</PRE>
+
+<P>on a two-address architecture (where <code>X</code> and <code>Y</code> are
+direct-mode operands)?  Recall that this instruction is roughly
+equivalent to <code>X += Y</code> in C++.</P>
+
+
+<P>
+How many memory <SPAN CLASS="textit">writes</SPAN> are required?</P>
+
+
+<P>
+Give an equivalent sequence of instructions for the Pep/8 architecture,
+and tell how many memory reads and writes are required for
+it.</P>
+
+</LI>
+
+
+<LI>
+<P>Fill in the missing entries.</P>
+
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING="3" BORDER="1">
+
+<TR>
+<TD ALIGN="CENTER">Binary</TD>
+<TD ALIGN="CENTER">ASCII</TD>
+<TD ALIGN="CENTER">Decimal</TD>
+<TD ALIGN="CENTER">Hexadecimal</TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><TT>  
+1101001 </TT></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+
+</TR>
+
+<TR>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> '&amp;' </TT></TD>
+<TD></TD>
+<TD></TD>
+
+</TR>
+
+<TR>
+<TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 126 </TT></TD>
+<TD></TD>
+
+</TR>
+
+<TR>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 4E
+</TT></TD>
+
+</TR>
+
+</TABLE>
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Fill in the missing entries.  For this problem, all binary numbers
+are 8 bits.</P>
+
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING="3" BORDER="1">
+
+<TR>
+<TD ALIGN="CENTER">Decimal</TD>
+<TD ALIGN="CENTER">Sign Magnitude</TD>
+<TD ALIGN="CENTER">2's Complement</TD>
+<TD ALIGN="CENTER">Excess 127</TD>
+
+</TR>
+
+<TR>
+<TD ALIGN="CENTER"><TT>  
+-100 </TT></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+
+</TR>
+
+<TR>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 1111 1111 </TT></TD>
+<TD></TD>
+<TD></TD>
+
+</TR>
+
+<TR>
+<TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 1111 1111 </TT></TD>
+<TD></TD>
+
+</TR>
+
+<TR>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD ALIGN="CENTER"><TT> 0110 1001
+</TT></TD>
+
+</TR>
+
+</TABLE>
+</DIV>
+
+</LI>
+
+
+<LI>
+<P>Convert the following C++ program to Pep/8 Assembly Language:</P>
+
+<PRE>
+#include &lt;iostream&gt;
+using namespace std;
+
+int a, b;
+
+int main() {
+  cin &gt;&gt; a;
+  cin &gt;&gt; b;
+  b += a;
+  a = b - a;
+  cout &lt;&lt; a;
+  cout &lt;&lt; b;
+}
+</PRE>
+
+</LI>
+
+
+<LI>
+<P>Evaluate the following expressions, giving the results in hexadecimal:</P>
+
+<OL>
+
+<LI>
+<!-- MATH
+ $\texttt{3E92}+\texttt{147B}$
+ -->
+
+<SPAN CLASS="MATH"><code>3E92</code> + <code>147B</code></SPAN>
+
+</LI>
+
+<LI>
+<!-- MATH
+ $\texttt{7000}-\texttt{1234}$
+ -->
+
+<SPAN CLASS="MATH"><code>7000</code> - <code>1234</code></SPAN>
+
+</LI>
+
+<LI>
+<!-- MATH
+ $\texttt{05F6}\times\texttt{8}$
+ -->
+
+<SPAN CLASS="MATH"><code>05F6</code> &times; <code>8</code></SPAN>
+
+</LI>
+
+</OL>
+
+</LI>
+
+
+<LI>
+<P>Convert the following Pep/8 program to an equivalent program in C++:</P>
+
+<PRE>
+newLine: .EQUATE 0x000A
+         BR      main
+x:       .WORD   1
+y:       .WORD   2
+z:       .WORD   3
+c:       .BYTE   4
+main:    DECI    y,d
+         LDA     y,d
+         ASLA
+         STA     x,d
+         ASLA
+         ASLA
+         ADDA    x,d
+         ADDA    z,d
+         STA     x,d
+         DECO    x,d
+         CHARO   newLine,i
+         DECO    y,d
+         LDA     z,d
+         ORA     0x0030,i
+         STBYTEA c,d
+         CHARO   c,d
+         STOP
+         .END
+</PRE>
+
+
+<P>
+What is the output of the above program if the user enters <code>42</code>?</P>
+
+</LI>
+
+
+<LI>
+<P>Convert the decimal number 3.375 into a fixed-point binary form, with four bits for each of the integer and fractional parts
+(<SPAN CLASS="textit">e.g.</SPAN>, <code>0001.0000</code> represents the number 1.0).</P>
+
+
+<P>
+Convert the same number into a floating-point binary form, with a three-bit (excess 3) exponent and a four-bit significand.</P>
+
+
+<P>
+Compare the ranges (smallest and largest positive numbers) representable in the above two formats.  Assume the usual conventions for
+handling signs, infinities, NaNs, and denormalized numbers.</P>
+
+</LI>
+
+
+<LI>
+<P>Consider the following recursive function in C++:</P>
+
+<PRE>
+int gcd(int a, int b)
+{
+    if (b == 0) return a;
+    int r = a % b;
+    return gcd(b, r);
+}
+</PRE>
+
+<P>Sketch the layout of items in a stack frame for this function:</P>
+
+
+<P>
+If each <code>int</code> occupies 2 bytes, and memory addresses also take 2 bytes, then how many bytes will be needed on the
+runtime stack to handle the call <code>gcd(12, 20)</code>?</P>
+
+</LI>
+
+</OL>
+
+
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img height="31" width="88" alt="Valid HTML 4.01!" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class="validator"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img height="31" width="88" alt="Valid CSS!" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class="validator"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Spring 2006<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

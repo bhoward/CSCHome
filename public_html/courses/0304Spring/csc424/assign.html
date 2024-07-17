@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Assignments - CSC 424, Programming Languages, Spring 2004</title>
+<!--#include virtual="/~bhoward/common/head.html" -->
+<meta name="keywords" content="CSC 424,Assignments,Spring 2004,DePauw University,Brian Howard">
+<meta name="description" content="Assignment listing for CSC 424, Programming Languages, Spring 2004">
+</head>
+
+<body>
+<h1>Assignments for <a href="index.html">CSC 424, Programming Languages</a></h1>
+<dl>
+<dt>Wednesday, February 4:</dt>
+<dd>Be prepared to discuss the following problems from Chapter 1
+(pages 34-35): 2, 3, 4, 6, 7, 8, 12, 14, 15, and 18</dd>
+
+<dt>Friday, February 6:</dt>
+<dd>Present a 3-5 minute summary of a language or group of languages from Chapter 2:
+<ul>
+<li>Evan Moore: Fortran (Section 2.3)</li>
+<li>Blake Bryan: BASIC (Section 2.7)</li>
+<li>Matt Stone: COBOL (Section 2.6)</li>
+<li>Katie Whitaker: Algol 60 (Section 2.5)</li>
+<li>Andrew Thomas: PL/I (Section 2.8)</li>
+<li>John Haas: Algol 68 (Section 2.11)</li>
+<li>Jason Pease: Pascal, Modula-2, &amp; Oberon (Section 2.12, except 2.12.2)</li>
+<li>Zach Harris: Ada (Section 2.14)</li>
+<li>Annette Hammes: Simula 67 &amp; Smalltalk (Sections 2.10 &amp; 2.15)</li>
+<li>David Tannenholz: C &amp; C++ (Sections 2.12.2 &amp; 2.16)</li>
+<li>Kyle Shipley: Java (Section 2.17)</li>
+<li>Ben Betz: C# (Section 2.19)</li>
+<li>Eric Grossnickle: JavaScript &amp; PHP (Section 2.18)</li>
+</ul></dd>
+
+<dt>Monday, February 9:</dt>
+<dd>Turn in your partner's name and a list of preferred languages
+for the Language of the Week; read first few sections of Chapter 3;
+finish presentations:
+<ul>
+<li>Atanas Vlahov: LISP (Section 2.4)</li>
+<li>Chris Brolsma: APL &amp; SNOBOL (Section 2.9)</li>
+<li>Chris Colvard: Prolog (Section 2.13)</li>
+<li>Blake Macleod: Plankalk&uuml;l (Section 2.1)</li>
+</ul></dd>
+
+<dt>Monday, February 16:</dt>
+<dd>Chapter 3, Problems 2c, 3, 6b, 7b, 10, 11, 13, and 17 (there is a typo
+in 17: the rules should read "S -&gt; A { b A }" and "A -&gt; a [ b ] A")</dd>
+
+<dt>Monday, February 23:</dt>
+<dd>Turn in an extension to the grammar of SimpLan, as described in class; may
+be done with a partner, if you are going to work with them on the follow-on
+implementation project (TBA)</dd>
+
+<dt>Wednesday, March 10:</dt>
+<dd>Complete your extension to SimpLan--modify a copy of
+<code>I:\CSC424\public\SimpLan2\</code> in your own folder on the
+<code>I:</code> drive (or in a shared workshop folder if you are working with
+a partner).  Turn in a print-out of the files you modified, plus a collection
+of SimpLan programs that test your new feature.</dd>
+
+<dt>Monday, March 29:</dt>
+<dd>Icon assignment: write a program in Icon that receives a string from
+the user and prints the string to the screen if it's a palindrome but
+simply ends the program if not.</dd>
+<dt>Monday, April 5:</dt>
+<dd>Forth assignment: Indiana is considering a new toll system for its
+highways.  The toll for each road is determined by calculating $0.25 times
+the square of the number of wheels the vehicle has.  Write a set of Forth
+words that calculates a toll table for every vehicle that may use the
+roads, assuming that the largest truck has a maximum of 16 wheels, and
+motorcycles have only 2.  You should note that no legal vehicle in Indiana
+has an odd number of wheels.  Output should look like the following:
+<pre>
+Wheels - cost
+2 - 1
+4 - 4
+...
+</pre>
+Note: Since we did not learn about support for floating point numbers in
+Forth, either do the calculation in cents (so the first cost above would
+be 100, etc.) or calculate the cost by dividing by 4 instead of multiplying
+by 0.25.</dd>
+<dt>Friday, April 9:</dt>
+<dd>Homework to turn in:
+<ul>
+<li>Chapter 6, Problems 1, 2, 7, and 11</li>
+<li>Chapter 7, Problems 3, 4, 8, 13, and Programming Exercise 1</li>
+<li>Chapter 8, Problems 3, 8, and Programming Exercises 1 and 5</li>
+</ul>
+</dd>
+<dt>Monday, April 12:</dt>
+<dd>JavaScript assignment: Create an HTML document that contains JavaScript
+code to handle a button click.  When it executes, it should create an object
+(you may fill in whatever members you like), then use a loop to display a
+list of all of the members of the object (with document.write -- this may
+only work in Internet Explorer).</dd>
+<dt>Monday, April 19:</dt>
+<dd>Ada assignment: Create a package called Volume.  The package should have
+a function which takes the lengths of the sides of a rectangular prism and
+calculates the volume (side1 * side2 * side3).  Optionally, the package
+should also have a procedure to assign the length of the longest side to a
+variable (also passed as an argument).  Within the main program, ask the user
+for the three values and output the volume (and optionally the longest side)
+to the screen.
+</dd>
+<dt>Monday, April 26:</dt>
+<dd>Smalltalk assignment: Here is a new definition of
+<code>startAnimation</code>:
+<pre>
+startAnimation
+    path := OrderedCollection new.
+    p := 0@0.
+    self move: 10 stepsBy: 0@10.
+    self startStepping.
+</pre>
+This function should do the same thing as the original (except for bouncing
+the ball back, since there is no reverse of the path here).  Add code to
+complete this by writing the <code>move: stepsBy:</code> function, then add
+a few more lines to <code>startAnimation</code> to make your object move in
+a square.  Hint: you may also have to change the class definition to get this
+to work.  If you have any questions, feel free to direct them to
+<a href="mailto:kshipley@depauw.edu">Kyle</a>,
+<a href="mailto:mdstone@depauw.edu">Matt</a>, or
+<a href="mailto:arthomas@depauw.edu">Andrew</a>.
+</dd>
+<dt>Friday, April 30:</dt>
+<dd>Homework to turn in:
+<ul>
+<li>Chapter 11, Problem 2 and Programming Exercise 3</li>
+<li>Chapter 13, Problems 1, 3, 4, and 6</li>
+</ul>
+</dd>
+<dt>Monday, May 3:</dt>
+<dd>Erlang assignment: Copy the files <code>ubercalc[framework].erl</code>
+and <code>ioserver.erl</code> from the folder
+<code>I:\CSC424\workshop\Erlang</code> into the Erlang folder of your
+installation (this will be <code>C:\Program Files\erl5.3</code> if you did a
+default install); change the name of the first file to
+<code>ubercalc.erl</code>.  Add code to the <code>server/1</code> function in
+the <code>ubercalc</code> module such that when the server receives a message
+of the form <code>{'+',A,B}</code>, it will add the numbers <code>A</code> and
+<code>B</code> and send a message containing the result to the I/O process.
+It should also be able to handle multiplication, division, subtraction, and
+modulus in the same way.  Your project will also need to have a
+<code>stop</code> clause on the receive loop, so that the calculator can be
+turned off when you're done using it.  When finished, the project will be run
+from the Erlang command prompt:
+<pre>
+c(ubercalc).                % compile ubercalc.erl
+c(ioserver).                % compile ioserver.erl
+ioserver:start(io).         % start an instance of ioserver, named io
+ubercalc:start(calc, io).   % start an instance of ubercalc, named calc
+calc ! {'+', 12, 34}.       % should cause 45 to be printed
+...
+calc ! stop.                % stop the calculator server
+</pre></dd>
+<dt>Monday, May 10:</dt>
+<dd>Scheme assignment: Write a function that computes the sum of the factorials of the numbers
+in a list.  Use a separate recursive function to compute factorials.
+<ul>
+<li>Example 1: <code>(sum '(1 2 3 4 5)) -&gt; 153</code></li>
+<li>Example 2: <code>(sum '(14 8 7)) -&gt; 87178336560</code></li>
+</ul>
+</dd>
+<dt>Wednesday, May 19, 5 pm:</dt>
+<dd>Take-home final
+<ul>
+<li>Prolog assignment: Suppose we have the following knowledge base:
+<pre>
+directFlight(chicago,warsaw).
+directFlight(vancouver,chicago).
+directFlight(newyork,toronto).
+directFlight(toronto,chicago).
+directFlight(warsaw,cancun).
+directFlight(alicante,newyork).
+directFlight(miami,alicante).
+</pre>
+That is, this knowledge base holds facts about cities it is possible to travel between by
+taking a direct flight.  But of course, we can travel further by `chaining together' direct
+flight journeys.  Write a recursive predicate <code>travelBetween</code> that tells us when
+we can travel by plane between two cities.  For example, when given the query
+<pre>
+travelBetween(miami,warsaw).
+</pre>
+it should reply "yes".</li>
+<li>Write an "interesting" program by yourself, using a Language of the Week
+<em>other than your own</em>.  This program does not have to be large or
+complicated, but it should make use of some characteristic feature of the
+language.  On a separate sheet of paper, explain <em>either</em> why this
+language was an excellent choice for writing your program, <em>or</em> why
+you thought this language was going to be a good choice but it turned out not
+to be.  In either case, you should discuss the relevant language design
+issues.</li>
+</ul>
+</dd>
+</dl>
+
+<h2>Languages of the Week:</h2>
+<table>
+<tr>
+<td>March 17</td>
+<td><a href="http://www.cs.arizona.edu/icon/">Icon</a></td>
+<td>Brolsma &amp; Hammes</td>
+</tr>
+<tr>
+<td>March 31</td>
+<td><a href="http://www.forth.org/">Forth</a></td>
+<td>Betz &amp; Whitaker</td>
+</tr>
+<tr>
+<td>April 7</td>
+<td><a href="http://devedge.netscape.com/central/javascript/">JavaScript</a></td>
+<td>Moore &amp; Pease</td>
+</tr>
+<tr>
+<td>April 14</td>
+<td><a href="http://www.acm.org/sigada/">Ada</a></td>
+<td>Harris &amp; Tannenholz</td>
+</tr>
+<tr>
+<td>April 21</td>
+<td><a href="http://www.squeak.org/">Smalltalk</a></td>
+<td>Shipley, Stone &amp; Thomas</td>
+</tr>
+<tr>
+<td>April 28</td>
+<td><a href="http://www.erlang.org/">Erlang</a></td>
+<td>Colvard &amp; Haas</td>
+</tr>
+<tr>
+<td>May 5</td>
+<td><a href="http://www.scheme.org/">Lisp (Scheme)</a></td>
+<td>Bryan &amp; Vlahov</td>
+</tr>
+<tr>
+<td>May 12</td>
+<td><a href="http://www.swi-prolog.org/">Prolog</a></td>
+<td>Grossnickle &amp; Macleod</td>
+</tr>
+</table>
+
+<hr>
+<!--#include virtual="/~bhoward/common/foot.html" -->
+</body></html>
+

@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SQL Exercises - CSC 480: Database and File Systems, Spring 2012</title>
+<link rel="stylesheet" href="default.css" type="text/css">
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>CSC 480: Database and File Systems, Spring 2012</h1>
+	
+<h2>SQL Exercises</h2>
+	
+	
+
+<p>For each query below, write an SQL select statement.  Assume that the following tables have been created
+(this database is available in the folder <code>I:\11122-CSC480A\public\CompanyDB</code>; the code to create it
+is <a href="sql2.html">here</a>):</p>
+
+
+<table rules="all" border="2" style="border-collapse: collapse">
+
+<caption align="top">DEPARTMENT</caption>
+<thead>
+
+<tr>
+
+<td>DNAME</td><td>DNUMBER</td><td>MGRSSN</td><td>MGRSTARTDATE</td>
+</tr>
+
+</thead>
+<tbody>
+
+<tr>
+
+<td>Research            </td>
+<td>5</td>
+<td>333445555</td>
+<td>1988-05-22</td>
+
+</tr>
+
+<tr>
+
+<td>Administration      </td>
+<td>4</td>
+<td>987654321</td>
+<td>1995-01-01</td>
+
+</tr>
+
+<tr>
+
+<td>Headquarters        </td>
+<td>1</td>
+<td>888665555</td>
+<td>1981-06-19</td>
+
+</tr>
+
+</tbody>
+</table>
+<br>
+
+<table rules="all" border="2" style="border-collapse: collapse">
+
+<caption align="top">EMPLOYEE</caption>
+<thead>
+
+<tr>
+
+<td>FNAME</td><td>LNAME</td><td>SSN</td><td>BDATE</td><td>ADDRESS</td><td>SEX</td><td>SALARY</td><td>SUPERSSN</td><td>DNO</td>
+</tr>
+
+</thead>
+<tbody>
+
+<tr>
+
+<td>John      </td>
+<td>Smith               </td>
+<td>123456789</td>
+<td>1965-01-09</td>
+<td>731 Fondren, Houston TX       </td>
+<td>M</td>
+<td>30000</td>
+<td>333445555</td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>Franklin  </td>
+<td>Wong                </td>
+<td>333445555</td>
+<td>1965-12-08</td>
+<td>638 Voss, Houston TX          </td>
+<td>M</td>
+<td>40000</td>
+<td>888665555</td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>Alicia    </td>
+<td>Zelaya              </td>
+<td>999887777</td>
+<td>1968-01-19</td>
+<td>3321 Castle, Spring TX        </td>
+<td>F</td>
+<td>25000</td>
+<td>987654321</td>
+<td>4</td>
+
+</tr>
+
+<tr>
+
+<td>Jennifer  </td>
+<td>Wallace             </td>
+<td>987654321</td>
+<td>1941-06-20</td>
+<td>291 Berry, Bellaire TX        </td>
+<td>F</td>
+<td>43000</td>
+<td>888665555</td>
+<td>4</td>
+
+</tr>
+
+<tr>
+
+<td>Ramesh    </td>
+<td>Narayan             </td>
+<td>666884444</td>
+<td>1962-09-15</td>
+<td>975 Fire Oak, Humble TX       </td>
+<td>M</td>
+<td>38000</td>
+<td>333445555</td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>Joyce     </td>
+<td>English             </td>
+<td>453453453</td>
+<td>1972-07-31</td>
+<td>5631 Rice, Houston TX         </td>
+<td>F</td>
+<td>25000</td>
+<td>333445555</td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>Ahmad     </td>
+<td>Jabbar              </td>
+<td>987987987</td>
+<td>1969-03-29</td>
+<td>980 Dallas, Houston TX        </td>
+<td>M</td>
+<td>25000</td>
+<td>987654321</td>
+<td>4</td>
+
+</tr>
+
+<tr>
+
+<td>James     </td>
+<td>Borg                </td>
+<td>888665555</td>
+<td>1937-11-10</td>
+<td>450 Stone, Houston TX         </td>
+<td>M</td>
+<td>55000</td>
+<td>null</td>
+<td>1</td>
+
+</tr>
+
+</tbody>
+</table>
+<br>
+
+<table rules="all" border="2" style="border-collapse: collapse">
+
+<caption align="top">PROJECT</caption>
+<thead>
+
+<tr>
+
+<td>PNAME</td><td>PNUMBER</td><td>PLOCATION</td><td>DNUM</td>
+</tr>
+
+</thead>
+<tbody>
+
+<tr>
+
+<td>ProductX            </td>
+<td>1</td>
+<td>Bellaire            </td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>ProductY            </td>
+<td>2</td>
+<td>Sugarland           </td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>ProductZ            </td>
+<td>3</td>
+<td>Houston             </td>
+<td>5</td>
+
+</tr>
+
+<tr>
+
+<td>Computerization     </td>
+<td>10</td>
+<td>Stafford            </td>
+<td>4</td>
+
+</tr>
+
+<tr>
+
+<td>Reorganization      </td>
+<td>20</td>
+<td>Houston             </td>
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td>Newbenefits         </td>
+<td>30</td>
+<td>Stafford            </td>
+<td>4</td>
+
+</tr>
+
+</tbody>
+</table>
+<br>
+
+<table rules="all" border="2" style="border-collapse: collapse">
+
+<caption align="top">WORKS_ON</caption>
+<thead>
+
+<tr>
+
+<td>ESSN</td><td>PNO</td><td>HOURS</td>
+</tr>
+
+</thead>
+<tbody>
+
+<tr>
+
+<td>123456789</td>
+<td>1</td>
+<td>32.5</td>
+
+</tr>
+
+<tr>
+
+<td>123456789</td>
+<td>2</td>
+<td>7.5</td>
+
+</tr>
+
+<tr>
+
+<td>666884444</td>
+<td>3</td>
+<td>40.0</td>
+
+</tr>
+
+<tr>
+
+<td>453453453</td>
+<td>1</td>
+<td>20.0</td>
+
+</tr>
+
+<tr>
+
+<td>453453453</td>
+<td>2</td>
+<td>20.0</td>
+
+</tr>
+
+<tr>
+
+<td>333445555</td>
+<td>2</td>
+<td>10.0</td>
+
+</tr>
+
+<tr>
+
+<td>333445555</td>
+<td>3</td>
+<td>10.0</td>
+
+</tr>
+
+<tr>
+
+<td>333445555</td>
+<td>10</td>
+<td>10.0</td>
+
+</tr>
+
+<tr>
+
+<td>333445555</td>
+<td>20</td>
+<td>10.0</td>
+
+</tr>
+
+<tr>
+
+<td>999887777</td>
+<td>30</td>
+<td>30.0</td>
+
+</tr>
+
+<tr>
+
+<td>999887777</td>
+<td>10</td>
+<td>10.0</td>
+
+</tr>
+
+<tr>
+
+<td>987987987</td>
+<td>10</td>
+<td>35.0</td>
+
+</tr>
+
+<tr>
+
+<td>987987987</td>
+<td>30</td>
+<td>5.0</td>
+
+</tr>
+
+<tr>
+
+<td>987654321</td>
+<td>30</td>
+<td>20.0</td>
+
+</tr>
+
+<tr>
+
+<td>987654321</td>
+<td>20</td>
+<td>15.0</td>
+
+</tr>
+
+<tr>
+
+<td>888665555</td>
+<td>20</td>
+<td>null</td>
+
+</tr>
+
+</tbody>
+</table>
+<br>
+
+<table rules="all" border="2" style="border-collapse: collapse">
+
+<caption align="top">DEPENDENT</caption>
+<thead>
+
+<tr>
+
+<td>ESSN</td><td>DEPENDENT_NAME</td><td>SEX</td><td>BDATE</td><td>RELATIONSHIP</td>
+</tr>
+
+</thead>
+<tbody>
+
+<tr>
+
+<td>333445555</td>
+<td>Alice     </td>
+<td>F</td>
+<td>1986-04-04</td>
+<td>Daughter                      </td>
+
+</tr>
+
+<tr>
+
+<td>333445555</td>
+<td>Theodore  </td>
+<td>M</td>
+<td>1983-10-25</td>
+<td>Son                           </td>
+
+</tr>
+
+<tr>
+
+<td>333445555</td>
+<td>Joy       </td>
+<td>F</td>
+<td>1958-05-03</td>
+<td>Spouse                        </td>
+
+</tr>
+
+<tr>
+
+<td>987654321</td>
+<td>Abner     </td>
+<td>M</td>
+<td>1942-02-28</td>
+<td>Spouse                        </td>
+
+</tr>
+
+<tr>
+
+<td>123456789</td>
+<td>Michael   </td>
+<td>M</td>
+<td>1988-01-04</td>
+<td>Son                           </td>
+
+</tr>
+
+<tr>
+
+<td>123456789</td>
+<td>Alice     </td>
+<td>F</td>
+<td>1988-12-30</td>
+<td>Daughter                      </td>
+
+</tr>
+
+<tr>
+
+<td>123456789</td>
+<td>Elizabeth </td>
+<td>F</td>
+<td>1967-05-05</td>
+<td>Spouse                        </td>
+
+</tr>
+
+</tbody>
+</table>
+<br>
+
+<table rules="all" border="2" style="border-collapse: collapse">
+
+<caption align="top">DEPT_LOCATIONS</caption>
+<thead>
+
+<tr>
+
+<td>DNUMBER</td><td>DLOCATION</td>
+</tr>
+
+</thead>
+<tbody>
+
+<tr>
+
+<td>1</td>
+<td>Houston        </td>
+
+</tr>
+
+<tr>
+
+<td>4</td>
+<td>Stafford       </td>
+
+</tr>
+
+<tr>
+
+<td>5</td>
+<td>Bellaire       </td>
+
+</tr>
+
+<tr>
+
+<td>5</td>
+<td>Houston        </td>
+
+</tr>
+
+<tr>
+
+<td>5</td>
+<td>Sugarland      </td>
+
+</tr>
+
+</tbody>
+</table>
+<br>
+
+
+
+<ol>
+
+<li>Select fname, minit, lname and dname of employees and the department each
+  works in.</li>
+
+<li>Produce a list of employees, fname, lname, salary, in order of increasing
+salary.</li>
+
+<li>Produce a list of employees, fname, lname, salary, in order of decreasing
+salary.</li>
+
+<li>Retrieve the names of all employees in department 5 who work more than
+  10 hours on the "ProductX" project.</li>
+
+<li>Retrieve the names of all employees  who work on the "ProductX" project
+  less than 20 hours.</li>
+
+<li>List the names of all employees who have a dependent with the same first
+     name as themselves.</li>
+
+<li>Find the names of all employees who are directly supervised by Franklin
+   Wong (You are NOT to use Franklin's SSN in this query).</li>
+
+<li>For each project, list the project name and the total hours per week (by
+   all employees) spent on that project.</li>
+
+<li>List the names of employees who work on every project.</li>
+
+<li>List the names of all employees who do not work on any project.</li>
+
+<li>For each department, retrieve the department name and the average salary
+   of all employees working in the department.</li>
+
+<li>Find the names and addresses of all employees who work on at least one
+project located in Houston but whose department has no location in Houston (This
+  is a tricky one).</li>
+
+<li>List the names of all department managers who have no dependents.</li>
+
+</ol>
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dir" summary="Navigation menu">
+<tr align="center" valign="bottom">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img class="validator" src="/~bhoward/icons/valid-xhtml10.png" alt="Valid HTML 4.01!" width="88" height="31"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validator" src="/~bhoward/icons/vcss.png" alt="Valid CSS!" width="88" height="31"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/academics/departments-programs/computer-science/">Computer Science Department</a>,
+				Spring 2012<br>
+				Maintained by <a href="/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

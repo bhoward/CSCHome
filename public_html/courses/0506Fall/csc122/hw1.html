@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Homework 1 - 
+	CSC 122: Computer Science II, Fall 2005</title>
+<link type="text/css" href="default.css" rel="stylesheet">
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<h1>
+	CSC 122: Computer Science II, Fall 2005</h1>
+	
+<h2>Homework 1</h2>
+	
+		
+<h3>Due Friday, October 14, in class</h3>
+		
+		
+<ol>
+			
+<li>Calculate the running time for this code fragment, counting each line of code.
+				<pre>
+1  for (int i = 1; i &lt;= 4; i++)
+2    for (int j = 1; j &lt;= 5; j++)
+3      System.out.println( i + j );
+4  for (int k = 0; k &lt; 25; k++)
+5    System.out.println( &ldquo;Hello&rdquo; );
+				</pre>
+			
+</li>
+			
+			
+<li>Calculate the running time of this code fragment, using the critical step method,
+			assuming that the println statement is the critical step.  Do calculations for n = 1, 2, 5,
+			and then a general answer for any n.  Then give the O( ) running time.
+				<pre>
+1  int i = 1;
+2  while ( i &lt; n) {
+3    for (int j = 1; j &lt;= n; j++)
+4      System.out.println( &ldquo;Homer&rdquo; );
+5    i = i + 2;
+6  }
+				</pre>
+			
+</li>
+			
+			
+<li>Calculate the running time of this code fragment, using the critical step method,
+			assuming that the println statement is the critical step.  Do calculations for n = 1, 4, 7, 9, and 16,
+			as well as a general answer for any n.  Then give the O( ) running time.
+				<pre>
+1  while (n &gt; 1) {
+2	   System.out.println( n );
+3	   n = n / 2;
+4  }
+				</pre>
+			
+</li>
+			
+			
+<li>Consider the following situation.  You are given an unsorted array containing N items.
+			You are asked to perform K searches on the array.  Your options are to sort the array and perform
+			binary searches, or perform linear searches on the unsorted array.  Assume that the sort take
+			N lg N operations to complete, the binary search takes lg N comparisons on average, and that the
+			linear search takes N / 2 comparisons on average.  How many searches do you have to do (in other
+			words, what value do you need for K) to make it faster to sort and use binary search than to use
+			linear search for the following values of N?
+				<ol type="a">
+					
+<li>N = 128</li>
+					
+<li>N = 512</li>
+					
+<li>N = 2,048</li>
+					
+<li>N = 1,000,000 (lg 1,000,000 is approximately 20)</li>
+					
+<li>N = 128,000,000 (lg 128,000,000 is approximately 27)</li>
+				
+</ol>
+			
+</li>
+			
+			
+<li>Consider the following Java method:
+				<pre>
+public void enigma( String s ) {
+  if ( s.length( ) &gt; 0 ) {
+    System.out.println( s );
+    enigma( s.substring( 1, s.length( ) &ndash; 1 ) );
+  }
+}
+				</pre>
+				What would be the output of this function on the following parameters?
+				<ol type="a">
+					
+<li>enigma( &ldquo;Hi&rdquo; )</li>
+					
+<li>enigma( &ldquo;Homer&rdquo; )</li>
+					
+<li>enigma( &ldquo;Simpsons&rdquo; )</li>
+				
+</ol>
+			
+</li>
+			
+			
+<li>Consider the following recursive Java method:
+				<pre>
+public int mystery( int n ) {
+  if ( n == 1 ) {
+    return 2;
+  }
+  else {
+    return n + mystery( n &ndash; 1 ) + mystery( n / 2 );
+  }
+}
+				</pre>
+				What does this method return for the following calls?
+				<ol type="a">
+					
+<li>mystery( 2 )</li>
+					
+<li>mystery( 3 )</li>
+					
+<li>mystery( 4 )</li>
+					
+<li>mystery( 5 )</li>
+				
+</ol>
+			
+</li>
+			
+			
+<li>Consider the following Java method:
+				<pre>
+public int riddle( int a, int b ) {
+  if ( a == 0 )
+    return 0;
+  else if ( b == 0 )
+    return a;
+  else if ( b == 1 )
+    return a * a;
+  else
+    return a * a * riddle(a, b&ndash;3);
+}
+				</pre>
+				What would be the output of the following method calls?  If it never finishes, write &ldquo;never finishes&rdquo;.
+				<ol type="a">
+					
+<li>riddle(4, 1)</li>
+					
+<li>riddle(3, 4)</li>
+					
+<li>riddle(2, 6)</li>
+					
+<li>riddle(0, 5)</li>
+					
+<li>riddle(5, 5)</li>
+				
+</ol>
+			
+</li>
+			
+			
+<li>Write a recursive Java method named sumUp that takes one integer parameter n.
+			This function should return the sum of all the integers from 1 to n.  You may assume that n is 1 or larger.
+			The function should be written recursively.</li>
+			
+			
+<li>Write a recursive Java method named stars that takes one integer parameter n.
+			The function should return a string consisting of n stars.  You may assume that n is 0 or larger.
+			The function should be written recursively.</li>
+			
+			
+<li>Write a recursive Java method named reverse that takes one String parameter s.
+			The function should return a string that is the reverse of s.  This function should be written recursively.</li>
+
+ 			
+<li>Consider the following Java method:
+ 				<pre>
+public void puzzle( int n ) {
+  if ( n == 1 )
+    System.out.println( &ldquo;Hello&rdquo; );
+  else {
+    System.out.println( &ldquo;Hello&rdquo; );
+    morePrinting( n &ndash; 1 );
+    puzzle( n &ndash; 2 );
+  }
+}
+				</pre>
+				Assuming that the important step in this algorithm is printing the word &ldquo;Hello&rdquo;, and assuming that
+				calling morePrinting with a parameter of x results in printing 2x &ldquo;Hello&rdquo;s, write a recurrence
+				equation (including the base case!) for this algorithm.  You do not need to solve for T( n ) &ndash;
+				just write the initial expression.
+			</li>
+
+			
+<li>Consider the following Java method:
+				<pre>
+public int unknown( int n ) {
+  int x, y;
+  if ( n == 1 )
+    return 1;
+  else {
+    x = unknown( n / 3 );
+    y = unknown( n / 2 );
+    return x * y;
+  }
+}
+				</pre>
+				Assuming that the important step in this algorithm is a multiplication, write a recurrence equation
+				(including the base case!) for this algorithm.  You do not need to solve for T( n ) &ndash;
+				just write the initial expression.
+			</li>
+			
+			
+<li>	Solve the following recurrence relation:
+				<pre>
+T( 1 ) = 2
+T( n ) = T( n &ndash; 1 ) + 1
+				</pre>
+			
+</li>
+			
+			
+<li>	Solve the following recurrence relation:
+				<pre>
+T( 1 ) = 1
+T( n ) = 2T( n / 2 ) + n &ndash; 1
+				</pre>
+			
+</li>
+			
+			
+<li>	Solve the following recurrence relation:
+				<pre>
+T( 2 ) = 1
+T( n ) = 2T( n / 2 ) + n
+				</pre>
+			
+</li>
+		
+</ol>
+	
+
+<table summary="Navigation menu" class="dir" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td><td><b><a href="schedule.html">Schedule</a></b></td><td><b><a href="resources.html">Resources</a></b></td><td><b><a href="assignments.html">Assignments</a></b></td><td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+<p>
+<a href="http://validator.w3.org/check/referer"><img height="31" width="88" alt="Valid HTML 4.01!" src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class="validator"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img height="31" width="88" alt="Valid CSS!" src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class="validator"></a><a href="http://www.depauw.edu/">DePauw University</a>, 
+				<a href="http://www.depauw.edu/acad/computer/">Computer Science Department</a>,
+				Fall 2005<br>
+				Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a>
+				(<a href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+				
+					<!--#config timefmt="%A, %B %e, %Y" -->
+					Last updated <!--#echo var="LAST_MODIFIED" -->
+				</p>
+</body>
+</html>

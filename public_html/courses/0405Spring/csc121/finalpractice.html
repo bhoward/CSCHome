@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Final Exam Practice - CSC 121: Computer Science I, Spring
+2005</title>
+<style type="text/css">
+                    body {background-color: #e0e0ff} table.dir
+                    {background-color: #c0c0ff} table.dir td:hover
+                    {background-color: #a0a0ff} table.dir a {text-decoration:
+                    none} h1 {text-align: center} h2 {text-align: center} dt
+                    {font-weight: bold} div.solution {color: red} img.validator
+                    {float: right; border: none}
+                    
+</style>
+</head>
+<body>
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+<h2>Final Exam Practice</h2>
+
+<p>IMPORTANT: This is a practice exam. We sampled topics from the
+<a href="finaltopics.html">Final Exam Topics</a> document to give
+you a sense of the exam that is approaching. Memorizing and/or
+studying the content of this one, single sample set of practice
+problems cannot substitute for several weeks of thoroughly studying
+all the class notes, homework problems, textbook readings,
+laboratory exercises, and programming projects.</p>
+
+<h2>Group 1, Problems Stressing Material After Exam Two</h2>
+
+<ol>
+<li>
+<p>Consider the following field declaration for a class:</p>
+
+<pre>
+String[ ] wordList = new String[100];
+       
+</pre>
+
+<p>Write a method for the class that takes a parameter named word
+of class String and a parameter named len of type int. The method
+should return the number of times that word appears in cells 0..len
+- 1 of the array wordList. (Assume len &lt;= 100)</p>
+</li>
+
+<li>
+<p>Consider an array whose contents are:</p>
+
+<pre>
+17  14  8  19  3  12  6  7
+       
+</pre>
+
+<p>Show how this array would look after each step of the Bubble
+Sort algorithm is carried out.</p>
+</li>
+
+<li>
+<p>What output is produced by the following code fragment?</p>
+
+<pre>
+for (int ct = 1; ct &lt;= 3; ct++) {
+    System.out.println(ct);
+    for (int i = 3; i &lt;= 4; i++) {
+        System.out.println(ct + " " + i);
+    }
+    System.out.println("Hi ho");
+}
+       
+</pre>
+</li>
+
+<li>
+<p>What is the output from the following code fragment?</p>
+
+<pre>
+String sentence = "to be or not to be";
+String[ ] words = sentence.split(" ");
+int len = words.length;
+
+for (int pass = 1; pass &lt; len; pass++) {
+    System.out.println("Pass " + pass);
+    for (int i = 0; i &lt; len - pass; i++) {
+        if (words[i].compareTo(words[i + 1]) &gt; 0) {
+            String temp = words[i];
+            words[i] = words[i + 1];
+            words[i + 1] = temp;
+        }
+        System.out.println(words[i] + " " + words[i + 1]);
+    }
+}
+
+for (int i = len - 1; i &gt;= 0; i--) {
+    System.out.println(words[i]);
+}
+       
+</pre>
+</li>
+</ol>
+
+<p>Questions 5 - 10 refer to the following field declarations for a
+class called Matrix:</p>
+
+<pre>
+int[ ][ ] grid = new int[10][11];
+int[ ][ ] grid2 = new int[10][11];
+</pre>
+
+<ol start="5">
+<li>How many integers can grid store?</li>
+
+<li>Write a method init that initializes all of the values of grid
+to be 0.</li>
+
+<li>Write a method same that returns true, if grid and grid2
+contain exactly the same elements. Otherwise, the method should
+return false.</li>
+
+<li>
+<p>What output is produced by the following fragment?</p>
+
+<pre>
+for (int row = 1; row &lt;= 2; row++) {
+    for (int col = 1; col &lt;= 3; col++) {
+        grid[row][col] = row + col;
+    }
+}
+
+for (int col = 1; col &lt;= 3; col++) {
+    for (int row = 1; row &lt;= 2; row++) {
+        System.out.print(grid[row][col]);
+    }
+    System.out.println();
+}
+       
+</pre>
+</li>
+
+<li>Write a method minRow which computes the sum of the values in
+each row, and returns the index of the row with the smallest
+sum.</li>
+
+<li>Write a method average which returns the average of all of the
+values in grid2.</li>
+</ol>
+
+<p>For the remaining questions in this group, consider the
+following database table:</p>
+
+<table border="1" summary="student database">
+<caption>Students</caption>
+
+<thead>
+<tr>
+<th>firstName</th>
+<th>lastName</th>
+<th>id</th>
+<th>class</th>
+<th>GPA</th>
+<th>tuition</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>George</td>
+<td>Williams</td>
+<td>314159</td>
+<td>4</td>
+<td>3.82</td>
+<td>25000</td>
+</tr>
+
+<tr>
+<td>Susanna</td>
+<td>Maigret</td>
+<td>271828</td>
+<td>2</td>
+<td>3.95</td>
+<td>26000</td>
+</tr>
+
+<tr>
+<td>Alice</td>
+<td>Victor</td>
+<td>161803</td>
+<td>1</td>
+<td>2.75</td>
+<td>23000</td>
+</tr>
+
+<tr>
+<td colspan="6">(data omitted)</td>
+</tr>
+</tbody>
+</table>
+
+<ol start="11">
+<li>Which column should be the key of this table, and why?</li>
+
+<li>Give a portion of a class definition for a Student object. You
+should show the field definitions, one of the accessors, and one of
+the mutators.</li>
+
+<li>Give a portion of a class definition for a StudentTable object.
+You should show the field definitions, the constructor, an add
+method which takes a Student parameter, and a find method which
+takes a student id and returns a matching Student object (or null
+if there is no match). You should ignore anything to do with
+reading from or writing to files.</li>
+
+<li>Write a method displayClass which takes a class number (1 to 4)
+as parameter and prints a table giving the first and last names of
+all of the members of the given class. You should assume that this
+method belongs to a Query class, which has a StudentTable field
+named students.</li>
+
+<li>Write a method applyScholarship which takes no parameters. It
+should reduce by 2000 the tuition of every student who is not a
+senior (class 4) and who has a GPA of at least 3.5. In the table
+above, only Susanna Maigret would qualify among those students
+shown; her tuition would drop to 24000. Again, this method should
+belong to a Query class, so it has access to the field
+students.</li>
+</ol>
+
+<h2>Group 2, Problems Stressing Material Previous to Exam Two</h2>
+
+<ol>
+<li>
+<p>Consider the following field declaration</p>
+
+<pre>
+int[ ] myArray = new int[10];
+       
+</pre>
+
+<p>Performing a cyclic shift left on an array means to shift every
+element of the array one cell to the left. The element that used to
+be in the first cell (0) of the array becomes the last cell in the
+array.</p>
+
+<p>For example, if the original array contains the values:</p>
+
+<pre>
+7 5 4 3 8 6 2 4 7 9
+       
+</pre>
+
+<p>The new array would be:</p>
+
+<pre>
+5 4 3 8 6 2 4 7 9 7
+       
+</pre>
+
+<p>Write a method that takes myArray as a parameter and modifies it
+by performing the cyclic shift left operation on the array.</p>
+</li>
+
+<li>
+<p>What output is produced by the following code fragment?</p>
+
+<pre>
+int X = 1;
+while (X &lt;= 4) {
+    if (X == 1) {
+        X++;
+        System.out.println(X);
+    }
+    else if (X == 2) {
+        X = X + 2;
+    }
+    else if (X == 3) {
+        System.out.println(X + 1);
+    }
+    else if (X == 4) {
+        System.out.println(X * X);
+        X = X + 3
+    }
+    System.out.println(X);
+}
+   
+</pre>
+</li>
+
+<li>Write a method that takes two parameters Num1 and Num2 of type
+int. The method should print all the integers between 1 and 100
+inclusive which are evenly divisible by both Num1 and Num2.</li>
+</ol>
+
+<table summary="Navigation menu" class="dir" cellspacing="0"
+cellpadding="0" border="0" width="100%">
+<tr valign="bottom" align="center">
+<td><b><a href="overview.html">Overview</a></b></td>
+<td><b><a href="schedule.html">Schedule</a></b></td>
+<td><b><a href="announcements.html">Announcements</a></b></td>
+<td><b><a href="resources.html">Resources</a></b></td>
+<td><b><a href="assignments.html">Assignments</a></b></td>
+<td><b><a href=".">Home</a></b></td>
+</tr>
+</table>
+
+<p><a href="http://validator.w3.org/check/referer"><img height="31"
+width="88" alt="Valid HTML 4.01!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png" class=
+"validator"></a><a href=
+"http://jigsaw.w3.org/css-validator/check/referer"><img height="31"
+width="88" alt="Valid CSS!" src=
+"http://www.csc.depauw.edu/~bhoward/icons/vcss.png" class=
+"validator"></a><a href="http://www.depauw.edu/">DePauw
+University</a> , <a href=
+"http://www.depauw.edu/acad/computer/">Computer Science
+Department</a> , Spring 2005<br>
+ Maintained by <a href="http://www.csc.depauw.edu/~bhoward/">Brian
+Howard</a> ( <a href=
+"mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a> ). 
+<!--#config timefmt="%A, %B %e, %Y" --> Last updated 
+<!--#echo var="LAST_MODIFIED" -->
+</p>
+</body>
+</html>
+

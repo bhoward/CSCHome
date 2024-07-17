@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8" />
+
+    <title>Lab 1 - CSC 121: Computer Science I, Spring 2005</title>
+<style type="text/css">
+             body {background-color: #e0e0ff}
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+            
+</style>
+<style type="text/css">
+ img.c2 {float: right; border: none}
+ div.c1 {text-align: center}
+</style>
+  </head>
+
+  <body>
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="../overview.html">Overview</a></b></td>
+
+        <td><b><a href="../schedule.html">Schedule</a></b></td>
+
+        <td><b><a
+        href="../announcements.html">Announcements</a></b></td>
+
+        <td><b><a href="../resources.html">Resources</a></b></td>
+
+        <td><b><a
+        href="../assignments.html">Assignments</a></b></td>
+
+        <td><b><a href="../.">Home</a></b></td>
+      </tr>
+    </table>
+
+    <h1>CSC 121: Computer Science I, Spring 2005</h1>
+
+    <h2>Lab 1</h2>
+
+    <h3>Unit 1: Introduction To Graphics</h3>
+
+    <p>As you will see, the problem of producing graphics on a
+    computer screen is complex enough that one cannot usually keep
+    all the details in mind at one time. An approach for managing
+    these details is to break a large problem into smaller more
+    easily solved problems, or sub-problems, and then put the
+    solutions of the sub-problems together in a meaningful way. The
+    laboratories in this unit will give you opportunities to
+    experience some problem solving techniques and at the same time
+    learn enough about graphics and programming in Java to be able
+    to implement a non-trivial animated graphics computer
+    application.</p>
+
+    <h3>Laboratory 1 - Objects and Classes</h3>
+
+    <dl>
+      <dt>Goals:</dt>
+
+      <dd>To understand the difference between classes and objects;
+      To gain experience using the BlueJ programming environment;
+      To modify an existing class; To create a new class from an
+      existing one.</dd>
+
+      <dt>Getting started:</dt>
+
+      <dd>
+        <ul>
+          <li>Copy the folder Lab1 from the public folder on the I:
+          drive to your class folder on the I: drive.</li>
+
+          <li>Start up BlueJ</li>
+        </ul>
+      </dd>
+
+      <dt>The Steps of the Lab:</dt>
+
+      <dd>
+        <ol>
+          <li><strong>Open the lab-classes project in the Lab 1
+          folder</strong></li>
+
+          <li><strong>Work through exercises 1.17-1.25 in your
+          textbook, reading the text and testing any code that you
+          write by invoking the appropriate methods.</strong></li>
+
+          <li><strong>Close the lab-classes project and open the
+          picture project in the Lab 1 folder</strong></li>
+
+          <li><strong>Work through exercises 1.13-1.16, reading the
+          text and testing any code that you write by invoking the
+          appropriate methods</strong></li>
+
+          <li>
+            <strong>Create a Diamond class</strong> 
+
+            <p>Since a triangle is a polygon with three vertices
+            and a diamond is a polygon with four vertices, knowing
+            how to create a triangle should help us understand how
+            to create a diamond. So the approach we use is to make
+            a copy of the Triangle class, rename it as a Diamond
+            class and modify it to draw a diamond instead of a
+            triangle.</p>
+
+            <p><strong>First</strong> make a copy of the Triangle
+            class:</p>
+
+            <ul>
+              <li>Click on <strong>New Class</strong>, give the
+              class the name Diamond in the dialog box, and click
+              <strong>OK</strong>.</li>
+
+              <li><strong>Double-click</strong> the new class (or
+              <strong>right-click</strong> it and choose to open
+              the editor).</li>
+
+              <li><strong>Select</strong> all of the text in the
+              editor window and <strong>cut</strong> it.</li>
+
+              <li><strong>Open</strong> the Triangle class editor,
+              <strong>select</strong> all of the text and
+              <strong>copy</strong> it</li>
+
+              <li><strong>Paste</strong> the copied text into the
+              Diamond class editor window</li>
+
+              <li><strong>Close</strong> the Triangle class editor
+              window</li>
+            </ul>
+
+            <p><strong>Next</strong>, in the Diamond class, replace
+            all occurrences of the word Triangle with the word
+            Diamond (there are only two). It would also be a good
+            idea to replace all occurrences of the word triangle
+            with the word diamond (there are fourteen).</p>
+
+            <p><strong>The last step</strong> is to modify the
+            draw() method so that a diamond is displayed rather
+            than a triangle. Below are the Java statements used by
+            the draw method of the Triangle class to display a
+            triangle in the active window. Note that a check is
+            first made to see if the triangle object should be
+            drawn at all, that is, draw the triangle only if its
+            isVisible property is true. Next note how the x and y
+            coordinates in the lines
+            <strong>myPoly.addPoint</strong> correspond with the
+            labeled points in the picture of the triangle
+            below.</p>
+<pre>
+    /*
+     * Draw the triangle with current specifications on screen.
+     */
+    private void draw()
+    {
+        if (isVisible) {
+            Polygon myPoly = new Polygon(); //Points in order drawn:
+            myPoly.addPoint(xPosition,yPosition); //First
+            myPoly.addPoint(xPosition + (width/2),yPosition + height); //Second
+            myPoly.addPoint(xPosition - (width/2),yPosition + height); //Third
+            Canvas canvas = Canvas.getCanvas();
+            canvas.draw(this, color, myPoly);
+            canvas.wait(10);
+        }   
+    }
+</pre>
+
+            <div class="c1">
+              <img src="triangle.png" height="165" width="497"
+              alt="Diagram of triangle with coordinates" />
+            </div>
+
+            <p>To display a diamond, simply determine the
+            coordinates of the bottom vertex in the diamond shaped
+            figure below and where it should appear in the drawing
+            order. Then insert that point in the proper spot using
+            a myPoly.addPoint statement. Note that height in the
+            diagram below is different than a triangle height, so
+            you will also need to modify the coordinates in two of
+            the other myPoly.addPoint statements.</p>
+
+            <div class="c1">
+              <img src="diamond.png" height="291" width="646"
+              alt="Diagram of diamond with coordinates" />
+            </div>
+
+            <p>Test your Diamond class by creating some diamond
+            objects and displaying them. Do the other methods in
+            the Diamond class work too?</p>
+          </li>
+        </ol>
+      </dd>
+    </dl>
+
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="../overview.html">Overview</a></b></td>
+
+        <td><b><a href="../schedule.html">Schedule</a></b></td>
+
+        <td><b><a
+        href="../announcements.html">Announcements</a></b></td>
+
+        <td><b><a href="../resources.html">Resources</a></b></td>
+
+        <td><b><a
+        href="../assignments.html">Assignments</a></b></td>
+
+        <td><b><a href="../.">Home</a></b></td>
+      </tr>
+    </table>
+
+    <p><a href="http://validator.w3.org/check/referer"><img
+    height="31" width="88" alt="Valid HTML 4.01!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png"
+     class="c2" /></a><a
+    href="http://jigsaw.w3.org/css-validator/check/referer"><img
+    height="31" width="88" alt="Valid CSS!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+    class="c2" /></a><a href="http://www.depauw.edu/">DePauw
+    University</a>, <a
+    href="http://www.depauw.edu/acad/computer/">Computer Science
+    Department</a>, Spring 2005<br />
+     Maintained by <a
+    href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a> (<a
+    href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+    <!--#config timefmt="%A, %B %e, %Y" -->
+     Last updated <!--#echo var="LAST_MODIFIED" -->
+    </p>
+  </body>
+</html>
+

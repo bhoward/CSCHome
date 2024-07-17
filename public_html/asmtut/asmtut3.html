@@ -1,0 +1,79 @@
+<HTML>
+<head><title>Addressing Modes</title></head>
+
+<BODY BGCOLOR=#FFFFFF>
+<A NAME="topic2"></A><CENTER>
+<A HREF="asmtut_contents.html">Contents</A> <A HREF="asmtut1.html#topic0">Up</A> <A HREF="asmtut2.html#topic1">&lt;&lt;</A> <A HREF="asmtut4.html#topic3">&gt;&gt;</A> </CENTER><HR>
+
+<H3>Addressing Modes</H3>
+
+Operands may be specified in one of three basic forms:  immediate,
+register, and memory.<P>
+An immediate operand is just a number (or a label, which the assembler
+converts to the corresponding address). An immediate operand is used to
+specify a constant for one of the arithmetic or logical operations, or
+to give the jump address for a branching instruction. Most assemblers,
+including NASM, allow simple arithmetic expressions when computing
+immediate operands. For example, all of the following are equivalent:
+<PRE>
+        MOV     AL, 13
+        MOV     AL, 0xD
+        MOV     AL, 0Ah + 3 ;Note leading 0 to distinguish from register AH
+        MOV     AL, George * 2 - 1
+</PRE>
+assuming that the label George is associated with the address 7.<P>
+A register operand is one of the eight general- and special-purpose
+16-bit registers listed above, or one of the eight general-purpose 8-bit
+registers (AL, AH, ...), or one of the four segment registers.  The
+contents of the register are used and/or modified by the operation.  In
+the example above, the destination operand of the <TT>MOV</TT> instruction
+is the low byte of the accumulator, AL; the effect of the instruction is
+to store the binary number 00001101 into the bottom eight bits of AX
+(leaving the other bits unchanged).<P>
+A memory operand gives the address of a location in main memory to use
+in the operation. The NASM syntax for this is very simple: put the
+address in square brackets. The address can be given as an arithmetic
+expression involving constants and labels (the <EM>displacement</EM>),
+plus an optional base or index register. Here are some examples:
+<PRE>
+        MOV     DX, [1234h]
+        ADD     DX, [BX + 8]
+        MOV     [BP + SI], DL
+        INC     BYTE [0x100 + CS:DI]	
+</PRE>
+A few of comments are needed on these examples.  In the third
+example, the address is given by the sum of the contents of BP and SI;
+you can imagine that there is a default displacement of zero here, so
+the address is <TT>0 + BP + SI</TT>.  In the first example, the
+destination is 16 bits wide, so a 16-bit quantity will be fetched from
+two adjacent memory locations:  DL will be loaded with the byte from
+<TT>1234h</TT>, and DH will be loaded from <TT>1235h</TT>.  The same will
+happen in the second example:  DL will have the contents of address
+<TT>BX + 8</TT> added to it, and DH will have the contents of address
+<TT>BX + 9</TT> added (plus any carry from the low byte).  In the third
+example, the source is only 8 bits wide, so only the byte at address
+<TT>BP + SI</TT> will be changed.  Finally, in the fourth example, the
+<TT>INC</TT> operation by itself is ambiguous about whether it is
+incrementing a single byte or a full 16-bit word; the keyword
+<TT>BYTE</TT> in front of the operand determines that only the byte at the
+address <TT>100h + DI</TT> will be affected (the alternative would be to
+use the keyword <TT>WORD</TT>, to add 1 to the combination of bytes at
+<TT>100h + DI</TT> and <TT>101h + DI</TT>).<P>
+All of these addresses are really offsets into a particular segment. In
+the fourth example, the code segment is explicitly called for by the
+segment override <TT>CS:</TT>. The default segment is the data segment,
+except when the base register BP is involved, in which case the stack
+segment is used (as in the third example).<P>
+As one more example of a memory operand, consider the following sequence
+of instructions:
+<PRE>
+        MOV     BX, 100h
+        MOV     SI, 20h
+        MOV     AL, [BX + SI + 3]
+</PRE>
+The <EM>effective address</EM> of the third move instruction is computed
+by adding the contents of the BX and SI registers, plus the constant 3;
+therefore, the byte that is moved into AL comes from address <TT>0123h</TT>
+(interpreted as an offset within the data segment).<P>
+
+</BODY></HTML>

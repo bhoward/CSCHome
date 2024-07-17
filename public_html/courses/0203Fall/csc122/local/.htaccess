@@ -1,0 +1,3 @@
+order deny,allow
+deny from all
+# allow from .depauw.edu 163.120 .w3.org .inria.fr

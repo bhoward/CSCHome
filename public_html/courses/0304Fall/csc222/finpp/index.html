@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Final Exam Programming Project</TITLE>
+<META NAME="description" CONTENT="Final Exam Programming Project">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="finpp.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Final Exam Programming Project</H1>
+
+<P>
+Your assignment is to write a program which solves the ``All-Pairs Minimum Path''
+problem for a directed graph.  You must turn in your program by 5 pm, Thursday, December
+18.  I would prefer that you give me a printout, either in my office or at the time of
+the in-class exam; if you come by my office (Julian 266) and I am not there, slip the
+printout under the door.  I will also accept solutions as attachments to email
+(<code>bhoward@depauw.edu</code>); I will <SPAN  CLASS="textit">not</SPAN> look for programs on Jupiter, since I
+need a positive indication that you are submitting your final version (you may submit
+multiple versions to correct errors--I will only grade the last one submitted before
+5:00 on the 18th).  You may discuss this problem with anyone, but the code you submit
+must be your own; if I determine that two submissions are too similar, I will give both
+parties a 0 on this portion of the exam.  This project will count as 20% of the final
+exam grade.
+
+<P>
+You may use the <code>graph</code> class from the book, which is defined in the file
+<code>d_graph.h</code> (in the usual directory: <code>/home/libs/dataStr/ftsoftds/include</code>).
+Note that the input format described below matches that expected by this class, so you
+may read a graph declared with <code>graph&lt;char&gt; g</code> by simply saying <code>cin &gt;&gt; g</code>.
+It would also be reasonable to work directly with an adjacency matrix representation;
+for this, or for storing the distance table in either case, you may want to use the
+<code>matrix</code> class from Chapter 5, which is defined in <code>d_matrix.h</code>.
+
+<P>
+The input should be read from the console (<code>cin</code>).  Recall that you may run a
+program with its input taken from a file by following the name of the program with a
+<code>&lt;</code> and the name of the file: for example, <code>./minpath &lt;test.dat</code> runs the
+program <code>minpath</code> from the current directory, using <code>test.dat</code> for input
+instead of waiting for the user to type something.  Your program should not prompt the
+user for anything; it should just read its input, compute the answer, print it out, and
+exit.
+
+<P>
+The input will have the following format:
+<PRE>
+v
+A
+B
+...
+e
+X1 Y1 w1
+X2 Y2 w2
+...
+</PRE>
+The first line will contain <SPAN CLASS="MATH"><I>v</I></SPAN>, the number of vertices (which will be at most 26).  The
+following <SPAN CLASS="MATH"><I>v</I></SPAN> lines will give the names of the vertices, which will always be
+consecutive upper-case letters starting with <code>A</code> (this is redundant, but it makes
+using the book's <code>graph</code> class easier).  The <!-- MATH
+ $v+2^{\textrm{\small nd}}$
+ -->
+<SPAN CLASS="MATH"><I>v</I> + 2<SUP><IMG
+ WIDTH="19" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\scriptstyle \small nd$"></SUP></SPAN> line will contain
+<SPAN CLASS="MATH"><I>e</I></SPAN>, the number of edges.  The final <SPAN CLASS="MATH"><I>e</I></SPAN> lines will describe each edge by giving the
+starting vertex, ending vertex, and integer weight (the distance from the first vertex
+to the second).  Here is an example:
+<PRE>
+3
+A
+B
+C
+2
+A B 9
+B C 35
+</PRE>
+(Note that this is the same ``Greencastle-Cloverdale-Indianapolis'' example I did in
+class, but with single-character names to make things simpler.)
+
+<P>
+The output should be something like the following:
+<PRE>
+     A  B  C
+  A  0  9 44
+  B -1  0 35
+  C -1 -1  0
+</PRE>
+This table gives the shortest distance in the graph from the vertex on each row to the
+vertex on each column.  If there is no path from one vertex to another, the distance
+should be given as <code>-1</code> (note that when I did the above example in class, I was
+assuming an undirected graph, but for this program you should use a <SPAN  CLASS="textit">directed</SPAN>
+graph).  Again, the vertex labels are redundant, since they will always be <code>A</code>,
+<code>B</code>, ..., but you should put them in to make the output easier to read.
+
+<P>
+One algorithm to compute this table is Dijkstra's Minimum-Path Algorithm, described in
+Section 16-6 of the text.  The form given in the book only computes the distance between
+one pair of vertices.  It would be inefficient to call it <SPAN CLASS="MATH"><I>v</I><SUP>2</SUP></SPAN> times to compute the
+distance between each pair, but an examination of the code reveals that it computes an
+entire row of the table at once: that is, in the process of finding the minimum path
+from <SPAN CLASS="MATH"><I>X</I></SPAN> to <SPAN CLASS="MATH"><I>Y</I></SPAN>, it also computes the minimum path distance from <SPAN CLASS="MATH"><I>X</I></SPAN> to every other
+vertex.  Therefore, one strategy is to modify the function <code>minimumPath</code> (which is
+actually defined in <code>d_galgs.h</code>) so that it returns all of the <code>dataValue</code>
+fields in a vector or map, then call it once for each starting vertex.  It also needs to
+be modified so that it doesn't stop as soon as the ending vertex is found (just remove
+the test for this and let it run until the queue is empty).  The disadvantage of this
+approach is that it requires modifying the header files, since the <code>graph</code> class
+does not allow clients to access enough information (at a minimum, you would need to
+declare that your modified <code>minimumPath</code> function is a friend of the class).
+
+<P>
+Another algorithm is less efficient on sparse graphs, but is easy to write as a client
+of the <code>graph</code> class.  It is credited to Floyd, although several other people
+discovered essentially the same algorithm (Warshall, for example).  The strategy is to
+initially load the table with all of the direct connections between vertices, putting 0
+on the diagonal, and filling all of the other entries with <code>-1</code>.  For the above
+example, this gives
+<PRE>
+     A  B  C
+  A  0  9 -1
+  B -1  0 35
+  C -1 -1  0
+</PRE>
+Now make <SPAN CLASS="MATH"><I>v</I></SPAN> passes over the table.  On pass number <SPAN CLASS="MATH"><I>k</I></SPAN> (where pass 0 corresponds to
+vertex <code>A</code>, 1 corresponds to <code>B</code>, etc.), look at each entry in turn.  For the
+entry giving the distance from vertex <SPAN CLASS="MATH"><I>i</I></SPAN> to vertex <SPAN CLASS="MATH"><I>j</I></SPAN>, compare it with the table's
+distance to go from <SPAN CLASS="MATH"><I>i</I></SPAN> to <SPAN CLASS="MATH"><I>k</I></SPAN> and then from <SPAN CLASS="MATH"><I>k</I></SPAN> to <SPAN CLASS="MATH"><I>j</I></SPAN>; if both of these other
+distances exist (that is, they are not <code>-1</code>) and if their sum is smaller than the
+current distance from <SPAN CLASS="MATH"><I>i</I></SPAN> to <SPAN CLASS="MATH"><I>j</I></SPAN> (or if there currently is no path from <SPAN CLASS="MATH"><I>i</I></SPAN> to <SPAN CLASS="MATH"><I>j</I></SPAN>),
+then replace the entry with the smaller distance.  The idea is that each pass considers
+paths that use <SPAN CLASS="MATH"><I>k</I></SPAN> as an intermediate point; after all <SPAN CLASS="MATH"><I>v</I></SPAN> passes (using <SPAN CLASS="MATH"><I>O</I>(<I>v</I><SUP>3</SUP>)</SPAN> time),
+all of the intermediate points will have been considered and the resulting table will
+give the desired minimum distances.
+
+<P>
+There will be test input files and corresponding example output in
+<code>/home/libs/dataStr/finpp</code>.  For example, if your program is named
+<code>minpath</code>, then running <code>minpath &lt;test1.dat</code> should produce
+essentially the same output as <code>cat test1.out</code>.  That folder also
+contains the compiled version of my model solution, if you want to run
+it on other test cases.
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Homework 2</TITLE>
+<META NAME="description" CONTENT="Programming Homework 2">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="keywords" CONTENT="Brian Howard,DePauw University,Computer Science I,CS1">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp2.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Homework 2</H1>
+
+<P>
+This assignment is due by the start of class on Friday, February 14. You
+are encouraged to do this homework with your partner, and you are
+welcome to get help on it during the lab time Tuesday.
+
+<P>
+Submit a printout of your solution to the problem below. Make sure that
+your name and account name are in comments at the top; for example,
+<PRE>
+/* Description: Programming Homework 2
+   Filename:    program1.cpp
+   Account:     CSC121xx
+   Author:      Your Name
+   Date:        Today's Date
+*/
+</PRE>
+If you work with your partner, you only need to submit one copy of the
+program; be sure that both of your names are listed in the comments (the
+account name should be the one in which the solution is stored).
+
+<P>
+You should start by copying the folder called <code>Program2</code> from my
+public directory, <code>I:\CSC121\public\Howard\</code>, into your own folder,
+<code>I:\CSC121\CSC121xx\</code>.  When you open your copy of the project, by
+following the same instructions as for the labs, you should see the
+comments shown above; modify them as needed and continue writing your
+program.
+
+<P>
+Starting with this assignment, you will be graded on program style as well
+as correct output.  Style points include proper use of functions to
+break up your code, indentation of function and loop bodies to make the
+structure of your code easy to read, and the inclusion of comments to
+identify the parts of the program and to state the required pre- and
+post-conditions for each function other than <code>main</code>.  A program
+without all of these style points will not receive full credit.
+
+<P>
+The assignment is to produce a program that requests two numbers, <SPAN CLASS="MATH"><I>a</I></SPAN>
+and <SPAN CLASS="MATH"><I>b</I></SPAN>, and shows two ways of counting up to <SPAN CLASS="MATH"><I>a</I>&#215;<I>b</I></SPAN>: first
+counting by <SPAN CLASS="MATH"><I>a</I></SPAN>'s, and then counting by <SPAN CLASS="MATH"><I>b</I></SPAN>'s.  For example, if the user
+enters the numbers 3 and 5, then the program should first clear the
+screen and display the following on the console:
+<PRE>
+Counting by 3 to 15:
+3
+6
+9
+12
+15
+Hit &lt;Enter&gt; to continue
+</PRE>
+After the user hits enter, it should clear the screen and display the
+following:
+<PRE>
+Counting by 5 to 15:
+5
+10
+15
+Hit &lt;Enter&gt; to continue
+</PRE>
+Finally, it should display a farewell message and wait for the user to
+hit enter to quit.
+
+<P>
+Your program should consist of the following four functions:
+
+<UL>
+<LI><code>introduction</code> should print a welcome screen with instructions;
+</LI>
+<LI><code>displayCount</code> should take two arguments, <SPAN CLASS="MATH"><I>c</I></SPAN> and <SPAN CLASS="MATH"><I>n</I></SPAN>; it should
+clear the screen and then display a count up to <SPAN CLASS="MATH"><I>n</I></SPAN>, counting by <SPAN CLASS="MATH"><I>c</I></SPAN>'s
+(for example, the first display above would be produced by a call to
+<code>displayCount(3, 15)</code>);
+</LI>
+<LI><code>farewell</code> should print the farewell message;
+</LI>
+<LI><code>main</code> should call <code>introduction</code>, then prompt the user
+for two numbers, read them in, and make two successive calls to
+<code>displayCount</code>, and finally call <code>farewell</code>.
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

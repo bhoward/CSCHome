@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8" />
+
+    <title>Project 2 - CSC 122: Computer Science II, Spring
+    2005</title>
+<style type="text/css">
+             table.dir {background-color: #c0c0ff}
+             table.dir td:hover {background-color: #a0a0ff}
+             table.dir a {text-decoration: none}
+             h1 {text-align: center}
+             h2 {text-align: center}
+             dt {font-weight: bold}
+             tr.TableHeadingColor {background-color: #CCCCFF}
+             tr.TableRowColor {background-color: #FFFFFF}
+            
+</style>
+<style type="text/css">
+ img.c2 {float: right; border: none}
+ dt.c1 {font-weight: bold}
+</style>
+  </head>
+
+  <body>
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <h1>CSC 122: Computer Science II, Spring 2005</h1>
+
+    <h2>Project 2</h2>
+
+    <h3>Sorting and Searching - Word Search</h3>
+
+    <h3>Deadline: Friday, March 4, 5:00 p.m.</h3>
+
+    <dl>
+      <dt>Overview:</dt>
+
+      <dd>You are to write a program that solves word search
+      puzzles by listing all of the words that can be found in a
+      grid (forwards, backwards, up, down, or diagonally) that are
+      also in a large (around 100,000 words) list of English words.
+      You have been provided with a Grid class that can either
+      generate a random grid or read one from a text file (using
+      the same Infile class from Project 1). You are to write a
+      word list class to read in the dictionary from a text file,
+      sort it, and support efficient searching. You will also write
+      a driver class which creates a grid and a word list, then
+      prints out the grid followed by all of the dictionary words
+      that were found in the grid. You do not need to mark where
+      the words were found in the grid.</dd>
+
+      <dt>Specification:</dt>
+
+      <dd>
+        Here is an excerpt from the JavaDoc for the provided Grid
+        class: 
+        <hr />
+
+        <dl>
+          <dt>public class <b>Grid</b></dt>
+        </dl>
+
+        <p>Stores a two-dimensional grid of characters for use in a
+        word search game. The grid may be generated randomly or
+        read from a file.</p>
+
+        <dl>
+          <dt class="c1">Author:</dt>
+
+          <dd>bhoward</dd>
+        </dl>
+        <hr />
+        <a id="constructor_summary" name="constructor_summary"></a>
+        
+
+        <table border="1" width="100%" cellpadding="3"
+        cellspacing="0" summary="">
+          <tr class="TableHeadingColor">
+            <td colspan="2"><b>Constructor Summary</b></td>
+          </tr>
+
+          <tr class="TableRowColor">
+            <td><code><b><a
+            href="#Grid-Infile-">Grid</a></b>(Infile&nbsp;in)</code>
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Construct
+            a Grid by reading lines from a text file.</td>
+          </tr>
+
+          <tr class="TableRowColor">
+            <td><code><b><a
+            href="#Grid-int-int-">Grid</a></b>(int&nbsp;rows,
+            int&nbsp;cols)</code> <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Construct
+            a randomly-generated Grid of the given size.</td>
+          </tr>
+        </table>
+        &nbsp; <a id="method_summary" name="method_summary"></a> 
+
+        <table border="1" width="100%" cellpadding="3"
+        cellspacing="0" summary="">
+          <tr class="TableHeadingColor">
+            <td colspan="2"><b>Method Summary</b></td>
+          </tr>
+
+          <tr class="TableRowColor">
+            <td align="right" valign="top">
+            <code>&nbsp;java.lang.String</code></td>
+
+            <td><code><b><a
+            href="#chars-int-int-int-">chars</a></b>(int&nbsp;row,
+            int&nbsp;col, int&nbsp;dir)</code> <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extract
+            characters from this Grid starting at the given row and
+            column and heading in the given direction: 0 is right,
+            1 is down-right, 2 is down, 3 is down-left, 4 is left,
+            5 is up-left, 6 is up, and 7 is up-right.</td>
+          </tr>
+
+          <tr class="TableRowColor">
+            <td align="right" valign="top">
+            <code>&nbsp;int</code></td>
+
+            <td><code><b><a href="#cols--">cols</a></b>()</code>
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get
+            the number of columns in this Grid.</td>
+          </tr>
+
+          <tr class="TableRowColor">
+            <td align="right" valign="top">
+            <code>&nbsp;void</code></td>
+
+            <td><code><b><a
+            href="#display--">display</a></b>()</code> <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Print
+            this Grid on the system console.</td>
+          </tr>
+
+          <tr class="TableRowColor">
+            <td align="right" valign="top">
+            <code>&nbsp;int</code></td>
+
+            <td><code><b><a href="#rows--">rows</a></b>()</code>
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get
+            the number of rows in this Grid.</td>
+          </tr>
+        </table>
+        &nbsp; <a id="constructor_detail"
+        name="constructor_detail"></a> 
+
+        <table border="1" width="100%" cellpadding="3"
+        cellspacing="0" summary="">
+          <tr class="TableHeadingColor">
+            <td colspan="1"><b>Constructor Detail</b></td>
+          </tr>
+        </table>
+        <a id="Grid-Infile-" name="Grid-Infile-"></a> 
+
+        <h3>Grid</h3>
+<pre>
+public <b>Grid</b>(Infile in)
+</pre>
+
+        <dl>
+          <dd>Construct a Grid by reading lines from a text
+          file.</dd>
+
+          <dt class="c1">Parameters:</dt>
+
+          <dd><code>in</code> - The Infile from which to read. The
+          number of rows will be the number of lines read from the
+          file; the number of columns will be the number of
+          characters in the shortest line (longer lines will be
+          truncated).</dd>
+        </dl>
+        <hr />
+        <a id="Grid-int-int-" name="Grid-int-int-"></a> 
+
+        <h3>Grid</h3>
+<pre>
+public <b>Grid</b>(int rows,
+            int cols)
+</pre>
+
+        <dl>
+          <dd>Construct a randomly-generated Grid of the given
+          size.</dd>
+
+          <dt class="c1">Parameters:</dt>
+
+          <dd><code>rows</code> -</dd>
+
+          <dd><code>cols</code> -</dd>
+        </dl>
+        <a id="method_detail" name="method_detail"></a> 
+
+        <table border="1" width="100%" cellpadding="3"
+        cellspacing="0" summary="">
+          <tr class="TableHeadingColor">
+            <td colspan="1"><b>Method Detail</b></td>
+          </tr>
+        </table>
+        <a id="chars-int-int-int-" name="chars-int-int-int-"></a> 
+
+        <h3>chars</h3>
+<pre>
+public java.lang.String <b>chars</b>(int row,
+                              int col,
+                              int dir)
+</pre>
+
+        <dl>
+          <dd>Extract characters from this Grid starting at the
+          given row and column and heading in the given direction:
+          0 is right, 1 is down-right, 2 is down, 3 is down-left, 4
+          is left, 5 is up-left, 6 is up, and 7 is up-right.</dd>
+
+          <dd>
+            <dl>
+              <dt class="c1">Parameters:</dt>
+
+              <dd><code>row</code> - The starting row (0 ..
+              rows()-1)</dd>
+
+              <dd><code>col</code> - The starting column (0 ..
+              cols()-1)</dd>
+
+              <dd><code>dir</code> - The direction (0 .. 7)</dd>
+
+              <dt class="c1">Returns:</dt>
+
+              <dd>The string of characters from the starting
+              position to an edge of the grid.</dd>
+            </dl>
+          </dd>
+        </dl>
+        <hr />
+        <a id="cols--" name="cols--"></a> 
+
+        <h3>cols</h3>
+<pre>
+public int <b>cols</b>()
+</pre>
+
+        <dl>
+          <dd>Get the number of columns in this Grid.</dd>
+        </dl>
+        <hr />
+        <a id="display--" name="display--"></a> 
+
+        <h3>display</h3>
+<pre>
+public void <b>display</b>()
+</pre>
+
+        <dl>
+          <dd>Print this Grid on the system console.</dd>
+        </dl>
+        <hr />
+        <a id="rows--" name="rows--"></a> 
+
+        <h3>rows</h3>
+<pre>
+public int <b>rows</b>()
+</pre>
+
+        <dl>
+          <dd>Get the number of rows in this Grid.</dd>
+        </dl>
+        <hr />
+
+        <p><strong>Word list format:</strong></p>
+
+        <ul>
+          <li>The filename is words.txt (in the same directory as
+          the project).</li>
+
+          <li>Each line in the file gives one english word, using
+          only the letters 'a' through 'z' (no spaces, no
+          upper-case, no punctuation).</li>
+
+          <li>The word list is <em>not</em> initially sorted; it is
+          derived from the work of the SCOWL (Spell Checking
+          Oriented Word Lists) project: <a
+          href="http://wordlist.sourceforge.net/"><code>http://wordlist.sourceforge.net/</code></a>,
+          which provides a variety of word lists (American,
+          British, and Canadian variants, plus a common English
+          core) over a range of levels (starting from a small list
+          of the 5000 most common words up to the "insane" list of
+          more than 600,000). The word list we are using is a
+          concatenation of 16 of these lists (so the file is
+          actually made up of 16 sorted blocks of varying sizes),
+          with about 112,000 words (including American variants);
+          it has been processed to remove words shorter than four
+          letters (since there would be too many matches for the
+          shortest words in a letter grid), as well as words with
+          apostrophes or accented characters.</li>
+        </ul>
+
+        <p><strong>The suggested algorithm:</strong></p>
+
+        <ul>
+          <li>Initialize the grid, either randomly or from a text
+          file.</li>
+
+          <li>Display the grid on the console.</li>
+
+          <li>Read the word list, then sort it (with over 100,000
+          strings, you will not want to use a quadratic sort).</li>
+
+          <li>For each letter in the grid, and for each of the
+          eight directions you can head from that letter, use the
+          <code>chars</code> method of the Grid object to extract
+          all of the characters in that direction.</li>
+
+          <li>Now, for each prefix of that string of letters (use
+          the <code>substring</code> method), check whether it is a
+          word in the word list (again, with the sizes involved,
+          you will not want to use a linear search). If it is,
+          print it out on the console.</li>
+
+          <li>If this algorithm is implemented correctly, your
+          program should be able to find all of the words in a
+          100-by-100 grid in only a few seconds. If not, you'll
+          need to go out for coffee -- perhaps in
+          Indianapolis.</li>
+        </ul>
+        <br />
+      </dd>
+
+      <dt>The Project and Getting Started:</dt>
+
+      <dd>
+        <p><strong>The WordSearch project:</strong></p>
+
+        <ul>
+          <li>The project should consist of four classes &ndash;
+          Driver, WordList, Grid, and Infile.</li>
+
+          <li>Driver (client) &ndash; Creates instances of Infile,
+          WordList, and Grid and invokes appropriate methods from
+          each.</li>
+
+          <li>WordList (server) &ndash; Initializes the list of
+          words, loads the words from the input file, sorts the
+          list, supports efficient searching of the list.</li>
+
+          <li>Grid (server) - This class will be given to you in
+          the WordSearch project, and is described above.</li>
+
+          <li>Infile (server) &ndash; This class will be given to
+          you in the WordSearch project.</li>
+
+          <li>The project can be copied from
+          I:\csc122\public\WordSearch</li>
+
+          <li>Implement the project using the test driven
+          implementation strategy: first build a test system and
+          stubbed implementation of each class.</li>
+
+          <li>Test on the grid stored in the project file,
+          testgrid.txt (which was constructed using a tool at <a
+          href="http://www.armoredpenguin.com/wordsearch/"><code>http://www.armoredpenguin.com/wordsearch/</code></a>,
+          using words from the chapter headings of the textbook).
+          If my model solution is correct (and I believe it is),
+          you should find 341 words (some will be duplicates, since
+          a word such as "noon" will be found twice, and several
+          words actually occur several times at different places in
+          the grid).</li>
+
+          <li>
+            Here is an example 20-by-20 random grid, and what the
+            output might look like (compressed here for easier
+            reading): 
+<pre>
+pecnyscdgbaeeelvokfe
+aetiylgneeageioorpml
+selhfdoiniciursniriv
+tmmdromngrengdcaevgh
+etirzbieeatennnhrgio
+hxitntphsnsempqihrdh
+agaeyetrsetcfseidrio
+raeihwlcvbsruoypoers
+pabratbhognasrlnnatv
+coohaentolssaonzddsn
+srutomsitbcnacsrpklk
+ietrretealdlnastseei
+strevekmfaavnvlasnul
+oeaulsttihvveneeaius
+idnnbsceiayncawrtiue
+aancyrescorlnerbeegs
+dnjacibtmmcnsinlsegg
+esnaiincrogailgnrhat
+rnyiuttrmhsplraereun
+hronlirenzleoiondvse
+
+past   paste  sync   lone   nine   gigs   arris  viol   rite   zoon   eaten  
+enol   nide   herm   ohos   harp   ends   dirt   tend   tends  dies   read   
+bots   ours   your   yours  ordo   pour   brat   bout   sang   rand   outran 
+hues   slot   rete   toms   tret   mare   stob   blah   nary   scan   tels   
+rete   rete   read   teal   slew   stre   else   vest   ever   evert  asks   
+sate   sates  seem   test   earl   ewes   ates   sues   deter  tass   ewes   
+etas   gere   cite   come   nape   silo   seta   nays   glia   tahr   homo   
+soms   earl   rear   lire   linn   
+                       
+</pre>
+            One potential enhancement is to collect the list of
+            found words and sort it before printing it out, but
+            this is not required (though it should be easy to reuse
+            the WordList class for this purpose).
+          </li>
+        </ul>
+
+        <p><strong>Standards:</strong></p>
+
+        <p>Your project should be well-written, neatly-formatted,
+        modular, and well-documented.</p>
+
+        <p><strong>Grading:</strong></p>
+
+        <ul>
+          <li>Reading the list of words (10 pts)</li>
+
+          <li>Sorting the list of words efficiently (25
+          points)</li>
+
+          <li>Searching for words correctly (20 points)</li>
+
+          <li>Processing the grid correctly (20 points)</li>
+
+          <li>Printing the grid and list of found words (10
+          points)</li>
+
+          <li>Documentation and style (15 points)</li>
+        </ul>
+      </dd>
+    </dl>
+
+    <table summary="Navigation menu" class="dir" cellspacing="0"
+    cellpadding="0" border="0" width="100%">
+      <tr valign="bottom" align="center">
+        <td><b><a href="overview.html">Overview</a></b></td>
+
+        <td><b><a href="schedule.html">Schedule</a></b></td>
+
+        <td><b><a href="resources.html">Resources</a></b></td>
+
+        <td><b><a href="assignments.html">Assignments</a></b></td>
+
+        <td><b><a href=".">Home</a></b></td>
+      </tr>
+    </table>
+
+    <p><a href="http://validator.w3.org/check/referer"><img
+    height="31" width="88" alt="Valid HTML 4.01!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/valid-xhtml10.png"
+     class="c2" /></a><a
+    href="http://jigsaw.w3.org/css-validator/check/referer"><img
+    height="31" width="88" alt="Valid CSS!"
+    src="http://www.csc.depauw.edu/~bhoward/icons/vcss.png"
+    class="c2" /></a><a href="http://www.depauw.edu/">DePauw
+    University</a>, <a
+    href="http://www.depauw.edu/acad/computer/">Computer Science
+    Department</a>, Spring 2005<br />
+     Maintained by <a
+    href="http://www.csc.depauw.edu/~bhoward/">Brian Howard</a> (<a
+    href="mailto:bhoward@depauw.edu"><code>bhoward@depauw.edu</code></a>).
+    <!--#config timefmt="%A, %B %e, %Y" -->
+     Last updated <!--#echo var="LAST_MODIFIED" -->
+    </p>
+  </body>
+</html>
+

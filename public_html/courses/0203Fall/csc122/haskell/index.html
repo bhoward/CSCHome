@@ -1,0 +1,838 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming with Haskell</TITLE>
+<META NAME="description" CONTENT="Programming with Haskell">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="haskell.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming with Haskell</H1>
+
+<P>
+This handout covers the basics of programming in Haskell.  Some of the
+details are specific to the Hugs-98 system and the WinHugs environment,
+although most of it should apply to other Haskell systems such as GHC
+(see <A HREF="http://www.haskell.org/">http://www.haskell.org/</A> for more details on these and other
+implementations of the language).
+In comparison with other tutorials available on the web, the focus here
+will be on learning to work with recursion and some of the elementary
+data structures traditionally encountered in Computer Science II; it is
+not specifically about exploring the power of Haskell, which has many
+advanced features that we will not discuss.
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+Interacting with Hugs</A>
+</H1>
+When you start a session with Hugs, usually by double-clicking on the
+WinHugs icon, you are presented with the prompt <code>Prelude&gt; </code>.  This
+means that the system is ready to evaluate expressions, calculator-style,
+in the context of the standard collection of definitions known as
+the prelude.  The prelude defines many powerful operations on numbers,
+strings, and lists.  Try entering each of the following expressions at
+the prompt, one line at a time, and figure out what the responses mean;
+then test yourself by trying similar expressions and guessing what the
+responses will be.
+<PRE>
+1+2*3
+1+2^3
+(1+2)^3
+product [1, 2, 3, 4, 5]
+product [1 .. 5]
+quot (sum [1 .. 5]) (length [1 .. 5])
+sum [1 .. 5] `quot` length [1 .. 5]
+[1 .. 5] ++ reverse [1 .. 5]
+"Hello" ++ "World"
+toUpper 'a'
+map toUpper "Hello"
+map sqrt [1 .. 5]
+map (^2) [1 .. 5]
+map (2^) [1 .. 5]
+map odd [1 .. 5]
+head [1 .. 5]
+tail [1 .. 5]
+(head [1 .. 5], head "Hello")
+zip [1 .. 5] "Hello"
+</PRE>
+
+<P>
+To use functions beyond those defined in the prelude, you will need to
+type them into a source file (a ``script'') and load them into Hugs.
+From the Hugs prompt, type the command <code>:edit</code> followed by a
+file name; for example, <code>:edit I:\CSC122\Public\Thing.hs</code> (the
+leading colon is important--it is the signal to Hugs that this is a
+system command rather than an expression to be evaluated).  By default,
+this will bring up Notepad to edit your file (it will ask if you want
+to create it if it doesn't already exist; make sure you give it a path
+to a directory in which you have write access).  When you are done
+entering your definitions, save the file and exit to return to Hugs.
+It is recommended, though not strictly required, that Haskell scripts use
+the file extension <code>.hs</code>; make sure that Notepad doesn't silently
+add a <code>.txt</code> extension for you.
+
+<P>
+For practice, create a file named <code>Fact.hs</code> containing the following
+definition:
+<PRE>
+fact 0 = 1
+fact n = n * fact (n-1)
+</PRE>
+
+<P>
+Once you have created a script, you load it into Hugs with the
+<code>:load</code> command followed by your file name.  For example, if your
+personal folder is <code>CSC12201</code>, then you might load the above file by
+entering <code>:load I:\CSC122\CSC12201\Fact.hs</code>.  If all goes well,
+Hugs will respond with a message listing both the prelude and your
+file, and a <code>Main&gt; </code> prompt.  Now the definitions from your file
+have been loaded into the system and are ready for use.  With the above
+function definition, you should now be able to enter an expression such
+as <code>fact 5</code> to compute the factorial of 5 (<SPAN CLASS="MATH">5!</SPAN>).
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+Basic Types</A>
+</H1>
+If you worked through the expressions in the previous section, you
+have already encountered most of the standard built-in types of values
+available in Haskell.  Now we will look at each in more detail.
+<DL>
+<DT><STRONG>Integer</STRONG></DT>
+<DD>Haskell has a very rich collection of numeric types, but for our
+purposes we will only need to consider the type <code>Integer</code>.
+Unlike the type <code>int</code> of C++, there is no upper limit to the size
+of an <code>Integer</code>.  For example, we may use the <code>fact</code> function
+defined above to find <SPAN CLASS="MATH">52!</SPAN> (which counts the number of ways to arrange
+a deck of 52 playing cards):
+<PRE>
+Main&gt; fact 52
+80658175170943878571660636856403766975289505440883277824000000000000
+Main&gt;
+</PRE>
+This 68-digit number is a value of type <code>Integer</code>.  Haskell will
+happily work with numbers having thousands of digits, up to the limits
+of your computer's memory.  Arithmetic on large numbers is important in
+applications such as cryptography, where schemes such as RSA encryption
+are based on the ease of multiplying multi-hundred-digit numbers (and
+the corresponding difficulty of factoring the result back into the
+original numbers).
+
+<P>
+All of the usual arithmetic operations are available on <code>Integer</code>s:
+<code>+</code>, <code>-</code>, and <code>*</code>.  Division with <code>/</code> is also
+supported, although the result is not an <code>Integer</code>.  To divide
+<code>a</code> by <code>b</code> and get an <code>Integer</code> result, use the <code>quot</code>
+function: <code>quot a b</code>.  This gives the quotient; to get the remainder,
+use <code>rem a b</code> (this is equivalent to the expression
+<code>a % b</code> in C++).  As with any Haskell function which takes two arguments,
+these may be written as infix operators by surrounding the function name
+with backwards single quotes: <code>a `quot` b</code> and <code>a `rem` b</code>.
+Exponentiation, which is not a built-in operator in C++, is written with
+the caret operator, <code>^</code>; that is, <SPAN CLASS="MATH"><I>a</I><SUP>b</SUP></SPAN> is written <code>a^b</code>.
+
+<P>
+Just as it is sometimes convenient to write a function such as <code>quot</code>
+between its arguments like an arithmetic operator, we also sometimes
+need to use an operator like a function.  By surrounding any operator in
+parentheses you can do just that.  For example, <code>(+)</code> is a function
+which takes two arguments, so <code>(+) 1 2</code> is the same as <code>1 + 2</code>.
+One useful extension of this is that we can specify one of the operands
+by putting it in the parentheses, which produces a one-argument function
+(since it still needs the second operand).  The easiest way to see this
+is with some examples:
+<PRE>
+Main&gt; (1+) 2
+3
+Main&gt; map (1+) [2, 4, 6]
+[3, 5, 7]
+Main&gt; (2^) 5
+32
+Main&gt; (^2) 5
+25
+</PRE>
+Note the difference between <code>(2^)</code>, which is a function that takes a
+number and returns two to that power, and <code>(^2)</code>, which is a function
+that takes a number and squares it.  The technical name for this operation
+of applying a multi-argument function to one argument and producing a new
+function that expects the remaining arguments is <SPAN  CLASS="textit">currying</SPAN>.  It is
+named after the logician Haskell Curry, who made good use of the technique
+in his work on mathematical logic in the early <!-- MATH
+ $20^{\textrm{\scriptsize th}}$
+ -->
+<SPAN CLASS="MATH">20<SUP><IMG
+ WIDTH="16" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\scriptstyle \scriptsize th$"></SUP></SPAN> century.  Oh, the Haskell language is also named after him....
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Name a function which takes a number and doubles it.
+What about a function that takes a number and divides it by 2 (and throws
+away the remainder)?
+
+<P>
+</DD>
+<DT><STRONG>Bool</STRONG></DT>
+<DD>The type <code>Bool</code> represents truth conditions, either
+<code>True</code> or <code>False</code>.  It is essentially equivalent to the
+<code>bool</code> type of C++.  Comparison operators such as <code>==</code>,
+<code>/=</code> (not equal), <code>&lt;</code>, <code>&gt;=</code>, ..., return values of type
+<code>Bool</code>.  The standard logical operations are available:
+<code>1 &lt; x &amp;&amp; x &lt; 10</code> is true if <code>x</code> is both greater than 1 <SPAN  CLASS="textit">and</SPAN>
+less than 10; <code>x == 2 || odd x</code> is true if <code>x</code> is either equal to 2
+<SPAN  CLASS="textit">or</SPAN> odd; and <code>not (odd x)</code> is true if <code>x</code> is <SPAN  CLASS="textit">not</SPAN>
+odd (this can also be written <code>even x</code>).
+
+<P>
+Given a boolean value, the natural way to use it is to make a decision
+between two choices.  Haskell has a conditional expression similar to
+that found in most languages:  if <code>b</code> has type <code>Bool</code> and
+<code>x</code> and <code>y</code> are expressions of the same type, then
+<code>if b then p else q</code> is an expression that evaluates to <code>p</code>
+when <code>b</code> is <code>True</code> and <code>q</code> when <code>b</code> is <code>False</code>.
+For example, <code>if 1 &lt; x &amp;&amp; x &lt; 10 then "OK" else "Out of Range"</code>
+will evaluate to the string <code>"OK"</code> whenever <code>x</code> is strictly
+between 1 and 10, and <code>"Out of Range"</code> otherwise.
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Write an expression just using <code>if-then-else</code>,
+the constants <code>True</code> and <code>False</code>, and the variables <code>x</code>
+and <code>y</code> which is equivalent to <code>x &amp;&amp; y</code>.  That is, it should
+produce <code>True</code> when <code>x</code> and <code>y</code> are both <code>True</code>,
+and <code>False</code> otherwise, but you may not use the built-in <code>&amp;&amp;</code>
+operator.
+
+<P>
+</DD>
+<DT><STRONG>Char</STRONG></DT>
+<DD>The Haskell type <code>Char</code> can represent any single
+character.  It is essentially identical to the <code>char</code> type in C++,
+even using the same single-quote syntax: <code>'a'</code> is the character
+<code>a</code>.  If you want a single-quote character, Haskell uses the same
+backslash escape mechanism as C++: <code>'\''</code>.  Here are some more
+escape codes for characters that are otherwise hard to type:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><code>\n</code></TD>
+<TD ALIGN="LEFT">newline</TD>
+<TD ALIGN="LEFT"><code>\r</code></TD>
+<TD ALIGN="LEFT">carriage return</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>\t</code></TD>
+<TD ALIGN="LEFT">tab</TD>
+<TD ALIGN="LEFT"><code>\v</code></TD>
+<TD ALIGN="LEFT">vertical tab</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>\a</code></TD>
+<TD ALIGN="LEFT">bell</TD>
+<TD ALIGN="LEFT"><code>\f</code></TD>
+<TD ALIGN="LEFT">form feed</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>\b</code></TD>
+<TD ALIGN="LEFT">backspace</TD>
+<TD ALIGN="LEFT"><code>\\</code></TD>
+<TD ALIGN="LEFT">backslash</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><code>\'</code></TD>
+<TD ALIGN="LEFT">single-quote</TD>
+<TD ALIGN="LEFT"><code>\"</code></TD>
+<TD ALIGN="LEFT">double-quote</TD>
+</TR>
+</TABLE>
+</DIV>
+Unlike C++, a <code>Char</code> does not automatically convert to an integer.
+If you want the ASCII code for a character, use the <code>ord</code> function.
+To convert from an ASCII code back to a character, use the <code>chr</code>
+function.  For example, <code>ord 'A'</code> returns 65, while <code>chr 48</code>
+gives <code>'0'</code>.
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Given that the ASCII codes of the digits are
+consecutive numbers from 48 for <code>'0'</code> to 57 for <code>'9'</code>, write an
+expression that takes a digit <code>d</code> of type <code>Char</code> and produces
+the corresponding <code>Integer</code>.
+
+<P>
+</DD>
+<DT><STRONG>String</STRONG></DT>
+<DD>As with many other parts of the <code>Haskell</code> language,
+the syntax for strings is essentially the same as in C++.  That is, a
+string constant is a sequence of characters surrounded by double-quotes:
+<code>"Like this"</code>.  The same escape codes as listed above may be used
+to embed ``difficult'' characters in strings:
+<code>"My favorite string is \"Hello World\"."</code>  However, unlike C and
+C++, where strings are arrays of characters (reflecting the importance
+of the array in those languages), in Haskell a <code>String</code> is a
+<SPAN  CLASS="textit">list</SPAN> of elements of type <code>Char</code>.  We will see more about
+lists below, but one of the implications for strings is that the common
+operation of appending two strings is achieved by using the list append
+operator, <code>++</code>.  For example, <code>"Hello" ++ "World"</code> evaluates
+to <code>"HelloWorld"</code>.
+
+<P>
+A string with special characters such as newline will be displayed by
+the interactive system as a string containing the corresponding escape
+code (that is, it will print <code>"Hello\nWorld"</code> instead of printing
+an actual newline character between the words).  To see the effect of
+these characters, from the interactive prompt you may use the function
+<code>putStr</code> to print out the actual sequence of characters contained
+in a string (for complicated reasons having to do with the fact that
+<code>putStr</code> is not a pure, ``valued'' function, there are restrictions
+on where it may be used; at the top level of an expression typed into
+the system prompt is one of the places it is allowed).
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Find a string <code>s</code> such that <code>putStr s</code>
+produces the following output:
+<PRE>
+"D'oh!!"
+        -- Homer Simpson
+</PRE>
+
+<P>
+</DD>
+<DT><STRONG>Pairs and Tuples</STRONG></DT>
+<DD>Several values may be packaged into a single
+data item by wrapping them in a <SPAN  CLASS="textit">tuple</SPAN>.  A tuple is written as
+a comma-separated sequence of values in parentheses:
+<code>(42, 'a', "Hello", True)</code>.  There may be any number of values
+(even none at all) in a tuple; the special case of two values is called
+a <SPAN  CLASS="textit">pair</SPAN>.  The order of the values matters, so the pair
+<code>(1, 2)</code> is different from the pair <code>(2, 1)</code>.  The type
+of a tuple is written as a tuple of types, so these pairs each have
+type <code>(Integer, Integer)</code>, while the first tuple above has type
+<code>(Integer, Char, String, Bool)</code>.
+
+<P>
+You may ask Haskell to tell you the type of an expression with the command
+<code>:type</code> (as with all of the system commands, this may be abbreviated
+to one letter as <code>:t</code>).  Enter the line <code>:type ('a', False)</code> and
+the system will respond <code>('a', False) :: (Char, Bool)</code>.  The symbol
+<code>::</code> is read ``has the type''; it may be used in expressions and
+definitions to emphasize that a particular value has the given type.
+
+<P>
+If you ask for the type of an expression involving numbers, you are likely
+to get a more general answer than you probably expect.  For example,
+entering <code>:t 1</code> produces the response <code>1 :: Num a =&gt; a</code>.
+The way to read this is ``<code>1</code> has the type <code>a</code>, where <code>a</code>
+is a type belonging to class <code>Num</code>.''  There are several types
+in class <code>Num</code>, including <code>Integer</code>, and it is possible to
+define more (although we will not be doing this).  All of the types in
+this class support common operations on numbers such as <code>+</code> and
+<code>*</code>, so the system doesn't commit to choosing a particular numeric
+type until it knows which one you want.  For our purposes, you will just
+need to be aware that sometimes types will be displayed with this extra
+``class context'' (the <code>Num a =&gt;</code> part above); it should not get in
+the way of the things we will be doing (except it might make the error
+messages seem a little more cryptic).
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Find an expression which has the type
+<code>(Bool, Char, String)</code>.  Now find an expression whose type is
+<code>((Bool, Char), String)</code> (note the extra parentheses).
+
+<P>
+</DD>
+<DT><STRONG>Lists</STRONG></DT>
+<DD>Tuples can hold a variety of types of values; they are
+roughly analogous to structs in C++ (although the fields are accessed only
+by position, not by name).  One disadvantage of using a tuple is that
+a particular tuple type will always contain the same number of values.
+If we want to store a varying number of values in a single data object,
+we use a <SPAN  CLASS="textit">list</SPAN>.  In this sense, lists are the Haskell equivalent
+of arrays in C++; however, lists are a more abstract concept than arrays
+(since an array is tied to a specific storage mechanism in memory), and
+Haskell provides many powerful operations on lists that have no direct
+equivalents in C++ arrays.  The tradeoff for this added power is that
+all of the data items in a list have to be of the same type; it is not
+possible to mix numbers with characters or strings in a single list.
+
+<P>
+The basic way to write a list of values is to enclose them in square
+brackets, separated by commas.  For example, <code>[1, 2, 3, 4, 5]</code> is
+a list of five numbers, starting with <code>1</code> at the head of the list.
+Just as with tuples, the order matters, so <code>[2, 5, 3, 1, 4]</code> is a
+different list, even though it contains the same values.  Since each of
+these values is of type <code>Integer</code>, we write the type of the list
+as <code>[Integer]</code> (although if you try this example, it will say it
+has type <code>Num a =&gt; [a]</code>).  There is an abbreviation for lists which
+consist of a regular sequence of values:  <code>[1 .. 5]</code> gives the list
+<code>[1, 2, 3, 4, 5]</code>.  You can get sequences that step by something
+other than 1 by listing a second element at the beginning:
+<code>[1, 4 .. 100]</code> is the list that counts from 1 to 100 by threes, and
+<code>[10, 9 .. 1]</code> is the list <code>[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]</code>.
+
+<P>
+As mentioned above, a <code>String</code> is just a list of <code>Char</code>s.
+The notation <code>"Hello"</code> gives exactly the same list as
+<code>['H', 'e', 'l', 'l', 'o']</code>.  Note that a list of <code>Strings</code>
+is <SPAN  CLASS="textit">not</SPAN> the same; <code>["Hello", "World"]</code> is a list with two
+elements, each of which is a list of characters (coincidentally, each
+one is five characters long, but recall that a given type of list can
+have any number of elements).  The type of <code>["Hello", "World"]</code>
+is <code>[String]</code>; since <code>String</code> is a synonym for <code>[Char]</code>,
+this can also be written <code>[[Char]]</code> (a list of lists of characters).
+
+<P>
+The fundamental operations on lists allow us to take them apart and
+put them together.  Given a list, we may remove the first element
+with <code>head</code>, and obtain the list of all <SPAN  CLASS="textit">except</SPAN> the first
+element with <code>tail</code>:  <code>head [1, 2, 3, 4, 5]</code> is <code>1</code>,
+while <code>tail [1, 2, 3, 4, 5]</code> is <code>[2, 3, 4, 5]</code>.  A new list may
+be formed from a head element and a tail list with the colon operator:
+for example, <code>1 : [2, 3, 4, 5]</code> produces <code>[1, 2, 3, 4, 5]</code>.
+An entire list may be put together in this way, with the initial tail
+list being the empty list, <code>[]</code>.  That is, <code>[1, 2, 3, 4, 5]</code>
+is equivalent to <code>1 : 2 : 3 : 4 : 5 : []</code> (the colon operator is
+applied from right-to-left, so we don't need parentheses for this to work
+correctly).  An empty list of <code>Char</code> may also be written <code>""</code>,
+so <code>"Hello"</code> is short for <code>'H' : 'e' : 'l' : 'l' : 'o' : ""</code>.
+If you ask the type of <code>[]</code>, the system will say <code>[] :: [a]</code>,
+which is read ``<code>[]</code> has the type list of <code>a</code>, where <code>a</code>
+can be <SPAN  CLASS="textit">any</SPAN> type'' (there is no class context qualifying <code>a</code>).
+Trying to take the <code>head</code> or <code>tail</code> of an empty list produces
+an error (try <code>head (tail [1])</code>).
+
+<P>
+We have seen a number of other operations on lists already.  The operator
+<code>++</code> will append two lists of the same type, so
+<code>[1, 2] ++ [3, 4, 5]</code> produces <code>[1, 2, 3, 4, 5]</code>.  The
+<code>reverse</code> function produces a list with all the same elements as
+its argument, but in the opposite order:  <code>reverse "Hello"</code> gives
+<code>"olleH"</code>.  The <code>length</code> function counts how many elements are
+in a list; if you do <code>length []</code>, the answer is <code>0</code>, while
+<code>length ["Hello", "World"]</code> is <code>2</code> (and
+<code>length (head ["Hello", "World"])</code> is <code>5</code>).  Given lists of
+numbers, <code>sum</code> and <code>product</code> will add or multiply all of the
+numbers together.
+
+<P>
+A more interesting operation is <code>map</code>, which takes two arguments.
+The first is a one-argument function and the second is a list; <code>map</code>
+applies the function to each of the elements of the list and returns
+the list of results.  For example, <code>map (^2) [1 .. 10]</code> produces
+a list of the squares of the numbers from 1 to 10; it is equivalent to
+evaluating <code>[1^2, 2^2, 3^2, ..., 10^2]</code> (the <code>...</code> here is not
+in the syntax of Haskell; I just didn't feel like typing all ten terms).
+
+<P>
+One more function on lists that we have seen is <code>zip</code>.  When
+<code>zip</code> is applied to a pair of lists, it creates a list of pairs
+of corresponding elements from the two lists, until one or both of the
+lists is exhausted.  That is, <code>zip [1, 2, 3] ["Hello", "World"]</code>
+produces the list <code>[(1, "Hello"), (2, "World")]</code>; the <code>3</code>
+is ignored, because there was no matching element in the second list.
+
+<P>
+Lists may be compared for equality (as long as the individual elements
+can be compared); two lists are equal if they have the same length and
+if corresponding elements are equal.
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Write an expression that tests whether a string
+<code>s</code> is a palindrome (that is, it reads the same forwards as
+backwards).
+
+<P>
+</DD>
+<DT><STRONG>Functions</STRONG></DT>
+<DD>As seen in the <code>map</code> example above, Haskell allows
+functions to be used as values and passed as arguments to other functions.
+Haskell is known as a ``functional'' language, partly because of this
+treatment of functions as first-class values (that is, they are treated
+just like the other basic types of the language).  The type of a function
+which takes an argument of type <code>a</code> and produces a result of type
+<code>b</code> is <code>a -&gt; b</code>, which is an ASCII approximation of the usual
+mathematical notation <!-- MATH
+ $\verb|a|\rightarrow\verb|b|$
+ -->
+<SPAN CLASS="MATH"><code>a</code> <IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="$ \rightarrow$"> <code>b</code></SPAN>.  If a function
+takes several arguments, we think of it as taking one at a time; at each
+stage, the result is another function that expects the remainder of the
+arguments.  For example, <code>quot</code> takes two <code>Integer</code> arguments,
+so we may use it as <code>quot 10 2</code>.  This may be parenthesized as
+<code>(quot 10) 2</code>, where the result of <code>quot 10</code> is a function that
+takes another <code>Integer</code> and produces the result of dividing that
+number into 10.  Therefore, the type of <code>quot</code> is
+<code>Integer -&gt; (Integer -&gt; Integer)</code>.  The <code>-&gt;</code> operator groups
+from right-to-left, so we don't need the parentheses here and may write
+the type simply as <code>Integer -&gt; Integer -&gt; Integer</code>.  You read
+this from left-to-right, so it says ``apply it to an <code>Integer</code>,
+then apply the result to another <code>Integer</code>, and then the result of
+that will also be an <code>Integer</code>.''
+
+<P>
+The type of <code>map</code> can be found by the same method, although it
+takes some practice to read it correctly.  <code>map</code> takes a function
+of any type <code>a -&gt; b</code>, and produces a result which may be applied
+to a list of type <code>[a]</code>; the result, after applying the function
+to each element of the list, will be of type <code>[b]</code>.  Therefore, the
+system will inform us that <code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code> (try it).
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> What is the type of <code>zip</code>?
+
+<P>
+The basic operation for a function is applying it to an argument.
+If <code>f</code> is a function, then <code>f x</code> is the result of applying it to
+the argument <code>x</code> (languages such as C++ require that this be written
+as <code>f(x)</code>, but function application is such an essential part of
+Haskell that the parentheses around the argument have been made optional).
+Another common operation on functions is composing two functions to form
+a new one: if <code>f :: b -&gt; c</code> and <code>g :: a -&gt; b</code>, then
+<code>f . g</code> is the composite function of type <code>a -&gt; c</code>; applying it
+to an argument <code>x</code>, written <code>(f . g) x</code> (the parentheses are
+necessary here, because function application has higher precedence than
+any operator), produces the same result as <code>f (g x)</code>.  The usual
+mathematical notation for <code>f . g</code> is <!-- MATH
+ $\verb|f|\circ\verb|g|$
+ -->
+<SPAN CLASS="MATH"><code>f</code><TT>o</TT><code>g</code></SPAN>.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+User-Defined Types and Functions</A>
+</H1>
+Apart from some of the syntactic abbreviations mentioned above (for
+example, string constants), there is nothing special about the built-in
+types described above.  Haskell has a very powerful system for defining
+new types and operations.  The basis of the means of defining new
+types is the <code>data</code> definition, which names a new type and lists
+all of the fundamental ways of constructing new values of the type.
+The standard way of defining new operations is then to give a series of
+rules that cover each case of how an argument could have been constructed;
+since all of the constructors are listed in the <code>data</code> definition,
+it is usually sufficient to provide one rule for each constructor.
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+Enumerated Types</A>
+</H2>
+A simple example is a type which is just an enumeration of all the
+possible values.  Consider a <code>Direction</code> type, which may be
+<code>North</code>, <code>East</code>, <code>South</code>, or <code>West</code>.  Here is an
+appropriate definition:
+<PRE>
+data Direction = North | East | South | West
+</PRE>
+This says that the only way to construct a value of type <code>Direction</code>
+is to give one of the four main compass directions; these four
+constructors name the four values of the type.  Now suppose that we want
+to define a function <code>degrees</code> which converts a <code>Direction</code>
+into the corresponding numerical compass heading, where <SPAN CLASS="MATH">0<SUP><TT>o</TT></SUP></SPAN> is
+north, <SPAN CLASS="MATH">90<SUP><TT>o</TT></SUP></SPAN> is east, etc.  The following set of rules will cover
+all the cases:
+<PRE>
+degrees North = 0
+degrees East  = 90
+degrees South = 180
+degrees West  = 270
+</PRE>
+That's it.  Put these definitions in a file and load them into Hugs.
+Now when the system encounters an expression such as
+<code>degrees West</code>, it can evaluate it by looking at the rules, producing
+the result <code>270</code>.  We have just defined a new function
+<code>degrees :: Direction -&gt; Integer</code>.  By the way, now is an appropriate
+time for a word about naming.  Types and constructors have to have names
+starting with upper-case letters, while functions and variables have to
+start with lower-case letters; the rest of the name can be any sequence
+of letters or digits.  There are also rules for names of operators,
+which are built out of non-alphanumeric characters, but we will not need
+them for this class.
+
+<P>
+There are a few extra bits of information that can be included with
+these definitions to make our lives easier.  Here is a complete source
+file for the <code>Direction</code> type:
+<PRE>
+data Direction = North | East | South | West
+    deriving (Show, Eq, Enum)
+
+degrees :: Direction -&gt; Integer
+degrees North = 0
+degrees East  = 90
+degrees South = 180
+degrees West  = 270
+</PRE>
+The line <code>deriving (Show, Eq, Enum)</code> says that the system should add
+default definitions of operations needed to support displaying values of
+the type, comparing values of the type for equality, and enumerating lists
+of values of the type.  For example, it allows us to write expressions
+such as <code>North == East</code> (which is <code>False</code>) and
+<code>[East .. West]</code> (which is <code>[East, South, West]</code>).  Other
+choices for this list of automatically defined operations include
+<code>Ord</code>, which gives comparison operators such as <code>&lt;</code>, and
+<code>Bounded</code>, which defines values <code>minBound</code> and <code>maxBound</code>
+of the type; I didn't include these since they don't seem appropriate
+for compass directions (we don't usually think of north as being less
+than east, or of west being the maximum direction).
+
+<P>
+The line above the rules for <code>degrees</code> is a type declaration;
+it is of the same form as the result of the <code>:type</code> command,
+and it provides extra documentation about the use of the function,
+as well as a check that the function really does have the desired type
+(the system will give you an error message when you load the file if
+you declare the wrong type for a function).
+
+<P>
+An example of a built-in enumeration is the type <code>Bool</code>.  Here is
+an excerpt from the standard prelude:
+<PRE>
+data Bool = False | True
+    deriving (Eq, Ord, Enum, Show, Bounded)
+
+not :: Bool -&gt; Bool
+not True  = False
+not False = True
+</PRE>
+As you can see, it is very similar to the <code>Direction</code> type.  There
+are exactly two values of type <code>Bool</code>, <code>False</code> and <code>True</code>.
+The designers of the prelude made the decision to consider <code>False</code> as
+less than <code>True</code>, so they listed more options in the <code>deriving</code>
+line.  The <code>not</code> function has a particularly simple definition,
+since it only has to consider two cases for its argument.  The <code>Char</code>
+and <code>Integer</code> types are also handled conceptually as enumerations,
+although they have many more cases (infinitely many for <code>Integer</code>).
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Define a function
+<code>rotateDirLeft :: Direction -&gt; Direction</code> which will take
+<code>North</code> to <code>West</code>, <code>East</code> to <code>North</code>, etc.
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+Constructors with Arguments</A>
+</H2>
+Constructors in a <code>data</code> definition may also take arguments.
+For example, suppose we want a type to represent colors.  We might use
+the following:
+<PRE>
+data Color = Red | Green | Blue
+           | Yellow | Cyan | Magenta
+           | White | Black
+           | RGB Integer Integer Integer
+    deriving (Eq, Show)
+</PRE>
+This is like an enumeration, except the last constructor can take three
+<code>Integer</code>s to represent an arbitrary color by giving its red, green,
+and blue components.  We could define a function <code>rgb</code> of type
+<code>Color -&gt; (Integer, Integer, Integer)</code> which converts any value
+of type <code>Color</code> into a triple of red, green, and blue components.
+Here is an appropriate list of rules:
+<PRE>
+rgb Red         = (255,   0,   0)
+rgb Green       = (  0, 255,   0)
+rgb Blue        = (  0,   0, 255)
+rgb Yellow      = (255, 255,   0)
+rgb Cyan        = (  0, 255, 255)
+rgb Magenta     = (255,   0, 255)
+rgb White       = (255, 255, 255)
+rgb Black       = (  0,   0,   0)
+rgb (RGB r g b) = (  r,   g,   b)
+</PRE>
+Note the need for parentheses around the argument in the last case,
+because the constructor <code>RGB</code> needs to have three arguments
+associated with it.
+
+<P>
+The name for this kind of function definition by giving rules is a
+``pattern-matching'' definition.  Each rule gives a pattern that will be
+matched against an argument; if the match is successful, then the rule
+is used; otherwise, the next rule in the list is tried.  For no-argument
+constructors, such as <code>Red</code>, the name of the constructor is the
+entire pattern.  For constructors taking arguments, the pattern is formed
+by giving the constructor name followed by enough variables to match
+whatever values might come along with that constructor.  For example,
+if we evaluate <code>rgb (RGB 64 128 192)</code>, the ninth rule will succeed
+by matching <code>r</code> to <code>64</code>, <code>g</code> to <code>128</code>, and <code>b</code>
+to <code>192</code>.  These variable matches, also known as <SPAN  CLASS="textit">bindings</SPAN>,
+are roughly equivalent to associating actual arguments with formal
+parameters in calling a function in C++; for the course of the execution
+of the function, the variables will contain the values passed in from
+the caller (in C++ this has to be qualified to say ``unless the variables
+are assigned different values in the course of execution''; Haskell has
+no notion of changing the value assigned to a variable--this is part
+of what makes the functions so pure, since we don't have to worry about
+changing the state of variables--so this qualification is not necessary).
+Therefore, in evaluating the right-hand-side of the rule, the expression
+<code>(r, g, b)</code> becomes <code>(64, 128, 192)</code>; this is the result of
+the function.
+
+<P>
+Although they depend on some special syntax, the built-in tuple types
+are an instance of this kind of data type.  For example, we may define a
+new type that is essentially equivalent to the type <code>(Bool, Char)</code>
+as follows:
+<PRE>
+data BoolChar = BoolChar Bool Char
+    deriving (Eq, Show)
+
+first :: BoolChar -&gt; Bool
+first (BoolChar b c) = b
+
+second :: BoolChar -&gt; Char
+second (BoolChar b c) = c
+</PRE>
+The functions <code>first</code> and <code>second</code> mirror the built-in functions
+<code>fst</code> and <code>snd</code> which extract the two components of a pair.
+That is, we would write an expression such as
+<code>first (BoolChar False 'x')</code> to mirror the standard expression
+<code>fst (False, 'x')</code>; each evaluates to <code>False</code>.
+
+<P>
+The prelude does not provide functions analogous to <code>fst</code> and
+<code>snd</code> for other tuple types, because it is more common to extract
+the parts of a tuple by pattern matching.  For example, suppose we want
+to write a function
+<code>brightness :: (Integer, Integer, Integer) -&gt; Integer</code> which takes
+a triple of <code>Integer</code>s, as produced by the <code>rgb</code> function
+above, and returns the average of the three components.  It may be
+defined as follows:
+<PRE>
+brightness (r, g, b) = (r + g + b) `quot` 3
+</PRE>
+Evaluating <code>brightness (rgb Cyan)</code> first applies the <code>rgb</code>
+function to the argument <code>Cyan</code>, producing the triple
+<code>(0, 255, 255)</code>.  Then it applies the <code>brightness</code> function to
+this result: <code>brightness (0, 255, 255)</code>.  This matches the rule for
+<code>brightness</code>, binding <code>0</code> to <code>r</code>, <code>255</code> to <code>g</code>,
+and <code>255</code> to <code>b</code>.  Finally, it plugs these values into the
+right-hand-side, producing <code>(0 + 255 + 255) `quot` 3</code>, which gives
+<code>170</code> as the final result.
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Give a direct definition of a function
+<code>colorBrightness :: Color -&gt; Integer</code>, such that
+<code>colorBrightness c</code> produces the same result as
+<code>brightness (rgb c)</code> for any <code>Color</code> value <code>c</code> (but
+without using the <code>brightness</code> or <code>rgb</code> functions).
+
+<P>
+
+<H2><A NAME="SECTION00033000000000000000">
+Recursive Data Types</A>
+</H2>
+At this point it is a minor step to allow recursive data types--types
+where a constructor may take another value of the type being constructed
+as an argument.  The example we discussed in class was the <code>Path</code>
+type:
+<PRE>
+data Path = End | R Path | L Path | U Path | D Path
+    deriving (Eq, Show)
+</PRE>
+The only wrinkle needed to support this is to allow a similar recursion
+when defining a function--we will allow the use of the function being
+defined on the right-hand-side of a rule, usually applied to a variable
+that was bound to another instance of the type when matching one of the
+recursive constructors. For example, recall the <code>rotateLeft</code>
+function on <code>Path</code>s, which changed all of the path segments to be
+rotated <SPAN CLASS="MATH">90<SUP><TT>o</TT></SUP></SPAN> counter-clockwise:
+<PRE>
+rotateLeft End   = End
+rotateLeft (R p) = U (rotateLeft p)
+rotateLeft (L p) = D (rotateLeft p)
+rotateLeft (U p) = L (rotateLeft p)
+rotateLeft (D p) = R (rotateLeft p)
+</PRE>
+For each of the recursive constructors, which build a longer path by
+adding a segment onto the beginning of another path, we give a rule that
+says how to rotate the added segment, and then we make a recursive call to
+<code>rotateLeft</code> to rotate the rest of the path.  The base case is where
+the recursion bottoms out, in this case at the empty path <code>End</code>.
+
+<P>
+The canonical example of a recursive data type is the built-in list
+type.  Indeed, we can frequently ``code up'' other recursive types
+by representing them as lists--you should be able to imagine using
+<code>[Direction]</code> as a replacement for <code>Path</code>, where we might
+write <code>[East, North, East, South]</code> instead of <code>(R.U.R.D) End</code>.
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> How would you define
+<code>rotateDirListLeft :: [Direction] -&gt; [Direction]</code> to perform the
+analogous operation to <code>rotateLeft :: Path -&gt; Path</code>?  Try to use
+functions we have already defined.
+
+<P>
+Although the syntax is not quite legal, you should imagine the list type
+<code>[a]</code> as being defined by
+<PRE>
+data [a] = [] | a : [a]
+    deriving (Eq, Show)
+</PRE>
+That is, a list of values of type <code>a</code> is either an empty list,
+<code>[]</code>, or the result of using the colon operator to add a value of
+type <code>a</code> onto the front of another list of values of type <code>a</code>.
+
+<P>
+Here is the example from class of defining our own version of the
+<code>length</code> function:
+<PRE>
+len []       = 0
+len (x : xs) = 1 + len xs
+</PRE>
+Note how the structure of the function definition exactly follows the
+structure of the <code>data</code> definition.  To find the length of a list
+with one element (<code>x</code>) added to it, we add one to the length of
+the shorter list, obtained by recursively calling the <code>len</code>
+function on the tail (<code>xs</code>).  That rule, plus the base case for
+the empty list, is all we need to define the function.
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Write a function
+<code>countVertical :: [Direction] -&gt; Integer</code> which counts how
+many ``vertical'' segments (<code>North</code> or <code>South</code>) are in
+a <code>Direction</code> list.  For example, evaluating the expression
+<code>countVertical [North, East, North, South, West]</code> should produce
+<code>3</code>.
+
+<P>
+For another example, here is the definition of a <code>listMap</code> function
+which is equivalent to the built-in <code>map</code> function:
+<PRE>
+listMap f []       = []
+listMap f (x : xs) = f x : listMap f xs
+</PRE>
+Reading this off in words, it says that the result of mapping a function
+<code>f</code> over an empty list is just an empty list, while mapping <code>f</code>
+over a list that starts with <code>x</code> is the list with <code>f x</code> at
+the head and the result of mapping <code>f</code> over the rest of the list
+as the tail.
+
+<P>
+<SPAN  CLASS="textbf">Question:</SPAN> Define your own version of the <code>zip</code> function.
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

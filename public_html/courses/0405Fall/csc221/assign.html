@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Assignments - CSC 221, Computer Organization, Fall 2004</title>
+<!--#include virtual="/~bhoward/common/head.html" -->
+<meta name="keywords" content="CSC 221,Assignments,Fall 2004,DePauw University,Brian Howard">
+<meta name="description" content="Assignment listing for CSC 221, Computer Organization, Fall 2004">
+</head>
+
+<body>
+<h1>Assignments for <a href="index.html">CSC 221, Computer Organization</a></h1>
+<dl>
+<dt>Wednesday, September 1:</dt>
+<dd>Chapter 2, Exercises 1, 5, 6, 12, and 15
+(Solutions: <a href="local/hw1sol/">HTML</a> and <a href="local/hw1sol.pdf">PDF</a>)</dd>
+
+<dt>Friday, September 10:</dt>
+<dd>Chapter 3, Exercises 9, 20, 23, 25, 35, 38, 39, 47, 48, 67, and 68</dd>
+
+<dt>Monday, September 20:</dt>
+<dd>Chapter 4, Exercises 4, 6, 9, 15, and 17</dd>
+
+<dt>Wednesday, September 29:</dt>
+<dd>Chapter 5, Exercises 8, 9, 12, 16, 19, 24, and 28</dd>
+
+<dt>Friday, October 1:</dt>
+<dd>Exam 1 (Chapters 1--5)<br>
+<a href="pe1">Practice Exam</a> (<a href="pe1.pdf">PDF</a>)</dd>
+
+<dt>Wednesday, October 27 (5 pm):</dt>
+<dd>Write and test a program in Pep/7 assembly language to do the following:
+<ul>
+<li>Read a list of at most 1000 positive numbers from the input, terminated
+with 0 if there are fewer than 1000;</li>
+<li>Sort the numbers;</li>
+<li>Print the sorted list of numbers on the output.</li>
+</ul>
+To get a score of 70 points out of 100, your program must have the above
+behavior.  To qualify for an additional 10 points each, your program should
+do the following:
+<ul>
+<li>The main program should be structured as a series of calls to
+subprograms: read an array of numbers, sort an array, print an array;</li>
+<li>The numbers should be read in hexadecimal format rather than just using
+DECI -- you should accept 1 to 4 hex digits preceded by any number of
+whitespace characters (space, tab, linefeed, ...);</li>
+<li>The sorting algorithm should be O(N log N) instead of O(N^2) -- I
+suggest Quicksort.  Here is one version in C++:
+<pre>
+void swap(int &amp;a, int &amp;b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int partition(int a[], int left, int right)
+{
+    int pivot = a[left];
+    int i = left;
+
+    for (int j = left + 1; j &lt;= right; j++) {
+        if (a[j] &lt; pivot) {
+            i++;
+            swap(a[j], a[i]);
+        }
+    }
+
+    swap(a[left], a[i]);
+    return i;
+}
+
+void quicksort(int a[], int left, int right)
+{
+    if (right &lt;= left) return;
+    int i = partition(a, left, right);
+    quicksort(a, left, i - 1);
+    quicksort(a, i + 1, right);
+}
+</pre>
+</li>
+</ul>
+<a href="local/qsort.txt">Model Solution</a>
+</dd>
+
+<dt>Wednesday, November 10:</dt>
+<dd>Chapter 10, Exercises 1, 2, 13, 14(efg), 16(efg), 20(efg), 21(efg),
+26(efg), 30(efg), 31(efg), and 35(b)</dd>
+
+<dt>Friday, November 19:</dt>
+<dd>Exam 2 (Chapters 6 and 10)<br>
+<a href="pe2">Practice Exam</a> (<a href="pe2.pdf">PDF</a>)</dd>
+</dl>
+
+<hr>
+<!--#include virtual="/~bhoward/common/foot.html" -->
+</body></html>
+

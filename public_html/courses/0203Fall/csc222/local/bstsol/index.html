@@ -1,0 +1,564 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>BST Review Solutions</TITLE>
+<META NAME="description" CONTENT="BST Review Solutions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="bstsol.css">
+
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<H1 ALIGN="CENTER">BST Review Solutions</H1>
+
+<UL>
+<LI><SPAN  CLASS="textbf">Exercise 12.26.</SPAN> <I>Which symbol-table implementation would you use for an application that does <SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> <SPAN  CLASS="textbf">insert</SPAN> operations, <SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> <SPAN  CLASS="textbf">search</SPAN> operations, and <SPAN CLASS="MATH">10<SUP>4</SUP></SPAN> <SPAN  CLASS="textbf">select</SPAN> operations, randomly intermixed?  Justify your answer.</I>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 12.27.</SPAN> <I>(This exercise is five exercises in disguise.) Answer Exercise 12.26 for the other five possibilities of matching up operations and frequency of use.</I>
+
+<P>
+First, here are the candidate implementations that we have talked about (see Table 12.1 on page 509 in the text):
+<DL>
+<DT><STRONG>Key-indexed array</STRONG></DT>
+<DD>This only works if we have a limited range of values for the keys.  The problem does not mention any such assumption, so we have to skip this one.
+
+<P>
+</DD>
+<DT><STRONG>Ordered array</STRONG></DT>
+<DD>Each insertion will take about <SPAN CLASS="MATH"><I>N</I>/2</SPAN> operations on average, but selection
+takes a single step (just an array lookup).  A linear search will take about <SPAN CLASS="MATH"><I>N</I>/2</SPAN> operations,
+but ordered data in an array is exactly the setup we need for binary search, so we can perform
+searches much better in about <SPAN CLASS="MATH">lg&nbsp;<I>N</I></SPAN> steps.
+
+<P>
+</DD>
+<DT><STRONG>Ordered linked list</STRONG></DT>
+<DD>Each of the operations takes about <SPAN CLASS="MATH"><I>N</I>/2</SPAN> steps on average, since they
+each need to traverse the linked list starting from the head and stopping on a node that could be
+anywhere in the list (so on average it will be about halfway through).  This means that it will
+never perform better than an ordered array.
+
+<P>
+</DD>
+<DT><STRONG>Unordered array</STRONG></DT>
+<DD>Insertion takes only one step, while search takes on average <SPAN CLASS="MATH"><I>N</I>/2</SPAN> steps.
+The worst case for selection will be <SPAN CLASS="MATH"><I>N</I> lg&nbsp;<I>N</I></SPAN>, if all the data needs to be sorted first.  The
+average case behavior for selection is harder to determine, since it depends on the relative
+frequency of selection versus insertion.
+
+<P>
+If there are as many (or more) selections as insertions, then sorting in the one or two new elements that have arrived since the previous selection will be very quick (proportional to <SPAN CLASS="MATH"><I>N</I></SPAN>, using Insertion Sort).  In this case, it would be better to switch to an ordered array, because
+there would be no loss in shifting the linear time responsibility onto the insertions in exchange for a constant time selection, and the search would be improved to <SPAN CLASS="MATH">lg&nbsp;<I>N</I></SPAN> by enabling a binary search.
+
+<P>
+If there are <SPAN CLASS="MATH"><I>M</I></SPAN> times as many insertions as selections, then on average we will need to sort <SPAN CLASS="MATH"><I>M</I></SPAN> newly arrived elements into the array on each select operation.  This is the situation discussed in Exercises 8.1 and 8.2, where we determined that the best approach is to sort the <SPAN CLASS="MATH"><I>M</I></SPAN> new elements and then merge them into the already sorted <SPAN CLASS="MATH"><I>N</I></SPAN> elements, for a total time proportional to <SPAN CLASS="MATH"><I>M</I> lg&nbsp;<I>M</I> + <I>N</I></SPAN>.
+
+<P>
+</DD>
+<DT><STRONG>Unordered linked list</STRONG></DT>
+<DD>The results here are just the same as for an unordered array, except we don't have the option of switching over to binary search if there are as many selections as insertions.
+
+<P>
+</DD>
+<DT><STRONG>Binary search tree</STRONG></DT>
+<DD>We will group all of the variations of trees that we have seen under this item, because
+we are mostly interested in average behavior, and we have seen that it does not take much work to
+avoid the worst case by ensuring that the trees remain relatively balanced.  Therefore, we may
+conclude that each of the operations will take about <SPAN CLASS="MATH">lg&nbsp;<I>N</I></SPAN> steps.
+
+<P>
+</DD>
+<DT><STRONG>Hashing</STRONG></DT>
+<DD>We haven't talked about this yet, but although it can achieve constant time insert and search on average, with just a few assumptions about the keys, it is not at all compatible with the select operation: every selection will take <SPAN CLASS="MATH"><I>N</I> lg&nbsp;<I>N</I></SPAN> steps and require an extra array of size <SPAN CLASS="MATH"><I>N</I></SPAN>, because we have to copy all of the data out of the hash table and sort it (it will not work to sort the data in place, because the ordering of the items in a hash table is not the same as the ordering on the keys).
+</DD>
+</DL>
+Therefore, we have only three implementations that we need to consider:  ordered array with binary search, unordered array (or linked list), and binary search tree.  Here are the six cases we need to consider:
+
+<UL>
+<LI><SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> insert, <SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> search, <SPAN CLASS="MATH">10<SUP>4</SUP></SPAN> select operations:
+<BR><SPAN CLASS="MATH"><I>N</I></SPAN> will be about 100, which gives the following table of steps per operation:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">insert</TD>
+<TD ALIGN="CENTER">search</TD>
+<TD ALIGN="CENTER">select</TD>
+<TD ALIGN="RIGHT">weighted total</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">ordered array</TD>
+<TD ALIGN="CENTER">50</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="RIGHT">22,000</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">unordered array</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">50</TD>
+<TD ALIGN="CENTER">100</TD>
+<TD ALIGN="RIGHT">1,050,100</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">binary search tree</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="RIGHT">77,700</TD>
+</TR>
+</TABLE>
+</DIV>
+The ordered array is the winner.
+
+<P>
+</LI>
+<LI><SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> insert, <SPAN CLASS="MATH">10<SUP>4</SUP></SPAN> search, <SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> select operations:
+<BR><SPAN CLASS="MATH"><I>N</I></SPAN> will be about 100, which gives the following table of steps per operation:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">insert</TD>
+<TD ALIGN="CENTER">search</TD>
+<TD ALIGN="CENTER">select</TD>
+<TD ALIGN="RIGHT">weighted total</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">ordered array</TD>
+<TD ALIGN="CENTER">50</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="RIGHT">76,000</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">unordered array</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">50</TD>
+<TD ALIGN="CENTER">100</TD>
+<TD ALIGN="RIGHT">600,100</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">binary search tree</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="RIGHT">77,700</TD>
+</TR>
+</TABLE>
+</DIV>
+This is essentially a tie between the ordered array and the BST, which makes sense because both of them are spending most of the time doing binary searches.
+
+<P>
+</LI>
+<LI><SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> insert, <SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> search, <SPAN CLASS="MATH">10<SUP>4</SUP></SPAN> select operations:
+<BR><SPAN CLASS="MATH"><I>N</I></SPAN> will be about 1000, which gives the following table of steps per operation:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">insert</TD>
+<TD ALIGN="CENTER">search</TD>
+<TD ALIGN="CENTER">select</TD>
+<TD ALIGN="RIGHT">weighted total</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">ordered array</TD>
+<TD ALIGN="CENTER">500</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="RIGHT">511,000</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">unordered array</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">500</TD>
+<TD ALIGN="CENTER">1000</TD>
+<TD ALIGN="RIGHT">10,051,000</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">binary search tree</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="RIGHT">111,000</TD>
+</TR>
+</TABLE>
+</DIV>
+The binary search tree is the winner.
+
+<P>
+</LI>
+<LI><SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> insert, <SPAN CLASS="MATH">10<SUP>4</SUP></SPAN> search, <SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> select operations:
+<BR><SPAN CLASS="MATH"><I>N</I></SPAN> will be about 1000, which gives the following table of steps per operation:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">insert</TD>
+<TD ALIGN="CENTER">search</TD>
+<TD ALIGN="CENTER">select</TD>
+<TD ALIGN="RIGHT">weighted total</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">ordered array</TD>
+<TD ALIGN="CENTER">500</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="RIGHT">600,100</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">unordered array</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">500</TD>
+<TD ALIGN="CENTER">1030</TD>
+<TD ALIGN="RIGHT">5,104,000</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">binary search tree</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="RIGHT">111,000</TD>
+</TR>
+</TABLE>
+</DIV>
+The binary search tree is the winner.
+
+<P>
+</LI>
+<LI><SPAN CLASS="MATH">10<SUP>4</SUP></SPAN> insert, <SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> search, <SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> select operations:
+<BR><SPAN CLASS="MATH"><I>N</I></SPAN> will be about 10,000, which gives the following table of steps per operation:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">insert</TD>
+<TD ALIGN="CENTER">search</TD>
+<TD ALIGN="CENTER">select</TD>
+<TD ALIGN="RIGHT">weighted total</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">ordered array</TD>
+<TD ALIGN="CENTER">5000</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="RIGHT">50,002,300</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">unordered array</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">5000</TD>
+<TD ALIGN="CENTER">10,030</TD>
+<TD ALIGN="RIGHT">10,540,000</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">binary search tree</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="RIGHT">144,300</TD>
+</TR>
+</TABLE>
+</DIV>
+The binary search tree is the clear winner.
+
+<P>
+</LI>
+<LI><SPAN CLASS="MATH">10<SUP>4</SUP></SPAN> insert, <SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> search, <SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> select operations:
+<BR><SPAN CLASS="MATH"><I>N</I></SPAN> will be about 10,000, which gives the following table of steps per operation:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER">insert</TD>
+<TD ALIGN="CENTER">search</TD>
+<TD ALIGN="CENTER">select</TD>
+<TD ALIGN="RIGHT">weighted total</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">ordered array</TD>
+<TD ALIGN="CENTER">5000</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="RIGHT">50,013,100</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">unordered array</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">5000</TD>
+<TD ALIGN="CENTER">10,700</TD>
+<TD ALIGN="RIGHT">6,080,000</TD>
+</TR>
+<TR><TD ALIGN="RIGHT">binary search tree</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="CENTER">13</TD>
+<TD ALIGN="RIGHT">144,300</TD>
+</TR>
+</TABLE>
+</DIV>
+The binary search tree is the clear winner.
+</LI>
+</UL>
+To summarize, the binary search tree is the best choice unless we have relatively few insertions (and a correspondingly small amount of data), in which case we might do a little better with an ordered array.
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 12.47.</SPAN> <I>Draw the BST that results when you insert items with the keys
+<SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN>, in that order, into an initially empty tree.</I>
+
+Here is the result:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="183" HEIGHT="234" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...circle{T}}{\Tp \Tp}
+}
+\Tp
+}
+\Tp
+}
+}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 12.51.</SPAN> <I>Write a function that returns the number of items in a BST with keys equal to a given key.</I>
+
+<P>
+If we know that all of the items in a node's left child have keys that are strictly less than the node's key, so that any duplicates would have to be in the right child (this situation is ensured by the version of <code>insert</code> given in Section 12.5), then we can use an iterative solution:
+<PRE>
+int countEqual(link h, Item x) {
+    int count = 0;
+    link p = h;
+
+    while (p != 0) {
+        if (x.key() &lt; p-&gt;item.key()) {
+            p = p-&gt;left;
+        } else {
+            if (x.key() == p-&gt;item.key()) count++;
+            p = p-&gt;right;
+        }
+    }
+    return count;
+}
+</PRE>
+However, if there is any chance that the structure of the tree will be changed in a way that could invalidate this assumption, for example by rotations to maintain a balance condition, then we need to search both children of a matching node for duplicates.  The easiest way to do this is recursively:
+<PRE>
+int countEqual(link h, Item x) {
+    if (h == 0) return 0;
+    if (x.key() &lt; h-&gt;item.key()) return countEqual(h-&gt;left, x);
+    if (x.key() &gt; h-&gt;item.key()) return countEqual(h-&gt;right, x);
+    return 1 + countEqual(h-&gt;left, x) + countEqual(h-&gt;right, x);
+}
+</PRE>
+
+<P>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 12.73.</SPAN> <I>Draw the BST that results when you insert items with the keys
+<SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN> into an initially empty tree, using the root insertion method.</I>
+
+<P>
+Here are the first few steps, where after each insertion we rotate the new node up to the root of the tree:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="479" HEIGHT="141" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...ircle{Y}}{
+\pstree{\Tcircle{S}}{\Tp \Tp}
+\Tp
+}
+}
+}}\hfill
+\hfill
+\end{figure}">
+</DIV>
+
+<P>
+Here is the final result:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="194" HEIGHT="204" BORDER="0"
+ SRC="img3.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...
+\Tp
+\pstree{\Tcircle{Y}}{\Tp \Tp}
+}
+}
+}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 12.79.</SPAN> <I>Draw the BST that results when you insert items with the keys
+<SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN> into an initially empty tree, then remove the <SPAN  CLASS="textsf">Q</SPAN>.</I>
+
+Exercise 12.47, above, produced the binary search tree that results from
+inserting the keys <SPAN  CLASS="textsf">E A S Y Q U E S T I O N</SPAN>, so we just have to
+delete the <SPAN  CLASS="textsf">Q</SPAN> from that tree.  The node containing <SPAN  CLASS="textsf">Q</SPAN>
+has only one child, so the deletion is easy:  we just move that child up
+into <SPAN  CLASS="textsf">Q</SPAN>'s position:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="183" HEIGHT="234" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...circle{T}}{\Tp \Tp}
+}
+\Tp
+}
+\Tp
+}
+}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+<P>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 12.80.</SPAN> <I>Draw the binary search tree that results when you insert items with the keys <SPAN  CLASS="textsf">E A S Y</SPAN> into one initially empty tree, and insert items with the keys <SPAN  CLASS="textsf">Q U E S T I O N</SPAN> into another initially empty tree, then combine the result.</I>
+
+<P>
+Here are the two trees to be joined, constructed with ordinary insertion (<SPAN  CLASS="textit">i.e.</SPAN>, not root insertion):
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="343" HEIGHT="173" BORDER="0"
+ SRC="img4.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...}{
+\Tp
+\pstree{\Tcircle{T}}{\Tp \Tp}
+}
+\Tp
+}
+}
+}}\hfill
+\hfill
+\end{figure}">
+</DIV>
+
+<P>
+Recall that the algorithm for joining the trees takes the root of one tree and inserts it at the root of the other, then recursively joins the left children together and also the right children.  We will split up the smaller of the two trees, to make the process easier, so the first step is to root insert the <SPAN  CLASS="textsf">E</SPAN> into the right tree:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="361" HEIGHT="172" BORDER="0"
+ SRC="img5.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+... \Tp
+\pstree{\Tcircle{T}}{\Tp \Tp}
+}
+\Tp
+}
+}
+}
+}}\hfill
+\hfill
+\end{figure}">
+</DIV>
+
+<P>
+Now we join the tree containing <SPAN  CLASS="textsf">A</SPAN> with the left child of the result (the subtree containing just the <SPAN  CLASS="textsf">E</SPAN>), and then we join the tree with <SPAN  CLASS="textsf">S</SPAN> at the root with the right child (the subtree headed by <SPAN  CLASS="textsf">Q</SPAN>).  The final result is
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="245" HEIGHT="202" BORDER="0"
+ SRC="img6.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+... \pstree{\Tcircle{T}}{\Tp \Tp}
+\Tp
+}
+\Tp
+}
+}
+}
+}}\hfill
+\hfill
+\end{figure}">
+</DIV>
+
+<P>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 13.39.</SPAN> <I>Draw the balanced 2-3-4 search tree that results when you insert items with
+the keys <SPAN  CLASS="textsf">E A S Y Q U T I O N</SPAN> in that order into an
+initially empty tree, using the top-down insertion method.</I>
+
+This is what I get:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="229" HEIGHT="83" BORDER="0"
+ SRC="img7.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+... \Tp}
+\pstree{\Tcircle{TUY}}{\Tp \Tp \Tp \Tp}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+</LI>
+<LI><SPAN  CLASS="textbf">Exercise 13.48.</SPAN> <I>Draw the red-black BST that results when you insert items with the keys
+<SPAN  CLASS="textsf">E A S Y Q U T I O N</SPAN> in that order into an initially empty tree, using the top-down insertion method.</I>
+
+Following the code in Program 13.6 (page 568 of the text), here is the result:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="241" HEIGHT="140" BORDER="0"
+ SRC="img8.png"
+ ALT="\begin{figure}
+\sf\bfseries\footnotesize
+\hfill
+\psset{levelsep=20pt,treesep...
+...enewcommand {\psedge}{\ncline}\Tp \Tp}}
+}
+}}
+}
+}}\hfill\hfill
+\end{figure}">
+</DIV>
+
+<P>
+Observe that if the red nodes are joined into their parents, the result is exactly the same as the 2-3-4 tree in Exercise 13.39.  Of course, this is no accident.
+</LI>
+</UL>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>

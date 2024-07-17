@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Programming Project 3</TITLE>
+<META NAME="description" CONTENT="Programming Project 3">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="pp3.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Programming Project 3</H1>
+
+<P>
+This project will be due by 5 pm, Friday, October 31.  To submit your
+project, save it in the <code>pp3</code> directory located in your directory under
+<code>/home/libs/dataStr/students/</code> on one of the department's Linux
+machines (this is a shared directory, so you should be able to reach it
+from any of the machines, including Jupiter).
+
+<P>
+You may work on this project by yourself or in a group of two or three.
+If you work in a group, be sure to include everyone's name in the
+comments at the top of <SPAN  CLASS="textit">each</SPAN> file.  Also, be sure you understand
+the guidelines for group work listed in the syllabus--the fundamental
+idea is that everyone in the group should understand what everyone else
+has done, and be able to recreate it on their own.
+
+<P>
+The project is to create a program that can manage a simple family tree.
+The operations you will need to support are: reading the tree from a
+file, displaying the tree on the screen, and querying family
+relationships in the tree.  Each of these will be described in more
+detail below.
+
+<P>
+The simplified family tree we will work with is in fact a binary tree
+(surprise!).  Therefore, each person has at most two children, and each
+child has only one parent.  For the rest of this handout, consider the
+following example:
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="381" HEIGHT="218" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{figure}\begin{center}
+\sf\bfseries\footnotesize {\color{white}\setlength\...
+...pstree{\Toval{Bruce}}{
+\Toval{Brittany}
+\Tn
+}
+}
+}}}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+The first operation is reading the tree from a file. Each line of the
+file will describe one person, in a preorder traversal. That is, the
+first line will be the root (<SPAN  CLASS="textsf">Helen</SPAN>, in the example), the next
+line will be the left child (<SPAN  CLASS="textsf">Frank</SPAN>), followed by the left
+child's descendents; after the entire left subtree (which ends with
+<SPAN  CLASS="textsf">Susanna</SPAN> in the example), the file ends with the root's right
+subtree (from <SPAN  CLASS="textsf">Esther</SPAN> to <SPAN  CLASS="textsf">Brittany</SPAN>). You may assume that
+no name contains spaces. To specify the structure of the tree, each line
+will also include a number indicating how many children that person has
+(0, 1, or 2). Therefore, the example above would be represented by the
+following file:
+<PRE>
+Helen 2
+Frank 2
+Alan 0
+Brian 2
+George 0
+Susanna 0
+Esther 2
+Amy 0
+Bruce 1
+Brittany 0
+</PRE>
+
+<P>
+The second operation is displaying the tree on the screen.  Use the
+inorder traversal method that I describe in class, where each successive
+level is indented a few more spaces.  For the example, the output should
+look something like this:
+<PRE>
+    Alan
+  Frank
+      George
+    Brian
+      Susanna
+Helen
+    Amy
+  Esther
+      Brittany
+    Bruce
+</PRE>
+
+<P>
+Finally, the third operation is to ask the user for a name and search
+for that name in the tree.  If it is found, you should print out the
+relationship to the root, otherwise print <code>"no relation"</code> (see
+examples below).  You may assume that there are no duplicate names in
+the family.
+
+<P>
+For extra credit, you may extend this operation to
+request <SPAN  CLASS="textit">two</SPAN> names, and respond with the relationship between the
+two people (if any); for example, on input <SPAN  CLASS="textsf">Brian</SPAN> and
+<SPAN  CLASS="textsf">Alan</SPAN> it should say <code>"sibling"</code>, while on input
+<SPAN  CLASS="textsf">Brian</SPAN> and <SPAN  CLASS="textsf">Brittany</SPAN> it should say
+<code>"first cousin once removed"</code> (talk to me if you want to know the
+rules for this).
+
+<P>
+The main program should get a file name, read in the tree, display it,
+and then enter a loop where it repeatedly asks for a name (or two names, in the
+extra credit version) and displays the relationship.  When the user
+enters the name <code>"DONE"</code>, the program should exit.  Here is a
+sample run (starting after the tree is printed out, as above):
+<PRE>
+Name? Helen
+Relationship: self
+
+Name? Brian
+Relationship: grandchild
+
+Name? Esther
+Relationship: child
+
+Name? Susanna
+Relationship: great grandchild
+
+Name? Eleanor
+Relationship: no relation
+
+Name? DONE
+Goodbye
+</PRE>
+
+<P>
+<BR><HR>
+<!--#include virtual='/~bhoward/common/foot.html' -->
+</BODY>
+</HTML>
