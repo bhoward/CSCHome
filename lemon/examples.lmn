@@ -1,0 +1,56 @@
+use "prelude.lmn";
+val one = succ zero;
+val two = plus one one;
+val fact = \n.pi1([|nat,[\x.<1,1>,\p.<times(pi1 p)(pi2 p),succ(pi2 p)>]|]n);
+-- or, "Pi succ"
+val invfold = [|nat,{X.1+X,fold nat}|];
+val badpred = \n.[\x.0,\x.x](invfold n);
+val worsepred = primrec 0 pi2;
+badpred(fact 5);
+worsepred 120;
+pred 120;
+val baddivides = \m. \n. Exists (\x. eq (times m x) n) (succ n);
+val badevenp = baddivides 2;
+val badoddp = comp not badevenp;
+badevenp 20;
+evenp 20; -- but why is this so much _worse_?
+val headnat = \l.[\n.n,\x.0](head l);
+len (cons 3 (cons 1 (cons 4 nil)));
+type nats = nu X.nat*X;
+val fibs = <|nats,\p.<pi1 p,<pi2 p,plus(pi1 p)(pi2 p)>>|><1,1>;
+val pick = \n.\ns.pi1([|nat,[\x.<nil,ns>,\p.(\q.<cons(pi1 q)(pi1 p),pi2 q>)
+  (unfold nats(pi2 p))]|]n);
+headnat (pick 4 fibs);
+-- Godel/Gentzen/Friedman translation of "nu X. nat*X":
+type gnats = (mu X. gnat * (X -> nat) -> nat) -> nat;
+gtrans headnat (pick 4 fibs);
+atrans it;
+tcheck it;
+print it;
+-- Encoding of "nu X. nat*X" using only strictly-positive inductive types:
+type snats = nat -> 1+nat;
+val sgennats = \f. \t. comp (comp (\p. <pi1 p, <>>) f)
+                            [|nat, [K t, comp pi2 f]|];
+val sunfnats = \h. (\p. <pi1 p, comp h succ>) (h 0);
+val sfibs = sgennats (\p.<pi1 p,<pi2 p,plus(pi1 p)(pi2 p)>>) <1,1>;
+val spick = \n.\ns.pi1([|nat,[\x.<nil,ns>,\p.(\q.<cons(pi1 q)(pi1 p),pi2 q>)
+  (sunfnats(pi2 p))]|]n);
+headnat (spick 4 sfibs);
+-- Breadth-first search through continuations (M. Hofmann)
+type tree = mu X. A+A*(X*X);
+val leaf = \x.fold tree (in1 x);
+val node = \x.\t.\u.fold tree (in2 <x,<t,u>>);
+type cont = mu X. 1+((X->A)->A);
+val DC = fold cont (in1 <>);
+val CC = \f.fold cont (in2 f);
+val apply = [|cont, [K \g.g DC, \h.\g.h(\f.g(CC f))]|];
+val extract = [|cont, [K nil, \f.f id]|];
+val breadth =
+  [|tree, [\a.\now.CC(\later.cons a (apply now later)),
+           \p.\now.CC(\later.cons (pi1 p)
+                                  (apply now (comp later
+                                             (comp (pi1 (pi2 p))
+                                             (pi2 (pi2 p))))))]|];
+val bfs = \t.extract (breadth t DC);
+val t1 = node 1 (node 2 (leaf 4) (leaf 5)) (node 3 (leaf 6) (leaf 7));
+bfs t1;

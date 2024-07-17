@@ -1,0 +1,67 @@
+
+<!-- saved from url=(0045)https://people.cs.ksu.edu/~bhoward/lemon.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Lemon</title>
+<link rev="made" href="mailto:bhoward@depauw.edu">
+</head>
+
+<body>
+<h1>Lemon</h1>
+<h2>A Functional Language with Inductive and Coinductive Types</h2>
+<p>The functional language <tt>lemon</tt> is based on the simply-typed
+lambda calculus augmented with sums, products, and the mu and nu
+constructors for least (<i>inductive</i>) and greatest
+(<i>coinductive</i>) solutions to recursive type equations.  The term
+constructors of the language strictly follow the introduction and
+elimination rules for the corresponding types; in particular, the
+elimination for mu is <i>iteration</i> and the introduction for nu is
+<i>coiteration</i> (also called <i>generation</i>).  It includes a small
+amount of polymorphism and type inference; lambda-bound variables do not
+need type annotations, but iteration and coiteration need to have their
+corresponding recursive types specified (this is a problem with the
+language rather than the implementation).</p>
+<p>For example, the following program generates the stream of Fibonacci
+numbers starting with 1,1:</p>
+<pre>type nats = nu X. nat * X;  -- nat stream is a pair of a nat and a stream
+
+val fibs = &lt;|nats, \p. &lt;pi1 p,  -- head of stream is next Fibo. number
+                        &lt;pi2 p, plus (pi1 p) (pi2 p)&gt;&gt;
+                                -- "seed" for rest of stream
+            |&gt; &lt;1, 1&gt;;          -- initial seed for generation
+</pre>
+<p>Using iteration we may define a function which picks off the first
+<i>n</i> elements of a stream and returns them as a list:</p>
+<pre>val pick = \n.                            -- number of elements to pick
+           \ns.                           -- input stream
+           pi1 ([|nat, [\x. &lt;nil, ns&gt;,    -- empty list on zero
+                        \p. (\q. &lt;cons (pi1 q) (pi1 p),
+                                          -- cons head of stream on list
+                                  pi2 q&gt;) -- rest of stream for iteration
+                            (unfold nats (pi2 p))]
+                                          -- get next stream element
+                 |] n);                   -- iteration over n
+</pre>
+<p>We may combine these terms as follows (currently there is syntactic
+sugar for natural numbers but not for lists; formatting inserted by hand
+for clarity):</p>
+<pre>&gt; pick 4 fibs;
+it = fold mu X. 1 + nat * X (in2 (&lt;3,
+     fold mu X. 1 + nat * X (in2 (&lt;2,
+     fold mu X. 1 + nat * X (in2 (&lt;1,
+     fold mu X. 1 + nat * X (in2 (&lt;1,
+     fold mu X. 1 + nat * X (in1 (&lt;&gt;))&gt;))&gt;))&gt;))&gt;)) : mu X. 1 + nat * X
+</pre>
+
+<h3>Distribution</h3>
+<ul><li><a href="lemon.sml">Version 1.2 source</a> (requires
+<a href="ftp://research.att.com/dist/ml/">Standard ML of New Jersey,
+Version 0.93</a>)</li>
+<li><a href="prelude.lmn">Standard Prelude</a></li>
+<li><a href="examples.lmn">Examples</a></li></ul>
+
+<address>
+<a href="http://bhoward.github.io/CSCHome/">Brian Howard</a>
+(<a href="mailto:bhoward@depauw.edu">bhoward@depauw.edu</a>)
+</address>
+
+</body></html>

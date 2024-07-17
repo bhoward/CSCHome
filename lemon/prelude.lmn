@@ -1,0 +1,78 @@
+-- Lemon standard prelude
+val id = \x. x;
+val comp = \f. \g. \x. f (g x);
+val K = \x. \y. x;
+
+type bool = 1 + 1;
+val true : bool = in1 <>;
+val false : bool = in2 <>;
+val cond = \b:bool. \m. \n. [K m, K n] b;
+val and = \x. \y. cond x y false;
+val or = \x. \y. cond x true y;
+val not = \x. cond x false true;
+val imp = \x. \y. cond x y true;
+val iff = \x. \y. cond x y (not y);
+val xor = \x. \y. cond x (not y) y;
+
+type nat = mu X. 1 + X;
+val zero = fold nat (in1 <>);
+val succ = comp fold nat in2;
+val plus = \m. [|nat, [K m, succ]|];
+val times = \m. [|nat, [K 0, plus m]|];
+val expt = \m. [|nat, [K 1, times m]|];
+val pred = comp [K 0, id] unfold nat;
+val monus = \m. [|nat, [K m, pred]|];
+val diff = \m. \n. plus (monus m n) (monus n m);
+val zerop = comp [K true, K false] unfold nat;
+val nzerop = comp [K false, K true] unfold nat;
+val eq = \m. \n. zerop (diff m n);
+val neq = \m. \n. nzerop (diff m n);
+val gt = \m. \n. nzerop (monus m n);
+val lt = \m. \n. nzerop (monus n m);
+val gte = \m. \n. zerop (monus n m);
+val lte = \m. \n. zerop (monus m n);
+val min = \m. \n. cond (lte m n) m n;
+val max = \m. \n. cond (gte m n) m n;
+val primrec = \a. \f. comp pi1 [|nat, [K <a, 0>, \p. <f p, succ (pi2 p)>]|];
+val Iter = \e. \m. \f. primrec e (\p. m (pi1 p) (f (pi2 p)));
+val Sigma = Iter 0 plus;
+val Pi = Iter 1 times;
+val All = Iter true and;
+val Exists = Iter false or;
+val divmod = \m. \n.
+  pi2 ([|nat,
+    [K <false, <0, m>>,
+     \p. cond (pi1 p)
+              p
+              ((\x. cond (zerop x)
+                         <true, pi2 p>
+                         <false, <succ (pi1 (pi2 p)), pred x>>)
+               (monus (pi2 (pi2 p))
+                      (pred n)))]
+  |] m);
+val div = \m. \n. pi1 (divmod m n);
+val mod = \m. \n. pi2 (divmod m n);
+val divides = \m. \n. zerop (mod n m);
+val evenp = divides 2;
+val oddp = comp not evenp;
+
+type option = T + 1;
+val some : T -> option = in1;
+val none : option = in2 <>;
+
+-- Polymorphic lists.  Note that "head" returns an option type, since
+-- a default return value for the head of nil is not available.
+type list = mu X. 1 + T * X;
+val nil = fold list (in1 <>);
+val cons = \n. \l. fold list (in2 <n, l>);
+val head = comp [K none, \p. some (pi1 p)] unfold list;
+val tail = comp [K nil, pi2] unfold list;
+val emptyp = comp [K true, K false] unfold list;
+val consp = comp [K false, K true] unfold list;
+val len = [|list, [K 0, \p. succ (pi2 p)]|];
+
+-- Godel-Gentzen translation:  if "M" : nat then "gtrans M" : mu X. ~~(1+X),
+-- and "atrans it" : gnat (Friedman A-translation).
+-- "print" extracts a nat from a gnat.
+type gnat = mu X. (1 + X -> nat) -> nat;
+val print = [|gnat, \k. k (fold nat)|];
