@@ -1,0 +1,99 @@
+<p>Monday, December 21, 2009</p>
+<p>Things I Hate About Scheme</p>
+<p>I wrote this back in 2003, as part of the justification for switching to a Haskell-like
+    language in CS2; the original (well, except for being moved to a different wiki system
+    after my TWiki installation was hacked...) is
+    <a href="http://twiki.csc.depauw.edu/projects/funnie/wiki/SchemeLanguage">here</a>.</p>
+<hr>
+<p>Here's what I (Brian Howard) hate about Scheme (without mentioning the word p*r*nth*s*s):</p>
+<ul>
+    <li>Lisp's <a href="http://www.wikipedia.org/wiki/S-expression">S-expressions</a> were
+        originally intended as the internal representation of programs, which would be
+        written in the more human-friendly
+        <a href="http://en.wikipedia.org/wiki/M-expression">M-expression</a> syntax.
+        Through historical accident, the M-expression design was never finished and people
+        learned to make do with S-expressions.</li>
+    <li>An S-expression is essentially what is known as Abstract Syntax
+        (see <a href="http://en.wikipedia.org/wiki/Abstract_syntax">Wikipedia:Abstract_syntax</a>).
+        This is fine for compiler internals, and for
+        abstracting away from the gory details of a particular language, but I don't
+        believe it is appropriate for beginning students. There is no point in learning
+        an abstraction before one has seen at least two concrete instances of the abstraction.</li>
+    <li><b>car</b> and <b>cdr</b>. I know the origin of the terms, and understand that
+        cons-cells are used for more than just lists, but why aren't they called something
+        clear like first and rest? Of course, many reasonable people do exactly that by
+        defining these as synonyms (see, for example, <a href="http://www.htdp.org/">How to
+        Design Programs</a>), but I find it telling that the official definition of Scheme
+        sticks to the traditional names, as if to emphasize that "you need to learn
+        LISP/Scheme-speak to join this club". It reminds me of some of the more extreme
+        elements of the APL/J community; for example, look at the
+        <a href="http://www.jsoftware.com/help/primer/title.htm">front page</a> of the J
+        Primer: someone thought it would be clever to use the following as the menu bar
+        <i>on the document that helps beginners learn the system</i>!
+<pre>
+&gt;&gt; &lt;&lt; Ndx Usr Pri Phr Dic Rel Voc !: wd Help Primer
+</pre>
+        It makes sense once you know what you're doing, but it's just going to turn away
+        anyone who isn't willing to puzzle it out.</li>
+    <li>One advantage of using <b>car</b> and <b>cdr</b> that I have heard is that it makes
+        it convenient to name combinations of them; for example, <b>caddr</b> is the <b>car</b>
+        of the <b>cdr</b> of the <b>cdr</b> of
+        its argument (which extracts the third element of a list, if the argument was a list
+        with at least three elements). My response is that this is only an advantage if you
+        don't have structured data types with named selectors, so that you're constantly having
+        to extract elements of lists by position. Furthermore, if you are hard-coding
+        position-sensitive information such as "third element of a list" into your code,
+        you have a very fragile design; the <b>c(a|d)*r</b> abbreviations don't help at all if you
+        want to access the <i>n</i>th element of a list.</li>
+    <li>Another claimed advantage of Scheme is its wonderful macro system. I agree that it is
+        the model of design for such a thing, but it's an awfully big hammer for the nail of
+        creating an embedded DSL. Haskell's lazy evaluation, and Scala's call-by-name parameters,
+        give a more elegant approach without the ugly machinery; see
+        <a href="http://www.newartisans.com/2009/03/hello-haskell-goodbye-lisp.html">this post</a>
+        for further discussion, as well as some other points on which Haskell compares favorably
+        with LISPs.</li>
+    <li>On the topic of excluding non-geeks (eventually&mdash;this one's a bit long): I liked
+        LISP when I was a teenager, and well into grad school. I first learned about it in <i>Gödel,
+        Escher, Bach</i>, which I devoured when I was 15 (I once read an interview with Hofstadter
+        where he said he wrote it for 15-year-olds who were interested in the things he had been
+        interested in at 15, and I was so proud...). I taught myself the language from the two
+        books I could find on LISP at the Cleveland Public Library: <i>The LISP 1.5 Programmers
+        Manual</i> and <i>Anatomy of LISP</i>. I wrote a LISP interpreter in LOGO on my Commodore 64.
+        I went off to
+        an engineering school and studied computer science; my senior honors thesis was on two-level
+        grammar representations of music&mdash;I implemented it in LISP. I went to grad school in CS at
+        Stanford, used LISP in some classes, and met John McCarthy and a bunch of other LISPers.
+        Then I started to learn more about programming language design, and how it needs to be a
+        trade-off between safety and flexibility, and I moved in the direction of providing more
+        safety; my Ph.D. thesis was on type systems for functional languages. Now I'm teaching CS
+        at a liberal-arts college, and I look back on my days as a geek and realize that very few
+        students are going to follow that sort of path. I think there are valuable ideas in
+        functional languages that I can use in my teaching, but I realize that I have to guard
+        against turning off many of the students who can most benefit from being exposed to those
+        ideas. They aren't the geeks who are going to put in the effort to teach themselves an
+        arcane language because it looks "neat"; instead, they're the students who will be spreading
+        knowledge of computer science outside of the core circle of researchers. If one of the ideas
+        that they spread is that "functional languages are only for geeks", then we're never going
+        to succeed in bringing higher-level languages and programming techniques into the mainstream.</li>
+    <li>Here are some quotes from <a href="http://www.ccs.neu.edu/scheme/pubs/jfp01-fcffksf.pdf">a
+        paper about DrScheme</a> that demonstrate that the Scheme
+        community itself is aware of many of these shortcomings:
+        <ul>
+            <li>"Simple notational mistakes produced inexplicable results or incomprehensible
+                error messages because the syntax of standard Scheme is extremely liberal."</li>
+            <li>"The Lisp-style output syntax obscured the pedagogically important connection
+                between program execution and algebraic expression evaluation."</li>
+            <li>"The hidden imperative nature of Scheme's read-eval-print loop introduced subtle
+                bugs that easily frustrate students."</li>
+            <li>"Contrary to oft-stated claims, learning Scheme syntax poses problems for
+                beginning students who are used to conventional algebraic notation."</li>
+        </ul>
+    </li>
+    <li>More rants coming, mostly about types... (but until that happens, read this
+        <a href="http://www.xoltar.org/misc/static_typing_eckel.html">excellent defense of
+        static typing</a>).</li>
+</ul>
+-- Brian Howard - 21 Apr 2003; last updated 21 Dec 2009
+
+<p>Posted by Brian Howard at 9:16 AM</p>
+<p>No comments:</p>
